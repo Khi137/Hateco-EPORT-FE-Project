@@ -4,7 +4,7 @@ import navigationReducer from "./navigationReducer";
 
 const rootReducer = combineReducers({
   common: commonReducer,
-  navigations: navigationReducer,
+  navigation: navigationReducer,
 });
 
 export default rootReducer;
