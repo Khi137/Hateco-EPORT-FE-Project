@@ -1,28 +1,31 @@
 // src/components/Header.js
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { FaUserCircle, FaHome, FaChartBar, FaShip } from "react-icons/fa";
-import { LuArrowDownSquare } from "react-icons/lu";
-import { TbCategory, TbReceiptTax } from "react-icons/tb";
-import {
-  MdOutlineLocationSearching,
-  MdPayment,
-  MdOutlineSettingsSystemDaydream,
-} from "react-icons/md";
 import { Link } from "react-router-dom";
 import "./Header.scss";
-
+import {
+  AlignCenterOutlined,
+  BarChartOutlined,
+  ContactsOutlined,
+  CreditCardOutlined,
+  DownSquareOutlined,
+  FileSearchOutlined,
+  FlagOutlined,
+  HomeOutlined,
+  SnippetsOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 const getIconComponent = (iconName) => {
   const icons = {
-    FaHome: <FaHome />,
-    LuArrowDownSquare: <LuArrowDownSquare />,
-    FaShip: <FaShip />,
-    TbCategory: <TbCategory />,
-    TbReceiptTax: <TbReceiptTax />,
-    MdOutlineLocationSearching: <MdOutlineLocationSearching />,
-    MdPayment: <MdPayment />,
-    MdOutlineSettingsSystemDaydream: <MdOutlineSettingsSystemDaydream />,
-    FaChartBar: <FaChartBar />,
+    FaHome: <HomeOutlined />,
+    LuArrowDownSquare: <DownSquareOutlined />,
+    FaShip: <FlagOutlined />,
+    TbCategory: <AlignCenterOutlined />,
+    TbReceiptTax: <ContactsOutlined />,
+    MdOutlineLocationSearching: <FileSearchOutlined />,
+    MdPayment: <CreditCardOutlined />,
+    MdOutlineSettingsSystemDaydream: <SnippetsOutlined />,
+    FaChartBar: <BarChartOutlined />,
   };
   return icons[iconName] || null;
 };
@@ -58,8 +61,8 @@ class Header extends Component {
             Công ty TNHH Cảng Container Quốc Tế Hateco Hải Phòng
           </div>
           <div className="user">
-            <FaUserCircle style={{ width: "26px", height: "26px" }} />
-            <span>Thùy Duyên</span>
+            <UserOutlined style={{ fontSize: "24px" }} />
+            <span>User-name</span>
           </div>
         </div>
         <div className="nav">

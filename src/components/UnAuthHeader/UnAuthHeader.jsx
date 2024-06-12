@@ -11,7 +11,7 @@ class UnAuthHeader extends Component {
             <Row className="unauth-header_container">
                 <img
                     src={logo}
-                    className="image-logo"
+                    className="unauth-header_image-logo"
                 />
             </Row>
         );
