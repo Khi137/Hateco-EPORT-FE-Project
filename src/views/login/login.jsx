@@ -4,6 +4,8 @@ import { InfoCircleOutlined, MailOutlined, LockOutlined } from '@ant-design/icon
 import './styles.scss'
 
 import { Mbutton, Mcheckbox, Winput } from "../../components/BasicUI"
+import UnAuthHeader from '../../components/UnAuthHeader/UnAuthHeader';
+import Footer from '../../components/Footer/Footer';
 
 const { Link } = Typography;
 class Login extends Component {
@@ -82,6 +84,9 @@ class Login extends Component {
 
         return (
             <Col className='login_container' >
+                <Row className='header'>
+                    <UnAuthHeader />
+                </Row>
                 <Row className="login_content">
                     <Col
                         name="login_form"
@@ -144,6 +149,9 @@ class Login extends Component {
                             <Link href="/forgot-password">Quên mật khẩu?</Link>
                         </Row>
                     </Col>
+                </Row>
+                <Row className='footer'>
+                    <Footer />
                 </Row>
             </Col >
         )

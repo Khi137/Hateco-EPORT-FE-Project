@@ -1,0 +1,12 @@
+.unauth-header_container {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 10px 0;
+
+    .image-logo {
+        width: 300px;
+    }
+}
