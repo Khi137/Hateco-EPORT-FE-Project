@@ -41,7 +41,6 @@ import {
 
 import * as LOL from "@ant-design/icons";
 import moment from "moment";
-import span from "span";
 
 export {
   Mcollapse,
@@ -2252,7 +2251,6 @@ class Mform extends React.Component {
     const { className, children, ...restProps } = this.props;
 
     return (
-
       <Row
         {...restProps}
         className={className ? `m-form ${className}` : "m-form"}
@@ -2350,16 +2348,21 @@ class Mselect extends React.Component {
     };
   }
   componentDidMount() {
-    // $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
-    // if (!window.component) window.component = {}
-    // window.component[((this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref))] = this;
+    if (this.selectRef?.current) {
+      this.selectRef.current.dataset.component = this;
+    }
   }
 
   handleChange(e) {
-    let returnvalue = {};
-    returnvalue[this.props.dataSource.ref] = e.target.value;
+    const { value } = e.target;
 
-    if (typeof this.props.dataSource.onChange == "function") {
+    this.setState({ value });
+
+    const returnvalue = {
+      [this.props.dataSource?.ref]: value,
+    };
+
+    if (typeof this.props.dataSource.onChange === "function") {
       this.props.dataSource.onChange(e);
     }
 
@@ -2368,9 +2371,8 @@ class Mselect extends React.Component {
     }
 
     if ((this.props.config || {}).returnValue) {
-      this.props.config.returnValue(e.target.value);
+      this.props.config.returnValue(value);
     }
-    this.setState({ value: e.target?.value });
   }
 
   checkBlur(e) {
@@ -2393,7 +2395,7 @@ class Mselect extends React.Component {
 
   renderOptions(value) {
     let data = this.props.dataSource;
-    var options = (this.state.options || data.options || []).map((item, ii) => {
+    var options = (this.state?.options || data?.options || []).map((item, ii) => {
       let temp;
       if (value + "" == item?.value + "") {
         temp = (
@@ -2403,7 +2405,7 @@ class Mselect extends React.Component {
             data={JSON.stringify(item.data || {})}
             selected="selected"
           >
-            {item.label}
+            {item?.label}
           </option>
         );
       } else {
@@ -2413,7 +2415,7 @@ class Mselect extends React.Component {
             value={item.value}
             data={JSON.stringify(item.data || {})}
           >
-            {item.label}
+            {item?.label}
           </option>
         );
       }
@@ -2462,19 +2464,19 @@ class Mselect extends React.Component {
                 : "m-form__label"
             }
           >
-            {data.label}
+            {data?.label}
           </label>
           <select
-            ref={data.ref}
-            id={data.ref}
-            key={data.ref || ""}
-            onChange={this.handleChange.bind(this)}
-            onBlur={this.checkBlur.bind(this)}
-            disabled={readonly ? true : false}
-            onFocus={this.checkFocus.bind(this)}
-            required-text={data.required}
-            required={data.required ? true : false}
-            defaultValue={data?.value || this.state?.value || ""}
+            ref={this.selectRef}
+            id={data?.ref}
+            key={data?.ref || ""}
+            onChange={(e) => this.handleChange(e)}
+            onBlur={(e) => this.checkBlur(e)}
+            disabled={readonly}
+            onFocus={(e) => this.checkFocus(e)}
+            required-text={data?.required}
+            required={data?.required}
+            defaultValue={data?.value || this.state.value}
             tabIndex={data?.tabindex || 1}
           >
             <option key="" value=""></option>
@@ -2494,10 +2496,10 @@ class Mswitch extends React.Component {
   componentDidMount() {
     const id =
       this.props.id ||
-      this.props.ref ||
+      this.props?.ref ||
       this.props.dataSource?.id ||
       this.props.dataSource?.ref;
-    if (this.switchRef?.current) {
+    if (this.switchRef.current) {
       this.switchRef.current.setAttribute("data-component", this);
     }
     if (!window.component) window.component = {};
@@ -2508,7 +2510,7 @@ class Mswitch extends React.Component {
     this.setState({ value: e.target.value });
     if (this.props.onChangeValue) {
       let returnvalue = {};
-      returnvalue[this.props.dataSource.ref] = e.target.value;
+      returnvalue[this.props.dataSource?.ref] = e.target.value;
       this.setState({ value: e.target.value });
       this.props.onChangeValue(returnvalue);
     } else {
