@@ -1,4 +1,5 @@
 import React from 'react';
+import { Mradio } from './components/BasicUI';
 import { Minput } from './components/BasicUI';
 
 import {
@@ -45,7 +46,7 @@ class App extends React.Component {
         return (
             <>
                 <span>{test}</span>
-                <Minput/>
+                <Minput Mradio/>
             </>
         );
     }

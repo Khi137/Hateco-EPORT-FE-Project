@@ -1862,7 +1862,7 @@ class Mradio extends React.Component {
         super(props);
 
         this.state = {
-            value: this.props.dataSource.value || '',
+            value: this.props.dataSource?.value || '',
         }
 
     }
@@ -1874,35 +1874,35 @@ class Mradio extends React.Component {
 
     handleChange(e) {
         this.setState({
-            value: e.target.value
+            value: e.target?.value
         });
 
         let returnvalue = {};
-        returnvalue[this.props.dataSource.ref] = e.target.value;
-        this.setState({ value: e.target.value });
+        returnvalue[this.props.dataSource.ref] = e.target?.value;
+        this.setState({ value: e.target?.value });
 
         if (this.props.onChangeValue) {
             this.props.onChangeValue(returnvalue);
         }
         if (typeof this.props.onChanged == "function") {
-            this.props.onChanged(e.target.value);
+            this.props.onChanged(e.target?.value);
         }
 
         if (this.props.config && this.props.config.returnValue) {
-            this.props.config.returnValue(e.target.value);
+            this.props.config.returnValue(e.target?.value);
         }
 
         if (this.props.switchContent) {
-            let contentref = e.target.value;
+            let contentref = e.target?.value;
             this.props.switchContent(contentref);
         }
     }
 
     render() {
         let data = this.props.dataSource;
-        let colStyle = data.colStyle;
-        let radioStyle = data.radioStyle || {};
-        let span = data.span || 24;
+        let colStyle = data?.colStyle;
+        let radioStyle = data?.radioStyle || {};
+        let span = data?.span || 24;
         return (
             <Col
                 xs={span.xs || span}
@@ -1913,13 +1913,13 @@ class Mradio extends React.Component {
             >
                 <Radio.Group
                     style={radioStyle}
-                    id={data.ref}
-                    ref={data.ref} key={data.ref || ""}
-                    name={data.name}
-                    defaultValue={data.defaultValue || ''}
-                    value={this.state.value || data.value || data.defaultValue || ''}
+                    id={data?.ref}
+                    ref={data?.ref} key={data?.ref || ""}
+                    name={data?.name}
+                    defaultValue={data?.defaultValue || ''}
+                    value={this.state?.value || data?.value || data?.defaultValue || ''}
                     className={(this.props.dataSource || {}).className + " " + (this.state.readonly ? 'readonly' : '')}
-                    options={data.options}
+                    options={data?.options}
                     disabled={this.state.readonly ? true : false}
                     onChange={this.handleChange.bind(this)}
                 >
