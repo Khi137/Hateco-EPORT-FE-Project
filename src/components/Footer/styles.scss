@@ -1,0 +1,14 @@
+.footer_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0065A1;
+    padding: 5px 0;
+    text-align: center;
+
+    div {
+        width: 100vw;
+        color: white;
+        font-size: 14px;
+    }
+}
