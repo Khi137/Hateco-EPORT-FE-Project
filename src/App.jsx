@@ -5,6 +5,7 @@ import { isMobileOnly, isMobile } from "react-device-detect";
 import { Mcard, Mselect } from "./components/BasicUI";
 import Header from "./components/Header";
 import MainRoutes from "./router/MainRoutes";
+import Footer from "./components/Footer";
 
 class App extends React.Component {
   constructor(props) {
@@ -44,6 +45,7 @@ class App extends React.Component {
     return (
       <>
         <MainRoutes />
+        <Footer />
       </>
     );
   }
