@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap');
 .header-container {
     height: 170px;
     background-image: url("https://static.kinhtedothi.vn/w960/images/upload/2024/01/08/hateco.jpg");
     object-fit: cover;
     position: relative;
+    font-family: 'IBM Plex Sans', sans-serif !important;
 
     .header {
         display: flex;
