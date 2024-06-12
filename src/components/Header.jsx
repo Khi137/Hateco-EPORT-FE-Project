@@ -62,7 +62,7 @@ class Header extends Component {
           </div>
           <div className="user">
             <UserOutlined style={{ fontSize: "24px" }} />
-            <span>Thùy Duyên</span>
+            <span>Username</span>
           </div>
         </div>
         <div className="nav">
