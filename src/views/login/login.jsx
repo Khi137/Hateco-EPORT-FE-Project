@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Button, Checkbox, Row, Col, Typography } from 'antd';
+import { Row, Col, Typography, Tooltip } from 'antd';
 import { InfoCircleOutlined, MailOutlined, LockOutlined } from '@ant-design/icons';
 import './styles.scss'
 
@@ -8,82 +8,142 @@ import { Mbutton, Mcheckbox, Winput } from "../../components/BasicUI"
 const { Link } = Typography;
 class Login extends Component {
 
-    onFinish = (values) => {
-        console.log('Received values of form: ', values);
+    constructor(props) {
+        super(props);
+        this.state = {
+            formData: {
+                user: "",
+                password: "",
+                userError: false,
+                passwordError: false,
+                remember: false
+            }
+        };
+    }
+
+    handleInputChange = (e) => {
+        const { name, value } = e.target;
+        this.setState(prevState => ({
+            formData: {
+                ...prevState.formData,
+                [name]: value
+            }
+        }));
+    };
+
+    handleCheckboxChange = (value) => {
+        this.setState(prevState => ({
+            formData: {
+                ...prevState.formData,
+                remember: value
+            }
+        }));
+    };
+
+    checkUserError = (value) => {
+        switch (value) {
+            case "":
+                return "Tên đăng nhập không hợp lệ"
+
+            default:
+                return false
+        }
+    }
+
+    checkPasswordError = (value) => {
+        switch (value) {
+            case "":
+                return "Mật khẩu không hợp lệ không hợp lệ"
+
+            default:
+                return false
+        }
+    }
+
+    handleFormSubmit = () => {
+        this.setState(prevState => ({
+            formData: {
+                ...prevState.formData,
+                userError: this.checkUserError(this.state.formData.user),
+                passwordError: this.checkPasswordError(this.state.formData.password),
+            }
+        }));
+        console.log('Form Data:', this.state.formData);
     };
 
     render() {
+        const { formData } = this.state;
+
         const checkboxDataSource = {
             span: 12,
             label: "Ghi nhớ mật khẩu",
-            className: "checkboxClaas"
+            value: formData.remember,
         };
+
         return (
             <Col className='login_container' >
                 <Row className="login_content">
-                    <Form
+                    <Col
                         name="login_form"
-                        onFinish={this.onFinish}
                         layout="vertical"
                         className="login_form"
                     >
-                        <Form.Item className="form_item form_header">
+                        <Col className="form_item form_header">
                             <Typography.Title level={3} className="button_text">Đăng nhập</Typography.Title>
-                        </Form.Item>
+                        </Col>
 
-                        <Form.Item
-                            name="username"
-                            label="Tên đăng nhập"
-                            tooltip={{ title: 'Email, sđt hoặc username', icon: <InfoCircleOutlined /> }}
-                            rules={[{ required: true, message: 'Tên đăng nhập không được để trống!' }]}
-                            className="form_item"
-                        >
+                        <Col className="form_item ">
+                            <Row className="item_header">
+                                <Col>Tên đăng nhập <span className="item_require">*</span></Col>
+                                <Tooltip placement="top" title={"Email, sđt hoặc username"} className="item_tooltip">
+                                    <InfoCircleOutlined />
+                                </Tooltip>
+                            </Row>
                             <Winput
-                                className='form_input_field'
+                                name="user"
+                                className={`form_input_field ${formData.userError ? 'error_item' : ''}`}
                                 prefix={<MailOutlined />}
                                 placeholder="Email, sđt hoặc username"
+                                value={formData.user}
+                                onChange={this.handleInputChange}
                             />
-                        </Form.Item>
+                            <Row className="item_bottom">{formData.userError && formData.userError}</Row>
+                        </Col>
 
-                        <Form.Item
-                            name="password"
-                            label="Mật khẩu"
-                            tooltip={{ title: 'Nhập mật khẩu', icon: <InfoCircleOutlined /> }}
-                            rules={[{ required: true, message: 'Mật khẩu không được để trống!' }]}
-                            className="form_item"
-                        >
+                        <Col className="form_item">
+                            <Row className="item_header">
+                                <Col>Nhập mật khẩu <span className="item_require">*</span></Col>
+                                <Tooltip placement="top" title={"Nhập mật khẩu"} className="item_tooltip">
+                                    <InfoCircleOutlined />
+                                </Tooltip>
+                            </Row>
                             <Winput
+                                name="password"
                                 type="password"
-                                className='form_input_field'
+                                className={`form_input_field ${formData.passwordError ? 'error_item' : ''}`}
                                 prefix={<LockOutlined />}
                                 placeholder="Nhập mật khẩu"
                                 visibilityToggle={true}
+                                onChange={this.handleInputChange}
                             />
-                            {/* <Input.Password
-                                className='form_input_field'
-                                prefix={<LockOutlined />}
-                                placeholder="Nhập mật khẩu"
-                            /> */}
-                        </Form.Item>
+                            <Row className="item_bottom">{formData.passwordError && formData.passwordError}</Row>
+                        </Col>
 
-                        <Form.Item name="remember" valuePropName="checked" className="form_item space_margin">
-                            <Mcheckbox
-                                dataSource={checkboxDataSource}
-                            >
-                            </Mcheckbox>
-                        </Form.Item>
+                        <Col className="form_item space_margin">
+                            <Mcheckbox dataSource={checkboxDataSource} onClick={() => this.handleCheckboxChange(!formData.remember)} />
+                        </Col>
 
-                        <Form.Item className="form_item">
-                            <Mbutton className='form_button' type="primary" htmlType="submit" block>
+                        <Col className="form_item">
+                            <Mbutton className='form_button' type="primary" htmlType="submit" block onClick={this.handleFormSubmit}>
                                 Đăng nhập
                             </Mbutton>
-                        </Form.Item>
+                        </Col>
 
                         <Row justify="space-between" className="form_item bottom_link">
                             <Link href="/register">Đăng ký</Link>
                             <Link href="/forgot-password">Quên mật khẩu?</Link>
                         </Row>
-                    </Form>
+                    </Col>
                 </Row>
             </Col >
         )

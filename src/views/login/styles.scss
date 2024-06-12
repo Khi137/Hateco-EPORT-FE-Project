@@ -37,11 +37,29 @@ $primary-transparent: rgba(0, 99, 165, 0.4);
             background-color: white;
 
             .form_item {
+                margin-bottom: 12px;
 
-                .button_text {
-                    text-align: center;
-                    margin: 12px;
-                    font-family: 'IBM Plex Sans', sans-serif;
+                .item_header {
+                    margin-bottom: 12px;
+
+                    .item_tooltip {
+                        margin: 0 5px;
+                    }
+
+                    .item_require {
+                        color: red;
+                    }
+                }
+
+                .item_bottom {
+                    height: 16px;
+                    margin-top: 4px;
+                    font-size: 12px;
+                    color: red;
+                }
+
+                .error_item {
+                    border-color: red;
                 }
 
                 .form_button {
@@ -55,6 +73,12 @@ $primary-transparent: rgba(0, 99, 165, 0.4);
                 .form_input_field {
                     height: 40px;
                 }
+
+                .button_text {
+                    text-align: center;
+                    margin: 12px;
+                    font-family: 'IBM Plex Sans', sans-serif;
+                }
             }
 
             .form_header {
@@ -62,7 +86,10 @@ $primary-transparent: rgba(0, 99, 165, 0.4);
             }
 
             .space_margin {
-                margin: 12px 0;
+                margin: 12px auto;
+                text-align: center;
+                display: flex;
+                justify-content: center;
 
                 div {
                     display: flex;
