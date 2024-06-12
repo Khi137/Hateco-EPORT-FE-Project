@@ -29,7 +29,7 @@ import {
     message,
     AutoComplete,
     Select,
-    Progress
+    Progress,
 
 } from 'antd';
 import {
@@ -288,9 +288,9 @@ class MeditSelect extends React.Component {
     }
 
     componentDidMount() {
-        $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
-        if (!window.component) window.component = {}
-        window.component[((this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref))] = this;
+        // $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
+        // if (!window.component) window.component = {}
+        // window.component[((this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref))] = this;
     }
 
     handlerEdit(event) {
@@ -399,7 +399,7 @@ class MeditSelect extends React.Component {
                                             onChange={this.handleChange.bind(this)}
                                             disabled={readonly ? true : false}
                                             defaultValue={data.value || this.state.value || ""}
-                                            tabIndex={data.tabindex || 1}
+                                            tabIndex={data?.tabindex || 1}
                                             style={{ paddingLeft: "0", color: "#aaa" }}
                                         >
                                             <option key="" value="" disabled></option>
@@ -502,7 +502,7 @@ class Mupload extends React.Component {
         this.mes = {};
     }
     componentDidMount() {
-        this.tmp_patch = create_Rowguid();
+        // this.tmp_patch = create_Rowguid();
     }
     UNSAFE_componentWillMount() {
         this.data = this.props.dataSource;
@@ -519,68 +519,68 @@ class Mupload extends React.Component {
     };
 
     handleChange = async (e) => {
-        this.sumsize = 0;
-        var fileList = $(e.fileList).toArray();
-        var nFL = [];
-        for (let ii = 0; ii < fileList.length; ii++) {
-            fileList[ii]['size'] = fileList[ii]['size'] || fileList[ii]['originFileObj']['size'];
-            delete fileList[ii]['originFileObj'];
-            this.sumsize += fileList[ii]['size'];
+        // this.sumsize = 0;
+        // var fileList = $(e.fileList).toArray();
+        // var nFL = [];
+        // for (let ii = 0; ii < fileList.length; ii++) {
+        //     fileList[ii]['size'] = fileList[ii]['size'] || fileList[ii]['originFileObj']['size'];
+        //     delete fileList[ii]['originFileObj'];
+        //     this.sumsize += fileList[ii]['size'];
 
-            let ext = fileList[ii].name.substring(fileList[ii].name.lastIndexOf('.') + 1).toLowerCase();
-            let viewtype = '';
-            switch (ext) {
-                case 'xlsx':
-                case 'xls':
-                    viewtype = <LOL.FileExcelOutlined />
-                    break;
-                case 'pdf':
-                    viewtype = <LOL.FilePdfOutlined />
-                    break;
-                default:
-                    break;
-            }
-            fileList[ii]['viewtype'] = viewtype;
-            fileList[ii]['preview'] = viewtype;
+        //     let ext = fileList[ii].name.substring(fileList[ii].name.lastIndexOf('.') + 1).toLowerCase();
+        //     let viewtype = '';
+        //     switch (ext) {
+        //         case 'xlsx':
+        //         case 'xls':
+        //             viewtype = <LOL.FileExcelOutlined />
+        //             break;
+        //         case 'pdf':
+        //             viewtype = <LOL.FilePdfOutlined />
+        //             break;
+        //         default:
+        //             break;
+        //     }
+        //     fileList[ii]['viewtype'] = viewtype;
+        //     fileList[ii]['preview'] = viewtype;
 
 
-            if (!fileList[ii]['error'])
-                nFL.push(fileList[ii]);
-        }
-        fileList = nFL;
-        //console.log('nFL:',nFL)
-        if (typeof this.props.onChange == "function") {
-            this.props.onChange(nFL, this);
-        }
-        if (typeof (this.props.dataSource || {}).onChange == "function") {
-            this.props.dataSource.onChange(nFL, this);
-        }
-        this.setState({ fileList: nFL })
+        //     if (!fileList[ii]['error'])
+        //         nFL.push(fileList[ii]);
+        // }
+        // fileList = nFL;
+        // //console.log('nFL:',nFL)
+        // if (typeof this.props.onChange == "function") {
+        //     this.props.onChange(nFL, this);
+        // }
+        // if (typeof (this.props.dataSource || {}).onChange == "function") {
+        //     this.props.dataSource.onChange(nFL, this);
+        // }
+        // this.setState({ fileList: nFL })
     };
     handleupload = (file, fileList) => {
     };
     handleRemove = (file) => {
-        let formData = new FormData();
-        formData.append("tmporder", this.tmp_patch);
-        formData.append("access_token", localStorage.access_token);
-        formData.append("filename", file.name);
-        $.ajax({
-            url: window.config.apiUrl + '/task/FileUpload/delete',
-            type: 'POST',
-            data: formData,
-            enctype: 'multipart/form-data',
-            success: function (data) {
-                message.success("Đã xóa file !");
-            },
-            error: function (data) {
-                console.log(data);
-                e.onError("error");
-                message.error("Lỗi upload !");
-            },
-            cache: false,
-            contentType: false,
-            processData: false
-        });
+        // let formData = new FormData();
+        // formData.append("tmporder", this.tmp_patch);
+        // formData.append("access_token", localStorage.access_token);
+        // formData.append("filename", file.name);
+        // $.ajax({
+        //     url: window.config.apiUrl + '/task/FileUpload/delete',
+        //     type: 'POST',
+        //     data: formData,
+        //     enctype: 'multipart/form-data',
+        //     success: function (data) {
+        //         message.success("Đã xóa file !");
+        //     },
+        //     error: function (data) {
+        //         console.log(data);
+        //         e.onError("error");
+        //         message.error("Lỗi upload !");
+        //     },
+        //     cache: false,
+        //     contentType: false,
+        //     processData: false
+        // });
     }
     render() {
         let action = this.data.action;
@@ -604,82 +604,82 @@ class Mupload extends React.Component {
                         beforeUpload={this.handleupload}
                         multiple={true}
                         customRequest={(e, b, c) => {
-                            let that = this;
-                            let uid = e.file.uid;
+                            // let that = this;
+                            // let uid = e.file.uid;
 
-                            if ((this.sumsize) > 15000000) {
-                                e.onError("error");
+                            // if ((this.sumsize) > 15000000) {
+                            //     e.onError("error");
 
-                                let fileList = Object.assign([], that.state.fileList);
-                                let nlist = [];
-                                for (let index = 0; index < fileList.length; index++) {
-                                    const element = fileList[index];
-                                    if (element.uid != uid) {
-                                        nlist.push(element);
-                                    }
-                                }
-                                that.setState({ fileList: nlist });
-                                return message.error('Tổng dung lượng không được quá 15MB !!');
-                            }
+                            //     let fileList = Object.assign([], that.state.fileList);
+                            //     let nlist = [];
+                            //     for (let index = 0; index < fileList.length; index++) {
+                            //         const element = fileList[index];
+                            //         if (element.uid != uid) {
+                            //             nlist.push(element);
+                            //         }
+                            //     }
+                            //     that.setState({ fileList: nlist });
+                            //     return message.error('Tổng dung lượng không được quá 15MB !!');
+                            // }
 
 
-                            let formData = new FormData();
-                            formData.append("files", e.file);
-                            formData.append("tmporder", this.tmp_patch);
-                            formData.append("access_token", localStorage.access_token);
-                            formData.append("filename", e.file.name);
-                            $.ajax({
-                                url: window.config.apiUrl + '/task/FileUpload/',
-                                type: 'POST',
-                                data: formData,
-                                enctype: 'multipart/form-data',
-                                success: function (data) {
+                            // let formData = new FormData();
+                            // formData.append("files", e.file);
+                            // formData.append("tmporder", this.tmp_patch);
+                            // formData.append("access_token", localStorage.access_token);
+                            // formData.append("filename", e.file.name);
+                            // $.ajax({
+                            //     url: window.config.apiUrl + '/task/FileUpload/',
+                            //     type: 'POST',
+                            //     data: formData,
+                            //     enctype: 'multipart/form-data',
+                            //     success: function (data) {
 
-                                    let fileList = Object.assign([], that.state.fileList);
-                                    for (let index = 0; index < fileList.length; index++) {
-                                        const element = fileList[index];
-                                        if (element.uid == uid) {
-                                            fileList[index] = Object.assign(fileList[index], {
-                                                uid: uid,
-                                                name: data.filename,
-                                                status: 'done',
-                                                url: data.url,
-                                                size: data.size,
-                                                tmporder: data.tmporder,
-                                                thumbUrl: data.url
-                                            })
-                                        }
-                                    }
-                                    that.setState({ fileList: fileList });
-                                    if (typeof that.props.onChange == "function") {
-                                        that.props.onChange(fileList, that);
-                                    }
-                                    if (typeof (that.props.dataSource || {}).onChange == "function") {
-                                        that.props.dataSource.onChange(fileList, that);
-                                    }
-                                },
-                                error: function (data) {
-                                    let fileList = Object.assign([], that.state.fileList);
-                                    let nlist = [];
-                                    for (let index = 0; index < fileList.length; index++) {
-                                        const element = fileList[index];
-                                        if (element.uid != uid) {
-                                            nlist.push(element);
-                                        }
-                                    }
-                                    that.setState({ fileList: nlist });
-                                    message.error((data["responseJSON"] || {})["message"] || "Lỗi upload !");
-                                    if (typeof that.props.onChange == "function") {
-                                        that.props.onChange(nlist, that);
-                                    }
-                                    if (typeof (that.props.dataSource || {}).onChange == "function") {
-                                        that.props.dataSource.onChange(nlist, that);
-                                    }
-                                },
-                                cache: false,
-                                contentType: false,
-                                processData: false
-                            });
+                            //         let fileList = Object.assign([], that.state.fileList);
+                            //         for (let index = 0; index < fileList.length; index++) {
+                            //             const element = fileList[index];
+                            //             if (element.uid == uid) {
+                            //                 fileList[index] = Object.assign(fileList[index], {
+                            //                     uid: uid,
+                            //                     name: data.filename,
+                            //                     status: 'done',
+                            //                     url: data.url,
+                            //                     size: data.size,
+                            //                     tmporder: data.tmporder,
+                            //                     thumbUrl: data.url
+                            //                 })
+                            //             }
+                            //         }
+                            //         that.setState({ fileList: fileList });
+                            //         if (typeof that.props.onChange == "function") {
+                            //             that.props.onChange(fileList, that);
+                            //         }
+                            //         if (typeof (that.props.dataSource || {}).onChange == "function") {
+                            //             that.props.dataSource.onChange(fileList, that);
+                            //         }
+                            //     },
+                            //     error: function (data) {
+                            //         let fileList = Object.assign([], that.state.fileList);
+                            //         let nlist = [];
+                            //         for (let index = 0; index < fileList.length; index++) {
+                            //             const element = fileList[index];
+                            //             if (element.uid != uid) {
+                            //                 nlist.push(element);
+                            //             }
+                            //         }
+                            //         that.setState({ fileList: nlist });
+                            //         message.error((data["responseJSON"] || {})["message"] || "Lỗi upload !");
+                            //         if (typeof that.props.onChange == "function") {
+                            //             that.props.onChange(nlist, that);
+                            //         }
+                            //         if (typeof (that.props.dataSource || {}).onChange == "function") {
+                            //             that.props.dataSource.onChange(nlist, that);
+                            //         }
+                            //     },
+                            //     cache: false,
+                            //     contentType: false,
+                            //     processData: false
+                            // });
                         }}
                         fileList={this.state.fileList.map((ff) => { ff.url = decodeURI((ff.url + '').replaceAll('%23', '#')); ff.url = encodeURI(ff.url + '').replaceAll('#', '%23'); ff.thumbUrl = ff.url; return ff; })}
                         onPreview={this.handlePreview}
@@ -763,18 +763,18 @@ class Mstep extends React.Component {
 
 export class Winput extends React.Component {
     constructor(props) {
-        super(props);
-        this.state = {
-            value: (this.props.value || '')
-        }
-        if (this.props.ref || this.props.id) {
-            if (!window.Winput) window.Winput = {};
-            window.Winput[this.props.ref || this.props.id || 'Winput_'] = this;
-        }
-        $("#" + (this.props.ref || this.props.id || 'Winput_')).data({ value: this.props.value });
+        // super(props);
+        // this.state = {
+        //     value: (this.props.value || '')
+        // }
+        // if (this.props.ref || this.props.id) {
+        //     if (!window.Winput) window.Winput = {};
+        //     window.Winput[this.props.ref || this.props.id || 'Winput_'] = this;
+        // }
+        // $("#" + (this.props.ref || this.props.id || 'Winput_')).data({ value: this.props.value });
     }
     componentDidMount() {
-        $("#" + (this.props.ref || this.props.id || 'Winput_')).data({ value: (this.props.value || '') });
+        // $("#" + (this.props.ref || this.props.id || 'Winput_')).data({ value: (this.props.value || '') });
     }
     handleChange(dt) {
         this.setState({
@@ -783,7 +783,7 @@ export class Winput extends React.Component {
 
     }
     render() {
-        $("#" + (this.props.ref || this.props.id || 'Winput_')).data(this.state);
+        // $("#" + (this.props.ref || this.props.id || 'Winput_')).data(this.state);
         return (
             <Input {...this.props} defaultValue={this.state.value || ''} value={this.state.value || ''} onChange={(dt) => { this.handleChange(dt); if (typeof this.props.onChange == 'function') this.props.onChange(dt); }} className={"Winput " + (this.props.className || '')}></Input>
         );
@@ -1002,17 +1002,17 @@ class Msearch extends React.Component {
 
     }
     componentDidMount() {
-        $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
-        if (typeof this.props.dataSource.onLoaded == "function")
-            this.props.dataSource.onLoaded(this.state.value, this);
-        if (!window.component) window.component = {}; window.component[(this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)] = this;
+        // $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
+        // if (typeof this.props.dataSource.onLoaded == "function")
+        //     this.props.dataSource.onLoaded(this.state.value, this);
+        // if (!window.component) window.component = {}; window.component[(this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)] = this;
 
     }
 
     UNSAFE_componentWillMount() {
-        if (this.state.value) {
-            $(this.searchRef).closest('.m-form__input').find('label').addClass('m-form__label--focus');
-        }
+        // if (this.state.value) {
+        //     $(this.searchRef).closest('.m-form__input').find('label').addClass('m-form__label--focus');
+        // }
     }
 
     handleChange(e) {
@@ -1030,22 +1030,22 @@ class Msearch extends React.Component {
     }
 
     checkBlur(e) {
-        if (!e.target.value) {
-            $(e.target).closest('.m-form__input').find('label').removeClass('m-form__label--focus');
-        }
+        // if (!e.target.value) {
+        //     $(e.target).closest('.m-form__input').find('label').removeClass('m-form__label--focus');
+        // }
 
-        if (this.props.onChangeValue) {
-            let returnvalue = {};
-            returnvalue[this.props.dataSource.ref] = e.target.value;
-            this.setState({ value: e.target.value });
-            this.props.onChangeValue(returnvalue);
-        } else {
-            return;
-        }
+        // if (this.props.onChangeValue) {
+        //     let returnvalue = {};
+        //     returnvalue[this.props.dataSource.ref] = e.target.value;
+        //     this.setState({ value: e.target.value });
+        //     this.props.onChangeValue(returnvalue);
+        // } else {
+        //     return;
+        // }
     }
 
     checkFocus(e) {
-        $(e.target).closest('.m-form__input').find('label').addClass('m-form__label--focus');
+        // $(e.target).closest('.m-form__input').find('label').addClass('m-form__label--focus');
     }
     handleKeyPress(e) {
 
@@ -1109,8 +1109,8 @@ class Mautocomplete extends React.Component {
         }
     }
     componentDidMount() {
-        $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
-        if (!window.component) window.component = {}; window.component[(this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)] = this;
+        // $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
+        // if (!window.component) window.component = {}; window.component[(this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)] = this;
 
     }
 
@@ -1140,13 +1140,13 @@ class Mautocomplete extends React.Component {
     }
 
     checkBlur(e) {
-        if (!e.target.value || e.target.value === "default") {
-            $(e.target).closest('.m-form__input').find('.m-form__label').removeClass('m-form__label--focus');
-        }
+        // if (!e.target.value || e.target.value === "default") {
+        //     $(e.target).closest('.m-form__input').find('.m-form__label').removeClass('m-form__label--focus');
+        // }
     }
 
     checkFocus(e) {
-        $(e.target).closest('.m-form__input').find('.m-form__label').addClass('m-form__label--focus');
+        // $(e.target).closest('.m-form__input').find('.m-form__label').addClass('m-form__label--focus');
     }
     render() {
         let icon = "";
@@ -1208,8 +1208,8 @@ class Mselectsearch extends React.Component {
         }
     }
     componentDidMount() {
-        $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
-        if (!window.component) window.component = {}; window.component[(this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)] = this;
+        // $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
+        // if (!window.component) window.component = {}; window.component[(this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)] = this;
 
     }
 
@@ -1233,14 +1233,14 @@ class Mselectsearch extends React.Component {
         }
 
         // this.setState({ value: ObjValue.value, ObjValue: ObjValue });
-        $("#" + this.props.dataSource.ref).val(this.state.value || '');
-        if (typeof this.props.dataSource.onChange == "function") {
+        // $("#" + this.props.dataSource.ref).val(this.state.value || '');
+        // if (typeof this.props.dataSource.onChange == "function") {
 
-            setTimeout(() => {
-                this.props.dataSource.onChange(label, row, this);
-            }, 200)
-        }
-        $("#" + this.props.dataSource.ref).val(this.state.value || '');
+        //     setTimeout(() => {
+        //         this.props.dataSource.onChange(label, row, this);
+        //     }, 200)
+        // }
+        // $("#" + this.props.dataSource.ref).val(this.state.value || '');
 
     }
     handleSearch(e) {
@@ -1256,12 +1256,12 @@ class Mselectsearch extends React.Component {
         if ((this.props.dataSource || {}).value || this.state.value) {
         }
         else {
-            $(e.target).closest('.m-form__input').find('.m-form__label').removeClass('m-form__label--focus');
+            // $(e.target).closest('.m-form__input').find('.m-form__label').removeClass('m-form__label--focus');
         }
     }
 
     checkFocus(e) {
-        $(e.target).closest('.m-form__input').find('.m-form__label').addClass('m-form__label--focus');
+        // $(e.target).closest('.m-form__input').find('.m-form__label').addClass('m-form__label--focus');
     }
     render() {
         let icon = "";
@@ -1284,16 +1284,16 @@ class Mselectsearch extends React.Component {
         }
         var readonly = (this.state.readonly === undefined ? data.readonly : this.state.readonly) ? true : false;
         var placeholder = this.state.placeholder === undefined ? data.placeholder : (this.state.placeholder ? this.state.placeholder : '');
-        $("#" + this.props.dataSource.ref).val(this.state.value || '');
+        // $("#" + this.props.dataSource.ref).val(this.state.value || '');
         var that = this;
         var value = (data.value || this.state.value);
         setTimeout(() => {
-            $("#" + that.props.dataSource.ref).val(that.state.value || '');
+            // $("#" + that.props.dataSource.ref).val(that.state.value || '');
             if (value) {
-                $("#" + that.props.dataSource.ref).closest('.m-form__input').find('.m-form__label').addClass('m-form__label--focus ' + value + ' ' + (data.value || this.state.value));
+                // $("#" + that.props.dataSource.ref).closest('.m-form__input').find('.m-form__label').addClass('m-form__label--focus ' + value + ' ' + (data.value || this.state.value));
             }
             else {
-                $("#" + that.props.dataSource.ref).closest('.m-form__input').find('.m-form__label').removeClass('m-form__label--focus');
+                // $("#" + that.props.dataSource.ref).closest('.m-form__input').find('.m-form__label').removeClass('m-form__label--focus');
             }
         }, 10);
         return (
@@ -1379,7 +1379,7 @@ class Minput extends React.Component {
 
         this.inputRef = React.createRef();
         this.state = {
-            value: this.props.value || this.props.dataSource.value || '',
+            value: this.props.value || this.props.dataSource?.value || '',
             passVisible: false,
             passVisibleIcon: "EyeInvisibleOutlined",
             status: "",
@@ -1393,16 +1393,16 @@ class Minput extends React.Component {
     }
 
     componentDidMount() {
-        $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
-        if (typeof this.props.dataSource.onLoaded == "function")
-            this.props.dataSource.onLoaded(this.state.value, this);
-        if (!window.component) window.component = {}; window.component[(this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)] = this;
+        // $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
+        // if (typeof this.props.dataSource.onLoaded == "function")
+        //     this.props.dataSource.onLoaded(this.state.value, this);
+        // if (!window.component) window.component = {}; window.component[(this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)] = this;
 
     }
 
     UNSAFE_componentWillMount() {
         this.setState({
-            value: (this.props.trim ? this.props.value.trim() : this.props.value) || (this.props.trim ? this.props.dataSource.value.trim() : this.props.dataSource.value) || ""
+            value: (this.props?.trim ? this.props.value?.trim() : this.props.value) || (this.props?.trim ? this.props.dataSource?.value?.trim() : this.props.dataSource?.value) || ""
         });
     }
 
@@ -1413,15 +1413,15 @@ class Minput extends React.Component {
     handleChange(event) {
         if ((this.props.dataSource || {}).uppercase)
             event.target.value = event.target.value.toUpperCase();
-        if (this.props.dataSource.onChangeValue) {
-            let continues = this.props.dataSource.onChangeValue(event);
+        if (this.props.dataSource?.onChangeValue) {
+            let continues = this.props.dataSource?.onChangeValue(event);
             if (continues !== undefined && continues === false) {
                 return;
             }
         }
 
-        if (this.props.onChangeValue) {
-            let continues = this.props.onChangeValue({ [this.props.dataSource.ref]: event.target.value });
+        if (this.props?.onChangeValue) {
+            let continues = this.props?.onChangeValue({ [this.props.dataSource?.ref]: event.target.value });
             if (continues !== undefined && continues === false) {
                 return;
             }
@@ -1432,23 +1432,23 @@ class Minput extends React.Component {
             exp = (this.props.dataSource || {}).exp || '';
         }
 
-        if (typeof this.props.dataSource.onChange == "function")
-            this.props.dataSource.onChange(event.target.value, this);
+        if (typeof this.props.dataSource?.onChange == "function")
+            this.props.dataSource?.onChange(event.target.value, this);
 
-        if (this.props.dataSource.format) {
-            if (event.target.value.length > 2 && !event.target.value.includes("/")) {
-                event.target.value = event.target.value.slice(0, 2) + "/" + event.target.value.slice(2);
+        if (this.props.dataSource?.format) {
+            if (event.target.value?.length > 2 && !event.target.value?.includes("/")) {
+                event.target.value = event.target.value.slice(0, 2) + "/" + event.target.value?.slice(2);
             }
         }
 
-        if (this.props.dataSource.trim) {
-            event.target.value = event.target.value.trim();
+        if (this.props.dataSource?.trim) {
+            event.target.value = event.target.value?.trim();
         }
 
-        if (this.props.dataSource.maxLength) {
-            event.target.value = event.target.value.substring(0, this.props.dataSource.maxLength);
+        if (this.props.dataSource?.maxLength) {
+            event.target.value = event.target.value.substring(0, this.props.dataSource?.maxLength);
         }
-        if (this.props.dataSource.inputType == "number") {
+        if (this.props.dataSource?.inputType == "number") {
             if (this.props.dataSource.notde) {
                 event.target.value = event.target.value.replace(/\-/gi, '');
             }
@@ -1465,7 +1465,7 @@ class Minput extends React.Component {
             }
         }
         this.setState({
-            value: this.props.dataSource.decimal ?
+            value: this.props.dataSource?.decimal ?
                 parseInt(this.numberWithCommas(event.target.value)) :
                 event.target.value
         });
@@ -1484,8 +1484,8 @@ class Minput extends React.Component {
     }
 
     onKeyPress(e) {
-        if (this.props.dataSource.config && this.props.dataSource.config.onKeypress) {
-            this.props.dataSource.config.onKeypress(e);
+        if (this.props.dataSource?.config && this.props.dataSource?.config.onKeypress) {
+            this.props.dataSource?.config.onKeypress(e);
         }
 
         if ((this.props.dataSource || {}).safeString)
@@ -1506,14 +1506,14 @@ class Minput extends React.Component {
 
         let tempvalue = e.target.value;
 
-        if (tempvalue.length !== 0 && this.props.dataSource.minLength && this.props.dataSource.inputType == "number") {
-            if (parseInt(e.target.value).toString().length < parseInt(this.props.dataSource.minLength)) {
+        if (tempvalue.length !== 0 && this.props.dataSource?.minLength && this.props.dataSource?.inputType == "number") {
+            if (parseInt(e.target.value).toString().length < parseInt(this.props.dataSource?.minLength)) {
                 tempvalue = parseFloat(e.target.value) * 1000;
             }
         }
 
         let returnvalue = {};
-        returnvalue[this.props.dataSource.ref] = tempvalue;
+        returnvalue[this.props.dataSource?.ref] = tempvalue;
         this.setState({ value: tempvalue });
 
         if (this.props.validateValue) {
@@ -1576,7 +1576,7 @@ class Minput extends React.Component {
     }
 
     trimHandler(e) {
-        if (this.props.dataSource.trim) {
+        if (this.props.dataSource?.trim) {
             this.trimvalue = e.clipboardData.getData('text/plain').trim();
         }
     }
@@ -1584,22 +1584,22 @@ class Minput extends React.Component {
     render() {
         let data = this.props.dataSource;
         let icon = "";
-        let span = (data.span || 24);
+        let span = (data?.span || 24);
         let passvisible = "";
         var that = this;
-        if (data.icon) {
+        if (data?.icon) {
             icon = React.createElement(
-                LOL[data.icon] || "i",
-                { className: "m-form__icon " + (!LOL[data.icon] ? "material-" + data.icon : "") }
+                LOL[data?.icon] || "i",
+                { className: "m-form__icon " + (!LOL[data?.icon] ? "material-" + data?.icon : "") }
             );
         } else {
             icon = React.createElement(
                 LOL["AlignLeftOutlined"] || "i",
-                { className: "m-form__icon " + (!LOL[data.icon] ? "material-" + data.icon : "") }
+                { className: "m-form__icon " + (!LOL[data?.icon] ? "material-" + data?.icon : "") }
             );
         }
 
-        if (data.inputType == "password") {
+        if (data?.inputType == "password") {
             passvisible = React.createElement(
                 LOL[this.state.passVisibleIcon],
                 {
@@ -1609,14 +1609,14 @@ class Minput extends React.Component {
             );
         }
         const { value } = this.state;
-        var readonly = (this.state.readonly === undefined ? data.readonly : this.state.readonly) ? true : false;
-        if (data.followProps) {
+        var readonly = (this.state?.readonly === undefined ? data?.readonly : this.state?.readonly) ? true : false;
+        if (data?.followProps) {
             this.state.value = data.value;
         }
 
-        if (data.propReadonly) {
+        if (data?.propReadonly) {
             this.state.readonly = data.propReadonly;
-            readonly = this.state.readonly;
+            readonly = this.state?.readonly;
         }
 
         return (
@@ -1626,33 +1626,33 @@ class Minput extends React.Component {
                 md={span.md || span}
                 lg={span.lg || span}
                 xl={span.xl || span}
-                className="m-form__box" style={{ display: (data.isHide === true) ? "none" : "block" }}>
+                className="m-form__box" style={{ display: (data?.isHide === true) ? "none" : "block" }}>
                 <div className={"m-form__input " + this.state.status + ' ' + (readonly ? 'readonly' : '')}>
-                    <label className={(typeof this.state.value === "undefined" || this.state.value === null ? '' : this.state.value + '').length > 0 ? "m-form__label m-form__label--focus" : "m-form__label"}>{data.label || ""}</label>
+                    <label className={(typeof this.state.value === "undefined" || this.state.value === null ? '' : this.state.value + '').length > 0 ? "m-form__label m-form__label--focus" : "m-form__label"}>{data?.label || ""}</label>
                     <span className="ant-input-search ant-input-affix-wrapper">
                         <input
-                            type={data.inputType || "text"}
-                            lang={data.inputType == 'number' ? "en-150" : undefined}
-                            ref={this.inputRef} id={data.ref || ""}
-                            key={data.ref || ""}
+                            type={data?.inputType || "text"}
+                            lang={data?.inputType == 'number' ? "en-150" : undefined}
+                            ref={this.inputRef} id={data?.ref || ""}
+                            key={data?.ref || ""}
                             value={this.state.value || ""}
                             onChange={this.handleChange.bind(this)}
                             onBlur={this.checkBlur.bind(this)}
                             onFocus={this.checkFocus.bind(this)}
                             onKeyPress={this.onKeyPress.bind(this)}
-                            onPaste={(e)=>{data.onPaste?data.onPaste(e,this):undefined;}} 
-                            onClick={data.onClick}
+                            // onPaste={(e)=>{data.onPaste?data.onPaste(e,this):undefined;}} 
+                            onClick={data?.onClick}
                             readOnly={readonly ? true : false}
                             autoComplete="off"
-                            className={(data.className || '')}
+                            className={(data?.className || '')}
                             // onPaste={this.trimHandler.bind(this)}
                             // maxLength={data.maxLength || 9999}
-                            tabIndex={data.tabindex || 1}
-                            pattern={data.format || ""}
+                            tabIndex={data?.tabindex || 1}
+                            pattern={data?.format || ""}
                         ></input>
                         {icon}
                         {
-                            data.clearBtn ?
+                            data?.clearBtn ?
                                 (this.state.value || '').length > 0 ?
                                     <span className="ant-input-suffix"><LOL.CloseCircleOutlined
                                         className="ant-input-search-icon"
@@ -1663,8 +1663,8 @@ class Minput extends React.Component {
                                             }
                                             if(data.onClear && typeof data.onClear=='function'){
                                                 data.onClear();
-                                                if(data.onChange && typeof data.onChange=='function'){
-                                                    data.onChange('');
+                                                if(data?.onChange && typeof data?.onChange=='function'){
+                                                    data?.onChange('');
                                                 }
                                             }
                                         }} /></span>
@@ -1673,7 +1673,7 @@ class Minput extends React.Component {
                                 :
                                 ""
                         }
-                        {(data.inputType == "search" ? ((this.state.value || data.value || "") ?
+                        {(data?.inputType == "search" ? ((this.state.value || data.value || "") ?
                             <span className="ant-input-suffix"><LOL.CloseCircleOutlined
                                 className="ant-input-search-icon"
                                 onClick={() => { if (!readonly) { this.setState({ value: '' }); this.handleChange({ target: { value: '' } }); } }} /></span>
@@ -1708,27 +1708,27 @@ class Mdatepicker extends React.Component {
     }
 
     disabledDate(current) {
-        return current && current < moment().add(-1, 'day').endOf("day");
+        // return current && current < moment().add(-1, 'day').endOf("day");
     }
 
     disabledDateTime(current) {
-        var that = this;
-        return {
-            disabledHours: () =>
-                that.rangec(0, (current > moment().endOf('day') ? 0 : moment().format("HH"))),
-            disabledMinutes: () =>
-                that.rangec(0, (current > moment().endOf('hour') ? 0 : moment().format("mm"))),
-            disabledSeconds: () =>
-                that.rangec(0, (current > moment().endOf('minute') ? 0 : moment().format("ss")))
-        };
+        // var that = this;
+        // return {
+        //     disabledHours: () =>
+        //         that.rangec(0, (current > moment().endOf('day') ? 0 : moment().format("HH"))),
+        //     disabledMinutes: () =>
+        //         that.rangec(0, (current > moment().endOf('hour') ? 0 : moment().format("mm"))),
+        //     disabledSeconds: () =>
+        //         that.rangec(0, (current > moment().endOf('minute') ? 0 : moment().format("ss")))
+        // };
     }
     componentDidMount() {
-        $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
-        if (this.props.dataSource.defaultValue) {
-            var formatedValue = moment(this.props.dataSource.defaultValue).format(this.props.dataSource.format);
-            $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).val(formatedValue)
-        }
-        if (!window.component) window.component = {}; window.component[(this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)] = this;
+        // $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
+        // if (this.props.dataSource.defaultValue) {
+        //     var formatedValue = moment(this.props.dataSource.defaultValue).format(this.props.dataSource.format);
+        //     $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).val(formatedValue)
+        // }
+        // if (!window.component) window.component = {}; window.component[(this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)] = this;
 
     }
 
@@ -1746,38 +1746,38 @@ class Mdatepicker extends React.Component {
 
         let data = this.props.dataSource;
         let span = (data.span || 24);
-        let value = this.state.value ? moment(this.state.value, (/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/gi.test(this.state.value) ? 'YYYY-MM-DD HH:mm:ss' : data.format || 'YYYY-MM-DD HH:mm:ss')) : (data.value ? moment(data.value, (/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/gi.test(data.value) ? 'YYYY-MM-DD HH:mm:ss' : data.format || 'YYYY-MM-DD HH:mm:ss')) : (data.defaultValue ? moment(data.defaultValue, (/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/gi.test(data.defaultValue) ? 'YYYY-MM-DD HH:mm:ss' : data.format || 'YYYY-MM-DD HH:mm:ss')) : ""));
+        // let value = this.state.value ? moment(this.state.value, (/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/gi.test(this.state.value) ? 'YYYY-MM-DD HH:mm:ss' : data.format || 'YYYY-MM-DD HH:mm:ss')) : (data.value ? moment(data.value, (/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/gi.test(data.value) ? 'YYYY-MM-DD HH:mm:ss' : data.format || 'YYYY-MM-DD HH:mm:ss')) : (data.defaultValue ? moment(data.defaultValue, (/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/gi.test(data.defaultValue) ? 'YYYY-MM-DD HH:mm:ss' : data.format || 'YYYY-MM-DD HH:mm:ss')) : ""));
         //console.log("?",value)
         // if (data.value === '') value = ('');
         // if (this.state.value === '') value = ('');
         //console.log("??",value)
-        if (value == 'Invalid date' || value.format('YYYY') == 'Invalid date') value = '';
+        // if (value == 'Invalid date' || value.format('YYYY') == 'Invalid date') value = '';
         if (data.followProps) {
             this.state.value = data.value;
-            value = data.value;
+            // value = data.value;
         }
-        if (value) {
-            if (data.range == "start") {
-                switch (data.picker) {
-                    case 'quarter':
-                    case 'month':
-                    case 'year':
-                    case 'week':
-                        value.startOf(data.picker);
-                        break;
-                }
-                if (data.range == "end") {
-                    switch (data.picker) {
-                        case 'quarter':
-                        case 'month':
-                        case 'year':
-                        case 'week':
-                            value.endOf(data.picker);
-                            break;
-                    }
-                }
-            }
-        }
+        // if (value) {
+        //     if (data.range == "start") {
+        //         switch (data.picker) {
+        //             case 'quarter':
+        //             case 'month':
+        //             case 'year':
+        //             case 'week':
+        //                 value.startOf(data.picker);
+        //                 break;
+        //         }
+        //         if (data.range == "end") {
+        //             switch (data.picker) {
+        //                 case 'quarter':
+        //                 case 'month':
+        //                 case 'year':
+        //                 case 'week':
+        //                     value.endOf(data.picker);
+        //                     break;
+        //             }
+        //         }
+        //     }
+        // }
         if (typeof data.propReadonly != 'undefined') {
             this.state.readonly = data.propReadonly;
         }
@@ -1794,21 +1794,21 @@ class Mdatepicker extends React.Component {
                 className={"m-form__box " + data.className + ' ' + (this.state.readonly ? 'readonly' : '')}
             >
                 <div className={"m-form__input " + (this.state.readonly ? 'readonly' : '')}>
-                    <label className={value ? "m-form__label m-form__label--focus" : "m-form__label"}>{data.label}</label>
+                    {/* <label className={value ? "m-form__label m-form__label--focus" : "m-form__label"}>{data.label}</label> */}
                     <DatePicker style={{ padding: 0 }} placeholder="" bordered={false} required-text={data.required} required={data.required ? true : false}
                         ref={data.ref} id={data.ref} key={data.ref || ""}
                         showTime={true}
-                        defaultValue={data.defaultValue ? moment(data.defaultValue, (data.format || 'YYYY-MM-DD HH:mm:ss')) : ""}
-                        defaultPickerValue={data.defaultPickerValue ? moment(data.defaultPickerValue, (data.format || 'YYYY-MM-DD HH:mm:ss')) : undefined}
-                        value={value}
+                        // defaultValue={data.defaultValue ? moment(data.defaultValue, (data.format || 'YYYY-MM-DD HH:mm:ss')) : ""}
+                        // defaultPickerValue={data.defaultPickerValue ? moment(data.defaultPickerValue, (data.format || 'YYYY-MM-DD HH:mm:ss')) : undefined}
+                        // value={value}
                         disabled={this.state.readonly ? true : false}
                         inputReadOnly={true}
                         picker={data.picker || 'date'}
-                        format={data.picker == 'quarter' ? "[Quý " + moment(value).utc().quarter() + " năm ]YYYY" : (data.format || 'YYYY-MM-DD HH:mm:ss')}
+                        // format={data.picker == 'quarter' ? "[Quý " + moment(value).utc().quarter() + " năm ]YYYY" : (data.format || 'YYYY-MM-DD HH:mm:ss')}
                         disabledDate={data.lockbefore ? this.disabledDate.bind(this) : null}
                         disabledTime={data.lockbefore ? this.disabledDateTime.bind(this) : null}
                         onChange={(date, dateString) => {
-                            this.setState({ value: date ? moment(date).format('YYYY-MM-DD HH:mm:ss') : '' });
+                            // this.setState({ value: date ? moment(date).format('YYYY-MM-DD HH:mm:ss') : '' });
                             if ((this.props || {}).dataSource.onChanged) {
                                 (this.props || {}).dataSource.onChanged(date, dateString, this)
                             };
@@ -1866,8 +1866,8 @@ class Mradio extends React.Component {
 
     }
     componentDidMount() {
-        $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
-        if (!window.component) window.component = {}; window.component[(this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)] = this;
+        // $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
+        // if (!window.component) window.component = {}; window.component[(this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)] = this;
 
     }
 
@@ -1954,8 +1954,8 @@ class Mcheckbox extends React.Component {
     }
 
     componentDidMount() {
-        $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
-        if (!window.component) window.component = {}; window.component[(this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)] = this;
+        // $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
+        // if (!window.component) window.component = {}; window.component[(this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)] = this;
 
     }
 
@@ -1983,7 +1983,7 @@ class Mcheckbox extends React.Component {
         let data = this.props.dataSource;
         let span = data.span || 24;
         if (typeof data.value != 'undefined' && typeof this.props.value == 'undefined') {
-            this.props.value == data.value;
+            // this.props.value == data.value;
         }
         return (
             <Col
@@ -2018,9 +2018,9 @@ class Mselect extends React.Component {
         }
     }
     componentDidMount() {
-        $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
-        if (!window.component) window.component = {}
-        window.component[((this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref))] = this;
+        // $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
+        // if (!window.component) window.component = {}
+        // window.component[((this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref))] = this;
     }
 
     handleChange(e) {
@@ -2119,7 +2119,7 @@ class Mselect extends React.Component {
                         disabled={readonly ? true : false}
                         onFocus={this.checkFocus.bind(this)} required-text={data.required} required={data.required ? true : false}
                         defaultValue={data.value || this.state.value || ""}
-                        tabIndex={data.tabindex || 1}
+                        tabIndex={data?.tabindex || 1}
                     >
                         <option key="" value="" ></option>
                         {this.renderOptions(data.value || this.state.value)}
@@ -2139,8 +2139,8 @@ class Mswitch extends React.Component {
 
     }
     componentDidMount() {
-        $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
-        if (!window.component) window.component = {}; window.component[(this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)] = this;
+        // $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
+        // if (!window.component) window.component = {}; window.component[(this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)] = this;
 
     }
 
@@ -2205,8 +2205,8 @@ class Mdropdown extends React.Component {
 
     }
     componentDidMount() {
-        $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
-        if (!window.component) window.component = {}; window.component[(this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)] = this;
+        // $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
+        // if (!window.component) window.component = {}; window.component[(this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)] = this;
 
     }
 
@@ -2246,9 +2246,9 @@ class MoneFieldInput extends React.Component {
     }
 
     componentDidMount() {
-        this.pushRender();
-        $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
-        if (!window.component) window.component = {}; window.component[(this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)] = this;
+        // this.pushRender();
+        // $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
+        // if (!window.component) window.component = {}; window.component[(this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)] = this;
 
     }
 

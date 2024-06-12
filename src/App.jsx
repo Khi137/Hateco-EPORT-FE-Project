@@ -1,8 +1,11 @@
 import React from 'react';
+import { Minput } from './components/BasicUI';
+
 import {
     isMobileOnly,
     isMobile
 } from "react-device-detect";
+import { Mcard, Mselect } from './components/BasicUI';
 
 class App extends React.Component {
     constructor(props) {
@@ -42,6 +45,7 @@ class App extends React.Component {
         return (
             <>
                 <span>{test}</span>
+                <Minput/>
             </>
         );
     }
