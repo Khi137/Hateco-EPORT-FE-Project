@@ -1,5 +1,5 @@
 .header-container {
-    height: 160px;
+    height: 170px;
     background-image: url("https://static.kinhtedothi.vn/w960/images/upload/2024/01/08/hateco.jpg");
     object-fit: cover;
     position: relative;
@@ -28,6 +28,9 @@
                 padding: 15px;
                 transition: background-color 0.4s, color 0.4s;
 
+                &:hover {
+                    background-color: var(--second-color);
+                }
                 &:hover > .sub-menu {
                     display: block;
                 }
@@ -35,10 +38,10 @@
                 .sub-menu {
                     display: none;
                     position: absolute;
-                    background-color: var(--primary-color);
+                    background-color: var(--second-color);
                     padding: 15px 0px;
                     list-style-type: none;
-                    width: 250px;
+                    width: 235px;
                     top: 100%;
                     left: 0;
 

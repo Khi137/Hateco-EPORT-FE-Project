@@ -4,6 +4,7 @@ import { Minput } from "./components/BasicUI";
 import { isMobileOnly, isMobile } from "react-device-detect";
 import { Mcard, Mselect } from "./components/BasicUI";
 import Header from "./components/Header";
+import MainRoutes from "./router/MainRoutes";
 
 class App extends React.Component {
   constructor(props) {
@@ -43,6 +44,7 @@ class App extends React.Component {
     return (
       <>
         <Header />
+        <MainRoutes />
       </>
     );
   }

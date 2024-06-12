@@ -1,0 +1,121 @@
+.tongquan-container{
+    display: flex;
+    padding: var(--padding-page);
+    .tacnghiep-panel, .huongdan-panel {
+        border: 1px solid var(--second-color);
+        border-radius: 4px;
+    }
+    .tacnghiep-panel {
+        flex: 4;
+        margin-right: var(--padding-page);
+        .header{
+            width: 100%;
+            height: 60px;
+            background-color: var(--second-color);
+            color: white;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px 4px 0 0;
+        }
+        .danhsach-lenhha{
+            margin: 0;
+            list-style-type: none;
+            padding: var(--padding-page);
+            li{
+                border: 2px solid var(--second-color);
+                margin-bottom: var(--padding-page);
+                padding: 16px 0 16px 24px;
+                font-size: 20px;
+                color: var(--second-color);
+                border-radius: 4px;
+                &:hover {
+                    background-color: lightgray;
+                    cursor: pointer;
+                    transition: 0.2s;
+                }
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+            
+        }
+    }
+    .huongdan-panel {
+        flex: 8;
+        // padding: var(--padding-page);
+        position: relative;
+        .header{
+            font-size: 24px;
+            padding: var(--padding-page);
+            .huongdan{
+                padding: 0 var(--padding-page);
+                border-left: 1px solid black;
+                border-right: 1px solid black;
+            }
+            .lenh{
+                padding: 0 var(--padding-page);
+                border-right: 1px solid black;
+            }
+            .buoc{
+                padding: 0 var(--padding-page);
+            }
+        }
+        .modal-huongdan{
+            width: 280px;
+            height: 100%;
+            background-color: white;
+            border-radius: 4px 0 0 4px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            header{
+                border-bottom: 1px solid lightgray;
+                padding: var(--padding-page);
+                span{
+                    padding: var(--padding-page);
+                    border-right: 1px solid lightgray;
+                }
+            }
+            #main-huongdan{
+                list-style-type: none;
+                padding: var(--padding-page);
+                li{
+                    list-style-type: none;
+                    cursor: pointer;
+                    margin-bottom: var(--padding-page);
+                    span {
+                        margin-left: var(--padding-page);
+                    }
+                    ul {
+                        .subtext-menu{
+                            margin-top: var(--padding-page);
+                            padding: 0 var(--padding-page);
+                        }
+                        .subtext-menu:hover{
+                            background-color: lightgray;
+                            transition: 0.3s;
+                        }
+                    }
+                   
+                }
+            }
+        }
+        .huongdanchitiet{
+            height: 600px;
+        }
+    }
+}
+
+.black-shadow::before  {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background-color: rgba(0,0,0,0.3);
+}

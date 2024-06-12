@@ -1,9 +1,14 @@
 import React, { Component } from "react";
 import { Routes, Route } from "react-router-dom";
+import Tongquan from "../Tongquan";
 
 class MainRoutes extends Component {
   render() {
-    return <Routes></Routes>;
+    return (
+      <Routes>
+        <Route path="/" element={<Tongquan />} />
+      </Routes>
+    );
   }
 }
 
