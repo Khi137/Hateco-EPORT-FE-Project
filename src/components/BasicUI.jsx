@@ -1540,6 +1540,7 @@ class Minput extends React.Component {
                     this.setState({ passVisibleIcon: "EyeOutlined" })
                 } else {
                     this.inputRef.current.type = "password";
+                    this.inputRef.current.type = "password";
                     this.setState({ passVisibleIcon: "EyeInvisibleOutlined" })
                 }
             }
