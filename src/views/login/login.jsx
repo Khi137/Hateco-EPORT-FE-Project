@@ -6,9 +6,11 @@ import './styles.scss'
 import { Mbutton, Mcheckbox, Winput } from "../../components/BasicUI"
 import UnAuthHeader from '../../components/UnAuthHeader/UnAuthHeader';
 import Footer from '../../components/Footer/Footer';
+import { withRouter } from '../../utils/withRouter';
 
 const { Link } = Typography;
 class Login extends Component {
+
 
     constructor(props) {
         super(props);
@@ -63,6 +65,13 @@ class Login extends Component {
     }
 
     handleFormSubmit = () => {
+        if (
+            !this.checkUserError(this.state.formData.user) &&
+            !this.checkPasswordError(this.state.formData.password)
+        ) {
+            console.log('Form Data:', this.state.formData);
+            this.props.navigate('/home')
+        }
         this.setState(prevState => ({
             formData: {
                 ...prevState.formData,
@@ -70,8 +79,30 @@ class Login extends Component {
                 passwordError: this.checkPasswordError(this.state.formData.password),
             }
         }));
-        console.log('Form Data:', this.state.formData);
     };
+
+    renderInputField = (item) => {
+        return (
+            <Col className="form_item ">
+                <Row className="item_header">
+                    <Col>{item?.title} <span className="item_require">*</span></Col>
+                    <Tooltip placement="top" title={item?.tooltip} className="item_tooltip">
+                        <InfoCircleOutlined />
+                    </Tooltip>
+                </Row>
+                <Winput
+                    name={item?.name}
+                    type={item?.type}
+                    className={`form_input_field ${item?.error ? 'error_item' : ''}`}
+                    prefix={item?.inputIcon}
+                    placeholder={item?.placeholder}
+                    value={item?.value}
+                    onChange={this.handleInputChange}
+                />
+                <Row className="item_bottom">{item?.error && item?.error}</Row>
+            </Col>
+        )
+    }
 
     render() {
         const { formData } = this.state;
@@ -81,6 +112,29 @@ class Login extends Component {
             label: "Ghi nhớ mật khẩu",
             value: formData.remember,
         };
+
+        const inputForm = [
+            {
+                title: "Tên đăng nhập",
+                tooltip: "Email, sđt hoặc username",
+                placeholder: "Email, sđt hoặc username",
+                inputIcon: <MailOutlined />,
+                name: "user",
+                type: "text",
+                value: formData.user,
+                error: formData.userError
+            },
+            {
+                title: "Nhập mật khẩu",
+                tooltip: "Nhập mật khẩu",
+                placeholder: "Nhập mật khẩu",
+                inputIcon: <LockOutlined />,
+                name: "password",
+                type: "password",
+                value: formData.password,
+                error: formData.passwordError
+            },
+        ]
 
         return (
             <Col className='login_container' >
@@ -97,42 +151,7 @@ class Login extends Component {
                             <Typography.Title level={3} className="button_text">Đăng nhập</Typography.Title>
                         </Col>
 
-                        <Col className="form_item ">
-                            <Row className="item_header">
-                                <Col>Tên đăng nhập <span className="item_require">*</span></Col>
-                                <Tooltip placement="top" title={"Email, sđt hoặc username"} className="item_tooltip">
-                                    <InfoCircleOutlined />
-                                </Tooltip>
-                            </Row>
-                            <Winput
-                                name="user"
-                                className={`form_input_field ${formData.userError ? 'error_item' : ''}`}
-                                prefix={<MailOutlined />}
-                                placeholder="Email, sđt hoặc username"
-                                value={formData.user}
-                                onChange={this.handleInputChange}
-                            />
-                            <Row className="item_bottom">{formData.userError && formData.userError}</Row>
-                        </Col>
-
-                        <Col className="form_item">
-                            <Row className="item_header">
-                                <Col>Nhập mật khẩu <span className="item_require">*</span></Col>
-                                <Tooltip placement="top" title={"Nhập mật khẩu"} className="item_tooltip">
-                                    <InfoCircleOutlined />
-                                </Tooltip>
-                            </Row>
-                            <Winput
-                                name="password"
-                                type="password"
-                                className={`form_input_field ${formData.passwordError ? 'error_item' : ''}`}
-                                prefix={<LockOutlined />}
-                                placeholder="Nhập mật khẩu"
-                                visibilityToggle={true}
-                                onChange={this.handleInputChange}
-                            />
-                            <Row className="item_bottom">{formData.passwordError && formData.passwordError}</Row>
-                        </Col>
+                        {inputForm.map((item) => this.renderInputField(item))}
 
                         <Col className="form_item space_margin">
                             <Mcheckbox dataSource={checkboxDataSource} onClick={() => this.handleCheckboxChange(!formData.remember)} />
@@ -158,4 +177,4 @@ class Login extends Component {
     }
 }
 
-export default Login
+export default withRouter(Login)
