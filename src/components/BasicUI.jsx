@@ -694,7 +694,7 @@ class Mupload extends React.Component {
                                 <Button icon={<LOL.UploadOutlined />}>{this.data.label}</Button>
                         }
                     </Upload>
-                    {(this.props.dataSource||{}).extends?this.props.dataSource.extends:''}
+                    {(this.props.dataSource || {}).extends ? this.props.dataSource.extends : ''}
                 </Modal>
                 <Tooltip placement="right" title="Đính kèm chứng từ" defaultVisible={true}>
                     <LOL.LinkOutlined style={{ fontSize: "20px" }} className="m-upload" onClick={() => this.setState({ isShow: true })} />
@@ -763,14 +763,14 @@ class Mstep extends React.Component {
 
 export class Winput extends React.Component {
     constructor(props) {
-        // super(props);
-        // this.state = {
-        //     value: (this.props.value || '')
-        // }
-        // if (this.props.ref || this.props.id) {
-        //     if (!window.Winput) window.Winput = {};
-        //     window.Winput[this.props.ref || this.props.id || 'Winput_'] = this;
-        // }
+        super(props);
+        this.state = {
+            value: (this.props.value || '')
+        }
+        if (this.props.ref || this.props.id) {
+            if (!window.Winput) window.Winput = {};
+            window.Winput[this.props.ref || this.props.id || 'Winput_'] = this;
+        }
         // $("#" + (this.props.ref || this.props.id || 'Winput_')).data({ value: this.props.value });
     }
     componentDidMount() {
@@ -1662,9 +1662,9 @@ class Minput extends React.Component {
                                                 this.setState({ value: '' });
                                                 this.handleChange({ target: { value: '' } });
                                             }
-                                            if(data.onClear && typeof data.onClear=='function'){
+                                            if (data.onClear && typeof data.onClear == 'function') {
                                                 data.onClear();
-                                                if(data?.onChange && typeof data?.onChange=='function'){
+                                                if (data?.onChange && typeof data?.onChange == 'function') {
                                                     data?.onChange('');
                                                 }
                                             }
@@ -1993,7 +1993,7 @@ class Mcheckbox extends React.Component {
                 md={span.md || span}
                 lg={span.lg || span}
                 style={data.style}
-                className={"m-form__box "+(data.className||'')}
+                className={"m-form__box " + (data.className || '')}
             >
                 <div className="m-form__input">
                     <Checkbox
@@ -2047,7 +2047,7 @@ class Mselect extends React.Component {
         if (!e.target.value || e.target.value === "default") {
             e.target.parentElement.getElementsByTagName('label')[0].classList.remove('m-form__label--focus');
         }
-        
+
         if (typeof (this.props.dataSource || {}).onBlur == "function") {
             (this.props.dataSource || {}).onBlur(e.target.value)
         }
@@ -2061,7 +2061,7 @@ class Mselect extends React.Component {
         let data = this.props.dataSource;
         var options = (this.state.options || data.options || []).map((item, ii) => {
             let temp;
-            if (value+'' == item.value+'') {
+            if (value + '' == item.value + '') {
                 temp = <option
                     key={item.value + '' + ii}
                     value={item.value}
