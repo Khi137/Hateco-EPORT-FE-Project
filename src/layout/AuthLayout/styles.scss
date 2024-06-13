@@ -1,0 +1,25 @@
+.auth_layout {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-flow: column;
+
+    .auth_layout_header {
+        width: 100%;
+        flex: 0 1 auto;
+    }
+
+    .auth_layout_content {
+        flex-grow: 1;
+        width: 100%;
+        flex: 1 1 auto;
+    }
+
+    .auth_layout_footer {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        flex: 0 1 auto;
+    }
+}

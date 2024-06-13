@@ -5,6 +5,7 @@ import { isMobileOnly, isMobile } from "react-device-detect";
 import { Mcard, Mselect } from "./components/BasicUI";
 import Header from "./components/Header";
 import MainRoutes from "./router/MainRoutes";
+import "./App.css"
 
 class App extends React.Component {
   constructor(props) {
