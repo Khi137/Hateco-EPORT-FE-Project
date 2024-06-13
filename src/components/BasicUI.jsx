@@ -804,40 +804,69 @@ class Mstep extends React.Component {
 
 export class Winput extends React.Component {
   constructor(props) {
-    // super(props);
-    // this.state = {
-    //     value: (this.props.value || '')
-    // }
-    // if (this.props.ref || this.props.id) {
-    //     if (!window.Winput) window.Winput = {};
-    //     window.Winput[this.props.ref || this.props.id || 'Winput_'] = this;
-    // }
-    // $("#" + (this.props.ref || this.props.id || 'Winput_')).data({ value: this.props.value });
+      super(props);
+      this.state = {
+          value: (this.props.value || '')
+      }
+      if (this.props.ref || this.props.id) {
+          if (!window.Winput) window.Winput = {};
+          window.Winput[this.props.ref || this.props.id || 'Winput_'] = this;
+      }
+      // $("#" + (this.props.ref || this.props.id || 'Winput_')).data({ value: this.props.value });
   }
   componentDidMount() {
-    // $("#" + (this.props.ref || this.props.id || 'Winput_')).data({ value: (this.props.value || '') });
+      // $("#" + (this.props.ref || this.props.id || 'Winput_')).data({ value: (this.props.value || '') });
   }
   handleChange(dt) {
-    this.setState({
-      value: dt.target.value,
-    });
+      this.setState({
+          value: dt.target.value
+      });
+
   }
   render() {
-    // $("#" + (this.props.ref || this.props.id || 'Winput_')).data(this.state);
-    return (
-      <Input
-        {...this.props}
-        defaultValue={this.state.value || ""}
-        value={this.state.value || ""}
-        onChange={(dt) => {
-          this.handleChange(dt);
-          if (typeof this.props.onChange == "function") this.props.onChange(dt);
-        }}
-        className={"Winput " + (this.props.className || "")}
-      ></Input>
-    );
+      // $("#" + (this.props.ref || this.props.id || 'Winput_')).data(this.state);
+      return (
+          <Input {...this.props} defaultValue={this.state.value || ''} value={this.state.value || ''} onChange={(dt) => { this.handleChange(dt); if (typeof this.props.onChange == 'function') this.props.onChange(dt); }} className={"Winput " + (this.props.className || '')}></Input>
+      );
   }
 }
+
+// export class Winput extends React.Component {
+//   constructor(props) {
+//     // super(props);
+//     // this.state = {
+//     //     value: (this.props.value || '')
+//     // }
+//     // if (this.props.ref || this.props.id) {
+//     //     if (!window.Winput) window.Winput = {};
+//     //     window.Winput[this.props.ref || this.props.id || 'Winput_'] = this;
+//     // }
+//     // $("#" + (this.props.ref || this.props.id || 'Winput_')).data({ value: this.props.value });
+//   }
+//   componentDidMount() {
+//     // $("#" + (this.props.ref || this.props.id || 'Winput_')).data({ value: (this.props.value || '') });
+//   }
+//   handleChange(dt) {
+//     this.setState({
+//       value: dt.target.value,
+//     });
+//   }
+//   render() {
+//     // $("#" + (this.props.ref || this.props.id || 'Winput_')).data(this.state);
+//     return (
+//       <Input
+//         {...this.props}
+//         defaultValue={this.state.value || ""}
+//         value={this.state.value || ""}
+//         onChange={(dt) => {
+//           this.handleChange(dt);
+//           if (typeof this.props.onChange == "function") this.props.onChange(dt);
+//         }}
+//         className={"Winput " + (this.props.className || "")}
+//       ></Input>
+//     );
+//   }
+// }
 class Mcollapse extends React.Component {
   constructor(props) {
     super(props);
@@ -2265,77 +2294,65 @@ class Mform extends React.Component {
 
 class Mcheckbox extends React.Component {
   constructor(props) {
-    super(props);
-    this.state = {
-      value: this.props?.value || false,
-    };
-    this.checkboxRef = React.createRef();
+      super(props);
+      this.state = {
+          value: this.props.value || false
+      }
+
   }
 
   componentDidMount() {
-    const id =
-      this.props.id ||
-      this.props.ref ||
-      this.props.dataSource?.id ||
-      this.props.dataSource?.ref;
-    if (id && this.checkboxRef.current) {
-      this.checkboxRef.current.dataset.component = this;
-      if (!window.component) window.component = {};
-      window.component[id] = this;
-    }
+      // $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
+      // if (!window.component) window.component = {}; window.component[(this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)] = this;
+
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.value !== this.props.value) {
-      this.setState({ value: nextProps.value });
-    }
+  componentWillReceiveProps() {
+      if (this.props.value !== this.props.value) {
+          this.setState({ value: this.props.value });
+      }
   }
 
-  handleChange = (e) => {
-    this.setState({ value: e.target.checked });
-    if (this.props.onChangeValue) {
-      let returnvalue = {
-        key: e.target.dataset.key,
-        checked: e.target.checked,
-      };
-      this.props.onChangeValue(returnvalue, this);
-    }
-    if (this.props.dataSource && this.props.dataSource.onChange) {
-      this.props.dataSource.onChange(e.target.checked, this);
-    }
-  };
+  handleChange(e) {
+      this.setState({ value: e.target.checked });
+      if (this.props.onChangeValue) {
+          let returnvalue = {};
+          returnvalue["key"] = e.target.dataSource.key;
+          returnvalue["checked"] = e.target.checked;
+          this.setState({ value: e.target.checked });
+          this.props.onChangeValue(returnvalue, this);
+      }
+      if (this.props.dataSource && this.props.dataSource.onChange) {
+          this.props.dataSource.onChange(e.target.checked, this);
+      }
+  }
 
   render() {
-    let data = this.props.dataSource;
-    let span = data?.span || 24;
-    if (
-      typeof data?.value !== "undefined" &&
-      typeof this.props?.value === "undefined"
-    ) {
-      this.props.value = data.value;
-    }
-    return (
-      <Col
-        xs={span.xs || span}
-        sm={span.sm || span}
-        md={span.md || span}
-        lg={span.lg || span}
-        style={data?.style}
-        className={"m-form__box " + (data?.className || "")}
-      >
-        <div className="m-form__input">
-          <Checkbox
-            id={data?.ref}
-            ref={this.checkboxRef}
-            checked={this.props.dataSource?.value}
-            onChange={this.handleChange}
-            {...this.props}
+      let data = this.props.dataSource;
+      let span = data.span || 24;
+      if (typeof data.value != 'undefined' && typeof this.props.value == 'undefined') {
+          // this.props.value == data.value;
+      }
+      return (
+          <Col
+              xs={span.xs || span}
+              sm={span.sm || span}
+              md={span.md || span}
+              lg={span.lg || span}
+              style={data.style}
+              className={"m-form__box " + (data.className || '')}
           >
-            {data?.label}
-          </Checkbox>
-        </div>
-      </Col>
-    );
+              <div className="m-form__input">
+                  <Checkbox
+                      id={data.ref}
+                      checked={this.props.dataSource.value}
+                      onChange={this.handleChange.bind(this)}
+                      {...this.props}>
+                      {data.label}
+                  </Checkbox>
+              </div>
+          </Col>
+      );
   }
 }
 

@@ -1,41 +1,11 @@
 import React from "react";
-import {
-    Mcollapse,
-    Mdrawer,
-    Mcapcha,
-    Mtab,
-    Mrangepicker,
-    Msearch,
-    Minput,
-    Mbutton,
-    Mcard,
-    Mtable,
-    Mdatepicker,
-    Mradio,
-    Mform,
-    Mcheckbox,
-    Mselect,
-    Mswitch,
-    Mdivider,
-    Mdropdown,
-    MoneFieldInput,
-    Mstep,
-    MnonEditInput,
-    Mcarousel,
-    Mupload,
-    Mpagination,
-    Mimage,
-    Mlist,
-    Mautocomplete,
-    Mselectsearch,
-    MMobileTabs,
-    MeditInput,
-    MeditSelect,
-    Mprogress,
-    Mmultiswitch,
-} from "./components/BasicUI";
+import { Minput } from "./components/BasicUI";
 
 import { isMobileOnly, isMobile } from "react-device-detect";
+import { Mcard, Mselect } from "./components/BasicUI";
+import Header from "./components/Header";
+import MainRoutes from "./router/MainRoutes";
+import Footer from "./components/Footer";
 
 class App extends React.Component {
   constructor(props) {
@@ -46,6 +16,7 @@ class App extends React.Component {
       responsive: "m-desktop",
     };
   }
+ 
 
   resizeDetect() {
     let deviceClass = "m-desktop";
@@ -66,8 +37,7 @@ class App extends React.Component {
         }
       }
     }
-
-    document.getElementsByTagName("body").classList.add(deviceClass);
+ 
   }
 
   render() {
@@ -79,6 +49,15 @@ class App extends React.Component {
       </>
     );
   }
+  render() {
+    let test = process.env.REACT_APP_API_HOST;
+    return (
+      <>
+        <MainRoutes />
+      </>
+    );
+  }
 }
-
 export default App;
+
+

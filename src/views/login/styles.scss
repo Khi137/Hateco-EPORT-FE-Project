@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap');
+
+$breakpoint-large-desktop: 1200px;
+$breakpoint-small-desktop: 992px;
+$breakpoint-tablet: 768px;
+$breakpoint-large-mobile: 576px;
+$breakpoint-small-mobile: 575px;
+
+.login_container {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+
+
+    a,
+    div,
+    p,
+    span,
+    li {
+        font-family: 'IBM Plex Sans', sans-serif !important;
+    }
+
+    .login_content {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+
+        background-image: url('../../assets/backgroundImage/LoginBackground.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+
+        .login_form {
+            width: 400px;
+            // height: 450px;
+            padding: 18px;
+            background-color: white;
+
+            .form_item {
+                margin-bottom: 12px;
+
+                .item_header {
+                    margin-bottom: 12px;
+
+                    .item_tooltip {
+                        margin: 0 5px;
+                    }
+
+                    .item_require {
+                        color: red;
+                    }
+                }
+
+                .item_bottom {
+                    height: 16px;
+                    margin-top: 4px;
+                    font-size: 12px;
+                    color: red;
+                }
+
+                .error_item {
+                    border-color: red;
+                }
+
+                .form_button {
+                    height: 40px;
+                }
+
+                .form_button:hover {
+                    background-color: #1450A3;
+                }
+
+                .form_input_field {
+                    height: 40px;
+                }
+
+                .button_text {
+                    text-align: center;
+                    margin: 12px;
+                    font-family: 'IBM Plex Sans', sans-serif;
+                }
+            }
+
+            .form_header {
+                margin: 0;
+            }
+
+            .space_margin {
+                margin: 12px auto;
+                text-align: center;
+                display: flex;
+                justify-content: center;
+
+                div {
+                    display: flex;
+                    justify-content: center;
+                }
+            }
+
+            .bottom_link {
+                padding: 0 20px;
+                margin: 20px 0;
+                font-weight: 400;
+                border-top: 1px solid #E5E5E5;
+                color: #1B6DDF;
+            }
+        }
+
+        @media (max-width: $breakpoint-small-desktop) {
+            .login_form {
+                width: 400px;
+                height: 450px;
+                padding: 0 18px;
+                background-color: white;
+            }
+        }
+    }
+
+    .header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+}
