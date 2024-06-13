@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import "./Header.scss";
+import logoHateco from "../assets/hateco_logo_bg-removebg.png";
 import {
   AlignCenterOutlined,
   BarChartOutlined,
@@ -52,10 +53,7 @@ class Header extends Component {
       <div className="header-container">
         <div className="header">
           <div className="logo-main">
-            <img
-              src={"https://hatecogroup.vn/Styles/images/hateco-logo.svg"}
-              className="image-logo"
-            />
+            <img src={logoHateco} className="image-logo" />
           </div>
           <div className="text-main">
             Công ty TNHH Cảng Container Quốc Tế Hateco Hải Phòng

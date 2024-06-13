@@ -37,9 +37,17 @@ class App extends React.Component {
       }
     }
 
-    document.getElementsByTagName("body").classList.add(deviceClass);
   }
 
+  // render() {
+  //   let test = process.env.REACT_APP_API_HOST;
+  //   return (
+  //     <>
+  //       <h1>{test}</h1>
+  //       <Mselect/>
+  //     </>
+  //   );
+  // }
   render() {
     let test = process.env.REACT_APP_API_HOST;
     return (
@@ -49,5 +57,6 @@ class App extends React.Component {
     );
   }
 }
-
 export default App;
+
+

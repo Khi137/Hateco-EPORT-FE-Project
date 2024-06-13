@@ -82,7 +82,9 @@ export class Tongquan extends Component {
           </div>
           <div
             className={
-              this.state.modal ? "huongdan-panel black-shadow" : "huongdan-panel"
+              this.state.modal
+                ? "huongdan-panel black-shadow"
+                : "huongdan-panel"
             }
           >
             <header className="header">
@@ -141,7 +143,6 @@ export class Tongquan extends Component {
           </div>
         </div>
       </>
-
     );
   }
 }
