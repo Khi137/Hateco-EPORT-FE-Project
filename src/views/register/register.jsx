@@ -7,8 +7,7 @@ import { Mbutton, Mcheckbox, Winput } from "../../components/BasicUI"
 import { withRouter } from '../../utils/withRouter';
 import { NavLink } from 'react-router-dom';
 
-class Login extends Component {
-
+class Register extends Component {
 
     constructor(props) {
         super(props);
@@ -63,25 +62,25 @@ class Login extends Component {
     }
 
     handleFormSubmit = () => {
-        const formData = this.state.formData
-        if (
-            !this.checkUserError(formData.user) &&
-            !this.checkPasswordError(formData.password)
-        ) {
-            console.log('Form Data:', {
-                user: formData.user,
-                password: formData.password,
-                remember: formData.remember,
-            });
-            this.props.navigate('/home')
-        }
-        this.setState(prevState => ({
-            formData: {
-                ...prevState.formData,
-                userError: this.checkUserError(formData.user),
-                passwordError: this.checkPasswordError(formData.password),
-            }
-        }));
+        // const formData = this.state.formData
+        // if (
+        //     !this.checkUserError(formData.user) &&
+        //     !this.checkPasswordError(formData.password)
+        // ) {
+        //     console.log('Form Data:', {
+        //         user: formData.user,
+        //         password: formData.password,
+        //         remember: formData.remember,
+        //     });
+        this.props.navigate('/login')
+        // }
+        // this.setState(prevState => ({
+        //     formData: {
+        //         ...prevState.formData,
+        //         userError: this.checkUserError(formData.user),
+        //         passwordError: this.checkPasswordError(formData.password),
+        //     }
+        // }));
     };
 
     renderInputField = (item) => {
@@ -148,7 +147,7 @@ class Login extends Component {
                         className="login_form"
                     >
                         <Col className="form_item form_header">
-                            <Typography.Title level={3} className="button_text">Đăng nhập</Typography.Title>
+                            <Typography.Title level={3} className="button_text">Đăng ký</Typography.Title>
                         </Col>
 
                         {inputForm.map((item) => this.renderInputField(item))}
@@ -159,13 +158,13 @@ class Login extends Component {
 
                         <Col className="form_item">
                             <Mbutton className='form_button' type="primary" htmlType="submit" block onClick={this.handleFormSubmit}>
-                                Đăng nhập
+                                Đăng ký
                             </Mbutton>
                         </Col>
 
                         <Row justify="space-between" className="form_item bottom_link">
-                            <NavLink to="/register">Đăng ký</NavLink>
-                            <NavLink to="/forgot-password" >Quên mật khẩu?</NavLink>
+                            <NavLink to="/login">Đăng nhập</NavLink>
+                            <NavLink to="/forgot-password">Quên mật khẩu?</NavLink>
                         </Row>
                     </Col>
                 </Row>
@@ -174,4 +173,4 @@ class Login extends Component {
     }
 }
 
-export default withRouter(Login)
+export default withRouter(Register)
