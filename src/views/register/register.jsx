@@ -13,11 +13,23 @@ class Register extends Component {
         super(props);
         this.state = {
             formData: {
-                user: "",
+
+                taxNumber: "",
+                companyName: "",
+                address: "",
+                businessNumber: "",
+                phoneNumber: "",
+                email: "",
                 password: "",
-                userError: false,
+                rePassword: "",
+                taxNumberError: false,
+                companyNameError: false,
+                addressError: false,
+                businessNumberError: false,
+                phoneNumberError: false,
+                emailError: false,
                 passwordError: false,
-                remember: false
+                rePasswordError: false,
             }
         };
     }
@@ -72,7 +84,7 @@ class Register extends Component {
         //         password: formData.password,
         //         remember: formData.remember,
         //     });
-        this.props.navigate('/login')
+        // this.props.navigate('/login')
         // }
         // this.setState(prevState => ({
         //     formData: {
@@ -85,7 +97,7 @@ class Register extends Component {
 
     renderInputField = (item) => {
         return (
-            <Col className="form_item ">
+            <Col className="form_item gutter-row" span={12}>
                 <Row className="item_header">
                     <Col>{item?.title} <span className="item_require">*</span></Col>
                     <Tooltip placement="top" title={item?.tooltip} className="item_tooltip">
@@ -111,46 +123,108 @@ class Register extends Component {
 
         const checkboxDataSource = {
             span: 12,
-            label: "Ghi nhớ mật khẩu",
+            label: "Tôi đồng ý với điều khoản thỏa thuận.",
             value: formData.remember,
         };
 
         const inputForm = [
             {
-                title: "Tên đăng nhập",
-                tooltip: "Email, sđt hoặc username",
-                placeholder: "Email, sđt hoặc username",
-                inputIcon: <MailOutlined />,
-                name: "user",
+                title: "Mã số thuế:",
+                tooltip: "Nhập mã số thuế",
+                placeholder: "Nhập mã số thuế",
+                // inputIcon: <MailOutlined />,
+                name: "taxNumber",
                 type: "text",
-                value: formData.user,
-                error: formData.userError
+                value: formData.taxNumber,
+                error: formData.taxNumberError
             },
             {
-                title: "Nhập mật khẩu",
+                title: "Tên doanh nghiệp:",
+                tooltip: "Nhập tên doanh nghiệp",
+                placeholder: "Nhập tên doanh nghiệp",
+                // inputIcon: <LockOutlined />,
+                name: "companyName",
+                type: "text",
+                value: formData.companyName,
+                error: formData.companyNameError
+            },
+            {
+                title: "Địa chỉ:",
+                tooltip: "Nhập địa chỉ",
+                placeholder: "Nhập địa chỉ",
+                // inputIcon: <LockOutlined />,
+                name: "address",
+                type: "text",
+                value: formData.address,
+                error: formData.addressError
+            },
+            {
+                title: "Số đăng ký kinh doanh:",
+                tooltip: "Nhập số đăng ký kinh doanh",
+                placeholder: "Nhập số đăng ký kinh doanh",
+                // inputIcon: <LockOutlined />,
+                name: "businessNumber",
+                type: "text",
+                value: formData.businessNumber,
+                error: formData.businessNumberError
+            },
+            {
+                title: "Số điện thoại:",
+                tooltip: "Nhập số điện thoại",
+                placeholder: "Nhập số điện thoại",
+                // inputIcon: <LockOutlined />,
+                name: "phoneNumber",
+                type: "text",
+                value: formData.phoneNumber,
+                error: formData.phoneNumberError
+            },
+            {
+                title: "Mật khẩu:",
                 tooltip: "Nhập mật khẩu",
                 placeholder: "Nhập mật khẩu",
-                inputIcon: <LockOutlined />,
+                // inputIcon: <LockOutlined />,
                 name: "password",
                 type: "password",
                 value: formData.password,
                 error: formData.passwordError
             },
+            {
+                title: "Email:",
+                tooltip: "Nhập email",
+                placeholder: "Nhập email",
+                // inputIcon: <LockOutlined />,
+                name: "email",
+                type: "text",
+                value: formData.email,
+                error: formData.emailError
+            },
+            {
+                title: "Nhập lại mật khẩu:",
+                tooltip: "Nhập lại mật khẩu",
+                placeholder: "Nhập lại mật khẩu",
+                // inputIcon: <LockOutlined />,
+                name: "password",
+                type: "password",
+                value: formData.rePassword,
+                error: formData.rePasswordError
+            },
         ]
 
         return (
-            <Col className='login_container' >
-                <Row className="login_content">
+            <Col className='register_container' >
+                <Row className="register_content">
                     <Col
-                        name="login_form"
+                        name="register_form"
                         layout="vertical"
-                        className="login_form"
+                        className="register_form"
                     >
                         <Col className="form_item form_header">
                             <Typography.Title level={3} className="button_text">Đăng ký</Typography.Title>
                         </Col>
+                        <Row gutter={[16]}>
+                            {inputForm.map((item) => this.renderInputField(item))}
+                        </Row>
 
-                        {inputForm.map((item) => this.renderInputField(item))}
 
                         <Col className="form_item space_margin">
                             <Mcheckbox dataSource={checkboxDataSource} onClick={() => this.handleCheckboxChange(!formData.remember)} />
@@ -161,11 +235,6 @@ class Register extends Component {
                                 Đăng ký
                             </Mbutton>
                         </Col>
-
-                        <Row justify="space-between" className="form_item bottom_link">
-                            <NavLink to="/login">Đăng nhập</NavLink>
-                            <NavLink to="/forgot-password">Quên mật khẩu?</NavLink>
-                        </Row>
                     </Col>
                 </Row>
             </Col >

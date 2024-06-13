@@ -111,9 +111,12 @@ class Login extends Component {
         const { formData } = this.state;
 
         const checkboxDataSource = {
-            span: 12,
             label: "Ghi nhớ mật khẩu",
             value: formData.remember,
+            dataSource: {
+                span: 12,
+                value: formData.remember,
+            }
         };
 
         const inputForm = [
