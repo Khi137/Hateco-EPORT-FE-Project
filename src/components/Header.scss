@@ -1,16 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap');
 .header-container {
-    height: 170px;
+    height: 156px;
     background-image: url("https://static.kinhtedothi.vn/w960/images/upload/2024/01/08/hateco.jpg");
     object-fit: cover;
     position: relative;
     font-family: 'IBM Plex Sans', sans-serif !important;
-
     .header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0 45px;
+        padding: 5px 45px 0px 45px;
     }
 
     .nav {
@@ -73,13 +72,111 @@
             }
         }
     }
+   .menu{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 90%);
+    z-index: 10;
+    color: white;
+    width: 80%;
+    .navigate{
+        padding: var(--padding-page);
+        background-color: var(--primary-color);
+        display: flex;
+        align-items: center;
+        .tongquan{
+            margin: 0 12px;
+            padding: 4px var(--padding-page);
+            background-color: white;
+            color: black;
+            font-size: 18px;
+            text-transform: uppercase;
+            border-radius: 4px;
+        }
+        .des {
+            span {
+                &:nth-of-type(1){
+                    margin-right: 12px;
+                    padding-right: 12px;
+                    border-right: 1px solid white;
+                }
+            }
+        }
+    }
+    .danhsach-menu{
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 100%;
+        transform: translate(-50%, 12%);
+        color: white;
+        display: flex;
+        padding: 0;
+        margin: 0;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        
+        .danhmuc-cha{
+            background-color: var(--third-color);
+            border-right: 1px solid var(--primary-color);
+            width: 20%;
+            ul{
+                padding-left: 0;
+                list-style-type: none;
+                li{
+                    padding: var(--padding-page) var(--padding-page) var(--padding-page) 24px;
+                    cursor: pointer;
+                }
+            }
+            .active {
+                background-color: var(--primary-color);
+            }
+        }
+        .danhmuc-con {
+            background-color:white;
+            color: black;
+            width: 100%;
+            ul {
+              display: grid;
+              grid-template-columns: repeat(4, 1fr);
+              gap: 20px;
+              list-style: none;
+              padding: var(--padding-page);
+              margin: var(--padding-page);
+          
+              li {
+                margin-left: var(--padding-page);
+                // border: 1px solid var(--primary-color);
+                width: 180px;
+                min-height: 40px;
+                border-radius: 4px;
+                padding: var(--padding-page);
+                &:nth-of-type(4n + 1) {
+                  margin-left: 0;
+                }
+          
+                span {
+                  transition: color 0.3s ease; 
+                }
+          
+                // &:hover {
+                //     transition: 0.2s ease-in;
+                //   background-color: var(--third-color);
+                //   color: white;
+                //   cursor: pointer;
+                // }
+              }
+            }
+          }
+    }
+   }
 }
 
 .header-container::before {
     position: absolute;
     content: "";
     width: 100%;
-    height: 160px;
+    height: 100%;
     top: 0;
     left: 0;
     background-color: rgba(238, 238, 238, 0.6);
@@ -92,7 +189,7 @@
     color: var(--logo-main-2);
     font-size: 34px;
     font-weight: bold;
-    width: 800px;
+    width: 700px;
     text-align: center;
 }
 
