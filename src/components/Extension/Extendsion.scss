@@ -1,0 +1,26 @@
+.extension-container{
+    position: fixed;
+    top: 50%;
+    right: 0%;
+    transform: translate(0%, -50%);
+    align-items: center;
+    border-radius: 4px;
+    color: white;
+    ul{
+        display: flex;
+        list-style-type: none;
+        padding-left: 0;
+        li{
+            margin: 0 var(--padding-page);
+            cursor: pointer;
+           .icon{
+            font-size: 20px;
+           }
+        }
+    }
+}
+
+.remove-icon{
+    color: var(--logo-main-2);
+    cursor: pointer;
+}
