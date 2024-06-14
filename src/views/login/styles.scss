@@ -54,10 +54,16 @@ $breakpoint-sm: 360px;
 
                 .form_button {
                     height: 40px;
+                    background-color: rgb(0, 177, 204);
                 }
 
                 .form_button:hover {
-                    background-color: #1450A3;
+                    background-color: rgb(1, 159, 186);
+                }
+
+                .form_button:active {
+                    height: 40px;
+                    box-shadow: 0px 8px 8px 0px rgba(36, 104, 147, 0.5) inset;
                 }
 
                 .form_input_field {

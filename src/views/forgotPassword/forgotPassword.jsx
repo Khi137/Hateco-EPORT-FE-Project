@@ -25,14 +25,31 @@ class ForgotPassword extends Component {
         };
     }
 
-    handleInputChange = (e) => {
+    handleInputChange = (e, regex) => {
         const { name, value } = e.target;
-        this.setState(prevState => ({
-            formData: {
-                ...prevState.formData,
-                [name]: value
-            }
-        }));
+
+        if (value === "") {
+            this.setState(prevState => ({
+                formData: {
+                    ...prevState.formData,
+                    [name]: value
+                }
+            }));
+            return value
+        }
+
+        if (regex && !regex.test(value)) {
+            console.error(`Value does not match the regex: ${regex}`);
+            return
+        } else {
+            this.setState(prevState => ({
+                formData: {
+                    ...prevState.formData,
+                    [name]: value
+                }
+            }));
+        }
+        return value
     };
 
     handleCheckboxChange = (value) => {
@@ -86,9 +103,9 @@ class ForgotPassword extends Component {
         // }));
     };
 
-    renderInputField = (item) => {
+    renderInputField = (item, key) => {
         return (
-            <Col className="form_item ">
+            <Col className="form_item " key={key}>
                 <Row className="item_header">
                     <Col>{item?.title || "tên"} <span className="item_require">*</span></Col>
                     <Tooltip placement="top" title={item?.tooltip} className="item_tooltip">
@@ -102,7 +119,7 @@ class ForgotPassword extends Component {
                     prefix={item?.inputIcon}
                     placeholder={item?.placeholder}
                     value={item?.value}
-                    onChange={this.handleInputChange}
+                    onChange={(e) => this.handleInputChange(e, item?.regex)}
                 />
                 <Row className="item_bottom">{item?.error && item?.error}</Row>
             </Col>
@@ -167,7 +184,7 @@ class ForgotPassword extends Component {
                             <Typography.Title level={3} className="button_text">Quên mật khẩu</Typography.Title>
                         </Col>
 
-                        {inputForm.map((item) => this.renderInputField(item))}
+                        {inputForm.map((item, key) => this.renderInputField(item, key))}
 
                         <Row justify="space-between" className="form_item bottom_link">
                             {/* <Link href="/register">Đăng ký</Link>

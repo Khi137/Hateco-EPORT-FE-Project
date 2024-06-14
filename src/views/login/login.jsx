@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import { Row, Col, Typography, Tooltip } from 'antd';
 import { InfoCircleOutlined, MailOutlined, LockOutlined } from '@ant-design/icons';
 import './styles.scss'
@@ -18,19 +18,37 @@ class Login extends Component {
                 password: "",
                 userError: false,
                 passwordError: false,
-                remember: false
+                remember: false,
             }
         };
+        this.mButtonRef = createRef();
     }
 
-    handleInputChange = (e) => {
+    handleInputChange = (e, regex) => {
         const { name, value } = e.target;
-        this.setState(prevState => ({
-            formData: {
-                ...prevState.formData,
-                [name]: value
-            }
-        }));
+
+        if (value === "") {
+            this.setState(prevState => ({
+                formData: {
+                    ...prevState.formData,
+                    [name]: value
+                }
+            }));
+            return value
+        }
+
+        if (regex && !regex.test(value)) {
+            console.error(`Value does not match the regex: ${regex}`);
+            return
+        } else {
+            this.setState(prevState => ({
+                formData: {
+                    ...prevState.formData,
+                    [name]: value
+                }
+            }));
+        }
+        return value
     };
 
     handleCheckboxChange = (value) => {
@@ -73,7 +91,15 @@ class Login extends Component {
                 password: formData.password,
                 remember: formData.remember,
             });
-            this.props.navigate('/home')
+            if (this.mButtonRef.current) {
+                this.mButtonRef.current.loading();
+            }
+            setTimeout(() => {
+                if (this.mButtonRef.current) {
+                    this.mButtonRef.current.reset();
+                    this.props.navigate('/home')
+                }
+            }, 2000);
         }
         this.setState(prevState => ({
             formData: {
@@ -84,9 +110,9 @@ class Login extends Component {
         }));
     };
 
-    renderInputField = (item) => {
+    renderInputField = (item, key) => {
         return (
-            <Col className="form_item ">
+            <Col className="form_item " key={key}>
                 <Row className="item_header">
                     <Col>{item?.title} <span className="item_require">*</span></Col>
                     <Tooltip placement="top" title={item?.tooltip} className="item_tooltip">
@@ -100,7 +126,7 @@ class Login extends Component {
                     prefix={item?.inputIcon}
                     placeholder={item?.placeholder}
                     value={item?.value}
-                    onChange={this.handleInputChange}
+                    onChange={(e) => this.handleInputChange(e, item?.regex)}
                 />
                 <Row className="item_bottom">{item?.error && item?.error}</Row>
             </Col>
@@ -154,14 +180,21 @@ class Login extends Component {
                             <Typography.Title level={3} className="button_text">Đăng nhập</Typography.Title>
                         </Col>
 
-                        {inputForm.map((item) => this.renderInputField(item))}
+                        {inputForm.map((item, key) => this.renderInputField(item, key))}
 
                         <Col className="form_item space_margin">
                             <Mcheckbox dataSource={checkboxDataSource} onClick={() => this.handleCheckboxChange(!formData.remember)} />
                         </Col>
 
                         <Col className="form_item">
-                            <Mbutton className='form_button' type="primary" htmlType="submit" block onClick={this.handleFormSubmit}>
+                            <Mbutton
+                                className='form_button'
+                                type="primary"
+                                htmlType="submit"
+                                block
+                                onClick={this.handleFormSubmit}
+                                ref={this.mButtonRef}
+                            >
                                 Đăng nhập
                             </Mbutton>
                         </Col>

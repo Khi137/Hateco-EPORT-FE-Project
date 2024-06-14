@@ -21,7 +21,6 @@ $breakpoint-sm: 360px;
 
         .register_form {
             width: 800px;
-            // height: 450px;
             padding: 18px;
             background-color: white;
             margin: 36px;
@@ -54,10 +53,21 @@ $breakpoint-sm: 360px;
 
                 .form_button {
                     height: 40px;
+                    background-color: rgb(0, 177, 204);
                 }
 
                 .form_button:hover {
-                    background-color: #1450A3;
+                    background-color: rgb(1, 159, 186);
+                }
+
+                .form_button:active {
+                    height: 40px;
+                    box-shadow: 0px 8px 8px 0px rgba(36, 104, 147, 0.5) inset;
+                }
+
+                .disable_button {
+                    opacity: 0.5;
+                    pointer-events: none;
                 }
 
                 .form_input_field {
@@ -68,6 +78,15 @@ $breakpoint-sm: 360px;
                     text-align: center;
                     margin: 12px;
                     font-family: 'IBM Plex Sans', sans-serif;
+                }
+
+                .terms_agreed {
+                    color: #1B6DDF;
+                    // margin-left: 5px;
+                }
+
+                .terms_agreed:hover {
+                    text-decoration: underline;
                 }
             }
 
@@ -94,18 +113,26 @@ $breakpoint-sm: 360px;
                 border-top: 1px solid #E5E5E5;
                 color: #1B6DDF;
             }
+
+            .responsive-col {
+                width: 45%;
+                margin-left: 2.5%;
+            }
         }
 
         @media (max-width: $breakpoint-md) {
             .register_form {
-                width: 330px;
-                height: 380px;
+                width: 80%;
+                padding: 18px;
                 margin: 20px 0;
-                padding: 0 18px;
-                background-color: white;
 
                 .form_item {
+                    width: 100%;
                     margin-bottom: 8px;
+                }
+
+                .responsive-col {
+                    width: 100%;
                 }
 
                 .space_margin {
@@ -113,7 +140,7 @@ $breakpoint-sm: 360px;
                 }
 
                 .m-form__box {
-                    width: 280px !important;
+                    width: 100% !important;
                 }
             }
         }
