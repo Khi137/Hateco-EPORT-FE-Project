@@ -97,7 +97,7 @@ class Login extends Component {
             setTimeout(() => {
                 if (this.mButtonRef.current) {
                     this.mButtonRef.current.reset();
-                    this.props.navigate('/home')
+                    this.props.navigate('/')
                 }
             }, 2000);
         }

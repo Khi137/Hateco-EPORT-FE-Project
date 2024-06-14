@@ -69,80 +69,77 @@ export class Tongquan extends Component {
 
   render() {
     return (
-      <>
-        <Header />
-        <div className="tongquan-container">
-          <div className="tacnghiep-panel">
-            <header className="header">Tác nghiệp</header>
-            <ul className="danhsach-lenhha">
-              {LenhGiaoContainer.map((item) => (
-                <li> {item.text}</li>
-              ))}
-            </ul>
-          </div>
-          <div
-            className={
-              this.state.modal
-                ? "huongdan-panel black-shadow"
-                : "huongdan-panel"
-            }
-          >
-            <header className="header">
-              <MenuUnfoldOutlined
-                style={{ fontSize: "25px", marginRight: "12px" }}
-                onClick={this.handleChangeModal}
-              />
-              <span className="huongdan">Hướng dẫn lệnh cơ bản</span>
-              <span className="lenh">Lệnh hạ container hàng</span>
-              <span className="buoc">Bước 1</span>
-            </header>
-            {this.state.modal && (
-              <div className="modal-huongdan">
-                <header>
-                  <span>Hướng dẫn lệnh cơ bản</span>
-                  <CloseOutlined
-                    style={{ borderRight: "none" }}
-                    onClick={() => this.setState({ modal: false })}
-                  />
-                </header>
-                <ul id="main-huongdan">
-                  {LenhGiaoContainer.map((item) => (
-                    <li onClick={() => this.handleSelectMenu(item)}>
-                      {this.state.selectedMenu === item ? (
-                        <MinusCircleOutlined />
-                      ) : (
-                        <PlusCircleOutlined style={{ marginLeft: "none" }} />
-                      )}
+      <div className="tongquan-container">
+        <div className="tacnghiep-panel">
+          <header className="header">Tác nghiệp</header>
+          <ul className="danhsach-lenhha">
+            {LenhGiaoContainer.map((item) => (
+              <li> {item.text}</li>
+            ))}
+          </ul>
+        </div>
+        <div
+          className={
+            this.state.modal
+              ? "huongdan-panel black-shadow"
+              : "huongdan-panel"
+          }
+        >
+          <header className="header">
+            <MenuUnfoldOutlined
+              style={{ fontSize: "25px", marginRight: "12px" }}
+              onClick={this.handleChangeModal}
+            />
+            <span className="huongdan">Hướng dẫn lệnh cơ bản</span>
+            <span className="lenh">Lệnh hạ container hàng</span>
+            <span className="buoc">Bước 1</span>
+          </header>
+          {this.state.modal && (
+            <div className="modal-huongdan">
+              <header>
+                <span>Hướng dẫn lệnh cơ bản</span>
+                <CloseOutlined
+                  style={{ borderRight: "none" }}
+                  onClick={() => this.setState({ modal: false })}
+                />
+              </header>
+              <ul id="main-huongdan">
+                {LenhGiaoContainer.map((item) => (
+                  <li onClick={() => this.handleSelectMenu(item)}>
+                    {this.state.selectedMenu === item ? (
+                      <MinusCircleOutlined />
+                    ) : (
+                      <PlusCircleOutlined style={{ marginLeft: "none" }} />
+                    )}
 
-                      <span>{item.text}</span>
-                      {this.state.selectedMenu === item && (
-                        <ul>
-                          {item.subText &&
-                            item.subText.map((el, subIndex) => (
-                              <li key={subIndex} className="subtext-menu">
-                                <b>Bước {subIndex + 1}: </b>
-                                <span style={{ marginLeft: "1px" }}>
-                                  {el.subText}
-                                </span>
-                              </li>
-                            ))}
-                        </ul>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            <div className="huongdanchitiet">
-              <img
-                src="https://hatecologistics.vn/wp-content/uploads/2020/06/IMG_0731.jpg"
-                style={{ width: "100%", height: "100%" }}
-              />
+                    <span>{item.text}</span>
+                    {this.state.selectedMenu === item && (
+                      <ul>
+                        {item.subText &&
+                          item.subText.map((el, subIndex) => (
+                            <li key={subIndex} className="subtext-menu">
+                              <b>Bước {subIndex + 1}: </b>
+                              <span style={{ marginLeft: "1px" }}>
+                                {el.subText}
+                              </span>
+                            </li>
+                          ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
+              </ul>
             </div>
+          )}
+
+          <div className="huongdanchitiet">
+            <img
+              src="https://hatecologistics.vn/wp-content/uploads/2020/06/IMG_0731.jpg"
+              style={{ width: "100%", height: "100%" }}
+            />
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }

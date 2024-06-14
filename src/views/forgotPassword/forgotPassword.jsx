@@ -92,7 +92,7 @@ class ForgotPassword extends Component {
         //         password: formData.password,
         //         remember: formData.remember,
         //     });
-        //     this.props.navigate('/home')
+        //     this.props.navigate('/')
         // }
         // this.setState(prevState => ({
         //     formData: {

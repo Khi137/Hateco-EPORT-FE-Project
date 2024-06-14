@@ -19,7 +19,7 @@ class MainRoutes extends Component {
         </Route>
 
         <Route element={<AuthLayout />}>
-          <Route path="/home" element={<Tongquan />} />
+          <Route path="/" element={<Tongquan />} />
         </Route>
 
       </Routes >
