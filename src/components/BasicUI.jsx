@@ -786,48 +786,59 @@ class Mstep extends React.Component {
   }
 
   componentWillMount() {
-    this.data = this.props.dataSource || {};
+    this.data = Array.isArray(this.props.dataSource) ? this.props.dataSource : [];
     this.config = this.props.config || {};
   }
 
   render() {
-    let content = this.data.map((item, index) => (
-      <Step
-        title={item.label || ""}
-        key={index}
-        icon={item.icon || <LOL.UserOutlined />}
-      ></Step>
-    ));
+    let content = [];
+    if (Array.isArray(this.data)) {
+      content = this.data.map((item, index) => (
+        <Step
+          title={item.label || ""}
+          key={index}
+          icon={item.icon || <LOL.UserOutlined />}
+        ></Step>
+      ));
+    }
     return <Steps {...this.config}>{content}</Steps>;
   }
 }
 
 export class Winput extends React.Component {
   constructor(props) {
-      super(props);
-      this.state = {
-          value: (this.props.value || '')
-      }
-      if (this.props.ref || this.props.id) {
-          if (!window.Winput) window.Winput = {};
-          window.Winput[this.props.ref || this.props.id || 'Winput_'] = this;
-      }
-      // $("#" + (this.props.ref || this.props.id || 'Winput_')).data({ value: this.props.value });
+    super(props);
+    this.state = {
+      value: this.props.value || "",
+    };
+    if (this.props.ref || this.props.id) {
+      if (!window.Winput) window.Winput = {};
+      window.Winput[this.props.ref || this.props.id || "Winput_"] = this;
+    }
+    // $("#" + (this.props.ref || this.props.id || 'Winput_')).data({ value: this.props.value });
   }
   componentDidMount() {
-      // $("#" + (this.props.ref || this.props.id || 'Winput_')).data({ value: (this.props.value || '') });
+    // $("#" + (this.props.ref || this.props.id || 'Winput_')).data({ value: (this.props.value || '') });
   }
   handleChange(dt) {
-      this.setState({
-          value: dt.target.value
-      });
-
+    this.setState({
+      value: dt.target.value,
+    });
   }
   render() {
-      // $("#" + (this.props.ref || this.props.id || 'Winput_')).data(this.state);
-      return (
-          <Input {...this.props} defaultValue={this.state.value || ''} value={this.state.value || ''} onChange={(dt) => { this.handleChange(dt); if (typeof this.props.onChange == 'function') this.props.onChange(dt); }} className={"Winput " + (this.props.className || '')}></Input>
-      );
+    // $("#" + (this.props.ref || this.props.id || 'Winput_')).data(this.state);
+    return (
+      <Input
+        {...this.props}
+        defaultValue={this.state.value || ""}
+        value={this.state.value || ""}
+        onChange={(dt) => {
+          this.handleChange(dt);
+          if (typeof this.props.onChange == "function") this.props.onChange(dt);
+        }}
+        className={"Winput " + (this.props.className || "")}
+      ></Input>
+    );
   }
 }
 
@@ -1933,8 +1944,10 @@ class Mdatepicker extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: this.props.dataSource?.value || undefined,
+      value: props.dataSource?.value || undefined,
+      readonly: props.dataSource?.propReadonly || false,
     };
+
     this.datePickerRef = React.createRef();
   }
 
@@ -1972,9 +1985,9 @@ class Mdatepicker extends React.Component {
   }
   componentDidMount() {
     const elementId =
-      this.props.id || this.props.dataSource.id || this.datePickerRef.current;
+      this.props.id || this.props.dataSource?.id || this.datePickerRef.current;
     if (this.props.dataSource?.defaultValue) {
-      const formattedValue = moment(this.props.dataSource?.defaultValue).format(
+      const formattedValue = moment(this.props.dataSource.defaultValue).format(
         this.props.dataSource.format
       );
       this.datePickerRef.current.value = formattedValue;
@@ -1984,13 +1997,21 @@ class Mdatepicker extends React.Component {
   }
 
   checkFocus(e) {
-    e.target.parentElement.parentElement.parentElement
-      .getElementsByTagName("label")[0]
-      .classList.add("m-form__label--focus");
+    const labelElement =
+      e.target.parentElement?.parentElement?.parentElement?.getElementsByTagName(
+        "label"
+      )[0];
+    if (labelElement) {
+      labelElement.classList.add("m-form__label--focus");
+    }
   }
 
   checkBlur(e) {
-    if (!e.target?.value) {
+    const labelElement =
+      e.target.parentElement?.parentElement?.parentElement?.getElementsByTagName(
+        "label"
+      )[0];
+    if (!e.target.value && labelElement) {
       e.target.parentElement.parentElement.parentElement
         .getElementsByTagName("label")[0]
         .classList.remove("m-form__label--focus");
@@ -2011,46 +2032,34 @@ class Mdatepicker extends React.Component {
   render() {
     const data = this.props.dataSource;
     const span = data?.span || 24;
-    let value = this.state?.value
-      ? moment(
-          this.state?.value,
-          /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/gi.test(
-            this.state?.value
-          )
-            ? "YYYY-MM-DD HH:mm:ss"
-            : data.format || "YYYY-MM-DD HH:mm:ss"
-        )
+    let value = this.state.value
+      ? moment(this.state.value, data.format || "YYYY-MM-DD HH:mm:ss")
       : data.value
-      ? moment(
-          data.value,
-          /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/gi.test(data.value)
-            ? "YYYY-MM-DD HH:mm:ss"
-            : data.format || "YYYY-MM-DD HH:mm:ss"
-        )
+      ? moment(data.value, data.format || "YYYY-MM-DD HH:mm:ss")
       : data.defaultValue
-      ? moment(
-          data.defaultValue,
-          /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/gi.test(
-            data.defaultValue
-          )
-            ? "YYYY-MM-DD HH:mm:ss"
-            : data.format || "YYYY-MM-DD HH:mm:ss"
-        )
+      ? moment(data.defaultValue, data.format || "YYYY-MM-DD HH:mm:ss")
       : null;
 
-    if (data?.value === "") value = null;
-    if (this.state?.value === "") value = null;
+    if (data.value === "") value = null;
+    if (this.state.value === "") value = null;
+
     if (
       value &&
       (value === "Invalid date" || value.format("YYYY") === "Invalid date")
-    )
+    ) {
       value = null;
+    }
 
     if (data.followProps) {
-      this.state.value = data?.value;
-      value = data?.value
-        ? moment(data?.value, data.format || "YYYY-MM-DD HH:mm:ss")
+      value = data.value
+        ? moment(data.value, data.format || "YYYY-MM-DD HH:mm:ss")
         : null;
+    }
+
+    if (value && data.range === "start") {
+      value.startOf(data.picker);
+    } else if (value && data.range === "end") {
+      value.endOf(data.picker);
     }
 
     if (value) {
@@ -2076,29 +2085,25 @@ class Mdatepicker extends React.Component {
       }
     }
 
-    if (typeof data.propReadonly !== "undefined") {
-      this.state.readonly = data.propReadonly;
-    }
+    const readonly =
+      typeof data.propReadonly !== "undefined"
+        ? data.propReadonly
+        : this.state.readonly;
 
     return (
       <Col
-        offset={data.offset ? data.offset : 0}
+        offset={data.offset || 0}
         xs={span.xs || span}
         sm={span.sm || span}
         md={span.md || span}
         lg={span.lg || span}
         xl={span.xl || span}
         key={data.ref}
-        className={
-          "m-form__box " +
-          data.className +
-          " " +
-          (this.state.readonly ? "readonly" : "")
-        }
+        className={`m-form__box ${data.className || ""} ${
+          readonly ? "readonly" : ""
+        }`}
       >
-        <div
-          className={"m-form__input " + (this.state.readonly ? "readonly" : "")}
-        >
+        <div className={`m-form__input ${readonly ? "readonly" : ""}`}>
           <label
             className={
               value ? "m-form__label m-form__label--focus" : "m-form__label"
@@ -2117,9 +2122,9 @@ class Mdatepicker extends React.Component {
             key={data.ref || ""}
             showTime={true}
             defaultValue={
-              data?.defaultValue
+              data.defaultValue
                 ? moment(
-                    data?.defaultValue,
+                    data.defaultValue,
                     data.format || "YYYY-MM-DD HH:mm:ss"
                   )
                 : ""
@@ -2133,12 +2138,12 @@ class Mdatepicker extends React.Component {
                 : undefined
             }
             value={value}
-            disabled={this.state.readonly ? true : false}
+            disabled={readonly ? true : false}
             inputReadOnly={true}
             picker={data.picker || "date"}
             format={
               data.picker === "quarter"
-                ? "[Quý " + moment(value).utc().quarter() + " năm ]YYYY"
+                ? `[Quý ${moment(value).utc().quarter()} năm ]YYYY`
                 : data.format || "YYYY-MM-DD HH:mm:ss"
             }
             disabledDate={data.lockbefore ? this.disabledDate.bind(this) : null}
@@ -2294,65 +2299,82 @@ class Mform extends React.Component {
 
 class Mcheckbox extends React.Component {
   constructor(props) {
-      super(props);
-      this.state = {
-          value: this.props.value || false
-      }
-
+    super(props);
+    this.state = {
+      value: this.props.value || false,
+    };
   }
 
   componentDidMount() {
-      // $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
-      // if (!window.component) window.component = {}; window.component[(this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)] = this;
+    const elementId =
+      this.props.id ||
+      this.props.ref ||
+      this.props.dataSource?.id ||
+      this.props.dataSource?.ref;
+    if (!window.component) window.component = {};
+    window.component[elementId] = this;
+  }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.value !== this.props.value) {
+      this.setState({ value: this.props.value });
+    }
   }
 
   componentWillReceiveProps() {
-      if (this.props.value !== this.props.value) {
-          this.setState({ value: this.props.value });
-      }
+    if (this.props.value !== this.props.value) {
+      this.setState({ value: this.props.value });
+    }
   }
 
   handleChange(e) {
-      this.setState({ value: e.target.checked });
-      if (this.props.onChangeValue) {
-          let returnvalue = {};
-          returnvalue["key"] = e.target.dataSource.key;
-          returnvalue["checked"] = e.target.checked;
-          this.setState({ value: e.target.checked });
-          this.props.onChangeValue(returnvalue, this);
-      }
-      if (this.props.dataSource && this.props.dataSource.onChange) {
-          this.props.dataSource.onChange(e.target.checked, this);
-      }
+    const isChecked = e.target.checked;
+    this.setState({ value: isChecked });
+
+    if (this.props.onChangeValue) {
+      const returnValue = {
+        key: this.props.dataSource?.key,
+        checked: isChecked,
+      };
+      this.props.onChangeValue(returnValue, this);
+    }
+
+    if (this.props.dataSource?.onChange) {
+      this.props.dataSource.onChange(isChecked, this);
+    }
   }
 
   render() {
-      let data = this.props.dataSource;
-      let span = data.span || 24;
-      if (typeof data.value != 'undefined' && typeof this.props.value == 'undefined') {
-          // this.props.value == data.value;
-      }
-      return (
-          <Col
-              xs={span.xs || span}
-              sm={span.sm || span}
-              md={span.md || span}
-              lg={span.lg || span}
-              style={data.style}
-              className={"m-form__box " + (data.className || '')}
+    const data = this.props.dataSource || {};
+    const span = data.span || 24;
+
+    if (
+      typeof data.value != "undefined" &&
+      typeof this.props.value == "undefined"
+    ) {
+      // this.props.value == data.value;
+    }
+    return (
+      <Col
+        xs={span.xs || span}
+        sm={span.sm || span}
+        md={span.md || span}
+        lg={span.lg || span}
+        style={data.style}
+        className={"m-form__box " + (data.className || "")}
+      >
+        <div className="m-form__input">
+          <Checkbox
+            id={data.ref}
+            checked={this.props.dataSource.value}
+            onChange={this.handleChange.bind(this)}
+            {...this.props}
           >
-              <div className="m-form__input">
-                  <Checkbox
-                      id={data.ref}
-                      checked={this.props.dataSource.value}
-                      onChange={this.handleChange.bind(this)}
-                      {...this.props}>
-                      {data.label}
-                  </Checkbox>
-              </div>
-          </Col>
-      );
+            {data.label}
+          </Checkbox>
+        </div>
+      </Col>
+    );
   }
 }
 
@@ -2412,32 +2434,34 @@ class Mselect extends React.Component {
 
   renderOptions(value) {
     let data = this.props.dataSource;
-    var options = (this.state?.options || data?.options || []).map((item, ii) => {
-      let temp;
-      if (value + "" == item?.value + "") {
-        temp = (
-          <option
-            key={item?.value + "" + ii}
-            value={item?.value}
-            data={JSON.stringify(item.data || {})}
-            selected="selected"
-          >
-            {item?.label}
-          </option>
-        );
-      } else {
-        temp = (
-          <option
-            key={item?.value + "" + ii}
-            value={item.value}
-            data={JSON.stringify(item.data || {})}
-          >
-            {item?.label}
-          </option>
-        );
+    var options = (this.state?.options || data?.options || []).map(
+      (item, ii) => {
+        let temp;
+        if (value + "" == item?.value + "") {
+          temp = (
+            <option
+              key={item?.value + "" + ii}
+              value={item?.value}
+              data={JSON.stringify(item.data || {})}
+              selected="selected"
+            >
+              {item?.label}
+            </option>
+          );
+        } else {
+          temp = (
+            <option
+              key={item?.value + "" + ii}
+              value={item.value}
+              data={JSON.stringify(item.data || {})}
+            >
+              {item?.label}
+            </option>
+          );
+        }
+        return temp;
       }
-      return temp;
-    });
+    );
     return options;
   }
 
@@ -2509,7 +2533,13 @@ class Mselect extends React.Component {
 class Mswitch extends React.Component {
   constructor(props) {
     super(props);
+    this.switchRef = React.createRef(); // Initialize the ref here
+    this.state = {
+      value: props.value || "",
+    };
+    this.handleChange = this.handleChange.bind(this);
   }
+
   componentDidMount() {
     const id =
       this.props.id ||
@@ -2585,16 +2615,40 @@ class Mdivider extends React.Component {
 class Mdropdown extends React.Component {
   constructor(props) {
     super(props);
+    this.dropdownRef = React.createRef();
   }
   componentDidMount() {
-    // $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
-    // if (!window.component) window.component = {}; window.component[(this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)] = this;
+    const refId = this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref;
+    
+    if (this.dropdownRef.current) {
+      this.dropdownRef.current.dataset.component = this;
+    }
+
+    if (!window.component) window.component = {};
+    window.component[refId] = this;
   }
 
-  renderItems() {}
+  renderItems() {
+    const { items } = this.props;
+
+    return (
+      <>
+        {items.map((item, index) => (
+          <p key={index}>{item}</p>
+        ))}
+      </>
+    );
+  }
 
   render() {
-    return <Dropdown {...this.props}></Dropdown>;
+    const { id, ref, dataSource, ...otherProps } = this.props;
+    const refId = id || ref || dataSource.id || dataSource.ref;
+
+    return (
+      <Dropdown ref={this.dropdownRef} {...otherProps}>
+        {this.renderItems()}
+      </Dropdown>
+    );
   }
 }
 
@@ -2624,9 +2678,9 @@ class MoneFieldInput extends React.Component {
   }
 
   componentDidMount() {
-    // this.pushRender();
-    // $('#' + (this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)).data('component', this);
-    // if (!window.component) window.component = {}; window.component[(this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref)] = this;
+    this.pushRender();
+    window.component = window.component || {};
+    window.component[this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref] = this;
   }
 
   pushRender() {
