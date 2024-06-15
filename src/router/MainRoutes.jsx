@@ -1,16 +1,27 @@
 import React, { Component } from "react";
 import { Routes, Route } from "react-router-dom";
-import Tongquan from "../Tongquan";
+import Home from "../views/home/home";
 import Login from "../views/login/login";
-
+import UnAuthLayout from "../layout/UnAuthLayout/UnAuthLayout";
+import AuthLayout from "../layout/AuthLayout/AuthLayout";
+import Register from "../views/register/register";
+import ForgotPassword from "../views/forgotPassword/forgotPassword";
 
 class MainRoutes extends Component {
   render() {
-    return <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/home" element={<Tongquan />} />
+    return (
+      <Routes>
+        <Route element={<UnAuthLayout />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+        </Route>
 
-    </Routes>;
+        <Route element={<AuthLayout />}>
+          <Route path="/" element={<Home />} />
+        </Route>
+      </Routes>
+    );
   }
 }
 

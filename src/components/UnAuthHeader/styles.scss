@@ -1,5 +1,5 @@
 .unauth-header_container {
-    width: 100vw;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,5 +8,17 @@
 
     .unauth-header_image-logo {
         width: 300px;
+    }
+
+    @media (max-width: 768px) {
+        .unauth-header_image-logo {
+            width: 250px;
+        }
+    }
+
+    @media (max-width: 360px) {
+        .unauth-header_image-logo {
+            width: 200px;
+        }
     }
 }

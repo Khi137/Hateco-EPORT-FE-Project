@@ -310,10 +310,15 @@ class MeditSelect extends React.Component {
 
   componentDidMount() {
     if (this.selectRef.current) {
-      this.selectRef.current.data('component', this);
+      this.selectRef.current.data("component", this);
     }
-    if (!window.component) window.component = {}
-    window.component[this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref] = this;
+    if (!window.component) window.component = {};
+    window.component[
+      this.props.id ||
+        this.props.ref ||
+        this.props.dataSource.id ||
+        this.props.dataSource.ref
+    ] = this;
   }
 
   handlerEdit(event) {
@@ -835,7 +840,12 @@ export class Winput extends React.Component {
         ref={this.inputRef} // Attach Ref to the input element
         {...otherProps}
         value={this.state.value}
-        onChange={this.handleChange}
+        onChange={(dt) => {
+          typeof this.props.onChange == "function"
+            ? (this.props.onChange(dt) || dt.target.value === "") &&
+              this.handleChange(dt)
+            : this.handleChange(dt);
+        }}
         className={"Winput " + (className || "")}
       ></Input>
     );

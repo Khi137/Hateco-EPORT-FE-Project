@@ -3,12 +3,11 @@ $breakpoint-ld: 1280px;
 $breakpoint-md: 768px;
 $breakpoint-sm: 360px;
 
-.login_container {
+.register_container {
     width: 100%;
     height: 100%;
-    position: relative;
 
-    .login_content {
+    .register_content {
         display: flex;
         width: 100%;
         height: 100%;
@@ -20,14 +19,14 @@ $breakpoint-sm: 360px;
         background-size: cover;
         background-position: top center;
 
-        .login_form {
-            width: 400px;
-            // height: 450px;
+        .register_form {
+            width: 800px;
             padding: 18px;
             background-color: white;
+            margin: 36px;
 
             .form_item {
-                margin-bottom: 12px;
+                margin-bottom: 4px;
 
                 .item_header {
                     margin-bottom: 12px;
@@ -66,6 +65,11 @@ $breakpoint-sm: 360px;
                     box-shadow: 0px 8px 8px 0px rgba(36, 104, 147, 0.5) inset;
                 }
 
+                .disable_button {
+                    opacity: 0.5;
+                    pointer-events: none;
+                }
+
                 .form_input_field {
                     height: 40px;
                 }
@@ -74,6 +78,15 @@ $breakpoint-sm: 360px;
                     text-align: center;
                     margin: 12px;
                     font-family: 'IBM Plex Sans', sans-serif;
+                }
+
+                .terms_agreed {
+                    color: #1B6DDF;
+                    // margin-left: 5px;
+                }
+
+                .terms_agreed:hover {
+                    text-decoration: underline;
                 }
             }
 
@@ -100,18 +113,26 @@ $breakpoint-sm: 360px;
                 border-top: 1px solid #E5E5E5;
                 color: #1B6DDF;
             }
+
+            .responsive-col {
+                width: 45%;
+                margin-left: 2.5%;
+            }
         }
 
         @media (max-width: $breakpoint-md) {
-            .login_form {
-                width: 330px;
-                height: 380px;
+            .register_form {
+                width: 80%;
+                padding: 18px;
                 margin: 20px 0;
-                padding: 0 18px;
-                background-color: white;
 
                 .form_item {
+                    width: 100%;
                     margin-bottom: 8px;
+                }
+
+                .responsive-col {
+                    width: 100%;
                 }
 
                 .space_margin {
@@ -119,23 +140,9 @@ $breakpoint-sm: 360px;
                 }
 
                 .m-form__box {
-                    width: 280px !important;
+                    width: 100% !important;
                 }
             }
         }
-    }
-
-    .header {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-    }
-
-    .footer {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
     }
 }

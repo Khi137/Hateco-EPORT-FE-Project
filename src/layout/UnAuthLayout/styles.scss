@@ -1,0 +1,21 @@
+.un-auth_layout {
+    height: 100vh;
+    display: flex;
+    flex-flow: column;
+
+    .un-auth_layout_header {
+        width: 100%;
+        flex: 0 1 auto;
+    }
+
+    .un-auth_layout_content {
+        flex-grow: 1;
+        width: 100%;
+        flex: 1 1 auto;
+    }
+
+    .un-auth_layout_footer {
+        width: 100%;
+        flex: 0 1 auto;
+    }
+}
