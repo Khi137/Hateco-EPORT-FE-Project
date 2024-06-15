@@ -111,21 +111,11 @@ $breakpoint-sm: 360px;
                 .m-form__box {
                     width: 280px !important;
                 }
+
+                .bottom_link {
+                    margin: 0;
+                }
             }
         }
-    }
-
-    .header {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-    }
-
-    .footer {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
     }
 }

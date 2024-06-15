@@ -6,6 +6,7 @@ p,
 span,
 li {
   font-family: 'IBM Plex Sans', sans-serif !important;
+  margin: 0;
 }
 
 .App {
