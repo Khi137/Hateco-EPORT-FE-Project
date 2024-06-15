@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Routes, Route } from "react-router-dom";
-import Tongquan from "../Tongquan";
+import Home from "../views/home/home";
 import Login from "../views/login/login";
 import UnAuthLayout from "../layout/UnAuthLayout/UnAuthLayout";
 import AuthLayout from "../layout/AuthLayout/AuthLayout";
@@ -10,8 +10,7 @@ import ForgotPassword from "../views/forgotPassword/forgotPassword";
 class MainRoutes extends Component {
   render() {
     return (
-      < Routes >
-
+      <Routes>
         <Route element={<UnAuthLayout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -19,12 +18,10 @@ class MainRoutes extends Component {
         </Route>
 
         <Route element={<AuthLayout />}>
-          <Route path="/" element={<Tongquan />} />
+          <Route path="/" element={<Home />} />
         </Route>
-
-      </Routes >
-    )
-
+      </Routes>
+    );
   }
 }
 

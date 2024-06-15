@@ -188,7 +188,7 @@ class Login extends Component {
 
                         <Col className="form_item">
                             <Mbutton
-                                className='form_button'
+                                className='form_button m_button third'
                                 type="primary"
                                 htmlType="submit"
                                 block

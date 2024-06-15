@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import "./Tongquan.scss";
+import "./home.scss";
 import {
   CloseOutlined,
   MenuUnfoldOutlined,
   MinusCircleOutlined,
   PlusCircleOutlined,
 } from "@ant-design/icons";
-import Header from "./components/Header";
+import Header from "../../components/Header";
 
 const LenhGiaoContainer = [
   {
@@ -47,7 +47,7 @@ const LenhGiaoContainer = [
     text: "Lệnh dịch vụ",
   },
 ];
-export class Tongquan extends Component {
+export class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -144,4 +144,4 @@ export class Tongquan extends Component {
   }
 }
 
-export default Tongquan;
+export default Home;
