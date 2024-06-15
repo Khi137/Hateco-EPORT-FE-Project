@@ -534,7 +534,7 @@ class Mupload extends React.Component {
     this.mes = {};
   }
 
-  create_Rowguid = () => {};
+  create_Rowguid = () => { };
 
   componentDidMount() {
     this.tmp_patch = this.create_Rowguid();
@@ -592,7 +592,7 @@ class Mupload extends React.Component {
     this.setState({ fileList: nFL });
   };
 
-  handleupload = (file, fileList) => {};
+  handleupload = (file, fileList) => { };
 
   handleRemove = (file) => {
     let formData = new FormData();
@@ -835,7 +835,9 @@ export class Winput extends React.Component {
         ref={this.inputRef} // Attach Ref to the input element
         {...otherProps}
         value={this.state.value}
-        onChange={this.handleChange}
+        onChange={(dt) => {
+          (typeof this.props.onChange == "function") ? (this.props.onChange(dt) || dt.target.value === "") && this.handleChange(dt) : this.handleChange(dt);
+        }}
         className={"Winput " + (className || "")}
       ></Input>
     );
@@ -1456,8 +1458,8 @@ class Mselectsearch extends React.Component {
       this.state.placeholder === undefined
         ? data.placeholder
         : this.state.placeholder
-        ? this.state.placeholder
-        : "";
+          ? this.state.placeholder
+          : "";
 
     var that = this;
     var value = data.value || this.state.value;
@@ -2743,9 +2745,9 @@ class MoneFieldInput extends React.Component {
     window.component = window.component || {};
     window.component[
       this.props.id ||
-        this.props.ref ||
-        this.props.dataSource.id ||
-        this.props.dataSource.ref
+      this.props.ref ||
+      this.props.dataSource.id ||
+      this.props.dataSource.ref
     ] = this;
   }
 
