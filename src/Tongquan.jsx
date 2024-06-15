@@ -60,7 +60,6 @@ export class Tongquan extends Component {
       selectedMenu: null,
     });
   };
-
   handleSelectMenu = (menu) => {
     this.setState((prevState) => ({
       selectedMenu: prevState.selectedMenu === menu ? null : menu,

@@ -11,6 +11,7 @@ import "./Header.scss";
 import { withRouter } from "../utils/withRouter";
 import { addIconExtendsion } from "../reducers/extendsionReducer";
 import Extension from "./Extension/Extension";
+import * as AntdIcons from "@ant-design/icons";
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -66,6 +67,9 @@ class Header extends Component {
     const { navigations } = this.props;
     return (
       <div className="header-container">
+        {this.state.toggle && (
+          <div className="overlay" onClick={this.handleToggle}></div>
+        )}
         <div className="header">
           <div className="logo-main">
             <img
@@ -127,24 +131,35 @@ class Header extends Component {
                 <ul>
                   {navigations.map((item) =>
                     item.isOpen && item.subMenu
-                      ? item.subMenu.map((subItem) => (
-                          <li key={subItem.text}>
-                            <Popconfirm
-                              title="Thông báo"
-                              description="Bạn muốn add extendsion hay điều hướng?"
-                              okText="Đi đến"
-                              cancelText="+"
-                              onCancel={() =>
-                                this.handleAddExtendsion(subItem.id)
-                              }
-                              onConfirm={() =>
-                                this.handleNavigateSubMenu(subItem.url)
-                              }
-                            >
-                              <Button info>{subItem.text}</Button>
-                            </Popconfirm>
-                          </li>
-                        ))
+                      ? item.subMenu.map((subItem) => {
+                          const IconComponent = AntdIcons[subItem.icon];
+
+                          return (
+                            <li key={subItem.text}>
+                              <Popconfirm
+                                title="?"
+                                description="Bạn muốn thêm tiện ích hay điều hướng?"
+                                okText="Đi đến"
+                                cancelText="+"
+                                onCancel={() =>
+                                  this.handleAddExtension(subItem.id)
+                                }
+                                onConfirm={() =>
+                                  this.handleNavigateSubMenu(subItem.url)
+                                }
+                              >
+                                <Button className="button-custom">
+                                  {IconComponent && (
+                                    <IconComponent
+                                      style={{ marginRight: "8px" }}
+                                    />
+                                  )}
+                                  {subItem.text}
+                                </Button>
+                              </Popconfirm>
+                            </li>
+                          );
+                        })
                       : null
                   )}
                 </ul>
