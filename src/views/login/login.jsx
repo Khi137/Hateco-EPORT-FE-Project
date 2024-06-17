@@ -137,7 +137,7 @@ class Login extends Component {
         const { formData } = this.state;
 
         const checkboxDataSource = {
-            label: "Ghi nhớ mật khẩu",
+            label: <div style={{ userSelect: "none" }}>Ghi nhớ mật khẩu</div>,
             value: formData.remember,
             className: `${formData.remember && "m-checkbox_checked"}`,
         };

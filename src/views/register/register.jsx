@@ -1,9 +1,9 @@
 import React, { Component, createRef } from 'react';
 import { Row, Col, Typography, Tooltip } from 'antd';
-import { InfoCircleOutlined, MailOutlined, LockOutlined } from '@ant-design/icons';
+import { InfoCircleOutlined, MailOutlined, LockOutlined, NumberOutlined, PhoneOutlined, EnvironmentOutlined, BoldOutlined } from '@ant-design/icons';
 import './styles.scss'
 
-import { Mbutton, Mcheckbox, Mdropdown, Mmultiswitch, Winput } from "../../components/BasicUI"
+import { Mbutton, Mcheckbox, Mdropdown, Winput } from "../../components/BasicUI"
 import { withRouter } from '../../utils/withRouter';
 import { NavLink } from 'react-router-dom';
 
@@ -248,7 +248,7 @@ class Register extends Component {
 
         const checkboxDataSource = {
             span: 12,
-            label: <div><p>Tôi đồng ý với <span className='terms_agreed'>điều khoản thỏa thuận</span></p></div>,
+            label: <div><p style={{ userSelect: "none" }}>Tôi đồng ý với <span className='terms_agreed'>điều khoản thỏa thuận</span></p></div>,
             value: formData.termsAgreed,
             className: `${formData.termsAgreed && "m-checkbox_checked"}`,
         };
@@ -258,7 +258,7 @@ class Register extends Component {
                 title: "Mã số thuế:",
                 tooltip: "Nhập mã số thuế",
                 placeholder: "Nhập mã số thuế",
-                // inputIcon: <MailOutlined />,
+                inputIcon: <NumberOutlined />,
                 name: "taxNumber",
                 type: "text",
                 value: formData.taxNumber,
@@ -268,7 +268,7 @@ class Register extends Component {
                 title: "Tên doanh nghiệp:",
                 tooltip: "Nhập tên doanh nghiệp",
                 placeholder: "Nhập tên doanh nghiệp",
-                // inputIcon: <LockOutlined />,
+                inputIcon: <BoldOutlined />,
                 name: "companyName",
                 type: "text",
                 value: formData.companyName,
@@ -278,7 +278,7 @@ class Register extends Component {
                 title: "Địa chỉ:",
                 tooltip: "Nhập địa chỉ",
                 placeholder: "Nhập địa chỉ",
-                // inputIcon: <LockOutlined />,
+                inputIcon: <EnvironmentOutlined />,
                 name: "address",
                 type: "text",
                 value: formData.address,
@@ -288,7 +288,7 @@ class Register extends Component {
                 title: "Số đăng ký kinh doanh:",
                 tooltip: "Nhập số đăng ký kinh doanh",
                 placeholder: "Nhập số đăng ký kinh doanh",
-                // inputIcon: <LockOutlined />,
+                inputIcon: <NumberOutlined />,
                 name: "businessNumber",
                 type: "text",
                 value: formData.businessNumber,
@@ -298,7 +298,7 @@ class Register extends Component {
                 title: "Số điện thoại:",
                 tooltip: "Nhập số điện thoại",
                 placeholder: "Nhập số điện thoại",
-                // inputIcon: <LockOutlined />,
+                inputIcon: <PhoneOutlined />,
                 name: "phoneNumber",
                 type: "text",
                 value: formData.phoneNumber,
@@ -310,7 +310,7 @@ class Register extends Component {
                 title: "Email:",
                 tooltip: "Nhập email",
                 placeholder: "Nhập email",
-                // inputIcon: <LockOutlined />,
+                inputIcon: <MailOutlined />,
                 name: "email",
                 type: "text",
                 value: formData.email,
@@ -321,7 +321,7 @@ class Register extends Component {
                 title: "Mật khẩu:",
                 tooltip: "Nhập mật khẩu",
                 placeholder: "Nhập mật khẩu",
-                // inputIcon: <LockOutlined />,
+                inputIcon: <LockOutlined />,
                 name: "password",
                 type: "password",
                 value: formData.password,
@@ -331,7 +331,7 @@ class Register extends Component {
                 title: "Nhập lại mật khẩu:",
                 tooltip: "Nhập lại mật khẩu",
                 placeholder: "Nhập lại mật khẩu",
-                // inputIcon: <LockOutlined />,
+                inputIcon: <LockOutlined />,
                 name: "rePassword",
                 type: "password",
                 value: formData.rePassword,

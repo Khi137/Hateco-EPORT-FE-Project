@@ -6,6 +6,7 @@ import UnAuthLayout from "../layout/UnAuthLayout/UnAuthLayout";
 import AuthLayout from "../layout/AuthLayout/AuthLayout";
 import Register from "../views/register/register";
 import ForgotPassword from "../views/forgotPassword/forgotPassword";
+import ShowComponent from "../ShowComponent";
 
 class MainRoutes extends Component {
   render() {
@@ -15,6 +16,7 @@ class MainRoutes extends Component {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/show-component" element={<ShowComponent />} />
         </Route>
 
         <Route element={<AuthLayout />}>
