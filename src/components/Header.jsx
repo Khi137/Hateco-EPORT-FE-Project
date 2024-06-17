@@ -5,12 +5,13 @@ import {
   AlignLeftOutlined,
   HomeOutlined,
 } from "@ant-design/icons";
-import { Button, Popconfirm, message } from "antd";
+import { Breadcrumb, Button, Popconfirm, message } from "antd";
 import { toggleSubMenu } from "../reducers/navigationReducer";
 import "./Header.scss";
 import { withRouter } from "../utils/withRouter";
 import { addIconExtendsion } from "../reducers/extendsionReducer";
 import Extension from "./Extension/Extension";
+import * as AntdIcons from "@ant-design/icons";
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -66,6 +67,9 @@ class Header extends Component {
     const { navigations } = this.props;
     return (
       <div className="header-container">
+        {this.state.toggle && (
+          <div className="overlay" onClick={this.handleToggle}></div>
+        )}
         <div className="header">
           <div className="logo-main">
             <img
@@ -79,7 +83,7 @@ class Header extends Component {
           </div>
           <div className="user">
             <UserOutlined style={{ fontSize: "24px" }} className="logo-user" />
-            <span>User-name</span>
+            <span>Username</span>
           </div>
         </div>
         <div className="menu">
@@ -91,6 +95,10 @@ class Header extends Component {
                   borderRight: "1px solid white",
                   paddingRight: "12px",
                   cursor: "pointer",
+                  backgroundColor: "white",
+                  color: "#D03438",
+                  padding: "4px 12px",
+                  borderRadius: "4px",
                 }}
                 onClick={this.handleToggle}
               />
@@ -103,8 +111,25 @@ class Header extends Component {
               <span>Tổng quan</span>
             </div>
             <div className="des">
-              <span>Danh mục chức năng</span>
-              <span>Danh mục hãng tàu</span>
+              <Breadcrumb
+                items={[
+                  {
+                    title: (
+                      <a className="breadcrum" href="">
+                        Danh mục chức năng
+                      </a>
+                    ),
+                  },
+                  {
+                    title: (
+                      <a className="breadcrum" href="">
+                        Danh mục hãng tàu
+                      </a>
+                    ),
+                  },
+                ]}
+                // style={{ border: "1px solid white" }}
+              />
             </div>
             <Extension />
           </div>
@@ -112,39 +137,54 @@ class Header extends Component {
             <div className="danhsach-menu">
               <div className="danhmuc-cha">
                 <ul>
-                  {navigations.map((item) => (
-                    <li
-                      key={item.text}
-                      onClick={() => this.handleClick(item.text)}
-                      className={item.isOpen ? "active" : ""}
-                    >
-                      {item.text}
-                    </li>
-                  ))}
+                  {navigations.map((item) => {
+                    const IconComponentParent = AntdIcons[item.icon];
+                    return (
+                      <li
+                        key={item.text}
+                        onClick={() => this.handleClick(item.text)}
+                        className={item.isOpen ? "active" : ""}
+                      >
+                        <IconComponentParent style={{ marginRight: "8px" }} />
+                        <span> {item.text}</span>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
               <div className="danhmuc-con">
                 <ul>
                   {navigations.map((item) =>
                     item.isOpen && item.subMenu
-                      ? item.subMenu.map((subItem) => (
-                          <li key={subItem.text}>
-                            <Popconfirm
-                              title="Thông báo"
-                              description="Bạn muốn add extendsion hay điều hướng?"
-                              okText="Đi đến"
-                              cancelText="+"
-                              onCancel={() =>
-                                this.handleAddExtendsion(subItem.id)
-                              }
-                              onConfirm={() =>
-                                this.handleNavigateSubMenu(subItem.url)
-                              }
-                            >
-                              <Button info>{subItem.text}</Button>
-                            </Popconfirm>
-                          </li>
-                        ))
+                      ? item.subMenu.map((subItem) => {
+                          const IconComponent = AntdIcons[subItem.icon];
+
+                          return (
+                            <li key={subItem.text}>
+                              <Popconfirm
+                                title="?"
+                                description="Bạn muốn thêm tiện ích hay điều hướng?"
+                                okText="Đi đến"
+                                cancelText="+"
+                                onCancel={() =>
+                                  this.handleAddExtendsion(subItem.id)
+                                }
+                                onConfirm={() =>
+                                  this.handleNavigateSubMenu(subItem.url)
+                                }
+                              >
+                                <Button className="button-custom">
+                                  {IconComponent && (
+                                    <IconComponent
+                                      style={{ marginRight: "8px" }}
+                                    />
+                                  )}
+                                  {subItem.text}
+                                </Button>
+                              </Popconfirm>
+                            </li>
+                          );
+                        })
                       : null
                   )}
                 </ul>

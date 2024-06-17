@@ -1,3 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap');
+
+body a,
+div,
+p,
+span,
+li {
+  font-family: 'IBM Plex Sans', sans-serif !important;
+  margin: 0;
+}
+
 .App {
   text-align: center;
 }
@@ -32,6 +43,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

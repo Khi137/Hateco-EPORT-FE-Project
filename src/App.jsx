@@ -5,7 +5,7 @@ import { isMobileOnly, isMobile } from "react-device-detect";
 import { Mcard, Mselect } from "./components/BasicUI";
 import Header from "./components/Header";
 import MainRoutes from "./router/MainRoutes";
-import Footer from "./components/Footer";
+import "./App.css"
 
 class App extends React.Component {
   constructor(props) {
@@ -16,7 +16,6 @@ class App extends React.Component {
       responsive: "m-desktop",
     };
   }
- 
 
   resizeDetect() {
     let deviceClass = "m-desktop";
@@ -37,18 +36,18 @@ class App extends React.Component {
         }
       }
     }
- 
+
   }
 
-  render() {
-    let test = process.env.REACT_APP_API_HOST;
-    return (
-      <>
-        <h1>{test}</h1>
-        <Mselect/>
-      </>
-    );
-  }
+  // render() {
+  //   let test = process.env.REACT_APP_API_HOST;
+  //   return (
+  //     <>
+  //       <h1>{test}</h1>
+  //       <Mselect/>
+  //     </>
+  //   );
+  // }
   render() {
     let test = process.env.REACT_APP_API_HOST;
     return (

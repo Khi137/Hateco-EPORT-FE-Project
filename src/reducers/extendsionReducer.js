@@ -1,18 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Cookies from "js-cookie"
 
-const saveToLocalStorage = (state) => {
+const saveToCookies = (state) => {
   try {
     const serializedState = JSON.stringify(state);
-    localStorage.setItem("EXTENDSIONS", serializedState);
+    Cookies.set("EXTENDSIONS", serializedState, {
+      expires: 100000000,
+    });
   } catch (e) {
     console.warn(e.message);
   }
 };
 
-const loadFromLocalStorage = () => {
+const loadFromCookies = () => {
   try {
-    const serializedState = localStorage.getItem("EXTENDSIONS");
-    if (serializedState === null) return [];
+    const serializedState = Cookies.get("EXTENDSIONS");
+    if (serializedState === undefined) return [];
     return JSON.parse(serializedState);
   } catch (e) {
     console.warn(e.message);
@@ -20,7 +23,7 @@ const loadFromLocalStorage = () => {
   }
 };
 
-const initialState = loadFromLocalStorage();
+const initialState = loadFromCookies();
 
 const extendsionSlice = createSlice({
   name: "extendsion",
@@ -28,13 +31,13 @@ const extendsionSlice = createSlice({
   reducers: {
     addIconExtendsion: (state, action) => {
       const newState = [...state, action.payload];
-      saveToLocalStorage(newState);
+      saveToCookies(newState);
       return newState;
     },
     removeIconExtendison: (state, action) => {
       const idToRemove = action.payload;
       const newState = state.filter((item) => item.id !== idToRemove);
-      saveToLocalStorage(newState);
+      saveToCookies(newState);
       return newState;
     },
   },

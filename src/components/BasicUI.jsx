@@ -31,6 +31,7 @@ import {
   Select,
   Progress,
 } from "antd";
+import "./BasicUI.scss";
 
 import {
   BrowserView,
@@ -310,10 +311,15 @@ class MeditSelect extends React.Component {
 
   componentDidMount() {
     if (this.selectRef.current) {
-      this.selectRef.current.data('component', this);
+      this.selectRef.current.data("component", this);
     }
-    if (!window.component) window.component = {}
-    window.component[this.props.id || this.props.ref || this.props.dataSource.id || this.props.dataSource.ref] = this;
+    if (!window.component) window.component = {};
+    window.component[
+      this.props.id ||
+        this.props.ref ||
+        this.props.dataSource.id ||
+        this.props.dataSource.ref
+    ] = this;
   }
 
   handlerEdit(event) {
@@ -835,7 +841,12 @@ export class Winput extends React.Component {
         ref={this.inputRef} // Attach Ref to the input element
         {...otherProps}
         value={this.state.value}
-        onChange={this.handleChange}
+        onChange={(dt) => {
+          typeof this.props.onChange == "function"
+            ? (this.props.onChange(dt) || dt.target.value === "") &&
+              this.handleChange(dt)
+            : this.handleChange(dt);
+        }}
         className={"Winput " + (className || "")}
       ></Input>
     );
@@ -897,7 +908,7 @@ class Mcollapse extends React.Component {
 
   render() {
     return (
-      <Col span={this.data?.span}>
+      <Col  span={this.data?.span} >
         <Collapse {...this.props.config}>{this.renderContent()}</Collapse>
       </Col>
     );
@@ -930,39 +941,128 @@ class Mdrawer extends React.Component {
 class Mcapcha extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      captchaImg: "",
+      captchaText: "",
+      userInput: "",
+      isVerified: false,
+    };
   }
 
-  UNSAFE_componentWillMount() {
-    this.data = this.props.dataSource;
+  componentDidMount() {
+    this.loadCaptcha();
   }
+
+  loadCaptcha = async () => {
+    try {
+      const response = await fetch(this.props.captchaEndpoint);
+      const data = await response.json();
+      this.setState({ captchaImg: data.img, captchaText: data.text });
+    } catch (error) {
+      console.error("Error loading CAPTCHA:", error);
+    }
+  };
+
+  handleRefresh = () => {
+    this.loadCaptcha();
+  };
+
+  handleInputChange = (e) => {
+    this.setState({ userInput: e.target.value });
+  };
+
+  handleSubmit = () => {
+    if (this.state.userInput === this.state.captchaText) {
+      this.setState({ isVerified: true });
+      message.success("CAPTCHA verified successfully!");
+      if (this.props.onVerify) {
+        this.props.onVerify(true);
+      }
+    } else {
+      this.setState({ isVerified: false });
+      message.error("CAPTCHA verification failed. Please try again.");
+      if (this.props.onVerify) {
+        this.props.onVerify(false);
+      }
+    }
+  };
 
   render() {
     return (
       <Col flex="auto">
         <img
           height="32px"
-          id="CapchaImg"
+          id="CaptchaImg"
           src={
-            this.props.dataSource?.img
-              ? this.props.dataSource?.img
+            this.state.captchaImg
+              ? this.state.captchaImg
               : "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
           }
+          alt="CAPTCHA"
         />
+        <Button onClick={this.handleRefresh}>Refresh</Button>
+        <Input
+          type="text"
+          value={this.state.userInput}
+          onChange={this.handleInputChange}
+          placeholder="Enter CAPTCHA"
+        />
+        <Button onClick={this.handleSubmit}>Submit</Button>
+        {this.state.isVerified ? (
+          <p style={{ color: "green" }}>CAPTCHA verified successfully!</p>
+        ) : (
+          <p style={{ color: "red" }}>Please verify the CAPTCHA.</p>
+        )}
       </Col>
     );
   }
 }
 
+//   constructor(props) {
+//     super(props);
+//   }
+
+//   UNSAFE_componentWillMount() {
+//     this.data = this.props.dataSource;
+//   }
+
+//   render() {
+//     return (
+//       <Col flex="auto">
+//         <img
+//           height="32px"
+//           id="CapchaImg"
+//           src={
+//             this.props.dataSource?.img
+//               ? this.props.dataSource?.img
+//               : "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+//           }
+//         />
+//       </Col>
+//     );
+//   }
+// }
+
 class Mtab extends React.Component {
   constructor(props) {
     super(props);
-    this.data = this.props.dataSource;
-  }
-
-  componentDidMount() {
+    this.state = {
+      data: [],
+    };
     this.tabRef = React.createRef();
   }
-
+  componentDidMount() {
+    this.fetchData();
+  }
+  fetchData = async () => {
+    try {
+      const response = await fetch(this.props.dataEndpoint);
+      const data = await response.json();
+      this.setState({ data });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
   renderFooter() {
     if (!this.props.footer) {
       return;
@@ -970,7 +1070,6 @@ class Mtab extends React.Component {
     let content = this.props.footer;
     return <div className="m-tab-footer">{content}</div>;
   }
-
   render() {
     const tabItem = this.data?.map((item, index) => {
       if (item.badge) {
@@ -997,7 +1096,6 @@ class Mtab extends React.Component {
         );
       }
     });
-
     return (
       <Tabs animated={true} {...this.props.config} ref={this.tabRef}>
         {tabItem}

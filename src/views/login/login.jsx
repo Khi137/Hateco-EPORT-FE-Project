@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import { Row, Col, Typography, Tooltip } from 'antd';
 import { InfoCircleOutlined, MailOutlined, LockOutlined } from '@ant-design/icons';
 import './styles.scss'
 
-import { Mbutton, Mcheckbox, Winput} from "../../components/BasicUI"
-import UnAuthHeader from '../../components/UnAuthHeader/UnAuthHeader';
-import Footer from '../../components/Footer/Footer';
+import { Mbutton, Mcheckbox, Winput } from "../../components/BasicUI"
 import { withRouter } from '../../utils/withRouter';
+import { NavLink } from 'react-router-dom';
 
-const { Link } = Typography;
 class Login extends Component {
 
 
@@ -20,19 +18,37 @@ class Login extends Component {
                 password: "",
                 userError: false,
                 passwordError: false,
-                remember: false
+                remember: false,
             }
         };
+        this.mButtonRef = createRef();
     }
 
-    handleInputChange = (e) => {
+    handleInputChange = (e, regex) => {
         const { name, value } = e.target;
-        this.setState(prevState => ({
-            formData: {
-                ...prevState.formData,
-                [name]: value
-            }
-        }));
+
+        if (value === "") {
+            this.setState(prevState => ({
+                formData: {
+                    ...prevState.formData,
+                    [name]: value
+                }
+            }));
+            return value
+        }
+
+        if (regex && !regex.test(value)) {
+            console.error(`Value does not match the regex: ${regex}`);
+            return
+        } else {
+            this.setState(prevState => ({
+                formData: {
+                    ...prevState.formData,
+                    [name]: value
+                }
+            }));
+        }
+        return value
     };
 
     handleCheckboxChange = (value) => {
@@ -47,7 +63,7 @@ class Login extends Component {
     checkUserError = (value) => {
         switch (value) {
             case "":
-                return "Tên đăng nhập không hợp lệ"
+                return "Tên đăng nhập không được để trống"
 
             default:
                 return false
@@ -57,7 +73,7 @@ class Login extends Component {
     checkPasswordError = (value) => {
         switch (value) {
             case "":
-                return "Mật khẩu không hợp lệ không hợp lệ"
+                return "Mật khẩu không được để trống"
 
             default:
                 return false
@@ -65,25 +81,38 @@ class Login extends Component {
     }
 
     handleFormSubmit = () => {
+        const formData = this.state.formData
         if (
-            !this.checkUserError(this.state.formData.user) &&
-            !this.checkPasswordError(this.state.formData.password)
+            !this.checkUserError(formData.user) &&
+            !this.checkPasswordError(formData.password)
         ) {
-            console.log('Form Data:', this.state.formData);
-            this.props.navigate('/home')
+            console.log('Form Data:', {
+                user: formData.user,
+                password: formData.password,
+                remember: formData.remember,
+            });
+            if (this.mButtonRef.current) {
+                this.mButtonRef.current.loading();
+            }
+            setTimeout(() => {
+                if (this.mButtonRef.current) {
+                    this.mButtonRef.current.reset();
+                    this.props.navigate('/')
+                }
+            }, 2000);
         }
         this.setState(prevState => ({
             formData: {
                 ...prevState.formData,
-                userError: this.checkUserError(this.state.formData.user),
-                passwordError: this.checkPasswordError(this.state.formData.password),
+                userError: this.checkUserError(formData.user),
+                passwordError: this.checkPasswordError(formData.password),
             }
         }));
     };
 
-    renderInputField = (item) => {
+    renderInputField = (item, key) => {
         return (
-            <Col className="form_item ">
+            <Col className="form_item " key={key}>
                 <Row className="item_header">
                     <Col>{item?.title} <span className="item_require">*</span></Col>
                     <Tooltip placement="top" title={item?.tooltip} className="item_tooltip">
@@ -97,7 +126,7 @@ class Login extends Component {
                     prefix={item?.inputIcon}
                     placeholder={item?.placeholder}
                     value={item?.value}
-                    onChange={this.handleInputChange}
+                    onChange={(e) => this.handleInputChange(e, item?.regex)}
                 />
                 <Row className="item_bottom">{item?.error && item?.error}</Row>
             </Col>
@@ -108,9 +137,9 @@ class Login extends Component {
         const { formData } = this.state;
 
         const checkboxDataSource = {
-            span: 12,
             label: "Ghi nhớ mật khẩu",
             value: formData.remember,
+            className: `${formData.remember && "m-checkbox_checked"}`,
         };
 
         const inputForm = [
@@ -138,9 +167,6 @@ class Login extends Component {
 
         return (
             <Col className='login_container' >
-                <Row className='header'>
-                    <UnAuthHeader />
-                </Row>
                 <Row className="login_content">
                     <Col
                         name="login_form"
@@ -151,26 +177,30 @@ class Login extends Component {
                             <Typography.Title level={3} className="button_text">Đăng nhập</Typography.Title>
                         </Col>
 
-                        {inputForm.map((item) => this.renderInputField(item))}
+                        {inputForm.map((item, key) => this.renderInputField(item, key))}
 
                         <Col className="form_item space_margin">
-                            <Mcheckbox dataSource={checkboxDataSource} onClick={() => this.handleCheckboxChange(!formData.remember)} />
+                            <Mcheckbox onChangeValue={(returnValue) => this.handleCheckboxChange(returnValue?.checked)} dataSource={checkboxDataSource} />
                         </Col>
 
                         <Col className="form_item">
-                            <Mbutton className='form_button' type="primary" htmlType="submit" block onClick={this.handleFormSubmit}>
+                            <Mbutton
+                                className='form_button m_button third'
+                                type="primary"
+                                htmlType="submit"
+                                block
+                                onClick={this.handleFormSubmit}
+                                ref={this.mButtonRef}
+                            >
                                 Đăng nhập
                             </Mbutton>
                         </Col>
 
                         <Row justify="space-between" className="form_item bottom_link">
-                            <Link href="/register">Đăng ký</Link>
-                            <Link href="/forgot-password">Quên mật khẩu?</Link>
+                            <NavLink to="/register">Đăng ký</NavLink>
+                            <NavLink to="/forgot-password" >Quên mật khẩu?</NavLink>
                         </Row>
                     </Col>
-                </Row>
-                <Row className='footer'>
-                    <Footer />
                 </Row>
             </Col >
         )
