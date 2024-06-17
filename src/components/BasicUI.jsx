@@ -908,7 +908,7 @@ class Mcollapse extends React.Component {
 
   render() {
     return (
-      <Col span={this.data?.span}>
+      <Col  span={this.data?.span} >
         <Collapse {...this.props.config}>{this.renderContent()}</Collapse>
       </Col>
     );
@@ -942,9 +942,9 @@ class Mcapcha extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      captchaImg: '',
-      captchaText: '',
-      userInput: '',
+      captchaImg: "",
+      captchaText: "",
+      userInput: "",
       isVerified: false,
     };
   }
@@ -959,7 +959,7 @@ class Mcapcha extends React.Component {
       const data = await response.json();
       this.setState({ captchaImg: data.img, captchaText: data.text });
     } catch (error) {
-      console.error('Error loading CAPTCHA:', error);
+      console.error("Error loading CAPTCHA:", error);
     }
   };
 
@@ -974,13 +974,13 @@ class Mcapcha extends React.Component {
   handleSubmit = () => {
     if (this.state.userInput === this.state.captchaText) {
       this.setState({ isVerified: true });
-      message.success('CAPTCHA verified successfully!');
+      message.success("CAPTCHA verified successfully!");
       if (this.props.onVerify) {
         this.props.onVerify(true);
       }
     } else {
       this.setState({ isVerified: false });
-      message.error('CAPTCHA verification failed. Please try again.');
+      message.error("CAPTCHA verification failed. Please try again.");
       if (this.props.onVerify) {
         this.props.onVerify(false);
       }
@@ -1009,9 +1009,9 @@ class Mcapcha extends React.Component {
         />
         <Button onClick={this.handleSubmit}>Submit</Button>
         {this.state.isVerified ? (
-          <p style={{ color: 'green' }}>CAPTCHA verified successfully!</p>
+          <p style={{ color: "green" }}>CAPTCHA verified successfully!</p>
         ) : (
-          <p style={{ color: 'red' }}>Please verify the CAPTCHA.</p>
+          <p style={{ color: "red" }}>Please verify the CAPTCHA.</p>
         )}
       </Col>
     );
@@ -1046,13 +1046,23 @@ class Mcapcha extends React.Component {
 class Mtab extends React.Component {
   constructor(props) {
     super(props);
-    this.data = this.props.dataSource;
-  }
-
-  componentDidMount() {
+    this.state = {
+      data: [],
+    };
     this.tabRef = React.createRef();
   }
-
+  componentDidMount() {
+    this.fetchData();
+  }
+  fetchData = async () => {
+    try {
+      const response = await fetch(this.props.dataEndpoint);
+      const data = await response.json();
+      this.setState({ data });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
   renderFooter() {
     if (!this.props.footer) {
       return;
@@ -1060,7 +1070,6 @@ class Mtab extends React.Component {
     let content = this.props.footer;
     return <div className="m-tab-footer">{content}</div>;
   }
-
   render() {
     const tabItem = this.data?.map((item, index) => {
       if (item.badge) {
@@ -1087,7 +1096,6 @@ class Mtab extends React.Component {
         );
       }
     });
-
     return (
       <Tabs animated={true} {...this.props.config} ref={this.tabRef}>
         {tabItem}

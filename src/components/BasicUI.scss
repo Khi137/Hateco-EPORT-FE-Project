@@ -1,130 +1,343 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap");
+
+//Color
+
+//Surface
+$color-surface-50: #ffffff;
+$color-surface-100: #f7f9fd;
+$color-surface-200: #ecedee;
+$color-surface-300: #cbcfd2;
+$color-surface-400: #a7aeb4;
+$color-surface-500: #8e979f;
+$color-surface-600: #6b767f;
+$color-surface-700: #4f575e;
+$color-surface-800: #33383d;
+$color-surface-900: #202327;
+$color-primary: #1c1c54;
+$color-second: #d2c5ff;
+$color-third: #00b1cc;
+$color-fourth: #5ffbd6;
+
+//Primary
+$color-primary-50: #d2c5ff;
+$color-primary-100: #a296dc;
+$color-primary-200: #746aad;
+$color-primary-300: #48417f;
+$color-primary-400: #1c1c54;
+
+//Secondary
+
+//Danger
+$color-danger-50: #fbeaea;
+$color-danger-100: #e16b6b;
+$color-danger-200: #c92929;
+$color-danger-300: #a92323;
+$color-danger-400: #6e1717;
+
+//Success
+$color-success-50: #f6fefb;
+$color-success-100: #1bc590;
+$color-success-200: #12825f;
+$color-success-300: #0e674b;
+$color-success-400: #0a4834;
+
+//Warning
+$color-warning-50: #fffdfa;
+$color-warning-100: #f9dbb5;
+$color-warning-200: #f2ab53;
+$color-warning-300: #ee9322;
+$color-warning-400: #a6620d;
+
+//Opacity
+$color-opacity-primary: rgba(red(#7d49f8), green(#7d49f8), blue(#7d49f8), 0.15);
+$color-opacity-secondary: rgba(
+  red(#1c6fe3),
+  green(#1c6fe3),
+  blue(#1c6fe3),
+  0.15
+);
+$color-opacity-danger: rgba(red(#c92929), green(#c92929), blue(#c92929), 0.15);
+$color-opacity-success: rgba(red(#12825f), green(#12825f), blue(#12825f), 0.15);
+$color-opacity-warning: rgba(red(#f2ab53), green(#f2ab53), blue(#f2ab53), 0.15);
+$color-background-modal: rgba(red(#121212), green(#121212), blue(#121212), 92%);
+
+//Dark
+$color-dark-50: #121212;
+$color-dark-100: #161616;
+$color-dark-200: #1a1a1a;
+$color-dark-300: #1c1c1c;
+$color-dark-400: #1e1e1e;
+
+//Tipography
+
+$main-font: "IBM Plex Sans", sans-serif !important;
+$main-font-weight-normal: 400;
+$main-font-weight-bold: 700;
+
+//heading-xl
+$heading-xl-font-size: 60px;
+$heading-xl-line-height: 78px;
+.heading-xl-normal {
+  font-family: $main-font;
+  font-size: $heading-xl-font-size;
+  line-height: $heading-xl-line-height;
+  font-weight: $main-font-weight-normal;
+}
+.heading-xl-bold {
+    font-family: $main-font;
+    font-size: $heading-xl-font-size;
+    line-height: $heading-xl-line-height;
+    font-weight: $main-font-weight-bold;
+}
+
+//heading-lg
+$heading-lg-font-size: 48px;
+$heading-lg-line-height: 64px;
+.heading-lg-normal {
+    font-family: $main-font;
+    font-size: $heading-lg-font-size;
+    line-height: $heading-lg-line-height;
+    font-weight: $main-font-weight-normal;
+}
+.heading-lg-bold {
+    font-family: $main-font;
+    font-size: $heading-lg-font-size;
+    line-height: $heading-lg-line-height;
+    font-weight: $main-font-weight-bold;
+}
+
+//heading-md
+$heading-md-font-size: 34px;
+$heading-md-line-height: 48px;
+.heading-md-normal {
+    font-family: $main-font;
+    font-size: $heading-md-font-size;
+    line-height: $heading-md-line-height;
+    font-weight: $main-font-weight-normal;
+}
+.heading-md-bold {
+    font-family: $main-font;
+    font-size: $heading-md-font-size;
+    line-height: $heading-md-line-height;
+    font-weight: $main-font-weight-bold;
+}
+
+//title-xl
+$title-xl-font-size: 24px;
+$title-xl-line-height: 34px;
+.title-xl-normal {
+    font-family: $main-font;
+    font-size: $title-xl-font-size;
+    line-height: $title-xl-line-height;
+    font-weight: $main-font-weight-normal;
+}
+.title-xl-bold {
+    font-family: $main-font;
+    font-size: $title-xl-font-size;
+    line-height: $title-xl-line-height;
+    font-weight: $main-font-weight-bold;
+}
+
+//title-lg
+$title-lg-font-size: 20px;
+$title-lg-line-height: 30px;
+.title-lg-normal {
+    font-family: $main-font;
+    font-size: $title-lg-font-size;
+    line-height: $title-lg-line-height;
+    font-weight: $main-font-weight-normal;
+}
+.title-lg-bold {
+    font-family: $main-font;
+    font-size: $title-lg-font-size;
+    line-height: $title-lg-line-height;
+    font-weight: $main-font-weight-bold;
+}
+
+//body-xl
+$body-xl-font-size: 18px;
+$body-xl-line-height: 28px;
+.body-xl-normal {
+    font-family: $main-font;
+    font-size: $body-xl-font-size;
+    line-height: $body-xl-line-height;
+    font-weight: $main-font-weight-normal;
+}
+.body-xl-bold {
+    font-family: $main-font;
+    font-size: $title-lg-font-size;
+    line-height: $body-xl-line-height;
+    font-weight: $main-font-weight-bold;
+}
+
+//body-lg
+
+
+
+
+
+
+//SCSS of ShowComponent.jsx
+.component-bodylayout {
+  padding: 100px 25% 100px 25%;
+}
+
+.ant-collapse-content-box {
+    color: red
+}
+
+.ant-collapse-content-box:hover{
+    background-color: green;
+}
+
+.tile-component {
+  color: $color-success-200;
+}
+.tile-component:hover {
+    color: $color-danger-200;
+}
+#abc{
+    color: red !important;
+}
+
+.test-Mcollapse {
+//   background-color: $color-opacity-warning !important;
+
+  color: red !important;
+}
+
+.bodylayout {
+}
+
+
 // Mbutton
 .m_button.third {
-    background-color: #00B1CC;
-    color: white;
+  background-color: #00b1cc;
+  color: white;
 }
 
 .m_button.third:hover,
 .m_button.third:active {
-    background-color: rgb(1, 159, 186) !important;
+  background-color: rgb(1, 159, 186) !important;
 }
 
 .m_button.outlet {
-    background-color: white;
-    color: #00B1CC;
+  background-color: white;
+  color: #00b1cc;
 }
 
 .m_button.outlet:hover,
 .m_button.outlet:active {
-    background-color: #019fba !important;
+  background-color: #019fba !important;
 }
 
 .m_button.black {
-    background-color: #121212;
-    color: white;
+  background-color: #121212;
+  color: white;
 }
 
 .m_button.black:hover,
 .m_button.black:active {
-    background-color: #CBCFD2 !important;
+  background-color: #cbcfd2 !important;
 }
 
 .m_button.red {
-    background-color: #C92929;
-    color: white;
+  background-color: #c92929;
+  color: white;
 }
 
 .m_button.red:hover,
 .m_button.red:active {
-    background-color: #A92323 !important;
+  background-color: #a92323 !important;
 }
 
+
+
 .m_button.red :active {
-    background-color: #A92323 !important;
+  background-color: #a92323 !important;
 }
 
 .m_button.green {
-    background-color: #12825F;
-    color: white;
+  background-color: #12825f;
+  color: white;
 }
 
 .m_button.green:hover,
 .m_button.green:active {
-    background-color: #0E674B !important;
+  background-color: #0e674b !important;
 }
 
 .m_button.orange {
-    background-color: #F2AB53;
-    color: white;
+  background-color: #f2ab53;
+  color: white;
 }
 
 .m_button.orange:hover,
 .m_button.orange:active {
-    background-color: #EE9322 !important;
+  background-color: #ee9322 !important;
 }
 
 .m_button.green {
-    background-color: #12825F;
-    color: white;
+  background-color: #12825f;
+  color: white;
 }
 
 .m_button.green:hover,
 .m_button.green:active {
-    background-color: #0E674B !important;
+  background-color: #0e674b !important;
 }
 
 .m_button:active {
-    box-shadow: 0px 8px 8px 0px rgba(36, 104, 147, 0.5) inset;
+  box-shadow: 0px 8px 8px 0px rgba(36, 104, 147, 0.5) inset;
 }
 
 .m_button.disabled {
-    pointer-events: none !important;
-    opacity: 0.5;
+  pointer-events: none !important;
+  opacity: 0.5;
 }
 
 // Mcheckbox
-
 .m-form__input {
-    padding: 8px 16px;
-    border-radius: 4px;
-    border: 1px solid white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 1px solid white;
 
-    .ant-checkbox-wrapper {
-        .ant-checkbox {
-            .ant-checkbox-inner:hover {
-                border-color: #00B1CC !important;
-            }
-        }
-
-        .ant-checkbox-checked {
-            .ant-checkbox-inner {
-                border-color: #00B1CC;
-                background-color: #00B1CC !important;
-            }
-        }
+  .ant-checkbox-wrapper {
+    .ant-checkbox {
+      .ant-checkbox-inner:hover {
+        border-color: #00b1cc !important;
+      }
     }
+
+    .ant-checkbox-checked {
+      .ant-checkbox-inner {
+        border-color: #00b1cc;
+        background-color: #00b1cc !important;
+      }
+    }
+  }
 }
 
 .m-form__box {
-    flex: 0 0 100%;
-    max-width: 100%;
+  flex: 0 0 100%;
+  max-width: 100%;
 }
 
 .m-form__input:hover {
-    background-color: #F8F5FF;
+  background-color: #f8f5ff;
 
-    .ant-checkbox-wrapper {
-        .ant-checkbox {
-            .ant-checkbox-inner {
-                border-color: #00B1CC;
-            }
-        }
+  .ant-checkbox-wrapper {
+    .ant-checkbox {
+      .ant-checkbox-inner {
+        border-color: #00b1cc;
+      }
     }
+  }
 }
 
 .m-checkbox_checked {
-    .m-form__input:hover {
-        background-color: #F8F5FF;
-        border: 1px solid #B99CFC;
-    }
+  .m-form__input:hover {
+    background-color: #f8f5ff;
+    border: 1px solid #b99cfc;
+  }
 }
