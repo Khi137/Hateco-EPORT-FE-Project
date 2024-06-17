@@ -128,3 +128,16 @@
         border: 1px solid #B99CFC;
     }
 }
+
+// Winput
+
+.Winput.error_input {
+    border-color: #C92929;
+}
+
+.Winput_error_text {
+    height: 16px;
+    margin-top: 4px;
+    font-size: 12px;
+    color: red;
+}
