@@ -6,7 +6,8 @@
     align-items: center;
     border-radius: 4px;
     color: white;
-
+    max-width: 500px;
+    overflow-y: auto;
     ul{
         display: flex;
         list-style-type: none;
