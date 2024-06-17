@@ -31,6 +31,7 @@ import {
   Select,
   Progress,
 } from "antd";
+import "./BasicUI.scss";
 
 import {
   BrowserView,
@@ -940,28 +941,107 @@ class Mdrawer extends React.Component {
 class Mcapcha extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      captchaImg: '',
+      captchaText: '',
+      userInput: '',
+      isVerified: false,
+    };
   }
 
-  UNSAFE_componentWillMount() {
-    this.data = this.props.dataSource;
+  componentDidMount() {
+    this.loadCaptcha();
   }
+
+  loadCaptcha = async () => {
+    try {
+      const response = await fetch(this.props.captchaEndpoint);
+      const data = await response.json();
+      this.setState({ captchaImg: data.img, captchaText: data.text });
+    } catch (error) {
+      console.error('Error loading CAPTCHA:', error);
+    }
+  };
+
+  handleRefresh = () => {
+    this.loadCaptcha();
+  };
+
+  handleInputChange = (e) => {
+    this.setState({ userInput: e.target.value });
+  };
+
+  handleSubmit = () => {
+    if (this.state.userInput === this.state.captchaText) {
+      this.setState({ isVerified: true });
+      message.success('CAPTCHA verified successfully!');
+      if (this.props.onVerify) {
+        this.props.onVerify(true);
+      }
+    } else {
+      this.setState({ isVerified: false });
+      message.error('CAPTCHA verification failed. Please try again.');
+      if (this.props.onVerify) {
+        this.props.onVerify(false);
+      }
+    }
+  };
 
   render() {
     return (
       <Col flex="auto">
         <img
           height="32px"
-          id="CapchaImg"
+          id="CaptchaImg"
           src={
-            this.props.dataSource?.img
-              ? this.props.dataSource?.img
+            this.state.captchaImg
+              ? this.state.captchaImg
               : "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
           }
+          alt="CAPTCHA"
         />
+        <Button onClick={this.handleRefresh}>Refresh</Button>
+        <Input
+          type="text"
+          value={this.state.userInput}
+          onChange={this.handleInputChange}
+          placeholder="Enter CAPTCHA"
+        />
+        <Button onClick={this.handleSubmit}>Submit</Button>
+        {this.state.isVerified ? (
+          <p style={{ color: 'green' }}>CAPTCHA verified successfully!</p>
+        ) : (
+          <p style={{ color: 'red' }}>Please verify the CAPTCHA.</p>
+        )}
       </Col>
     );
   }
 }
+
+//   constructor(props) {
+//     super(props);
+//   }
+
+//   UNSAFE_componentWillMount() {
+//     this.data = this.props.dataSource;
+//   }
+
+//   render() {
+//     return (
+//       <Col flex="auto">
+//         <img
+//           height="32px"
+//           id="CapchaImg"
+//           src={
+//             this.props.dataSource?.img
+//               ? this.props.dataSource?.img
+//               : "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+//           }
+//         />
+//       </Col>
+//     );
+//   }
+// }
 
 class Mtab extends React.Component {
   constructor(props) {

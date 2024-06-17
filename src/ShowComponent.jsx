@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Mcollapse, Mdrawer, Mbutton } from "./components/BasicUI";
+import { Mcollapse, Mdrawer, Mbutton, Mcapcha } from "./components/BasicUI";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -22,6 +22,7 @@ class ShowComponent extends Component {
         onClose: this.onClose,
         visible: this.state?.visible,
       },
+      isCaptchaVerified: false,
     };
   }
 
@@ -37,21 +38,26 @@ class ShowComponent extends Component {
     });
   };
 
+  handleCaptchaVerify = (isVerified) => {
+    this.setState({
+      isCaptchaVerified: isVerified,
+    });
+  };
+
   render() {
     return (
       <>
         <Header />
-        <div classnName="bodylayout" style={{ margin: "60px" }}>
+        <div classnName="bodylayout" style={{ margin: "100px 40% 100px 30%" }}>
           <h1 style={{ color: "green", margin: "50px 0px 50px 0px" }}>
             Show component
           </h1>
-          <h2>Mcollapse</h2>
+          <h2 style={{ margin: "10px 0px 0px 0px" }}>Mcollapse</h2>
           <Mcollapse
             dataSource={this.state.dataSource}
             config={this.state.config}
-            style={{ margin: "10px 0px 10px 0px" }}
           />
-          <h2>Mdrawer</h2>
+          <h2 style={{ margin: "10px 0px 0px 0px" }}>Mdrawer</h2>
           <Mbutton onClick={this.onShow} style={{ margin: "10px 0px" }}>
             Open Drawer
           </Mbutton>
@@ -59,6 +65,14 @@ class ShowComponent extends Component {
             dataSource={this.state.dataSourceDrawer}
             config={{ ...this.state.configDrawer, visible: this.state.visible }}
           />
+          <h2 style={{ margin: "10px 0px 0px 0px" }}>Mcapcha</h2>
+          <div style={{ margin: "20px 0px" }}>
+            <Mcapcha
+              captchaEndpoint="https://example.com/api/captcha" // URL giả định cho endpoint CAPTCHA
+              onVerify={this.handleCaptchaVerify}
+            />
+          </div>
+
         </div>
         <Footer />
       </>

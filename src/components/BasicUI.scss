@@ -1,0 +1,130 @@
+// Mbutton
+.m_button.third {
+    background-color: #00B1CC;
+    color: white;
+}
+
+.m_button.third:hover,
+.m_button.third:active {
+    background-color: rgb(1, 159, 186) !important;
+}
+
+.m_button.outlet {
+    background-color: white;
+    color: #00B1CC;
+}
+
+.m_button.outlet:hover,
+.m_button.outlet:active {
+    background-color: #019fba !important;
+}
+
+.m_button.black {
+    background-color: #121212;
+    color: white;
+}
+
+.m_button.black:hover,
+.m_button.black:active {
+    background-color: #CBCFD2 !important;
+}
+
+.m_button.red {
+    background-color: #C92929;
+    color: white;
+}
+
+.m_button.red:hover,
+.m_button.red:active {
+    background-color: #A92323 !important;
+}
+
+.m_button.red :active {
+    background-color: #A92323 !important;
+}
+
+.m_button.green {
+    background-color: #12825F;
+    color: white;
+}
+
+.m_button.green:hover,
+.m_button.green:active {
+    background-color: #0E674B !important;
+}
+
+.m_button.orange {
+    background-color: #F2AB53;
+    color: white;
+}
+
+.m_button.orange:hover,
+.m_button.orange:active {
+    background-color: #EE9322 !important;
+}
+
+.m_button.green {
+    background-color: #12825F;
+    color: white;
+}
+
+.m_button.green:hover,
+.m_button.green:active {
+    background-color: #0E674B !important;
+}
+
+.m_button:active {
+    box-shadow: 0px 8px 8px 0px rgba(36, 104, 147, 0.5) inset;
+}
+
+.m_button.disabled {
+    pointer-events: none !important;
+    opacity: 0.5;
+}
+
+// Mcheckbox
+
+.m-form__input {
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: 1px solid white;
+
+    .ant-checkbox-wrapper {
+        .ant-checkbox {
+            .ant-checkbox-inner:hover {
+                border-color: #00B1CC !important;
+            }
+        }
+
+        .ant-checkbox-checked {
+            .ant-checkbox-inner {
+                border-color: #00B1CC;
+                background-color: #00B1CC !important;
+            }
+        }
+    }
+}
+
+.m-form__box {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+.m-form__input:hover {
+    background-color: #F8F5FF;
+
+    .ant-checkbox-wrapper {
+        .ant-checkbox {
+            .ant-checkbox-inner {
+                border-color: #00B1CC;
+            }
+        }
+    }
+}
+
+.m-checkbox_checked {
+    .m-form__input:hover {
+        background-color: #F8F5FF;
+        border: 1px solid #B99CFC;
+    }
+}

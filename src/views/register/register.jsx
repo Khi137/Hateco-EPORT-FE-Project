@@ -250,6 +250,7 @@ class Register extends Component {
             span: 12,
             label: <div><p>Tôi đồng ý với <span className='terms_agreed'>điều khoản thỏa thuận</span></p></div>,
             value: formData.termsAgreed,
+            className: `${formData.termsAgreed && "m-checkbox_checked"}`,
         };
 
         const inputForm = [

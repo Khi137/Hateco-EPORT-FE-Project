@@ -139,10 +139,7 @@ class Login extends Component {
         const checkboxDataSource = {
             label: "Ghi nhớ mật khẩu",
             value: formData.remember,
-            dataSource: {
-                span: 12,
-                value: formData.remember,
-            }
+            className: `${formData.remember && "m-checkbox_checked"}`,
         };
 
         const inputForm = [
@@ -183,12 +180,12 @@ class Login extends Component {
                         {inputForm.map((item, key) => this.renderInputField(item, key))}
 
                         <Col className="form_item space_margin">
-                            <Mcheckbox dataSource={checkboxDataSource} onClick={() => this.handleCheckboxChange(!formData.remember)} />
+                            <Mcheckbox onChangeValue={(returnValue) => this.handleCheckboxChange(returnValue?.checked)} dataSource={checkboxDataSource} />
                         </Col>
 
                         <Col className="form_item">
                             <Mbutton
-                                className='form_button'
+                                className='form_button m_button third'
                                 type="primary"
                                 htmlType="submit"
                                 block
