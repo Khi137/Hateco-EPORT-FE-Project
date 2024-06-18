@@ -5,7 +5,7 @@ import {
   AlignLeftOutlined,
   HomeOutlined,
 } from "@ant-design/icons";
-import { Button, Popconfirm, message } from "antd";
+import { Breadcrumb, Button, Popconfirm, message } from "antd";
 import { toggleSubMenu } from "../reducers/navigationReducer";
 import "./Header.scss";
 import { withRouter } from "../utils/withRouter";
@@ -83,7 +83,7 @@ class Header extends Component {
           </div>
           <div className="user">
             <UserOutlined style={{ fontSize: "24px" }} className="logo-user" />
-            <span>User-name</span>
+            <span>Username</span>
           </div>
         </div>
         <div className="menu">
@@ -95,6 +95,10 @@ class Header extends Component {
                   borderRight: "1px solid white",
                   paddingRight: "12px",
                   cursor: "pointer",
+                  backgroundColor: "white",
+                  color: "#D03438",
+                  padding: "4px 12px",
+                  borderRadius: "4px",
                 }}
                 onClick={this.handleToggle}
               />
@@ -107,8 +111,25 @@ class Header extends Component {
               <span>Tổng quan</span>
             </div>
             <div className="des">
-              <span>Danh mục chức năng</span>
-              <span>Danh mục hãng tàu</span>
+              <Breadcrumb
+                items={[
+                  {
+                    title: (
+                      <a className="breadcrum" href="">
+                        Danh mục chức năng
+                      </a>
+                    ),
+                  },
+                  {
+                    title: (
+                      <a className="breadcrum" href="">
+                        Danh mục hãng tàu
+                      </a>
+                    ),
+                  },
+                ]}
+                // style={{ border: "1px solid white" }}
+              />
             </div>
             <Extension />
           </div>
@@ -116,15 +137,19 @@ class Header extends Component {
             <div className="danhsach-menu">
               <div className="danhmuc-cha">
                 <ul>
-                  {navigations.map((item) => (
-                    <li
-                      key={item.text}
-                      onClick={() => this.handleClick(item.text)}
-                      className={item.isOpen ? "active" : ""}
-                    >
-                      {item.text}
-                    </li>
-                  ))}
+                  {navigations.map((item) => {
+                    const IconComponentParent = AntdIcons[item.icon];
+                    return (
+                      <li
+                        key={item.text}
+                        onClick={() => this.handleClick(item.text)}
+                        className={item.isOpen ? "active" : ""}
+                      >
+                        <IconComponentParent style={{ marginRight: "8px" }} />
+                        <span> {item.text}</span>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
               <div className="danhmuc-con">
@@ -142,7 +167,7 @@ class Header extends Component {
                                 okText="Đi đến"
                                 cancelText="+"
                                 onCancel={() =>
-                                  this.handleAddExtension(subItem.id)
+                                  this.handleAddExtendsion(subItem.id)
                                 }
                                 onConfirm={() =>
                                   this.handleNavigateSubMenu(subItem.url)
