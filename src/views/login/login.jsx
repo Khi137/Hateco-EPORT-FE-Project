@@ -71,12 +71,12 @@ class Login extends Component {
     }
 
     checkPasswordError = (value) => {
-        switch (value) {
-            case "":
-                return "Mật khẩu không được để trống"
-
-            default:
-                return false
+        if (value === "") {
+            return "Mật khẩu không được để trống"
+        } else if (value.length < 6) {
+            return "Mật khẩu ít nhất có 6 ký tự"
+        } else {
+            return false
         }
     }
 
