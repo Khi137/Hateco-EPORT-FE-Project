@@ -61,7 +61,7 @@ $breakpoint-sm: 360px;
                 }
 
                 .form_button:active {
-                    height: 40px;
+                    background-color: rgb(1, 159, 186);
                     box-shadow: 0px 8px 8px 0px rgba(36, 104, 147, 0.5) inset;
                 }
 
@@ -107,8 +107,8 @@ $breakpoint-sm: 360px;
             }
 
             .bottom_link {
-                padding: 0 20px;
-                margin: 20px 0;
+                padding: 10px 20px;
+                margin: 10px 0;
                 font-weight: 400;
                 border-top: 1px solid #E5E5E5;
                 color: #1B6DDF;
@@ -140,5 +140,21 @@ $breakpoint-sm: 360px;
                 }
             }
         }
+    }
+}
+
+.ant-modal {
+    position: relative;
+    max-height: 80vh !important;
+    width: 691.2px !important;
+    overflow-y: scroll;
+    border-radius: 8px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+@media (max-width: $breakpoint-md) {
+    .ant-modal {
+        width: 90% !important;
     }
 }

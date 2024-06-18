@@ -1,5 +1,5 @@
 import React, { Component, createRef } from 'react';
-import { Row, Col, Typography, Tooltip } from 'antd';
+import { Row, Col, Typography, Tooltip, Modal, message } from 'antd';
 import { InfoCircleOutlined, MailOutlined, LockOutlined, NumberOutlined, PhoneOutlined, EnvironmentOutlined, BoldOutlined } from '@ant-design/icons';
 import './styles.scss'
 
@@ -32,7 +32,8 @@ class Register extends Component {
                 emailError: false,
                 passwordError: false,
                 rePasswordError: false,
-            }
+            },
+            termsAgreedModal: false
         };
         this.mButtonRef = createRef();
         this.dropdownRef = createRef();
@@ -129,9 +130,12 @@ class Register extends Component {
     }
 
     checkEmailError = (value) => {
-        switch (value) {
-            case "":
+        const mailRegex = /^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4})$/
+        switch (true) {
+            case (value === ""):
                 return "Email không được để trống"
+            case (!mailRegex?.test(value)):
+                return "Email không đúng định dạng"
 
             default:
                 return false
@@ -139,19 +143,24 @@ class Register extends Component {
     }
 
     checkPasswordError = (value) => {
-        switch (value) {
-            case "":
+        switch (true) {
+            case (value === ""):
                 return "Mật khẩu không được để trống"
-
+            case (value.length < 6):
+                return "Mật khẩu ít nhất có 6 ký tự";
             default:
                 return false
         }
     }
 
     checkRePasswordError = (value) => {
-        switch (value) {
-            case "":
+        switch (true) {
+            case (value === ""):
                 return "Mật khẩu không được để trống"
+            case (value !== this.state.formData.password):
+                return "Mật khẩu nhập lại phải trùng khớp"
+            case (value.length < 6):
+                return "Mật khẩu ít nhất có 6 ký tự";
 
             default:
                 return false
@@ -198,8 +207,9 @@ class Register extends Component {
 
             setTimeout(() => {
                 if (this.mButtonRef.current) {
+                    message.success("Đăng ký thành công")
                     this.mButtonRef.current.reset();
-                    // this.props.navigate('/')
+                    this.props.navigate('/login')
                 }
             }, 2000);
 
@@ -237,10 +247,19 @@ class Register extends Component {
                     value={item?.value}
                     defaultValue={item?.value}
                     onChange={(e) => this.handleInputChange(e, item?.regex)}
+                    errorText={item?.error && item?.error}
                 />
-                <Row className="item_bottom">{item?.error && item?.error}</Row>
             </Col>
         )
+    }
+
+    hanldeSetVisibleTermsagreeModal = (value) => {
+        this.setState(prevState => ({
+            formData: {
+                ...prevState.formData,
+            },
+            termsAgreedModal: value
+        }));
     }
 
     render() {
@@ -248,7 +267,7 @@ class Register extends Component {
 
         const checkboxDataSource = {
             span: 12,
-            label: <div><p style={{ userSelect: "none" }}>Tôi đồng ý với <span className='terms_agreed'>điều khoản thỏa thuận</span></p></div>,
+            label: <div><p style={{ userSelect: "none" }}>Tôi đồng ý với <span onClick={() => this.hanldeSetVisibleTermsagreeModal(true)} className='terms_agreed' >điều khoản thỏa thuận</span></p></div>,
             value: formData.termsAgreed,
             className: `${formData.termsAgreed && "m-checkbox_checked"}`,
         };
@@ -256,7 +275,7 @@ class Register extends Component {
         const inputForm = [
             {
                 title: "Mã số thuế:",
-                tooltip: "Nhập mã số thuế",
+                tooltip: "Nhập mã số thuế có khoảng 10 đến 13 số vd: 0101234567-001",
                 placeholder: "Nhập mã số thuế",
                 inputIcon: <NumberOutlined />,
                 name: "taxNumber",
@@ -266,7 +285,7 @@ class Register extends Component {
             },
             {
                 title: "Tên doanh nghiệp:",
-                tooltip: "Nhập tên doanh nghiệp",
+                tooltip: "Nhập tên doanh nghiệp của bạn/tổ chức",
                 placeholder: "Nhập tên doanh nghiệp",
                 inputIcon: <BoldOutlined />,
                 name: "companyName",
@@ -286,7 +305,7 @@ class Register extends Component {
             },
             {
                 title: "Số đăng ký kinh doanh:",
-                tooltip: "Nhập số đăng ký kinh doanh",
+                tooltip: "Số đăng ký kinh doanh có khoảng 10 đến 13 số vd: 0101234567890",
                 placeholder: "Nhập số đăng ký kinh doanh",
                 inputIcon: <NumberOutlined />,
                 name: "businessNumber",
@@ -308,7 +327,7 @@ class Register extends Component {
 
             {
                 title: "Email:",
-                tooltip: "Nhập email",
+                tooltip: "Nhập email theo format mail@example.com",
                 placeholder: "Nhập email",
                 inputIcon: <MailOutlined />,
                 name: "email",
@@ -320,7 +339,7 @@ class Register extends Component {
             {
                 title: "Mật khẩu:",
                 tooltip: "Nhập mật khẩu",
-                placeholder: "Nhập mật khẩu",
+                placeholder: "Nhập mật khẩu phải nhiều hơn 6 ký tự",
                 inputIcon: <LockOutlined />,
                 name: "password",
                 type: "password",
@@ -329,7 +348,7 @@ class Register extends Component {
             },
             {
                 title: "Nhập lại mật khẩu:",
-                tooltip: "Nhập lại mật khẩu",
+                tooltip: "Nhập lại mật khẩu phải tùng với mật khẩu đã nhập",
                 placeholder: "Nhập lại mật khẩu",
                 inputIcon: <LockOutlined />,
                 name: "rePassword",
@@ -340,26 +359,27 @@ class Register extends Component {
         ]
         const items = ['Option 1', 'Option 2', 'Option 3'];
         return (
-            <Col className='register_container' >
-                <Row className="register_content">
-                    <Col
-                        name="register_form"
-                        layout="vertical"
-                        className="register_form"
-                    >
-                        <Col className="form_item form_header">
-                            <Typography.Title level={3} className="button_text">Đăng ký</Typography.Title>
-                        </Col>
-                        <Row>
-                            {inputForm.map((item, key) => this.renderInputField(item, key))}
-                            <Col className="form_item gutter-row responsive-col">
-                                <Row className="item_header">
-                                    <Col>Dịch vụ (có thể chọn nhiều dịch vụ): <span className="item_require">*</span></Col>
-                                    <Tooltip placement="top" title={"Dịch vụ"} className="item_tooltip">
-                                        <InfoCircleOutlined />
-                                    </Tooltip>
-                                </Row>
-                                {/* <Mdropdown
+            <>
+                <Col className='register_container' >
+                    <Row className="register_content">
+                        <Col
+                            name="register_form"
+                            layout="vertical"
+                            className="register_form"
+                        >
+                            <Col className="form_item form_header">
+                                <Typography.Title level={3} className="button_text">Đăng ký</Typography.Title>
+                            </Col>
+                            <Row>
+                                {inputForm.map((item, key) => this.renderInputField(item, key))}
+                                <Col className="form_item gutter-row responsive-col">
+                                    <Row className="item_header">
+                                        <Col>Dịch vụ (có thể chọn nhiều dịch vụ): <span className="item_require">*</span></Col>
+                                        <Tooltip placement="top" title={"Dịch vụ"} className="item_tooltip">
+                                            <InfoCircleOutlined />
+                                        </Tooltip>
+                                    </Row>
+                                    {/* <Mdropdown
                                     dataSource={{
                                         id: 'myDropdown',
                                         options: items
@@ -371,31 +391,72 @@ class Register extends Component {
                                 >
                                     {this.state.selectedValue || 'Select an option'}
                                 </Mdropdown> */}
-                                {/* <Row className="item_bottom">{item?.error && item?.error}</Row> */}
+                                    {/* <Row className="item_bottom">{item?.error && item?.error}</Row> */}
+                                </Col>
+
+                            </Row>
+
+
+                            <Col className="form_item space_margin">
+                                <Mcheckbox dataSource={checkboxDataSource} onClick={() => this.handleCheckboxChange(!formData.termsAgreed)} />
                             </Col>
 
-                        </Row>
-
-
-                        <Col className="form_item space_margin">
-                            <Mcheckbox dataSource={checkboxDataSource} onClick={() => this.handleCheckboxChange(!formData.termsAgreed)} />
+                            <Col className="form_item">
+                                <Mbutton
+                                    className={`form_button ${!formData.termsAgreed && "disable_button"}`}
+                                    type="primary"
+                                    htmlType="submit"
+                                    block
+                                    onClick={this.handleFormSubmit}
+                                    ref={this.mButtonRef}
+                                >
+                                    Đăng ký
+                                </Mbutton>
+                            </Col>
+                            <Row justify="space-between" className="form_item bottom_link">
+                                <NavLink to="/forgot-password" ></NavLink>
+                                <NavLink to="/login">{"Đăng nhập >>"}</NavLink>
+                            </Row>
                         </Col>
-
-                        <Col className="form_item">
-                            <Mbutton
-                                className={`form_button ${!formData.termsAgreed && "disable_button"}`}
-                                type="primary"
-                                htmlType="submit"
-                                block
-                                onClick={this.handleFormSubmit}
-                                ref={this.mButtonRef}
-                            >
-                                Đăng ký
-                            </Mbutton>
-                        </Col>
+                    </Row >
+                </Col >
+                <Modal
+                    title="Điều Kiện thoả thuận"
+                    open={this.state.termsAgreedModal}
+                    onClose={() => this.hanldeSetVisibleTermsagreeModal(false)}
+                    onOk={() => this.hanldeSetVisibleTermsagreeModal(false)}
+                    onCancel={() => this.hanldeSetVisibleTermsagreeModal(false)}
+                    footer={[]}
+                    centered={true}
+                    classNames={"register_terms_agree_modal"}
+                >
+                    <Col className="form_item form_header">
+                        <Typography.Title level={5} className="button_text">Điều Kiện 1</Typography.Title>
                     </Col>
-                </Row >
-            </Col >
+                    <Col>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore provident, autem illum voluptatem neque officia, labore reprehenderit quo consequuntur, quos eaque porro obcaecati? Deserunt rem libero fuga velit, omnis asperiores.</Col>
+                    <Col className="form_item form_header">
+                        <Typography.Title level={5} className="button_text">Điều Kiện 1</Typography.Title>
+                    </Col>
+                    <Col>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore provident, autem illum voluptatem neque officia, labore reprehenderit quo consequuntur, quos eaque porro obcaecati? Deserunt rem libero fuga velit, omnis asperiores.</Col>
+                    <Col className="form_item form_header">
+                        <Typography.Title level={5} className="button_text">Điều Kiện 1</Typography.Title>
+                    </Col>
+                    <Col>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore provident, autem illum voluptatem neque officia, labore reprehenderit quo consequuntur, quos eaque porro obcaecati? Deserunt rem libero fuga velit, omnis asperiores.</Col>
+                    <Col className="form_item form_header">
+                        <Typography.Title level={5} className="button_text">Điều Kiện 1</Typography.Title>
+                    </Col>
+                    <Col>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore provident, autem illum voluptatem neque officia, labore reprehenderit quo consequuntur, quos eaque porro obcaecati? Deserunt rem libero fuga velit, omnis asperiores.</Col>
+                    <Col className="form_item form_header">
+                        <Typography.Title level={5} className="button_text">Điều Kiện 1</Typography.Title>
+                    </Col>
+                    <Col>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore provident, autem illum voluptatem neque officia, labore reprehenderit quo consequuntur, quos eaque porro obcaecati? Deserunt rem libero fuga velit, omnis asperiores.</Col>
+                    <Col className="form_item form_header">
+                        <Typography.Title level={5} className="button_text">Điều Kiện 1</Typography.Title>
+                    </Col>
+                    <Col>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore provident, autem illum voluptatem neque officia, labore reprehenderit quo consequuntur, quos eaque porro obcaecati? Deserunt rem libero fuga velit, omnis asperiores.</Col>
+                </Modal>
+            </>
+
         )
     }
 }

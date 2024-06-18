@@ -81,6 +81,7 @@
     border: 1px solid white;
 
     .ant-checkbox-wrapper {
+        padding: 0 8px;
         .ant-checkbox {
             .ant-checkbox-inner:hover {
                 border-color: #00B1CC !important;
@@ -88,14 +89,12 @@
         }
 
         .ant-checkbox-checked {
+
             .ant-checkbox-inner {
                 border-color: #00B1CC;
                 background-color: #00B1CC !important;
+                
             }
-        }
-        
-        span{
-            margin-left: 5px;
         }
     }
 }

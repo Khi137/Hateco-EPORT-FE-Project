@@ -15,7 +15,6 @@ class MainRoutes extends Component {
         <Route element={<UnAuthLayout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/show-component" element={<ShowComponent />} />
         </Route>
 

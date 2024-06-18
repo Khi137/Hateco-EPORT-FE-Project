@@ -61,8 +61,8 @@ class Login extends Component {
     };
 
     checkUserError = (value) => {
-        switch (value) {
-            case "":
+        switch (true) {
+            case (value === ""):
                 return "Tên đăng nhập không được để trống"
 
             default:
@@ -71,12 +71,13 @@ class Login extends Component {
     }
 
     checkPasswordError = (value) => {
-        if (value === "") {
-            return "Mật khẩu không được để trống"
-        } else if (value.length < 6) {
-            return "Mật khẩu ít nhất có 6 ký tự"
-        } else {
-            return false
+        switch (true) {
+            case (value === ""):
+                return "Mật khẩu không được để trống";
+            case (value.length < 6):
+                return "Mật khẩu ít nhất có 6 ký tự";
+            default:
+                return false;
         }
     }
 
@@ -197,8 +198,8 @@ class Login extends Component {
                         </Col>
 
                         <Row justify="space-between" className="form_item bottom_link">
-                            <NavLink to="/register">Đăng ký</NavLink>
-                            <NavLink to="/forgot-password" >Quên mật khẩu?</NavLink>
+                            <NavLink to="/forgot-password" ></NavLink>
+                            <NavLink to="/register">{"Đăng ký >>"}</NavLink>
                         </Row>
                     </Col>
                 </Row>
