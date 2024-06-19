@@ -6,7 +6,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import * as AntdIcons from "@ant-design/icons";
-import { Mdropdown } from "../BasicUI";
+import { Line, DualAxes } from "@ant-design/charts";
 import { withRouter } from "../../utils/withRouter";
 const listDataCard = [
   {
@@ -47,39 +47,39 @@ const menuData = [
   },
   {
     title: "Đơn vị 2",
-    icon: "RadiusBottomleftOutlined",
+    icon: "CaretDownOutlined",
     number: "12,421,220",
     date: "01/06/2024",
   },
   {
     title: "Đơn vị 3",
-    icon: "RadiusBottomleftOutlined",
+    icon: "PlayCircleOutlined",
     number: "12,421,220",
-    date: "01/06/2024",
+    date: "7/06/2024",
   },
   {
     title: "Đơn vị 4",
-    icon: "RadiusBottomleftOutlined",
+    icon: "LoginOutlined",
     number: "12,421,220",
-    date: "01/06/2024",
+    date: "16/06/2024",
   },
   {
     title: "Đơn vị 5",
-    icon: "RadiusBottomleftOutlined",
+    icon: "BorderInnerOutlined",
     number: "12,421,220",
-    date: "01/06/2024",
+    date: "15/05/2024",
   },
   {
     title: "Đơn vị 6",
-    icon: "RadiusBottomleftOutlined",
+    icon: "FullscreenExitOutlined",
     number: "12,421,220",
-    date: "01/06/2024",
+    date: "18/02/2024",
   },
   {
     title: "Đơn vị 7",
-    icon: "RadiusBottomleftOutlined",
+    icon: "MinusSquareOutlined",
     number: "12,421,220",
-    date: "01/06/2024",
+    date: "01/03/2024",
   },
 ];
 
@@ -94,7 +94,7 @@ const operateData = [
   },
   {
     title: "Trả rỗng",
-    icon: "HomeOutlined",
+    icon: "BorderOuterOutlined",
     number: 120,
     growth: 8,
     type: "down",
@@ -102,7 +102,7 @@ const operateData = [
   },
   {
     title: "Hạ bãi",
-    icon: "HomeOutlined",
+    icon: "BorderBottomOutlined",
     number: 225,
     growth: 12,
     type: "down",
@@ -110,7 +110,7 @@ const operateData = [
   },
   {
     title: "Xuất bãi",
-    icon: "HomeOutlined",
+    icon: "PicCenterOutlined",
     number: 225,
     growth: 12,
     type: "down",
@@ -118,7 +118,7 @@ const operateData = [
   },
   {
     title: "Đóng rút",
-    icon: "HomeOutlined",
+    icon: "FullscreenExitOutlined",
     number: 599,
     growth: 25,
     type: "up",
@@ -126,13 +126,96 @@ const operateData = [
   },
   {
     title: "Vệ sinh",
-    icon: "HomeOutlined",
+    icon: "PicRightOutlined",
     number: 1321,
     growth: 23,
     type: "up",
     active: false,
   },
 ];
+
+const data = [
+  { date: "", value: 4652, type: "Nâng hạ" },
+  { date: "Th.1", value: 7630, type: "Nâng hạ" },
+  { date: "Th.2", value: 7510, type: "Nâng hạ" },
+  { date: "Th.3", value: 11354, type: "Nâng hạ" },
+  { date: "Th.4", value: 7200, type: "Nâng hạ" },
+  { date: "Th.5", value: 6720, type: "Nâng hạ" },
+  { date: "Th.6", value: 5024, type: "Nâng hạ" },
+  { date: "Th.7", value: 4890, type: "Nâng hạ" },
+  { date: "", value: 5123, type: "Dịch vụ" },
+  { date: "Th.1", value: 4868, type: "Dịch vụ" },
+  { date: "Th.2", value: 11254, type: "Dịch vụ" },
+  { date: "Th.3", value: 7654, type: "Dịch vụ" },
+  { date: "Th.4", value: 11254, type: "Dịch vụ" },
+  { date: "Th.5", value: 7654, type: "Dịch vụ" },
+  { date: "Th.6", value: 10125, type: "Dịch vụ" },
+  { date: "Th.7", value: 11200, type: "Dịch vụ" },
+];
+
+const config = {
+  data,
+  xField: "date",
+  yField: "value",
+  seriesField: "type",
+  yAxis: {
+    label: {
+      formatter: (v) => `${v}`,
+    },
+  },
+  legend: {
+    position: "top",
+  },
+  point: {
+    size: 5,
+    shape: "circle",
+    style: {
+      fill: "white",
+      stroke: "black",
+      lineWidth: 2,
+    },
+  },
+  width: 540,
+  height: 385,
+  scale: { color: { range: ["#5B8FF9", "#5D7092"] } },
+};
+
+const uvBillData = [
+  { time: "2019-03", value: 350, type: "uv" },
+  { time: "2019-04", value: 900, type: "uv" },
+  { time: "2019-05", value: 300, type: "uv" },
+  { time: "2019-06", value: 450, type: "uv" },
+  { time: "2019-07", value: 470, type: "uv" },
+  { time: "2019-03", value: 220, type: "bill" },
+  { time: "2019-04", value: 300, type: "bill" },
+  { time: "2019-05", value: 250, type: "bill" },
+  { time: "2019-06", value: 220, type: "bill" },
+  { time: "2019-07", value: 362, type: "bill" },
+];
+
+const configChart = {
+  xField: "time",
+  legend: {
+    color: {
+      position: "bottom",
+      layout: { justifyContent: "center" },
+    },
+  },
+
+  scale: { color: { range: ["#5B8FF9", "#5D7092"] } },
+  children: [
+    {
+      data: uvBillData,
+      type: "interval",
+      yField: "value",
+      colorField: "type",
+      group: true,
+      style: { maxWidth: 50 },
+      label: { position: "inside" },
+      interaction: { elementHighlightByColor: { background: true } },
+    },
+  ],
+};
 
 export class Dashboard extends Component {
   renderCard = (data) => {
@@ -156,11 +239,11 @@ export class Dashboard extends Component {
     );
   };
   renderMenu = (data) => {
+    const IconCard = AntdIcons[data.icon];
     return (
       <li>
         <div className="menu-child">
-          <AntdIcons.RadiusBottomleftOutlined className="icon" />{" "}
-          <span>{data.title}</span>
+          <IconCard className="icon" /> <span>{data.title}</span>
         </div>
         <div className="menu-data">
           <p>{data.number}</p>
@@ -170,9 +253,10 @@ export class Dashboard extends Component {
     );
   };
   renderOperate = (data) => {
+    const IconCard = AntdIcons[data.icon];
     return (
       <div className="operate">
-        <HomeOutlined className="icon" />
+        <IconCard className="icon" />
         <div className="des">
           <p>{data.title}</p>
           <p>{data.number}</p>
@@ -257,7 +341,9 @@ export class Dashboard extends Component {
           </div>
           <div className="right-content">
             <div className="top">
-              <div className="chart">Hiển thị biểu đồ</div>
+              <div className="chart">
+                <Line {...config} />
+              </div>
               <div className="data">
                 {listDataCard.map((el) => this.renderCard(el))}
               </div>
@@ -286,7 +372,9 @@ export class Dashboard extends Component {
               <div className="revenue-detail">
                 <div className="period">
                   <h4>Biểu đồ doanh thu theo kỳ</h4>
-                  <div className="chart">chart</div>
+                  <div className="chart">
+                    <DualAxes {...configChart} />
+                  </div>
                 </div>
                 <div className="operational">
                   <h4>Doanh thu chi tiết theo tác nghiệp</h4>
