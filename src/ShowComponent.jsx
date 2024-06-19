@@ -6,11 +6,12 @@ import {
   Mcapcha,
   Mtab,
   Mcheckbox,
+  Mradio,
+  Mdropdown,
+  Minput,
 } from "./components/BasicUI";
 import Header from "./components/Header";
-import Footer from "./components/Footer";
 import "./components/BasicUI.scss";
-import { Button } from "antd";
 
 class ShowComponent extends Component {
   constructor(props) {
@@ -43,6 +44,9 @@ class ShowComponent extends Component {
         { label: "Tab 3", content: "Content of Tab 3" },
       ],
       checkboxValue: false,
+      radioValue: "option1",
+      dropdownItems: ["Item 1", "Item 2", "Item 3"],
+      inputValue: "",
     };
   }
 
@@ -70,13 +74,25 @@ class ShowComponent extends Component {
     });
   };
 
+  handleRadioChange = (returnValue) => {
+    this.setState({
+      radioValue: returnValue,
+    });
+  };
+
+  handleInputChange = (value) => {
+    this.setState({
+      inputValue: value,
+    });
+  };
+
   render() {
     return (
       <>
         <Header />
         <div className="component-bodylayout">
           <h1
-            className="tile-component"
+            className="h1-tile-component"
             style={{ margin: "50px 0px 50px 0px" }}
           >
             Show component
@@ -91,23 +107,25 @@ class ShowComponent extends Component {
             dataSource={this.state.dataSource}
             config={this.state.config}
           />
-          <h2 style={{ margin: "10px 0px 0px 0px" }}>Mdrawer</h2>
-          <Mbutton className="test_button_red" onClick={this.onShow} style={{ margin: "10px 0px" }}>
+          <h2 className="h2-tile-component">Mdrawer</h2>
+          <Mbutton onClick={this.onShow} style={{ margin: "10px 0px" }}>
             Open Drawer
           </Mbutton>
           <Mdrawer
             dataSource={this.state.dataSourceDrawer}
             config={{ ...this.state.configDrawer, visible: this.state.visible }}
           />
-          <h2 style={{ margin: "10px 0px 0px 0px" }}>Mcapcha</h2>
-          <div style={{ margin: "20px 0px" }}>
+
+          <h2 className="h2-tile-component">Mcapcha</h2>
+          <div>
             <Mcapcha
               captchaEndpoint="https://example.com/api/captcha" // URL giả định cho endpoint CAPTCHA
               onVerify={this.handleCaptchaVerify}
             />
           </div>
-          <h2 style={{ margin: "10px 0px 0px 0px" }}>Mtab</h2>
-          <div style={{ margin: "20px 0px" }}>
+
+          <h2 className="h2-tile-component">Mtab</h2>
+          <div>
             <Mtab
               dataEndpoint="https://example.com/api/tabs" // URL giả định cho endpoint dữ liệu tabs
               footer="This is a footer text for the tabs. Happy code! Happy money! Happy life!"
@@ -115,7 +133,9 @@ class ShowComponent extends Component {
               dataSource={this.state.tabData}
             />
           </div>
-          <span className="bodylayout">
+
+          <h2 className="h2-tile-component">Mcheckbox</h2>
+          <div>
             <Mcheckbox
               dataSource={{
                 value: this.state.checkboxValue,
@@ -123,9 +143,109 @@ class ShowComponent extends Component {
               }}
               onChangeValue={this.handleCheckboxChange}
             />
-          </span>
+          </div>
+
+          <h2 className="h2-tile-component">Mradio</h2>
+          <div>
+            <Mradio
+              dataSource={{
+                value: this.state.radioValue,
+                label: "Select an option",
+                options: [
+                  { label: "Option 1", value: "option1" },
+                  { label: "Option 2", value: "option2" },
+                  { label: "Option 3", value: "option3" },
+                ],
+              }}
+              onChangeValue={this.handleRadioChange}
+            />
+          </div>
+
+          <h2 className="h2-tile-component">Mdropdown</h2>
+          <div style={{ margin: "20px 0px" }}>
+            <Mdropdown
+              id="dropdown1"
+              dataSource={{
+                id: "dropdown1",
+              }}
+              items={this.state.dropdownItems}
+            />
+          </div>
+
+          <h2 className="h2-tile-component">Minput</h2>
+          <div style={{ margin: "30px 0px" }}>
+            <Minput
+              dataSource={{
+                id: "input1",
+                label: "Label 1 (optional): *",
+                value: this.state.inputValue,
+                maxLength: 300,
+                clearBtn: true,
+                test: "*Vui lòng nhập dữ liệu!",
+              }}
+              onChangeValue={(e) => this.handleInputChange(e["input1"])}
+            />
+            <Minput
+              dataSource={{
+                id: "input2",
+                label: "Label 2 (optional): *",
+                value: this.state.inputValue,
+                maxLength: 300,
+                clearBtn: true,
+                test: "*Vui lòng nhập dữ liệu!",
+              }}
+              onChangeValue={(e) => this.handleInputChange(e["input1"])}
+            />
+            <Minput
+              dataSource={{
+                id: "input2",
+                label: "Label 3 (optional): *",
+                value: this.state.inputValue,
+                maxLength: 300,
+                clearBtn: true,
+                test: "*Vui lòng nhập dữ liệu!",
+              }}
+              onChangeValue={(e) => this.handleInputChange(e["input1"])}
+            />
+          </div>
+
+          <div>
+            <Mbutton
+              dataSource={{
+                color: "color-third",
+                opacity: "20",
+                textbutton: "TEST BUTTON - Mbutton",
+              }}
+            />
+          </div>
+          <div>
+            <Mbutton
+              dataSource={{
+                color: "color-third",
+                opacity: "20",
+                textbutton: "TEST BUTTON - Mbutton",
+              }}
+            />
+          </div>
+          <div>
+            <Mbutton
+              dataSource={{
+                color: "color-third",
+                opacity: "20",
+                textbutton: "TEST BUTTON - Mbutton",
+              }}
+            />
+          </div>
+          <div>
+            <Mbutton
+              dataSource={{
+                color: "color-third",
+                opacity: "20",
+                textbutton: "TEST BUTTON - Mbutton",
+              }}
+            />
+          </div>
         </div>
-        <Footer />
       </>
     );
   }
