@@ -246,7 +246,7 @@ $body-xl-line-height: 28px;
 
     &:focus {
       outline: none;
-      border-color: #7d49f8;
+      border-color: $color-third;
     }
   }
 
@@ -255,134 +255,89 @@ $body-xl-line-height: 28px;
   }
 }
 
-//SCSS of ShowComponent.jsx
-.component-bodylayout {
-  padding: 100px 25% 100px 25%;
-}
-
-.h1-tile-component {
-  color: $color-success-200;
-}
-.h1-tile-component:hover {
-  color: $color-danger-200;
-}
-
-.h2-tile-component {
-  margin: 10px 0px 0px 0px;
-}
-
 //Mbutton
 .m_button.third {
-  background-color: #00b1cc;
-  color: white;
+  background-color: $color-third;
+  color: #ffffff;
+  &:hover {
+    background-color: $color-third !important;
+    color: #ffffff !important;
+    &:active {
+      background-color: $color-third !important;
+    }
+  }
 }
 
-.m_button.third:hover,
-.m_button.third:active {
-  background-color: rgb(1, 159, 186) !important;
+.m_button.third_border {
+  background-color: transparent;
+  color: $color-third;
+  border: 2px solid $color-third;
+  &:hover {
+    background-color: transparent !important;
+    color: #1d99d6 !important;
+    border-color: #1d99d6;
+    &:active {
+      border: 2px solid #1d99d6;
+    }
+  }
 }
 
-.m_button.outlet {
-  background-color: white;
-  color: #00b1cc;
-}
-
-.m_button.outlet:hover,
-.m_button.outlet:active {
-  background-color: #019fba !important;
-}
-
-.m_button.black {
-  background-color: #121212;
-  color: white;
-}
-
-.m_button.black:hover,
-.m_button.black:active {
-  background-color: #cbcfd2 !important;
+.m_button.white_border {
+  background-color: transparent;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  &:hover {
+    background-color: transparent !important;
+    color: #cbcfd2 !important;
+    border: 2px solid #cbcfd2;
+    &:active {
+      border: 2px solid #cbcfd2;
+    }
+  }
 }
 
 .m_button.red {
   background-color: #c92929 !important;
-  color: white !important;
-}
-
-.m_button.red:hover,
-.m_button.red:active {
-  background-color: #a92323 !important;
-}
-
-.m_button.red :active {
-  background-color: #a92323 !important;
+  color: white;
+  &:hover {
+    background-color: #a92323;
+    color: white;
+    &:active {
+      background-color: #a92323 !important;
+    }
+  }
 }
 
 .m_button.green {
   background-color: #12825f;
   color: white;
-}
-
-.m_button.green:hover,
-.m_button.green:active {
-  background-color: #0e674b !important;
+  &:hover {
+    background-color: #0e674b !important;
+    &:active {
+      background-color: #12825f;
+    }
+  }
 }
 
 .m_button.orange {
   background-color: #f2ab53;
-  color: white;
-}
-
-.m_button.orange:hover,
-.m_button.orange:active {
-  background-color: #ee9322 !important;
-}
-
-.m_button.green {
-  background-color: #12825f;
-  color: white;
-}
-
-.m_button.green:hover,
-.m_button.green:active {
-  background-color: #0e674b !important;
+  color: #ffffff;
+  &:hover {
+    background-color: #ee9322 !important;
+    &:active {
+      background-color: #f2ab53;
+    }
+  }
 }
 
 .m_button:active {
-  box-shadow: 0px 8px 8px 0px rgba(36, 104, 147, 0.5) inset;
+  box-shadow: 0px 8px 8px 0px rgb(0, 0, 0, 0.3) inset;
 }
 
 .m_button.disabled {
   pointer-events: none !important;
   opacity: 0.5;
 }
-
-
-//Mbutton new update
-.ant-btn-text-button {
-  padding: 12px 20px 12px 20px;
-}
-
-.ant-btn-default-color{
-  background-color: initial !important;
-}
-
-.ant-btn-color-third {
-  background-color: $color-third !important;
-  color: #ffffff !important;
-  border-radius: 4px !important;
-  border-width: 0 !important;
-  // margin: 12px 20px 12px 20px !important;
-
-  &:hover {
-    color: #ffffff !important;
-    border-color: $color-third !important;
-  }
-}
-
-.opacity-20 {
-  opacity: 1;
-}
-
-
 
 // Mcheckbox
 .m-form__Mcheckbox {
@@ -392,7 +347,7 @@ $body-xl-line-height: 28px;
 .m-checkbox_checked {
   .m-form__Mcheckbox:hover {
     background-color: #f8f5ff;
-    }
+  }
 }
 
 .m-form__Checkbox {
@@ -404,7 +359,7 @@ $body-xl-line-height: 28px;
     background-color: #f8f5ff !important;
     border-width: 1px !important;
     border-color: $color-third !important;
-  
+
     .ant-checkbox-wrapper {
       .ant-checkbox {
         .ant-checkbox-inner {
@@ -430,4 +385,34 @@ $body-xl-line-height: 28px;
   }
 }
 
+//SCSS of ShowComponent.jsx
+.component-bodylayout {
+  padding: 100px 25% 100px 25%;
+}
 
+.h1-tile-component {
+  color: $color-success-200;
+  &:hover {
+    color: $color-danger-200;
+  }
+}
+
+.h2-tile-component {
+  margin: 10px 0px 0px 0px;
+}
+
+.component-mbutton {
+  width: auto;
+  .component-mbutton-1 {
+    border-top-left-radius: 10px;
+    padding: 50px;
+    background-color: $color-dark-50;
+    float: left;
+  }
+  .component-mbutton-2 {
+    border-top-right-radius: 10px;
+    padding: 50px;
+    background-color: $color-dark-50;
+    float: left;
+  }
+}
