@@ -31,7 +31,7 @@ import {
   Select,
   Progress,
 } from "antd";
-import "./BasicUI.scss";
+import "./BasicUI.scss"
 
 import {
   BrowserView,
@@ -90,13 +90,13 @@ var checkPrSps = new RegExp("[~|`|!|@|#|$|%|^|&|*|(|)|/]", "g");
 var removespc = function (text, exp = "") {
   let checksps = new RegExp(
     "[^a-zA-Z0-9àảãáạăằẳẵắặâầẩẫấậÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬđĐèẻẽéẹêềểễếệÈẺẼÉẸÊỀỂỄẾỆìỉĩíịÌỈĨÍỊòỏõóọôồổỗốộơờởỡớợÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢùủũúụưừửữứựÙỦŨÚỤƯỪỬỮỨỰỳỷỹýỵỲỶỸÝỴ" +
-      exp +
-      "_\\\\/\\(\\)-]",
+    exp +
+    "_\\\\/\\(\\)-]",
     "g"
   );
   return (text + "").normalize().replace(checksps, "");
 };
-var jjjg = setTimeout(() => {}, 0);
+var jjjg = setTimeout(() => { }, 0);
 var setvalthat = (val, that, time = 0) => {
   clearTimeout(jjjg);
   jjjg = setTimeout(() => {
@@ -316,9 +316,9 @@ class MeditSelect extends React.Component {
     if (!window.component) window.component = {};
     window.component[
       this.props.id ||
-        this.props.ref ||
-        this.props.dataSource.id ||
-        this.props.dataSource.ref
+      this.props.ref ||
+      this.props.dataSource.id ||
+      this.props.dataSource.ref
     ] = this;
   }
 
@@ -540,7 +540,7 @@ class Mupload extends React.Component {
     this.mes = {};
   }
 
-  create_Rowguid = () => {};
+  create_Rowguid = () => { };
 
   componentDidMount() {
     this.tmp_patch = this.create_Rowguid();
@@ -598,7 +598,7 @@ class Mupload extends React.Component {
     this.setState({ fileList: nFL });
   };
 
-  handleupload = (file, fileList) => {};
+  handleupload = (file, fileList) => { };
 
   handleRemove = (file) => {
     let formData = new FormData();
@@ -647,7 +647,7 @@ class Mupload extends React.Component {
           <Upload
             ref={this.uploadInputRef}
             style={{ textAlign: "center", margin: "auto" }}
-            action={() => {}}
+            action={() => { }}
             listType="picture"
             beforeUpload={this.handleupload}
             multiple={true}
@@ -835,20 +835,23 @@ export class Winput extends React.Component {
   };
 
   render() {
-    const { className, ...otherProps } = this.props;
+    const { className, errorText, ...otherProps } = this.props;
     return (
-      <Input
-        ref={this.inputRef} // Attach Ref to the input element
-        {...otherProps}
-        value={this.state.value}
-        onChange={(dt) => {
-          typeof this.props.onChange == "function"
-            ? (this.props.onChange(dt) || dt.target.value === "") &&
+      <>
+        <Input
+          ref={this.inputRef} // Attach Ref to the input element
+          {...otherProps}
+          value={this.state.value}
+          onChange={(dt) => {
+            typeof this.props.onChange == "function"
+              ? (this.props.onChange(dt) || dt.target.value === "") &&
               this.handleChange(dt)
-            : this.handleChange(dt);
-        }}
-        className={"Winput " + (className || "")}
-      ></Input>
+              : this.handleChange(dt);
+          }}
+          className={"Winput " + (className || "")}
+        />
+        <Row className="Winput_error_text">{errorText && errorText}</Row>
+      </>
     );
   }
 }
@@ -908,7 +911,7 @@ class Mcollapse extends React.Component {
 
   render() {
     return (
-      <Col  span={this.data?.span} >
+      <Col span={this.data?.span}>
         <Collapse {...this.props.config}>{this.renderContent()}</Collapse>
       </Col>
     );
@@ -1131,6 +1134,9 @@ class Mbutton extends React.Component {
 
     this.state = {
       loading: this.props.loading || false,
+      color: this.props.dataSource?.color || "default-color",
+      opacity: this.props.dataSource?.opacity || "20", 
+      textbutton: this.props.dataSource?.textbutton || "Button",
     };
   }
 
@@ -1141,11 +1147,26 @@ class Mbutton extends React.Component {
   reset() {
     this.setState({ loading: false });
   }
+
   render() {
     return (
-      <>
-        <Button loading={this.state.loading} {...this.props}></Button>
-      </>
+      <span>
+        <Button
+          className={
+            this.state.color === ""
+              ? `ant-btn-${this.state.color} opacity-${this.state.opacity}`
+              : this.state.color === "blue"
+              ? `ant-btn-${this.state.color} opacity-${this.state.opacity}`
+              : `ant-btn-${this.state.color} opacity-${this.state.opacity}`
+          }
+          loading={this.state.loading}
+          {...this.props}
+        >
+          <text className="body-xl-bold ant-btn-text-button">
+            {this.state.textbutton}
+          </text>
+        </Button>
+      </span>
     );
   }
 }
@@ -1210,8 +1231,8 @@ class Msearch extends React.Component {
       dataSource && dataSource.uppercase
         ? value.toUpperCase()
         : dataSource && dataSource.safeString
-        ? removespc(value)
-        : value;
+          ? removespc(value)
+          : value;
     this.setState({ value: newValue });
     if (config && config.onLiveSearch) {
       config.onLiveSearch(newValue);
@@ -1258,15 +1279,13 @@ class Msearch extends React.Component {
     const data = config && config?.icon ? config : dataSource;
     const icon = data?.icon ? (
       <i
-        className={`m-form__icon ${
-          LOL[data?.icon] ? "" : "material-" + data?.icon
-        }`}
+        className={`m-form__icon ${LOL[data?.icon] ? "" : "material-" + data?.icon
+          }`}
       />
     ) : (
       <i
-        className={`m-form__icon ${
-          LOL["AlignLeftOutlined"] ? "" : "material-" + data?.icon
-        }`}
+        className={`m-form__icon ${LOL["AlignLeftOutlined"] ? "" : "material-" + data?.icon
+          }`}
       />
     );
     const span = (data && data.span) || 24;
@@ -1392,8 +1411,8 @@ class Mautocomplete extends React.Component {
       this.state.placeholder === undefined
         ? data.placeholder
         : this.state.placeholder
-        ? this.state.placeholder
-        : "";
+          ? this.state.placeholder
+          : "";
     return (
       <Col
         xs={span.xs || span}
@@ -1556,8 +1575,8 @@ class Mselectsearch extends React.Component {
       this.state.placeholder === undefined
         ? data.placeholder
         : this.state.placeholder
-        ? this.state.placeholder
-        : "";
+          ? this.state.placeholder
+          : "";
 
     var that = this;
     var value = data.value || this.state.value;
@@ -1680,7 +1699,6 @@ class Mtable extends React.Component {
 class Minput extends React.Component {
   constructor(props) {
     super(props);
-
     this.inputRef = React.createRef();
     this.state = {
       value: this.props.value || this.props.dataSource?.value || "",
@@ -1690,8 +1708,8 @@ class Minput extends React.Component {
       responsive: { span: 24 },
       validatevalue: false,
       isValidate: false,
+      blur: false,
     };
-
     this.trimvalue = "";
   }
 
@@ -1809,6 +1827,7 @@ class Minput extends React.Component {
       value: this.props.dataSource?.decimal
         ? parseInt(this.numberWithCommas(event.target.value))
         : event.target.value,
+      blur: event.target.value.trim() === "",
     });
     if ((this.props.dataSource || {}).input_type == "ContainerNo") {
       var that = this;
@@ -1878,6 +1897,14 @@ class Minput extends React.Component {
     }
   }
 
+  handleBlur(e) {
+    if (this.state.value.trim() === "") {
+      this.setState({ blur: true });
+    } else {
+      this.setState({ blur: false });
+    }
+  }
+
   checkFocus(e) {
     e.target.parentElement.parentElement
       .getElementsByTagName("label")[0]
@@ -1941,7 +1968,7 @@ class Minput extends React.Component {
 
   render() {
     let data = this.props.dataSource;
-    let icon = "";
+    let icon = data?.icon;
     let span = data?.span || 24;
     let passvisible = "";
     var that = this;
@@ -1999,7 +2026,7 @@ class Minput extends React.Component {
           <label
             className={
               (typeof this.state.value === "undefined" ||
-              this.state.value === null
+                this.state.value === null
                 ? ""
                 : this.state.value + ""
               ).length > 0
@@ -2018,80 +2045,25 @@ class Minput extends React.Component {
               key={data?.ref || ""}
               value={this.state.value || ""}
               onChange={this.handleChange.bind(this)}
-              onBlur={this.checkBlur.bind(this)}
+              onBlur={this.handleBlur.bind(this)}
               onFocus={this.checkFocus.bind(this)}
               onKeyPress={this.onKeyPress.bind(this)}
               // onPaste={(e)=>{data.onPaste?data.onPaste(e,this):undefined;}}
               onClick={data?.onClick}
               readOnly={readonly ? true : false}
               autoComplete="off"
-              className={data?.className || ""}
+              className={data?.className || "m_input"}
               // onPaste={this.trimHandler.bind(this)}
               maxLength={data?.maxLength || 9999}
               tabIndex={data?.tabindex || 1}
               pattern={data?.format || ""}
             ></input>
-            {icon}
-            {data?.clearBtn ? (
-              (this.state.value || "").length > 0 ? (
-                <span className="ant-input-suffix">
-                  <LOL.CloseCircleOutlined
-                    className="ant-input-search-icon"
-                    onClick={() => {
-                      if (!readonly) {
-                        this.setState({ value: "" });
-                        this.handleChange({ target: { value: "" } });
-                      }
-                      if (data.onClear && typeof data.onClear == "function") {
-                        data.onClear();
-                        if (
-                          data?.onChange &&
-                          typeof data?.onChange == "function"
-                        ) {
-                          data?.onChange("");
-                        }
-                      }
-                    }}
-                  />
-                </span>
-              ) : (
-                ""
-              )
-            ) : (
-              ""
-            )}
-            {data?.inputType == "search" ? (
-              this.state.value || data.value || "" ? (
-                <span className="ant-input-suffix">
-                  <LOL.CloseCircleOutlined
-                    className="ant-input-search-icon"
-                    onClick={() => {
-                      if (!readonly) {
-                        this.setState({ value: "" });
-                        this.handleChange({ target: { value: "" } });
-                      }
-                    }}
-                  />
-                </span>
-              ) : (
-                <span className="ant-input-suffix">
-                  <LOL.SearchOutlined
-                    className="ant-input-search-icon"
-                    onClick={() => {
-                      if (
-                        typeof (this.props.dataSource || {}).onEnter ==
-                        "function"
-                      )
-                        (this.props.dataSource || {}).onEnter(this);
-                    }}
-                  />
-                </span>
-              )
-            ) : (
-              ""
-            )}
-            {passvisible}
           </span>
+          {this.state.blur && (
+            <p className="m-form__label__warning">
+              {this.props.dataSource.test}
+            </p>
+          )}
         </div>
       </Col>
     );
@@ -2193,10 +2165,10 @@ class Mdatepicker extends React.Component {
     let value = this.state.value
       ? moment(this.state.value, data.format || "YYYY-MM-DD HH:mm:ss")
       : data.value
-      ? moment(data.value, data.format || "YYYY-MM-DD HH:mm:ss")
-      : data.defaultValue
-      ? moment(data.defaultValue, data.format || "YYYY-MM-DD HH:mm:ss")
-      : null;
+        ? moment(data.value, data.format || "YYYY-MM-DD HH:mm:ss")
+        : data.defaultValue
+          ? moment(data.defaultValue, data.format || "YYYY-MM-DD HH:mm:ss")
+          : null;
 
     if (data.value === "") value = null;
     if (this.state.value === "") value = null;
@@ -2257,9 +2229,8 @@ class Mdatepicker extends React.Component {
         lg={span.lg || span}
         xl={span.xl || span}
         key={data.ref}
-        className={`m-form__box ${data.className || ""} ${
-          readonly ? "readonly" : ""
-        }`}
+        className={`m-form__box ${data.className || ""} ${readonly ? "readonly" : ""
+          }`}
       >
         <div className={`m-form__input ${readonly ? "readonly" : ""}`}>
           <label
@@ -2282,17 +2253,17 @@ class Mdatepicker extends React.Component {
             defaultValue={
               data.defaultValue
                 ? moment(
-                    data.defaultValue,
-                    data.format || "YYYY-MM-DD HH:mm:ss"
-                  )
+                  data.defaultValue,
+                  data.format || "YYYY-MM-DD HH:mm:ss"
+                )
                 : ""
             }
             defaultPickerValue={
               data.defaultPickerValue
                 ? moment(
-                    data.defaultPickerValue,
-                    data.format || "YYYY-MM-DD HH:mm:ss"
-                  )
+                  data.defaultPickerValue,
+                  data.format || "YYYY-MM-DD HH:mm:ss"
+                )
                 : undefined
             }
             value={value}
@@ -2519,9 +2490,9 @@ class Mcheckbox extends React.Component {
         md={span.md || span}
         lg={span.lg || span}
         style={data.style}
-        className={"m-form__box " + (data.className || "")}
+        className={"m-form__Mcheckbox" + (data.className || "")}
       >
-        <div className="m-form__input">
+        <span className="m-form__Checkbox">
           <Checkbox
             id={data.ref}
             checked={this.props.dataSource.value}
@@ -2530,7 +2501,7 @@ class Mcheckbox extends React.Component {
           >
             {data.label}
           </Checkbox>
-        </div>
+        </span>
       </Col>
     );
   }
@@ -2779,8 +2750,8 @@ class Mdropdown extends React.Component {
     const refId =
       this.props.id ||
       this.props.ref ||
-      this.props.dataSource.id ||
-      this.props.dataSource.ref;
+      this.props.dataSource?.id ||
+      this.props.dataSource?.ref;
 
     if (this.dropdownRef.current) {
       this.dropdownRef.current.dataset.component = this;
@@ -2804,7 +2775,7 @@ class Mdropdown extends React.Component {
 
   render() {
     const { id, ref, dataSource, ...otherProps } = this.props;
-    const refId = id || ref || dataSource.id || dataSource.ref;
+    const refId = id || ref || dataSource?.id || dataSource?.ref;
 
     return (
       <Dropdown ref={this.dropdownRef} {...otherProps}>
@@ -2844,9 +2815,9 @@ class MoneFieldInput extends React.Component {
     window.component = window.component || {};
     window.component[
       this.props.id ||
-        this.props.ref ||
-        this.props.dataSource.id ||
-        this.props.dataSource.ref
+      this.props.ref ||
+      this.props.dataSource.id ||
+      this.props.dataSource.ref
     ] = this;
   }
 
