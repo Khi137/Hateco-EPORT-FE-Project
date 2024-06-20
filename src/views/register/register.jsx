@@ -3,9 +3,8 @@ import { Row, Col, Typography, Tooltip } from 'antd';
 import { InfoCircleOutlined, MailOutlined, LockOutlined, NumberOutlined, PhoneOutlined, EnvironmentOutlined, BoldOutlined } from '@ant-design/icons';
 import './styles.scss'
 
-import { Mbutton, Mcapcha, Mcheckbox, Mdropdown, Winput } from "../../components/BasicUI"
+import { Mbutton, Mcapcha, Mcheckbox, Winput } from "../../components/BasicUI"
 import { withRouter } from '../../utils/withRouter';
-import { NavLink } from 'react-router-dom';
 
 class Register extends Component {
 
@@ -348,7 +347,7 @@ class Register extends Component {
                 error: formData.rePasswordError
             },
         ]
-        const items = ['Option 1', 'Option 2', 'Option 3'];
+        // const items = ['Option 1', 'Option 2', 'Option 3'];
         return (
             <Col className='register_container' >
                 <Row className="register_content">
