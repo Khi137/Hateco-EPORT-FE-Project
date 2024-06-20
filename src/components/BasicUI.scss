@@ -392,8 +392,7 @@ $body-xl-line-height: 28px;
 .m-checkbox_checked {
   .m-form__Mcheckbox:hover {
     background-color: #f8f5ff;
-    border: 1px solid #b99cfc;
-  }
+    }
 }
 
 .m-form__Checkbox {
@@ -403,6 +402,8 @@ $body-xl-line-height: 28px;
 
   &:hover {
     background-color: #f8f5ff !important;
+    border-width: 1px !important;
+    border-color: $color-third !important;
   
     .ant-checkbox-wrapper {
       .ant-checkbox {
