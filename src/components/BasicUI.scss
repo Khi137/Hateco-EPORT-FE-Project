@@ -50,12 +50,10 @@ $color-warning-400: #a6620d;
 
 //Opacity
 $color-opacity-primary: rgba(red(#7d49f8), green(#7d49f8), blue(#7d49f8), 0.15);
-$color-opacity-secondary: rgba(
-  red(#1c6fe3),
-  green(#1c6fe3),
-  blue(#1c6fe3),
-  0.15
-);
+$color-opacity-secondary: rgba(red(#1c6fe3),
+    green(#1c6fe3),
+    blue(#1c6fe3),
+    0.15);
 $color-opacity-danger: rgba(red(#c92929), green(#c92929), blue(#c92929), 0.15);
 $color-opacity-success: rgba(red(#12825f), green(#12825f), blue(#12825f), 0.15);
 $color-opacity-warning: rgba(red(#f2ab53), green(#f2ab53), blue(#f2ab53), 0.15);
@@ -77,12 +75,14 @@ $main-font-weight-bold: 700;
 //heading-xl
 $heading-xl-font-size: 60px;
 $heading-xl-line-height: 78px;
+
 .heading-xl-normal {
   font-family: $main-font;
   font-size: $heading-xl-font-size;
   line-height: $heading-xl-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .heading-xl-bold {
   font-family: $main-font;
   font-size: $heading-xl-font-size;
@@ -93,12 +93,14 @@ $heading-xl-line-height: 78px;
 //heading-lg
 $heading-lg-font-size: 48px;
 $heading-lg-line-height: 64px;
+
 .heading-lg-normal {
   font-family: $main-font;
   font-size: $heading-lg-font-size;
   line-height: $heading-lg-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .heading-lg-bold {
   font-family: $main-font;
   font-size: $heading-lg-font-size;
@@ -109,12 +111,14 @@ $heading-lg-line-height: 64px;
 //heading-md
 $heading-md-font-size: 34px;
 $heading-md-line-height: 48px;
+
 .heading-md-normal {
   font-family: $main-font;
   font-size: $heading-md-font-size;
   line-height: $heading-md-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .heading-md-bold {
   font-family: $main-font;
   font-size: $heading-md-font-size;
@@ -125,12 +129,14 @@ $heading-md-line-height: 48px;
 //title-xl
 $title-xl-font-size: 24px;
 $title-xl-line-height: 34px;
+
 .title-xl-normal {
   font-family: $main-font;
   font-size: $title-xl-font-size;
   line-height: $title-xl-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .title-xl-bold {
   font-family: $main-font;
   font-size: $title-xl-font-size;
@@ -141,12 +147,14 @@ $title-xl-line-height: 34px;
 //title-lg
 $title-lg-font-size: 20px;
 $title-lg-line-height: 30px;
+
 .title-lg-normal {
   font-family: $main-font;
   font-size: $title-lg-font-size;
   line-height: $title-lg-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .title-lg-bold {
   font-family: $main-font;
   font-size: $title-lg-font-size;
@@ -157,12 +165,14 @@ $title-lg-line-height: 30px;
 //body-xl
 $body-xl-font-size: 18px;
 $body-xl-line-height: 28px;
+
 .body-xl-normal {
   font-family: $main-font;
   font-size: $body-xl-font-size;
   line-height: $body-xl-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .body-xl-bold {
   font-family: $main-font;
   font-size: $title-lg-font-size;
@@ -181,9 +191,11 @@ $body-xl-line-height: 28px;
   color: #4f575e !important;
   padding: 8px 16px 8px 16px;
 }
+
 .ant-radio-wrapper:hover {
   background-color: #f8f5ff;
 }
+
 .ant-radio-inner {
   top: 0;
   right: 0;
@@ -195,6 +207,7 @@ $body-xl-line-height: 28px;
   background-color: initial !important;
   border-width: 2px !important;
   border-color: #4f575e !important;
+
   &::after {
     border-color: $color-third !important;
     transform: scale(0.8) !important;
@@ -263,6 +276,7 @@ $body-xl-line-height: 28px;
 .h1-tile-component {
   color: $color-success-200;
 }
+
 .h1-tile-component:hover {
   color: $color-danger-200;
 }
@@ -361,7 +375,7 @@ $body-xl-line-height: 28px;
   padding: 12px 20px 12px 20px;
 }
 
-.ant-btn-default-color{
+.ant-btn-default-color {
   background-color: initial !important;
 }
 
@@ -389,10 +403,11 @@ $body-xl-line-height: 28px;
   flex: 0 0 100%;
   max-width: 100%;
 }
+
 .m-checkbox_checked {
   .m-form__Mcheckbox:hover {
     background-color: #f8f5ff;
-    }
+  }
 }
 
 .m-form__Checkbox {
@@ -404,7 +419,7 @@ $body-xl-line-height: 28px;
     background-color: #f8f5ff !important;
     border-width: 1px !important;
     border-color: $color-third !important;
-  
+
     .ant-checkbox-wrapper {
       .ant-checkbox {
         .ant-checkbox-inner {
@@ -430,4 +445,27 @@ $body-xl-line-height: 28px;
   }
 }
 
+// Mtable
+.m_table {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  overflow: hidden;
+}
 
+.table-row-light {
+  background-color: #ffffff;
+}
+
+.table-row-dark {
+  background-color: #f5f5f5;
+}
+
+.table-row-selected {
+  border: 1px solid rgb(30, 30, 30, 30.3);
+  background-color: #CBCFD2;
+  box-shadow: 0 8px 8px 0 rgb(18, 18, 18, 0.2) inset !important;
+
+  .ant-table-cell-row-hover {
+    background-color: rgba(0, 0, 0, 0) !important;
+  }
+}
