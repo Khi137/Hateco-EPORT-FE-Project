@@ -452,6 +452,10 @@ $body-xl-line-height: 28px;
   overflow: hidden;
 }
 
+.ant-table-cell-ellipsis {
+  overflow: visible !important;
+}
+
 .table-row-light {
   background-color: #ffffff;
 }

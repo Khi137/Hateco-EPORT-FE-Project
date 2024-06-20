@@ -33,6 +33,8 @@ import {
 } from "antd";
 import "./BasicUI.scss"
 
+import defaultCaptcha from "../assets/captchadefault.png"
+
 import {
   BrowserView,
   MobileView,
@@ -977,13 +979,13 @@ class Mcapcha extends React.Component {
   handleSubmit = () => {
     if (this.state.userInput === this.state.captchaText) {
       this.setState({ isVerified: true });
-      message.success("CAPTCHA verified successfully!");
+      message.success("CAPTCHA xác nhận thành công!");
       if (this.props.onVerify) {
         this.props.onVerify(true);
       }
     } else {
       this.setState({ isVerified: false });
-      message.error("CAPTCHA verification failed. Please try again.");
+      message.error("CAPTCHA xác nhận thất bại. Thử lại.");
       if (this.props.onVerify) {
         this.props.onVerify(false);
       }
@@ -999,22 +1001,22 @@ class Mcapcha extends React.Component {
           src={
             this.state.captchaImg
               ? this.state.captchaImg
-              : "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+              : defaultCaptcha
           }
           alt="CAPTCHA"
         />
-        <Button onClick={this.handleRefresh}>Refresh</Button>
+        <Button onClick={this.handleRefresh}>Làm mới</Button>
         <Input
           type="text"
           value={this.state.userInput}
           onChange={this.handleInputChange}
-          placeholder="Enter CAPTCHA"
+          placeholder="Nhập CAPTCHA"
         />
-        <Button onClick={this.handleSubmit}>Submit</Button>
+        <Button onClick={this.handleSubmit}>Xác nhận</Button>
         {this.state.isVerified ? (
-          <p style={{ color: "green" }}>CAPTCHA verified successfully!</p>
+          <p style={{ color: "green" }}>CAPTCHA xác nhận thành công!</p>
         ) : (
-          <p style={{ color: "red" }}>Please verify the CAPTCHA.</p>
+          <p style={{ color: "red" }}>CAPTCHA xác nhận thất bại!</p>
         )}
       </Col>
     );

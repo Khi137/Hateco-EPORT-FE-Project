@@ -191,6 +191,7 @@ class Login extends Component {
                                 block
                                 onClick={this.handleFormSubmit}
                                 ref={this.mButtonRef}
+                                dataSource={{ textbutton: "Đăng nhập" }}
                             >
                                 Đăng nhập
                             </Mbutton>

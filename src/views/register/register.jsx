@@ -3,7 +3,7 @@ import { Row, Col, Typography, Tooltip } from 'antd';
 import { InfoCircleOutlined, MailOutlined, LockOutlined, NumberOutlined, PhoneOutlined, EnvironmentOutlined, BoldOutlined } from '@ant-design/icons';
 import './styles.scss'
 
-import { Mbutton, Mcheckbox, Mdropdown, Winput } from "../../components/BasicUI"
+import { Mbutton, Mcapcha, Mcheckbox, Mdropdown, Winput } from "../../components/BasicUI"
 import { withRouter } from '../../utils/withRouter';
 import { NavLink } from 'react-router-dom';
 
@@ -23,6 +23,7 @@ class Register extends Component {
                 rePassword: "",
                 service: "",
                 termsAgreed: false,
+                captchaVerify: false,
 
                 taxNumberError: false,
                 companyNameError: false,
@@ -76,6 +77,15 @@ class Register extends Component {
 
     handleChange = (event) => {
         this.setState({ service: event.target.textContent });
+    };
+
+    handleVerifyCaptcha = (value) => {
+        this.setState(prevState => ({
+            formData: {
+                ...prevState.formData,
+                captchaVerify: value
+            }
+        }));
     };
 
     checkTaxNumberError = (value) => {
@@ -373,6 +383,11 @@ class Register extends Component {
                                 </Mdropdown> */}
                                 {/* <Row className="item_bottom">{item?.error && item?.error}</Row> */}
                             </Col>
+                            <Col className="form_item gutter-row responsive-col">
+                                <Mcapcha
+                                    onVerify={this.handleCaptchaVerify}
+                                />
+                            </Col>
 
                         </Row>
 
@@ -389,6 +404,7 @@ class Register extends Component {
                                 block
                                 onClick={this.handleFormSubmit}
                                 ref={this.mButtonRef}
+                                dataSource={{ textbutton: "Đăng ký" }}
                             >
                                 Đăng ký
                             </Mbutton>
