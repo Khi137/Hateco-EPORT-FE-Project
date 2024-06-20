@@ -13,6 +13,7 @@ import {
 } from "./components/BasicUI";
 import Header from "./components/Header";
 import "./components/BasicUI.scss";
+import { Col } from "antd";
 
 class ShowComponent extends Component {
   constructor(props) {
@@ -136,7 +137,7 @@ class ShowComponent extends Component {
                 backgroundColor: 'transparent',
                 fontSize: '1rem',
                 padding: '0.2rem',
-                
+
                 paddingLeft: 0,
               }}
             />
@@ -180,6 +181,7 @@ class ShowComponent extends Component {
         },
       ],
     };
+
     this.mButtonRef = createRef();
   }
 
@@ -201,6 +203,7 @@ class ShowComponent extends Component {
     });
   };
 
+  // MCheckbox
   handleCheckboxChange = (returnValue) => {
     this.setState({
       checkboxValue: returnValue.checked,
@@ -229,7 +232,39 @@ class ShowComponent extends Component {
         console.log(this.state.tableData);
       }
     }, 2000);
-  }
+  };
+
+  // MButton
+
+
+  // Winput
+
+  // handleInputChange = (e, regex) => {
+  //   const { name, value } = e.target;
+
+  //   if (value === "") {
+  //     this.setState((prevState) => ({
+  //       formData: {
+  //         ...prevState.formData,
+  //         [name]: value,
+  //       },
+  //     }));
+  //     return value;
+  //   }
+
+  //   if (regex && !regex.test(value)) {
+  //     console.error(`Value does not match the regex: ${regex}`);
+  //     return;
+  //   } else {
+  //     this.setState((prevState) => ({
+  //       formData: {
+  //         ...prevState.formData,
+  //         [name]: value,
+  //       },
+  //     }));
+  //   }
+  //   return value;
+  // };
 
   // Mtable
   handleStatusChange = (e, key) => {
@@ -263,6 +298,7 @@ class ShowComponent extends Component {
     });
     this.setState({ tableData: newData });
   };
+
 
 
   render() {
@@ -465,54 +501,7 @@ class ShowComponent extends Component {
             />
           </div>
 
-          <div>
-            <Mbutton
-              dataSource={{
-                color: "color-third",
-                opacity: "20",
-                textbutton: "TEST BUTTON - Mbutton",
-              }}
-            />
-          </div>
-          <div>
-            <Mbutton
-              dataSource={{
-                color: "color-third",
-                opacity: "20",
-                textbutton: "TEST BUTTON - Mbutton",
-              }}
-            />
-          </div>
-          <div>
-            <Mbutton
-              dataSource={{
-                color: "color-third",
-                opacity: "20",
-                textbutton: "TEST BUTTON - Mbutton",
-              }}
-            />
-          </div>
-          <Mbutton
-            className='m_button green'
-            type="primary"
-            htmlType="submit"
-            block
-            onClick={this.handleFormSubmit}
-            ref={this.mButtonRef}
-          >
-            Đăng nhập
-          </Mbutton>
-
-          <div>
-            <Mbutton
-              dataSource={{
-                color: "color-third",
-                opacity: "20",
-                textbutton: "TEST BUTTON - Mbutton",
-              }}
-            />
-          </div>
-          <h2 className="h2-tile-component">Mtable (example)</h2>
+          <h2 className="h2-tile-component">Mtable</h2>
           <Mtable
             columns={this.state.tableColumns}
             dataSource={this.state.tableData}
@@ -530,6 +519,75 @@ class ShowComponent extends Component {
             })}
             className="m_table"
           />
+
+          <h2 className="h2-tile-component">Mbutton</h2>
+          <div className="component-mbutton">
+            <div className="component-mbutton-1">
+              <Mbutton
+                color=""
+                className="m_button third"
+                type="primary"
+                htmlType="submit"
+                block
+                onClick={this.handleFormSubmit}
+                ref={this.mButtonRef}
+                size={"12"}
+              ></Mbutton>
+              <Mbutton
+                color=""
+                className="m_button third_border"
+                type="primary"
+                htmlType="submit"
+                block
+                onClick={this.handleFormSubmit}
+                ref={this.mButtonRef}
+                size={"12"}
+              ></Mbutton>
+              <Mbutton
+                color=""
+                className="m_button white_border"
+                type="primary"
+                htmlType="submit"
+                block
+                onClick={this.handleFormSubmit}
+                ref={this.mButtonRef}
+                size={"12"}
+              ></Mbutton>
+            </div>
+            <div className="component-mbutton-2">
+              <Mbutton
+                color=""
+                className="m_button red"
+                type="primary"
+                htmlType="submit"
+                block
+                onClick={this.handleFormSubmit}
+                ref={this.mButtonRef}
+                size={"12"}
+              ></Mbutton>
+              <Mbutton
+                color=""
+                className="m_button green"
+                type="primary"
+                htmlType="submit"
+                block
+                onClick={this.handleFormSubmit}
+                ref={this.mButtonRef}
+                size={"12"}
+              ></Mbutton>
+              <Mbutton
+                color=""
+                className="m_button orange"
+                type="primary"
+                htmlType="submit"
+                block
+                onClick={this.handleFormSubmit}
+                ref={this.mButtonRef}
+                size={"12"}
+              ></Mbutton>
+            </div>
+          </div>
+
         </div>
       </>
     );
