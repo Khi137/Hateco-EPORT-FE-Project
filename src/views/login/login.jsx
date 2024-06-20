@@ -122,13 +122,13 @@ class Login extends Component {
                 <Winput
                     name={item?.name}
                     type={item?.type}
-                    className={`form_input_field ${item?.error ? 'error_item' : ''}`}
+                    className={`form_input_field ${item?.error ? 'error_input' : ''}`}
                     prefix={item?.inputIcon}
                     placeholder={item?.placeholder}
                     value={item?.value}
                     onChange={(e) => this.handleInputChange(e, item?.regex)}
+                    errorText={item?.error && item?.error}
                 />
-                <Row className="item_bottom">{item?.error && item?.error}</Row>
             </Col>
         )
     }
@@ -137,7 +137,7 @@ class Login extends Component {
         const { formData } = this.state;
 
         const checkboxDataSource = {
-            label: "Ghi nhớ mật khẩu",
+            label: <div style={{ userSelect: "none" }}>Ghi nhớ mật khẩu</div>,
             value: formData.remember,
             className: `${formData.remember && "m-checkbox_checked"}`,
         };

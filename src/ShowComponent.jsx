@@ -49,6 +49,7 @@ class ShowComponent extends Component {
       inputValue: "",
     };
     this.mButtonRef = createRef();
+    this.mButtonRef = createRef();
   }
 
   onClose = () => {
@@ -100,6 +101,14 @@ class ShowComponent extends Component {
 
 
   render() {
+    const checkboxDataSource = {
+      label: "Ghi nhớ mật khẩu",
+      value: this.state.checkbox,
+      className: `${this.state.checkbox && "m-checkbox_checked"}`,
+    };
+
+    const inputvalue = ""
+
     return (
       <>
         <Header />

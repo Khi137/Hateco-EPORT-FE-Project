@@ -8,6 +8,8 @@
 
     .unauth-header_image-logo {
         width: 300px;
+        pointer-events: none;
+        user-select: none;
     }
 
     @media (max-width: 768px) {
