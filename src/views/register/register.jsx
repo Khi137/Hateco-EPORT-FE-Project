@@ -3,7 +3,7 @@ import { Row, Col, Typography, Tooltip, Modal, message, Select } from 'antd';
 import { InfoCircleOutlined, MailOutlined, LockOutlined, NumberOutlined, PhoneOutlined, EnvironmentOutlined, BoldOutlined, DownOutlined } from '@ant-design/icons';
 import './styles.scss'
 
-import { Mbutton, Mcheckbox, Mdropdown, MoneFieldInput, Winput } from "../../components/BasicUI"
+import { Mbutton, Mcapcha, Mcheckbox, Mdropdown, MoneFieldInput, Winput } from "../../components/BasicUI"
 import { withRouter } from '../../utils/withRouter';
 import { NavLink } from 'react-router-dom';
 
@@ -24,6 +24,7 @@ class Register extends Component {
                 service: "",
                 selectedService: [],
                 termsAgreed: false,
+                captchaVerify: false,
 
                 taxNumberError: false,
                 companyNameError: false,
@@ -86,6 +87,15 @@ class Register extends Component {
             formData: {
                 ...prevState.formData,
                 selectedService: value
+            }
+        }));
+    };
+
+    handleVerifyCaptcha = (value) => {
+        this.setState(prevState => ({
+            formData: {
+                ...prevState.formData,
+                captchaVerify: value
             }
         }));
     };
@@ -187,6 +197,13 @@ class Register extends Component {
                 return false
         }
     }
+
+    handleCaptchaVerify = (isVerified) => {
+        this.setState({
+            isCaptchaVerified: isVerified,
+        });
+    };
+
 
     // taxNumber: "",
     // companyName: "",
@@ -435,6 +452,11 @@ class Register extends Component {
                                     />
                                     <Row className="error_text">{formData.selectedServiceError && formData.selectedServiceError}</Row>
                                 </Col>
+                                <Col className="form_item gutter-row responsive-col">
+                                    <Mcapcha
+                                        onVerify={this.handleCaptchaVerify}
+                                    />
+                                </Col>
 
                             </Row>
 
@@ -451,6 +473,7 @@ class Register extends Component {
                                     block
                                     onClick={this.handleFormSubmit}
                                     ref={this.mButtonRef}
+                                    dataSource={{ textbutton: "Đăng ký" }}
                                 >
                                     Đăng ký
                                 </Mbutton>

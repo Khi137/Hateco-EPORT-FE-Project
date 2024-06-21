@@ -1,178 +1,520 @@
-// Mbutton
-.m_button.third {
-    background-color: #00B1CC;
-    color: white;
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap");
+
+//Color
+
+//Surface
+$color-surface-50: #ffffff;
+$color-surface-100: #f7f9fd;
+$color-surface-200: #ecedee;
+$color-surface-300: #cbcfd2;
+$color-surface-400: #a7aeb4;
+$color-surface-500: #8e979f;
+$color-surface-600: #6b767f;
+$color-surface-700: #4f575e;
+$color-surface-800: #33383d;
+$color-surface-900: #202327;
+$color-primary: #1c1c54;
+$color-second: #d2c5ff;
+$color-third: #00b1cc;
+$color-fourth: #5ffbd6;
+
+//Primary
+$color-primary-50: #d2c5ff;
+$color-primary-100: #a296dc;
+$color-primary-200: #746aad;
+$color-primary-300: #48417f;
+$color-primary-400: #1c1c54;
+
+//Secondary
+
+//Danger
+$color-danger-50: #fbeaea;
+$color-danger-100: #e16b6b;
+$color-danger-200: #c92929;
+$color-danger-300: #a92323;
+$color-danger-400: #6e1717;
+
+//Success
+$color-success-50: #f6fefb;
+$color-success-100: #1bc590;
+$color-success-200: #12825f;
+$color-success-300: #0e674b;
+$color-success-400: #0a4834;
+
+//Warning
+$color-warning-50: #fffdfa;
+$color-warning-100: #f9dbb5;
+$color-warning-200: #f2ab53;
+$color-warning-300: #ee9322;
+$color-warning-400: #a6620d;
+
+//Opacity
+$color-opacity-primary: rgba(red(#7d49f8), green(#7d49f8), blue(#7d49f8), 0.15);
+$color-opacity-secondary: rgba(red(#1c6fe3),
+    green(#1c6fe3),
+    blue(#1c6fe3),
+    0.15);
+$color-opacity-danger: rgba(red(#c92929), green(#c92929), blue(#c92929), 0.15);
+$color-opacity-success: rgba(red(#12825f), green(#12825f), blue(#12825f), 0.15);
+$color-opacity-warning: rgba(red(#f2ab53), green(#f2ab53), blue(#f2ab53), 0.15);
+$color-background-modal: rgba(red(#121212), green(#121212), blue(#121212), 92%);
+
+//Dark
+$color-dark-50: #121212;
+$color-dark-100: #161616;
+$color-dark-200: #1a1a1a;
+$color-dark-300: #1c1c1c;
+$color-dark-400: #1e1e1e;
+
+//Tipography
+
+$main-font: "IBM Plex Sans", sans-serif !important;
+$main-font-weight-normal: 400;
+$main-font-weight-bold: 700;
+
+//heading-xl
+$heading-xl-font-size: 60px;
+$heading-xl-line-height: 78px;
+
+.heading-xl-normal {
+  font-family: $main-font;
+  font-size: $heading-xl-font-size;
+  line-height: $heading-xl-line-height;
+  font-weight: $main-font-weight-normal;
 }
 
-.m_button.third:hover,
-.m_button.third:active {
-    background-color: rgb(1, 159, 186) !important;
+.heading-xl-bold {
+  font-family: $main-font;
+  font-size: $heading-xl-font-size;
+  line-height: $heading-xl-line-height;
+  font-weight: $main-font-weight-bold;
 }
 
-.m_button.outlet {
-    background-color: white;
-    color: #00B1CC;
+//heading-lg
+$heading-lg-font-size: 48px;
+$heading-lg-line-height: 64px;
+
+.heading-lg-normal {
+  font-family: $main-font;
+  font-size: $heading-lg-font-size;
+  line-height: $heading-lg-line-height;
+  font-weight: $main-font-weight-normal;
 }
 
-.m_button.outlet:hover,
-.m_button.outlet:active {
-    background-color: #fafafa !important;
-    color: #00B1CC !important;
+.heading-lg-bold {
+  font-family: $main-font;
+  font-size: $heading-lg-font-size;
+  line-height: $heading-lg-line-height;
+  font-weight: $main-font-weight-bold;
 }
 
-.m_button.black {
-    background-color: #121212;
-    color: white;
+//heading-md
+$heading-md-font-size: 34px;
+$heading-md-line-height: 48px;
+
+.heading-md-normal {
+  font-family: $main-font;
+  font-size: $heading-md-font-size;
+  line-height: $heading-md-line-height;
+  font-weight: $main-font-weight-normal;
 }
 
-.m_button.black:hover,
-.m_button.black:active {
-    background-color: #000000 !important;
+.heading-md-bold {
+  font-family: $main-font;
+  font-size: $heading-md-font-size;
+  line-height: $heading-md-line-height;
+  font-weight: $main-font-weight-bold;
 }
 
-.m_button.red {
-    background-color: #C92929;
-    color: white;
+//title-xl
+$title-xl-font-size: 24px;
+$title-xl-line-height: 34px;
+
+.title-xl-normal {
+  font-family: $main-font;
+  font-size: $title-xl-font-size;
+  line-height: $title-xl-line-height;
+  font-weight: $main-font-weight-normal;
 }
 
-.m_button.red:hover,
-.m_button.red:active {
-    background-color: #A92323 !important;
+.title-xl-bold {
+  font-family: $main-font;
+  font-size: $title-xl-font-size;
+  line-height: $title-xl-line-height;
+  font-weight: $main-font-weight-bold;
 }
 
-.m_button.red :active {
-    background-color: #A92323 !important;
+//title-lg
+$title-lg-font-size: 20px;
+$title-lg-line-height: 30px;
+
+.title-lg-normal {
+  font-family: $main-font;
+  font-size: $title-lg-font-size;
+  line-height: $title-lg-line-height;
+  font-weight: $main-font-weight-normal;
 }
 
-.m_button.green {
-    background-color: #12825F;
-    color: white;
+.title-lg-bold {
+  font-family: $main-font;
+  font-size: $title-lg-font-size;
+  line-height: $title-lg-line-height;
+  font-weight: $main-font-weight-bold;
 }
 
-.m_button.green:hover,
-.m_button.green:active {
-    background-color: #0E674B !important;
+//body-xl
+$body-xl-font-size: 18px;
+$body-xl-line-height: 28px;
+
+.body-xl-normal {
+  font-family: $main-font;
+  font-size: $body-xl-font-size;
+  line-height: $body-xl-line-height;
+  font-weight: $main-font-weight-normal;
 }
 
-.m_button.orange {
-    background-color: #F2AB53;
-    color: white;
+.body-xl-bold {
+  font-family: $main-font;
+  font-size: $title-lg-font-size;
+  line-height: $body-xl-line-height;
+  font-weight: $main-font-weight-bold;
 }
 
-.m_button.orange:hover,
-.m_button.orange:active {
-    background-color: #EE9322 !important;
+//body-lg
+
+//Mradio Buttons
+
+//Mradio: theme=light, size=md, padding=on
+.ant-radio-wrapper {
+  font-family: $main-font !important;
+  font-size: 16px !important;
+  color: #4f575e !important;
+  padding: 8px 16px 8px 16px;
 }
 
-.m_button:active {
-    box-shadow: 0px 8px 8px 0px rgba(36, 104, 147, 0.5) inset;
+.ant-radio-wrapper:hover {
+  background-color: #f8f5ff;
 }
 
-.m_button.disabled {
-    pointer-events: none !important;
-    opacity: 0.5;
-}
+.ant-radio-inner {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 20px !important;
+  height: 20px !important;
+  margin: auto !important;
+  background-color: initial !important;
+  border-width: 2px !important;
+  border-color: #4f575e !important;
 
-// Mcheckbox
-
-.m-form__input {
-    padding: 8px 16px;
-    border-radius: 4px;
-    border: 1px solid white;
-
-    .ant-checkbox-wrapper {
-        padding: 0 8px;
-        .ant-checkbox {
-            .ant-checkbox-inner:hover {
-                border-color: #00B1CC !important;
-            }
-        }
-
-        .ant-checkbox-checked {
-
-            .ant-checkbox-inner {
-                border-color: #00B1CC;
-                background-color: #00B1CC !important;
-                
-            }
-        }
-    }
-}
-
-.m-form__box {
-    flex: 0 0 100%;
-    max-width: 100%;
-}
-
-.m-form__input:hover {
-    background-color: #F8F5FF;
-
-    .ant-checkbox-wrapper {
-        .ant-checkbox {
-            .ant-checkbox-inner {
-                border-color: #00B1CC;
-            }
-        }
-    }
-}
-
-.m-checkbox_checked {
-    .m-form__input:hover {
-        background-color: #F8F5FF;
-        border: 1px solid #B99CFC;
-    }
+  &::after {
+    border-color: $color-third !important;
+    transform: scale(0.8) !important;
+    background-color: $color-third !important;
+  }
 }
 
 // Winput
 
 .Winput.error_input {
-    border-color: #C92929;
-    // padding: 0 5px;
+  border-color: #C92929;
+  // padding: 0 5px;
 }
 
 .Winput_error_text {
-    height: 16px;
-    margin-top: 4px;
-    font-size: 12px;
-    color: red;
+  height: 16px;
+  margin-top: 4px;
+  font-size: 12px;
+  color: red;
 }
 
-// Minput
+//Minput
 
-.m-form__box {
-    padding: 0 !important;
-    height: fit-content;
+.m-form__input {
+  font-family: $main-font !important;
+  font-size: 12px;
+  position: relative;
+  display: inline-block;
+  background: initial !important;
+  width: 100%;
+  border-width: 0 !important;
+  margin-bottom: 24px;
 
-    .m-form__input {
-        margin: 0;
-        padding: 0;
-        height: fit-content;
+  .m-form__label {
+    color: #4f575e;
+    transition: all 0.3s ease;
+  }
 
-        .ant-input-affix-wrapper {
-            height: fit-content;
+  .ant-input-search {
+    font-family: $main-font !important;
+    display: flex;
+    align-items: center;
+  }
 
-            .m_input {
-                position: absolute;
-                width: 100%;
-                min-height: 30px;
-                height: 100%;
-                margin: 0;
-                padding: 0;
-                padding-left: 30px;
-                border-radius: 6px;
-            }
+  .ant-input-affix-wrapper {
+    font-family: $main-font !important;
+    display: flex;
+    width: 100%;
+  }
 
-            .m-password-toggle {
-                position: absolute;
-                right: 0;
-                transform: translateY(75%) translateX(30px);
-            }
+  input {
+    font-family: $main-font !important;
+    font-size: 16px;
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #cbcfd2;
+    border-radius: 4px;
+    transition: border-color 0.3s;
 
-            .m-form__icon {
-                position: absolute;
-                left: 10px;
-                transform: translateY(75%);
-            }
-        }
+    &:hover {
+      border-color: $color-third;
     }
+
+    &:focus {
+      outline: none;
+      border-color: $color-third;
+    }
+  }
+
+  .m-form__label__warning {
+    color: $color-danger-200;
+  }
+}
+
+//Mbutton
+.m_button.third {
+  background-color: $color-third;
+  color: #ffffff;
+
+  &:hover {
+    background-color: $color-third !important;
+    color: #ffffff !important;
+
+    &:active {
+      background-color: $color-third !important;
+    }
+  }
+}
+
+.m_button.third_border {
+  background-color: transparent;
+  color: $color-third;
+  border: 2px solid $color-third;
+
+  &:hover {
+    background-color: transparent !important;
+    color: #1d99d6 !important;
+    border-color: #1d99d6;
+
+    &:active {
+      border: 2px solid #1d99d6;
+    }
+  }
+}
+
+.m_button.white_border {
+  background-color: transparent;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+
+  &:hover {
+    background-color: transparent !important;
+    color: #cbcfd2 !important;
+    border: 2px solid #cbcfd2;
+
+    &:active {
+      border: 2px solid #cbcfd2;
+    }
+  }
+}
+
+.m_button.red {
+  background-color: #c92929 !important;
+  color: white;
+
+  &:hover {
+    background-color: #a92323;
+    color: white;
+
+    &:active {
+      background-color: #a92323 !important;
+    }
+  }
+}
+
+.m_button.green {
+  background-color: #12825f;
+  color: white;
+
+  &:hover {
+    background-color: #0e674b !important;
+
+    &:active {
+      background-color: #12825f;
+    }
+  }
+}
+
+.m_button.orange {
+  background-color: #f2ab53;
+  color: #ffffff;
+
+  &:hover {
+    background-color: #ee9322 !important;
+
+    &:active {
+      background-color: #f2ab53;
+    }
+  }
+}
+
+.m_button:active {
+  box-shadow: 0px 8px 8px 0px rgb(0, 0, 0, 0.3) inset;
+}
+
+.m_button.disabled {
+  pointer-events: none !important;
+  opacity: 0.5;
+}
+
+// Mcheckbox
+.m-form__Mcheckbox {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.m-checkbox_checked {
+  .m-form__Mcheckbox:hover {
+    background-color: #f8f5ff;
+  }
+}
+
+.m-form__Checkbox {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+
+
+  &:hover {
+    background-color: #f8f5ff !important;
+    border-width: 1px !important;
+    border-color: $color-third !important;
+
+    .ant-checkbox-wrapper {
+      padding: 0 8px;
+
+      .ant-checkbox {
+        .ant-checkbox-inner:hover {
+          border-color: #00B1CC !important;
+        }
+      }
+
+      .ant-checkbox-checked {
+
+        .ant-checkbox-inner {
+          border-color: #00B1CC !important;
+          background-color: #00B1CC !important;
+
+        }
+      }
+    }
+  }
+
+  .m-form__box {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .m-form__input:hover {
+    background-color: #F8F5FF;
+
+    .ant-checkbox-wrapper {
+      .ant-checkbox {
+        .ant-checkbox-inner:hover {
+          border-color: #00b1cc !important;
+        }
+      }
+
+      .ant-checkbox-checked {
+        .ant-checkbox-inner {
+          border-color: #00b1cc !important;
+          background-color: #00b1cc !important;
+        }
+      }
+    }
+  }
+
+  .ant-checkbox-checked {
+    .ant-checkbox-inner {
+      border-color: #00b1cc !important;
+      background-color: #00b1cc !important;
+    }
+  }
+}
+
+
+
+//SCSS of ShowComponent.jsx
+.component-bodylayout {
+  padding: 100px 25% 100px 25%;
+}
+
+.h1-tile-component {
+  color: $color-success-200;
+
+  &:hover {
+    color: $color-danger-200;
+  }
+}
+
+.h2-tile-component {
+  margin: 10px 0px 0px 0px;
+}
+
+.component-mbutton {
+  width: auto;
+
+  .component-mbutton-1 {
+    border-top-left-radius: 10px;
+    padding: 50px;
+    background-color: $color-dark-50;
+    float: left;
+  }
+
+  .component-mbutton-2 {
+    border-top-right-radius: 10px;
+    padding: 50px;
+    background-color: $color-dark-50;
+    float: left;
+  }
+}
+
+// Mtable
+.m_table {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.ant-table-cell-ellipsis {
+  overflow: visible !important;
+}
+
+.table-row-light {
+  background-color: #ffffff;
+}
+
+.table-row-dark {
+  background-color: #f5f5f5;
+}
+
+.table-row-selected {
+  border: 1px solid rgb(30, 30, 30, 30.3);
+  background-color: #CBCFD2;
+  box-shadow: 0 8px 8px 0 rgb(18, 18, 18, 0.2) inset !important;
+
+  .ant-table-cell-row-hover {
+    background-color: rgba(0, 0, 0, 0) !important;
+  }
 }

@@ -7,6 +7,7 @@ import AuthLayout from "../layout/AuthLayout/AuthLayout";
 import Register from "../views/register/register";
 import ForgotPassword from "../views/forgotPassword/forgotPassword";
 import ShowComponent from "../ShowComponent";
+import Dashboard from "../components/Dashboard/Dashboard";
 
 class MainRoutes extends Component {
   render() {
@@ -20,6 +21,7 @@ class MainRoutes extends Component {
 
         <Route element={<AuthLayout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard/>}/>
         </Route>
       </Routes>
     );
