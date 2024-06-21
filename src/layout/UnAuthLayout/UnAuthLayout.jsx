@@ -16,7 +16,7 @@ class UnAuthLayout extends Component {
                     <Outlet />
                 </div>
                 <div className="un-auth_layout_footer">
-                    {/* <Footer /> */}
+                    <Footer />
                 </div>
             </div>
         )

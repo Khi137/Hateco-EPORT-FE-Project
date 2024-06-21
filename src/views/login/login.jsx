@@ -52,6 +52,7 @@ class Login extends Component {
     };
 
     handleCheckboxChange = (value) => {
+        console.log(value);
         this.setState(prevState => ({
             formData: {
                 ...prevState.formData,
@@ -111,6 +112,15 @@ class Login extends Component {
         }));
     };
 
+    handleOnblurCheck = (field, checkfunction) => {
+        this.setState(prevState => ({
+            formData: {
+                ...prevState.formData,
+                [field]: checkfunction ? checkfunction() : false
+            }
+        }));
+    };
+
     renderInputField = (item, key) => {
         return (
             <Col className="form_item " key={key}>
@@ -129,6 +139,7 @@ class Login extends Component {
                     value={item?.value}
                     onChange={(e) => this.handleInputChange(e, item?.regex)}
                     errorText={item?.error && item?.error}
+                    onBlur={(e) => this.handleOnblurCheck(item?.name + "Error", item?.checkFunction)}
                 />
             </Col>
         )
@@ -152,7 +163,8 @@ class Login extends Component {
                 name: "user",
                 type: "text",
                 value: formData.user,
-                error: formData.userError
+                error: formData.userError,
+                checkFunction: () => this.checkUserError(formData.user)
             },
             {
                 title: "Nhập mật khẩu",
@@ -162,7 +174,8 @@ class Login extends Component {
                 name: "password",
                 type: "password",
                 value: formData.password,
-                error: formData.passwordError
+                error: formData.passwordError,
+                checkFunction: () => this.checkPasswordError(formData.password)
             },
         ]
 

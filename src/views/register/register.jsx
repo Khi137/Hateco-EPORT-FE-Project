@@ -141,9 +141,11 @@ class Register extends Component {
     }
 
     checkPhoneNumberError = (value) => {
-        switch (value) {
-            case "":
+        switch (true) {
+            case (value === ""):
                 return "Số điện thoại không được để trống"
+            // case (value.length > 8):
+            //     return "Số điện thoại phải có ít nhất 8 chữ số"
 
             default:
                 return false
@@ -202,6 +204,15 @@ class Register extends Component {
         this.setState({
             isCaptchaVerified: isVerified,
         });
+    };
+
+    handleOnblurCheck = (field, checkfunction) => {
+        this.setState(prevState => ({
+            formData: {
+                ...prevState.formData,
+                [field]: checkfunction ? checkfunction() : false
+            }
+        }));
     };
 
 
@@ -289,6 +300,7 @@ class Register extends Component {
                     defaultValue={item?.value}
                     onChange={(e) => this.handleInputChange(e, item?.regex)}
                     errorText={item?.error && item?.error}
+                    onBlur={(e) => this.handleOnblurCheck(item?.name + "Error", item?.checkFunction)}
                 />
             </Col>
         )
@@ -322,7 +334,8 @@ class Register extends Component {
                 name: "taxNumber",
                 type: "text",
                 value: formData.taxNumber,
-                error: formData.taxNumberError
+                error: formData.taxNumberError,
+                checkFunction: () => this.checkTaxNumberError(formData.taxNumber)
             },
             {
                 title: "Tên doanh nghiệp:",
@@ -332,7 +345,9 @@ class Register extends Component {
                 name: "companyName",
                 type: "text",
                 value: formData.companyName,
-                error: formData.companyNameError
+                error: formData.companyNameError,
+                checkFunction: () => this.checkCompanyNameError(formData.companyName)
+
             },
             {
                 title: "Địa chỉ:",
@@ -342,7 +357,8 @@ class Register extends Component {
                 name: "address",
                 type: "text",
                 value: formData.address,
-                error: formData.addressError
+                error: formData.addressError,
+                checkFunction: () => this.checkAddressError(formData.address)
             },
             {
                 title: "Số đăng ký kinh doanh:",
@@ -352,7 +368,8 @@ class Register extends Component {
                 name: "businessNumber",
                 type: "text",
                 value: formData.businessNumber,
-                error: formData.businessNumberError
+                error: formData.businessNumberError,
+                checkFunction: () => this.checkBusinessNumberError(formData.businessNumber)
             },
             {
                 title: "Số điện thoại:",
@@ -363,7 +380,8 @@ class Register extends Component {
                 type: "text",
                 value: formData.phoneNumber,
                 error: formData.phoneNumberError,
-                regex: /^[0-9\-\+]{0,15}$/
+                regex: /^[0-9\-\+]{0,15}$/,
+                checkFunction: () => this.checkPhoneNumberError(formData.phoneNumber)
             },
 
             {
@@ -376,6 +394,7 @@ class Register extends Component {
                 value: formData.email,
                 error: formData.emailError,
                 // regex: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/
+                checkFunction: () => this.checkEmailError(formData.email)
             },
             {
                 title: "Mật khẩu:",
@@ -385,7 +404,8 @@ class Register extends Component {
                 name: "password",
                 type: "password",
                 value: formData.password,
-                error: formData.passwordError
+                error: formData.passwordError,
+                checkFunction: () => this.checkPasswordError(formData.password)
             },
             {
                 title: "Nhập lại mật khẩu:",
@@ -395,7 +415,8 @@ class Register extends Component {
                 name: "rePassword",
                 type: "password",
                 value: formData.rePassword,
-                error: formData.rePasswordError
+                error: formData.rePasswordError,
+                checkFunction: () => this.checkRePasswordError(formData.rePassword)
             },
         ]
         const options = [
@@ -479,8 +500,8 @@ class Register extends Component {
                                 </Mbutton>
                             </Col>
                             <Row justify="space-between" className="form_item bottom_link">
+                                <NavLink to="/login">{"<< Đăng nhập"}</NavLink>
                                 <NavLink to="/forgot-password" ></NavLink>
-                                <NavLink to="/login">{"Đăng nhập >>"}</NavLink>
                             </Row>
                         </Col>
                     </Row >

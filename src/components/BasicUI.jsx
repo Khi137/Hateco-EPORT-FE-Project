@@ -2500,7 +2500,6 @@ class Mcheckbox extends React.Component {
         lg={span.lg || span}
         style={data.style}
         className={"m-form__Mcheckbox" + (data.className || "")}
-        onClick={this.handleChange.bind(this)}
       >
         <span className="m-form__Checkbox">
           <Checkbox
