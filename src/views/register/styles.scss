@@ -51,6 +51,13 @@ $breakpoint-sm: 360px;
                     border-color: red;
                 }
 
+                .error_text {
+                    height: 16px;
+                    margin-top: 4px;
+                    font-size: 12px;
+                    color: red;
+                }
+
                 .form_button {
                     height: 40px;
                     background-color: rgb(0, 177, 204);
@@ -87,6 +94,15 @@ $breakpoint-sm: 360px;
 
                 .terms_agreed:hover {
                     text-decoration: underline;
+                }
+            }
+
+            .select_services {
+                width: 100% !important;
+                margin: 0 !important;
+
+                .ant-select-selector {
+                    min-height: 40px !important;
                 }
             }
 

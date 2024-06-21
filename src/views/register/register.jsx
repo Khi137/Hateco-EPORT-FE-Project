@@ -1,9 +1,9 @@
 import React, { Component, createRef } from 'react';
-import { Row, Col, Typography, Tooltip, Modal, message } from 'antd';
-import { InfoCircleOutlined, MailOutlined, LockOutlined, NumberOutlined, PhoneOutlined, EnvironmentOutlined, BoldOutlined } from '@ant-design/icons';
+import { Row, Col, Typography, Tooltip, Modal, message, Select } from 'antd';
+import { InfoCircleOutlined, MailOutlined, LockOutlined, NumberOutlined, PhoneOutlined, EnvironmentOutlined, BoldOutlined, DownOutlined } from '@ant-design/icons';
 import './styles.scss'
 
-import { Mbutton, Mcheckbox, Mdropdown, Winput } from "../../components/BasicUI"
+import { Mbutton, Mcheckbox, Mdropdown, MoneFieldInput, Winput } from "../../components/BasicUI"
 import { withRouter } from '../../utils/withRouter';
 import { NavLink } from 'react-router-dom';
 
@@ -22,6 +22,7 @@ class Register extends Component {
                 password: "",
                 rePassword: "",
                 service: "",
+                selectedService: [],
                 termsAgreed: false,
 
                 taxNumberError: false,
@@ -32,6 +33,7 @@ class Register extends Component {
                 emailError: false,
                 passwordError: false,
                 rePasswordError: false,
+                selectedServiceError: false
             },
             termsAgreedModal: false
         };
@@ -77,6 +79,15 @@ class Register extends Component {
 
     handleChange = (event) => {
         this.setState({ service: event.target.textContent });
+    };
+
+    handleSelectService = (value) => {
+        this.setState(prevState => ({
+            formData: {
+                ...prevState.formData,
+                selectedService: value
+            }
+        }));
     };
 
     checkTaxNumberError = (value) => {
@@ -167,6 +178,16 @@ class Register extends Component {
         }
     }
 
+    checkSelectedServiceError = (value) => {
+        switch (true) {
+            case (value.length === 0):
+                return "Vui lòng chọn dịch vụ"
+
+            default:
+                return false
+        }
+    }
+
     // taxNumber: "",
     // companyName: "",
     // address: "",
@@ -186,7 +207,8 @@ class Register extends Component {
             !this.checkPhoneNumberError(formData.phoneNumber) &&
             !this.checkEmailError(formData.email) &&
             !this.checkPasswordError(formData.password) &&
-            !this.checkRePasswordError(formData.rePassword)
+            !this.checkRePasswordError(formData.rePassword) &&
+            !this.checkSelectedServiceError(formData.selectedService)
             // true
         ) {
             if (this.mButtonRef.current) {
@@ -203,13 +225,14 @@ class Register extends Component {
                 password: formData.password,
                 rePassword: formData.rePassword,
                 termsAgreed: formData.termsAgreed,
+                selectedService: formData.selectedService
             });
 
             setTimeout(() => {
                 if (this.mButtonRef.current) {
                     message.success("Đăng ký thành công")
                     this.mButtonRef.current.reset();
-                    this.props.navigate('/login')
+                    // this.props.navigate('/login')
                 }
             }, 2000);
 
@@ -225,6 +248,7 @@ class Register extends Component {
                 emailError: this.checkEmailError(formData.email),
                 passwordError: this.checkPasswordError(formData.password),
                 rePasswordError: this.checkRePasswordError(formData.rePassword),
+                selectedServiceError: this.checkSelectedServiceError(formData.selectedService)
             }
         }));
     };
@@ -357,7 +381,15 @@ class Register extends Component {
                 error: formData.rePasswordError
             },
         ]
-        const items = ['Option 1', 'Option 2', 'Option 3'];
+        const options = [
+            { value: 'option1', label: 'Option 1' },
+            { value: 'option2', label: 'Option 2' },
+            { value: 'option3', label: 'Option 3' },
+            { value: 'option4', label: 'Option 4' },
+            { value: 'option5', label: 'Option 5' },
+            { value: 'option6', label: 'Option 6' },
+            { value: 'option8', label: 'Option 7' },
+        ];
         return (
             <>
                 <Col className='register_container' >
@@ -392,6 +424,16 @@ class Register extends Component {
                                     {this.state.selectedValue || 'Select an option'}
                                 </Mdropdown> */}
                                     {/* <Row className="item_bottom">{item?.error && item?.error}</Row> */}
+                                    <Select
+                                        mode="multiple"
+                                        options={options}
+                                        placeholder="Chọn dich vụ"
+                                        onChange={this.handleSelectService}
+                                        className='form_item gutter-row responsive-col select_services'
+                                        dataSource={options}
+                                        suffixIcon={<DownOutlined />}
+                                    />
+                                    <Row className="error_text">{formData.selectedServiceError && formData.selectedServiceError}</Row>
                                 </Col>
 
                             </Row>
