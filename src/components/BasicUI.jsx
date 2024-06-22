@@ -1171,7 +1171,7 @@ class Mbutton extends React.Component {
           {...this.props}
           style={this.style()}
         >
-          <text className="body-xl-bold">{this.state.textbutton}</text>
+          <text className="body-lg-bold">{this.state.textbutton}</text>
         </Button>
       </div>
     );
