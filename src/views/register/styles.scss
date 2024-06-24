@@ -120,6 +120,7 @@ $breakpoint-sm: 360px;
                 div {
                     display: flex;
                     justify-content: center;
+                    max-width: 100%;
                 }
             }
 
@@ -151,11 +152,25 @@ $breakpoint-sm: 360px;
                 margin-bottom: 2px;
                 padding: 5px 20px;
             }
+
+            @media (max-width: 836px) {
+                .ant-col .ant-col .ant-input {
+                    width: 100%;
+                }
+
+                .ant-col .ant-col .ant-btn {
+                    margin: 2px 0;
+                }
+
+                #CaptchaImg {
+                    margin-right: 5px;
+                }
+            }
         }
 
         @media (max-width: $breakpoint-md) {
             .register_form {
-                width: 80%;
+                width: 85%;
                 padding: 18px;
                 margin: 20px 0;
 

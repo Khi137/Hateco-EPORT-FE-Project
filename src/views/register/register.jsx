@@ -236,7 +236,8 @@ class Register extends Component {
             !this.checkEmailError(formData.email) &&
             !this.checkPasswordError(formData.password) &&
             !this.checkRePasswordError(formData.rePassword) &&
-            !this.checkSelectedServiceError(formData.selectedService)
+            !this.checkSelectedServiceError(formData.selectedService) &&
+            this.state.isCaptchaVerified
             // true
         ) {
             if (this.mButtonRef.current) {
@@ -260,10 +261,12 @@ class Register extends Component {
                 if (this.mButtonRef.current) {
                     message.success("Đăng ký thành công")
                     this.mButtonRef.current.reset();
-                    // this.props.navigate('/login')
+                    this.props.navigate('/login')
                 }
             }, 2000);
 
+        } else {
+            !this.state.isCaptchaVerified && message.error("Chưa xác nhận CAPTCHA")
         }
         this.setState(prevState => ({
             formData: {
