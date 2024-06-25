@@ -50,52 +50,140 @@ class ShowComponent extends Component {
       radioValue: "option1",
       dropdownItems: ["Item 1", "Item 2", "Item 3"],
       inputValue: "",
-      checkbox: false,
-      formdata: {
-        user: "",
-        userError: "Không được để trống",
-      },
+      // Mtable data
       tableData: [
         {
-          key: "1",
-          name: "John Brown",
-          age: 32,
-          address: "New York No. 1 Lake Park",
+          key: '1',
+          orderNumber: 1,
+          shipCode: "CNC",
+          shipName: 'Công ty cổ phần  CMA - CGM Việt Nam (CMA)',
+          status: false,
         },
         {
-          key: "2",
-          name: "Jim Green",
-          age: 42,
-          address: "London No. 1 Lake Park",
+          key: '2',
+          orderNumber: 2,
+          shipCode: "CNC",
+          shipName: 'Công ty cổ phần  CMA - CGM Việt Nam (CMA)',
+          status: false,
         },
         {
-          key: "3",
-          name: "Joe Black",
-          age: 32,
-          address: "Sydney No. 1 Lake Park",
+          key: '3',
+          orderNumber: 3,
+          shipCode: "CNC",
+          shipName: 'Công ty cổ phần  CMA - CGM Việt Nam (CMA)',
+          status: false,
+        },
+        {
+          key: '4',
+          orderNumber: 4,
+          shipCode: "CNC",
+          shipName: 'Công ty cổ phần  CMA - CGM Việt Nam (CMA)',
+          status: false,
+        },
+        {
+          key: '5',
+          orderNumber: 5,
+          shipCode: "CNC",
+          shipName: 'Công ty cổ phần  CMA - CGM Việt Nam (CMA)',
+          status: false,
+        },
+        {
+          key: '6',
+          orderNumber: 6,
+          shipCode: "CNC",
+          shipName: 'Công ty cổ phần  CMA - CGM Việt Nam (CMA)',
+          status: false,
+        },
+        {
+          key: '7',
+          orderNumber: 7,
+          shipCode: "CNC",
+          shipName: 'Công ty cổ phần  CMA - CGM Việt Nam (CMA)',
+          status: false,
+        },
+        {
+          key: '8',
+          orderNumber: 8,
+          shipCode: "CNC",
+          shipName: 'Công ty cổ phần  CMA - CGM Việt Nam (CMA)',
+          status: false,
+        },
+      ],
+      // Mtable columns
+      tableColumns: [
+        {
+          title: 'STT',
+          dataIndex: 'orderNumber',
+          key: 'orderNumber',
+          sorter: (a, b) => a.orderNumber - b.orderNumber,
+          ellipsis: true,
+          width: 100,
+        },
+        {
+          title: 'Mã Hãng Tàu',
+          dataIndex: 'shipCode',
+          key: 'shipCode',
+          sorter: (a, b) => a.shipCode.localeCompare(b.shipCode),
+          ellipsis: true,
+          width: 200,
+          render: (text, record) => (
+            <input
+              value={text}
+              onChange={(e) => this.handleChange(e, record.key, 'shipCode')}
+              style={{
+                width: '100%',
+                height: '100%',
+                border: 'none',
+                outline: 'none',
+                backgroundColor: 'transparent',
+                fontSize: '1rem',
+                padding: '0.2rem',
+
+                paddingLeft: 0,
+              }}
+            />
+          ),
+        },
+        {
+          title: 'Tên Hãng Tàu',
+          dataIndex: 'shipName',
+          key: 'shipName',
+          editable: true,
+          render: (text, record) => (
+            <input
+              value={text}
+              style={{
+                width: '100%',
+                height: '100%',
+                border: 'none',
+                outline: 'none',
+                backgroundColor: 'transparent',
+                fontSize: '1rem',
+                padding: '0.6rem',
+                paddingLeft: 0,
+              }}
+              onChange={(e) => this.handleChange(e, record.key, 'shipName')}
+            />
+          ),
+        },
+        {
+          title: 'Trạng thái',
+          dataIndex: 'status',
+          key: 'status',
+          width: 100,
+          render: (status, record) => (
+            <Mcheckbox
+              onChangeValue={(e) => this.handleStatusChange(e, record.key)}
+              dataSource={{
+                value: status,
+              }}
+            />
+          ),
         },
       ],
     };
 
     this.mButtonRef = createRef();
-
-    this.columns = [
-      {
-        title: "Name",
-        dataIndex: "name",
-        key: "name",
-      },
-      {
-        title: "Age",
-        dataIndex: "age",
-        key: "age",
-      },
-      {
-        title: "Address",
-        dataIndex: "address",
-        key: "address",
-      },
-    ];
   }
 
   onClose = () => {
@@ -142,9 +230,77 @@ class ShowComponent extends Component {
     setTimeout(() => {
       if (this.mButtonRef.current) {
         this.mButtonRef.current.reset();
+        console.log(this.state.tableData);
       }
     }, 2000);
   };
+
+  // MButton
+
+
+  // Winput
+
+  // handleInputChange = (e, regex) => {
+  //   const { name, value } = e.target;
+
+  //   if (value === "") {
+  //     this.setState((prevState) => ({
+  //       formData: {
+  //         ...prevState.formData,
+  //         [name]: value,
+  //       },
+  //     }));
+  //     return value;
+  //   }
+
+  //   if (regex && !regex.test(value)) {
+  //     console.error(`Value does not match the regex: ${regex}`);
+  //     return;
+  //   } else {
+  //     this.setState((prevState) => ({
+  //       formData: {
+  //         ...prevState.formData,
+  //         [name]: value,
+  //       },
+  //     }));
+  //   }
+  //   return value;
+  // };
+
+  // Mtable
+  handleStatusChange = (e, key) => {
+    const newData = this.state.tableData.map(item => {
+      if (item.key === key) {
+        return { ...item, status: e.checked };
+      }
+      return item;
+    });
+    this.setState({ tableData: newData });
+  };
+
+  handleChange = (e, key, column) => {
+    const newData = this.state.tableData.map(item => {
+      if (item.key === key) {
+        return { ...item, [column]: e.target.value };
+      }
+      return item;
+    });
+    this.setState({ tableData: newData });
+  };
+
+  handleRowClick = (record) => {
+    const { tableData } = this.state;
+    const newData = tableData.map(item => {
+      if (item.key === record.key) {
+        return { ...item, selected: true };
+      } else {
+        return { ...item, selected: false };
+      }
+    });
+    this.setState({ tableData: newData });
+  };
+
+
 
   render() {
     const checkboxDataSource = {
@@ -153,7 +309,76 @@ class ShowComponent extends Component {
       className: `${this.state.checkbox && "m-checkbox_checked"}`,
     };
 
-    const inputvalue = "";
+    // Mtable columns
+    const columns = [
+      {
+        title: 'STT',
+        dataIndex: 'orderNumber',
+        key: 'orderNumber',
+        sorter: (a, b) => a.orderNumber - b.orderNumber,
+        ellipsis: true,
+        width: 100,
+      },
+      {
+        title: 'Mã Hãng Tàu',
+        dataIndex: 'shipCode',
+        key: 'shipCode',
+        sorter: (a, b) => a.shipCode.localeCompare(b.shipCode),
+        ellipsis: true,
+        width: 200,
+        render: (text, record) => (
+          <input
+            value={text}
+            onChange={(e) => this.handleChange(e, record.key, 'shipCode')}
+            style={{
+              width: '100%',
+              height: '100%',
+              border: 'none',
+              outline: 'none',
+              backgroundColor: 'transparent',
+              fontSize: '1rem',
+              padding: '0.6rem',
+            }}
+          />
+        ),
+      },
+      {
+        title: 'Tên Hãng Tàu',
+        dataIndex: 'shipName',
+        key: 'shipName',
+        editable: true,
+        render: (text, record) => (
+          <input
+            value={text}
+            style={{
+              width: '100%',
+              height: '100%',
+              border: 'none',
+              outline: 'none',
+              backgroundColor: 'transparent',
+              fontSize: '1rem',
+              padding: '0.6rem',
+              paddingLeft: '2.5rem'
+            }}
+            onChange={(e) => this.handleChange(e, record.key, 'shipName')}
+          />
+        ),
+      },
+      {
+        title: 'Trạng thái',
+        dataIndex: 'status',
+        key: 'status',
+        width: 100,
+        render: (status, record) => (
+          <Mcheckbox
+            onChangeValue={(e) => this.handleStatusChange(e, record.key)}
+            dataSource={{
+              value: status,
+            }}
+          />
+        ),
+      },
+    ];
 
     return (
       <>
@@ -553,8 +778,24 @@ class ShowComponent extends Component {
             />
           </div>
 
-          <h2 className="heading-md-normal">Mtable</h2>
-          <Mtable columns={this.columns} dataSource={this.state.tableData} />
+          <h2 className="h2-tile-component">Mtable</h2>
+          <Mtable
+            columns={this.state.tableColumns}
+            dataSource={this.state.tableData}
+            pagination={false}
+            scroll={{
+              // x: 1500,
+              y: "35vh",
+            }}
+            bordered={true}
+            rowClassName={(record, index) => {
+              return record.selected ? "table-row-selected" : index % 2 === 0 ? "table-row-light" : "table-row-dark";
+            }}
+            onRow={(record) => ({
+              onClick: () => this.handleRowClick(record),
+            })}
+            className="m_table"
+          />
 
           <h2 className="heading-md-normal">Mbutton</h2>
           <div className="component-mbutton">
@@ -623,6 +864,7 @@ class ShowComponent extends Component {
               ></Mbutton>
             </div>
           </div>
+
         </div>
       </>
     );

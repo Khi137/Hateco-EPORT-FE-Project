@@ -52,6 +52,7 @@ class Login extends Component {
     };
 
     handleCheckboxChange = (value) => {
+        console.log(value);
         this.setState(prevState => ({
             formData: {
                 ...prevState.formData,
@@ -61,8 +62,8 @@ class Login extends Component {
     };
 
     checkUserError = (value) => {
-        switch (value) {
-            case "":
+        switch (true) {
+            case (value === ""):
                 return "Tên đăng nhập không được để trống"
 
             default:
@@ -71,12 +72,13 @@ class Login extends Component {
     }
 
     checkPasswordError = (value) => {
-        switch (value) {
-            case "":
-                return "Mật khẩu không được để trống"
-
+        switch (true) {
+            case (value === ""):
+                return "Mật khẩu không được để trống";
+            case (value.length < 6):
+                return "Mật khẩu ít nhất có 6 ký tự";
             default:
-                return false
+                return false;
         }
     }
 
@@ -110,6 +112,15 @@ class Login extends Component {
         }));
     };
 
+    handleOnblurCheck = (field, checkfunction) => {
+        this.setState(prevState => ({
+            formData: {
+                ...prevState.formData,
+                [field]: checkfunction ? checkfunction() : false
+            }
+        }));
+    };
+
     renderInputField = (item, key) => {
         return (
             <Col className="form_item " key={key}>
@@ -128,6 +139,7 @@ class Login extends Component {
                     value={item?.value}
                     onChange={(e) => this.handleInputChange(e, item?.regex)}
                     errorText={item?.error && item?.error}
+                    onBlur={(e) => this.handleOnblurCheck(item?.name + "Error", item?.checkFunction)}
                 />
             </Col>
         )
@@ -151,7 +163,8 @@ class Login extends Component {
                 name: "user",
                 type: "text",
                 value: formData.user,
-                error: formData.userError
+                error: formData.userError,
+                checkFunction: () => this.checkUserError(formData.user)
             },
             {
                 title: "Nhập mật khẩu",
@@ -161,7 +174,8 @@ class Login extends Component {
                 name: "password",
                 type: "password",
                 value: formData.password,
-                error: formData.passwordError
+                error: formData.passwordError,
+                checkFunction: () => this.checkPasswordError(formData.password)
             },
         ]
 
@@ -191,14 +205,15 @@ class Login extends Component {
                                 block
                                 onClick={this.handleFormSubmit}
                                 ref={this.mButtonRef}
+                                dataSource={{ textbutton: "Đăng nhập" }}
                             >
                                 Đăng nhập
                             </Mbutton>
                         </Col>
 
                         <Row justify="space-between" className="form_item bottom_link">
-                            <NavLink to="/register">Đăng ký</NavLink>
-                            <NavLink to="/forgot-password" >Quên mật khẩu?</NavLink>
+                            <NavLink to="/forgot-password" ></NavLink>
+                            <NavLink to="/register">{"Đăng ký >>"}</NavLink>
                         </Row>
                     </Col>
                 </Row>
