@@ -80,15 +80,14 @@ export class Home extends Component {
         </div>
         <div
           className={
-            this.state.modal
-              ? "huongdan-panel black-shadow"
-              : "huongdan-panel"
+            this.state.modal ? "huongdan-panel black-shadow" : "huongdan-panel"
           }
         >
           <header className="header">
             <MenuUnfoldOutlined
               style={{ fontSize: "25px", marginRight: "12px" }}
               onClick={this.handleChangeModal}
+              className="icon-menu"
             />
             <span className="huongdan">Hướng dẫn lệnh cơ bản</span>
             <span className="lenh">Lệnh hạ container hàng</span>
@@ -136,6 +135,7 @@ export class Home extends Component {
             <img
               src="https://hatecologistics.vn/wp-content/uploads/2020/06/IMG_0731.jpg"
               style={{ width: "100%", height: "100%" }}
+              className="image"
             />
           </div>
         </div>

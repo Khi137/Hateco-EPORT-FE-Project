@@ -279,7 +279,7 @@ export class Dashboard extends Component {
         <div className="header-dashboard">
           <HomeOutlined
             className="icon-header"
-            onClick={() => this.props.navigate("/home")}
+            onClick={() => this.props.navigate("/")}
           />
           <span className="text">Header</span>
         </div>
