@@ -26,6 +26,11 @@ $color-primary-300: #48417f;
 $color-primary-400: #1c1c54;
 
 //Secondary
+$color-secondary-50: #ffa78d;
+$color-secondary-100: #ff8871;
+$color-secondary-200: #ff6956;
+$color-secondary-300: #f7493d;
+// $color-secondary-400
 
 //Danger
 $color-danger-50: #fbeaea;
@@ -175,12 +180,74 @@ $body-xl-line-height: 28px;
 
 .body-xl-bold {
   font-family: $main-font;
-  font-size: $title-lg-font-size;
+  font-size: $body-xl-font-size;
   line-height: $body-xl-line-height;
   font-weight: $main-font-weight-bold;
 }
 
 //body-lg
+$body-lg-font-size: 16px;
+$body-lg-line-height: 24px;
+.body-lg-normal {
+  font-family: $main-font;
+  font-size: $body-lg-font-size;
+  line-height: $body-lg-line-height;
+  font-weight: $main-font-weight-normal;
+}
+.body-lg-bold {
+  font-family: $main-font;
+  font-size: $body-lg-font-size;
+  line-height: $body-lg-line-height;
+  font-weight: $main-font-weight-bold;
+}
+
+//body-md
+$body-md-font-size: 14px;
+$body-md-line-height: 20px;
+.body-md-normal {
+  font-family: $main-font;
+  font-size: $body-md-font-size;
+  line-height: $body-md-line-height;
+  font-weight: $main-font-weight-normal;
+}
+.body-md-bold {
+  font-family: $main-font;
+  font-size: $body-md-font-size;
+  line-height: $body-md-line-height;
+  font-weight: $main-font-weight-bold;
+}
+
+//body-sm
+$body-sm-font-size: 12px;
+$body-sm-line-height: 18px;
+.body-sm-normal {
+  font-family: $main-font;
+  font-size: $body-sm-font-size;
+  line-height: $body-sm-line-height;
+  font-weight: $main-font-weight-normal;
+}
+.body-sm-bold {
+  font-family: $main-font;
+  font-size: $body-sm-font-size;
+  line-height: $body-sm-line-height;
+  font-weight: $main-font-weight-bold;
+}
+
+//caption
+$caption-font-size: 10px;
+$caption-line-height: 14px;
+.caption-normal {
+  font-family: $main-font;
+  font-size: $caption-font-size;
+  line-height: $caption-line-height;
+  font-weight: $main-font-weight-normal;
+}
+.caption-bold {
+  font-family: $main-font;
+  font-size: $caption-font-size;
+  line-height: $caption-line-height;
+  font-weight: $main-font-weight-bold;
+}
 
 //Mradio Buttons
 
@@ -358,11 +425,10 @@ $body-xl-line-height: 28px;
 
 .m_button.orange {
   background-color: #f2ab53;
-  color: #ffffff;
-
+  color: #202327;
   &:hover {
     background-color: #ee9322 !important;
-
+    color: #202327 !important;
     &:active {
       background-color: #f2ab53;
     }
@@ -400,7 +466,6 @@ $body-xl-line-height: 28px;
     background-color: #f8f5ff !important;
     border-width: 1px !important;
     border-color: $color-third !important;
-
     .ant-checkbox-wrapper {
       // padding: 0 8px;
 
@@ -460,16 +525,40 @@ $body-xl-line-height: 28px;
   padding: 100px 25% 100px 25%;
 }
 
-.h1-tile-component {
-  color: $color-success-200;
-
-  &:hover {
-    color: $color-danger-200;
-  }
+.typography-container {
+  background-color: black;
+  color: white;
+  border-radius: 8px;
+  padding: 64px;
+  margin: 80px 10% 0 10%;
+  box-shadow: black;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
-.h2-tile-component {
-  margin: 10px 0px 0px 0px;
+.typography-example {
+  display: flex;
+  clear: both;
+  .typography-info {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+    float: left;
+  }
+  .typography-info div {
+    flex: 1;
+    padding: 0 10px 0 10px;
+    text-align: top left;
+  }
+  .example-text {
+    flex: 1;
+    margin: 0 0 0 40px;
+    text-align: left;
+    font-family: $main-font;
+    float: right;
+  }
 }
 
 .component-mbutton {
