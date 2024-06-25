@@ -1,6 +1,6 @@
 import React, { Component, createRef } from 'react';
 import { Row, Col, Typography, Tooltip, Modal, message, Select } from 'antd';
-import { InfoCircleOutlined, MailOutlined, LockOutlined, NumberOutlined, PhoneOutlined, EnvironmentOutlined, BoldOutlined, DownOutlined } from '@ant-design/icons';
+import { InfoCircleOutlined, MailOutlined, LockOutlined, NumberOutlined, PhoneOutlined, EnvironmentOutlined, BoldOutlined, DownOutlined, BarcodeOutlined } from '@ant-design/icons';
 import './styles.scss'
 
 import { Mbutton, Mcapcha, Mcheckbox, Mdropdown, MoneFieldInput, Winput } from "../../components/BasicUI"
@@ -357,7 +357,7 @@ class Register extends Component {
                 title: "Số đăng ký kinh doanh:",
                 tooltip: "Số đăng ký kinh doanh có khoảng 10 đến 13 số vd: 0101234567890",
                 placeholder: "Nhập số đăng ký kinh doanh",
-                inputIcon: <NumberOutlined />,
+                inputIcon: <BarcodeOutlined />,
                 name: "businessNumber",
                 type: "text",
                 value: formData.businessNumber,
@@ -413,13 +413,13 @@ class Register extends Component {
             },
         ]
         const options = [
-            { value: 'option1', label: 'Option 1' },
-            { value: 'option2', label: 'Option 2' },
-            { value: 'option3', label: 'Option 3' },
-            { value: 'option4', label: 'Option 4' },
-            { value: 'option5', label: 'Option 5' },
-            { value: 'option6', label: 'Option 6' },
-            { value: 'option8', label: 'Option 7' },
+            { value: 'option1', label: 'Lựa chọn 1' },
+            { value: 'option2', label: 'Lựa chọn 2' },
+            { value: 'option3', label: 'Lựa chọn 3' },
+            { value: 'option4', label: 'Lựa chọn 4' },
+            { value: 'option5', label: 'Lựa chọn 5' },
+            { value: 'option6', label: 'Lựa chọn 6' },
+            { value: 'option8', label: 'Lựa chọn 7' },
         ];
         return (
             <>
@@ -503,23 +503,23 @@ class Register extends Component {
                     <Col className="form_item form_header">
                         <Typography.Title level={5} className="button_text">Điều Kiện 2</Typography.Title>
                     </Col>
-                    <Col>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore provident, autem illum voluptatem neque officia, labore reprehenderit quo consequuntur, quos eaque porro obcaecati? Deserunt rem libero fuga velit, omnis asperiores.</Col>
+                    <Col>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nostrum inventore ad odio vitae! Quisquam nesciunt repellendus a iure, saepe vero incidunt repellat ipsum non architecto minima quos facilis qui accusantium?</Col>
                     <Col className="form_item form_header">
                         <Typography.Title level={5} className="button_text">Điều Kiện 3</Typography.Title>
                     </Col>
-                    <Col>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore provident, autem illum voluptatem neque officia, labore reprehenderit quo consequuntur, quos eaque porro obcaecati? Deserunt rem libero fuga velit, omnis asperiores.</Col>
+                    <Col>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis voluptatem amet sed, hic velit, accusamus perspiciatis recusandae reprehenderit, tempora deserunt a saepe aut fuga omnis molestias repellat veniam minima ab.</Col>
                     <Col className="form_item form_header">
                         <Typography.Title level={5} className="button_text">Điều Kiện 4</Typography.Title>
                     </Col>
-                    <Col>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore provident, autem illum voluptatem neque officia, labore reprehenderit quo consequuntur, quos eaque porro obcaecati? Deserunt rem libero fuga velit, omnis asperiores.</Col>
+                    <Col>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam delectus minus quibusdam. Earum id hic et, quos cum, blanditiis sapiente, neque nisi vero obcaecati eligendi minus eveniet minima ea nemo.</Col>
                     <Col className="form_item form_header">
                         <Typography.Title level={5} className="button_text">Điều Kiện 5</Typography.Title>
                     </Col>
-                    <Col>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore provident, autem illum voluptatem neque officia, labore reprehenderit quo consequuntur, quos eaque porro obcaecati? Deserunt rem libero fuga velit, omnis asperiores.</Col>
+                    <Col>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos deserunt similique corrupti possimus, iste laborum nostrum, modi ut, distinctio animi velit eveniet debitis asperiores sequi maxime? Mollitia veritatis ad rerum?</Col>
                     <Col className="form_item form_header">
                         <Typography.Title level={5} className="button_text">Điều Kiện 6</Typography.Title>
                     </Col>
-                    <Col>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore provident, autem illum voluptatem neque officia, labore reprehenderit quo consequuntur, quos eaque porro obcaecati? Deserunt rem libero fuga velit, omnis asperiores.</Col>
+                    <Col>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laudantium ut necessitatibus pariatur sapiente, perspiciatis dolore doloremque ipsa sit architecto suscipit doloribus ducimus id autem, iusto aliquid obcaecati ea, modi corrupti!</Col>
                 </Modal>
             </>
 

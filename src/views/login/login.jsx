@@ -52,7 +52,6 @@ class Login extends Component {
     };
 
     handleCheckboxChange = (value) => {
-        console.log(value);
         this.setState(prevState => ({
             formData: {
                 ...prevState.formData,

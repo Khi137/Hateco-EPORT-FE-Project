@@ -2,8 +2,7 @@ $breakpoint-xl: 1536px;
 $breakpoint-ld: 1280px;
 $breakpoint-md: 768px;
 $breakpoint-sm: 360px;
-
-
+$login-background-image: url('../../assets/backgroundImage/LoginBackground.jpg');
 
 .register_container {
     width: 100%;
@@ -16,7 +15,7 @@ $breakpoint-sm: 360px;
         align-items: center;
         justify-content: center;
 
-        background-image: url('../../assets/backgroundImage/LoginBackground.jpg');
+        background-image: $login-background-image;
         background-repeat: no-repeat;
         background-size: cover;
         background-position: top center;

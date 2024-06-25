@@ -2,6 +2,7 @@ $breakpoint-xl: 1536px;
 $breakpoint-ld: 1280px;
 $breakpoint-md: 768px;
 $breakpoint-sm: 360px;
+$register-background-image: url('../../assets/backgroundImage/LoginBackground.jpg');
 
 .login_container {
     width: 100%;
@@ -15,7 +16,7 @@ $breakpoint-sm: 360px;
         align-items: center;
         justify-content: center;
 
-        background-image: url('../../assets/backgroundImage/LoginBackground.jpg');
+        background-image: $register-background-image;
         background-repeat: no-repeat;
         background-size: cover;
         background-position: top center;
@@ -57,7 +58,6 @@ $breakpoint-sm: 360px;
                 .button_text {
                     text-align: center;
                     margin: 12px;
-                    font-family: 'IBM Plex Sans', sans-serif;
                 }
             }
 
@@ -89,7 +89,7 @@ $breakpoint-sm: 360px;
         @media (max-width: $breakpoint-md) {
             .login_form {
                 width: 330px;
-                height: 380px;
+                height: 390px;
                 margin: 20px 0;
                 padding: 0 18px;
                 background-color: white;
