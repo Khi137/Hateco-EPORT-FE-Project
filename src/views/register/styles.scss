@@ -120,7 +120,8 @@ $breakpoint-sm: 360px;
                 div {
                     display: flex;
                     justify-content: center;
-                    max-width: 100%;
+                    max-width: 100% !important;
+                    flex: 0 0 100%;
                 }
             }
 
@@ -138,7 +139,7 @@ $breakpoint-sm: 360px;
             }
 
             .ant-col .ant-col .ant-input {
-                width: 68.1%;
+                width: 69.8%;
                 height: 40px;
             }
 
@@ -148,7 +149,7 @@ $breakpoint-sm: 360px;
 
             .ant-col .ant-col .ant-btn {
                 height: 25px;
-                margin: 0 5px;
+                margin-left: 2%;
                 margin-bottom: 2px;
                 padding: 5px 20px;
             }

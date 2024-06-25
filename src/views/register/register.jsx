@@ -215,16 +215,6 @@ class Register extends Component {
         }));
     };
 
-
-    // taxNumber: "",
-    // companyName: "",
-    // address: "",
-    // businessNumber: "",
-    // phoneNumber: "",
-    // email: "",
-    // password: "",
-    // rePassword: "",
-
     handleFormSubmit = () => {
         const formData = this.state.formData
         if (
@@ -452,19 +442,6 @@ class Register extends Component {
                                             <InfoCircleOutlined />
                                         </Tooltip>
                                     </Row>
-                                    {/* <Mdropdown
-                                    dataSource={{
-                                        id: 'myDropdown',
-                                        options: items
-                                    }}
-                                    id={'myDropdown'}
-                                    items={items}
-                                    onChange={this.handleChange}
-                                    ref={this.dropdownRef}
-                                >
-                                    {this.state.selectedValue || 'Select an option'}
-                                </Mdropdown> */}
-                                    {/* <Row className="item_bottom">{item?.error && item?.error}</Row> */}
                                     <Select
                                         mode="multiple"
                                         options={options}
@@ -524,23 +501,23 @@ class Register extends Component {
                     </Col>
                     <Col>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore provident, autem illum voluptatem neque officia, labore reprehenderit quo consequuntur, quos eaque porro obcaecati? Deserunt rem libero fuga velit, omnis asperiores.</Col>
                     <Col className="form_item form_header">
-                        <Typography.Title level={5} className="button_text">Điều Kiện 1</Typography.Title>
+                        <Typography.Title level={5} className="button_text">Điều Kiện 2</Typography.Title>
                     </Col>
                     <Col>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore provident, autem illum voluptatem neque officia, labore reprehenderit quo consequuntur, quos eaque porro obcaecati? Deserunt rem libero fuga velit, omnis asperiores.</Col>
                     <Col className="form_item form_header">
-                        <Typography.Title level={5} className="button_text">Điều Kiện 1</Typography.Title>
+                        <Typography.Title level={5} className="button_text">Điều Kiện 3</Typography.Title>
                     </Col>
                     <Col>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore provident, autem illum voluptatem neque officia, labore reprehenderit quo consequuntur, quos eaque porro obcaecati? Deserunt rem libero fuga velit, omnis asperiores.</Col>
                     <Col className="form_item form_header">
-                        <Typography.Title level={5} className="button_text">Điều Kiện 1</Typography.Title>
+                        <Typography.Title level={5} className="button_text">Điều Kiện 4</Typography.Title>
                     </Col>
                     <Col>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore provident, autem illum voluptatem neque officia, labore reprehenderit quo consequuntur, quos eaque porro obcaecati? Deserunt rem libero fuga velit, omnis asperiores.</Col>
                     <Col className="form_item form_header">
-                        <Typography.Title level={5} className="button_text">Điều Kiện 1</Typography.Title>
+                        <Typography.Title level={5} className="button_text">Điều Kiện 5</Typography.Title>
                     </Col>
                     <Col>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore provident, autem illum voluptatem neque officia, labore reprehenderit quo consequuntur, quos eaque porro obcaecati? Deserunt rem libero fuga velit, omnis asperiores.</Col>
                     <Col className="form_item form_header">
-                        <Typography.Title level={5} className="button_text">Điều Kiện 1</Typography.Title>
+                        <Typography.Title level={5} className="button_text">Điều Kiện 6</Typography.Title>
                     </Col>
                     <Col>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore provident, autem illum voluptatem neque officia, labore reprehenderit quo consequuntur, quos eaque porro obcaecati? Deserunt rem libero fuga velit, omnis asperiores.</Col>
                 </Modal>
