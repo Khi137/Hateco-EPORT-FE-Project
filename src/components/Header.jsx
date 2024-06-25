@@ -90,16 +90,17 @@ class Header extends Component {
           <div className="navigate">
             <div className="toggle">
               <AlignLeftOutlined
-                style={{
-                  fontSize: "24px",
-                  borderRight: "1px solid white",
-                  paddingRight: "12px",
-                  cursor: "pointer",
-                  backgroundColor: "white",
-                  color: "#D03438",
-                  padding: "4px 12px",
-                  borderRadius: "4px",
-                }}
+                // style={{
+                //   fontSize: "24px",
+                //   borderRight: "1px solid white",
+                //   paddingRight: "12px",
+                //   cursor: "pointer",
+                //   backgroundColor: "white",
+                //   color: "#D03438",
+                //   padding: "4px 12px",
+                //   borderRadius: "4px",
+                // }}
+                className="icon-menu"
                 onClick={this.handleToggle}
               />
             </div>
@@ -145,7 +146,10 @@ class Header extends Component {
                         onClick={() => this.handleClick(item.text)}
                         className={item.isOpen ? "active" : ""}
                       >
-                        <IconComponentParent style={{ marginRight: "8px" }} />
+                        <IconComponentParent
+                          style={{ marginRight: "8px" }}
+                          className="icon-parent"
+                        />
                         <span> {item.text}</span>
                       </li>
                     );
