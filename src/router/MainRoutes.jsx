@@ -9,6 +9,7 @@ import ForgotPassword from "../views/forgotPassword/forgotPassword";
 import ShowComponent from "../ShowComponent";
 import Dashboard from "../components/Dashboard/Dashboard";
 import Header from "../components/Header";
+import SystemManageUser from "../views/system/systemManageUser/SystemManageUser";
 
 class MainRoutes extends Component {
   render() {
@@ -21,6 +22,7 @@ class MainRoutes extends Component {
         </Route>
         <Route element={<AuthLayout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/SystemManageUser" element={<SystemManageUser />} />
         </Route>
         {/* <Route path="/" element={<Header />} /> */}
         <Route path="/dashboard" element={<Dashboard />} />
