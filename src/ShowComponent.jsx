@@ -13,7 +13,10 @@ import {
 } from "./components/BasicUI";
 import Header from "./components/Header";
 import "./components/BasicUI.scss";
+import "./ShowComponent.scss";
 import * as LOL from "@ant-design/icons";
+import { ReactGrid, Column, Row, CellChange } from "@silevis/reactgrid";
+import "@silevis/reactgrid/styles.css";
 
 
 class ShowComponent extends Component {
@@ -181,6 +184,28 @@ class ShowComponent extends Component {
           ),
         },
       ],
+
+      reactGridColumns: [
+        { columnId: 'STT', width: 50, resizable: true, sortable: true, header: 'STT' },
+        { columnId: 'MaHangTau', width: 150, resizable: true, sortable: true, header: 'Mã Hãng Tàu' },
+        { columnId: 'TenHangTau', width: 500, resizable: true, sortable: true, header: 'Tên Hãng Tàu' },
+        { columnId: 'TrangThai', width: 100, resizable: true, sortable: true, header: 'Trạng thái' },
+      ],
+      reactGridRows: [
+        {
+          rowId: "header",
+          cells: [
+            { type: "header", text: "STT" },
+            { type: "header", text: "Mã hãng tàu" },
+            { type: "header", text: "Tên hãng tàu" },
+            { type: "header", text: "Trạng thái" },
+          ]
+        },
+        { rowId: 1, cells: [{ type: 'text', nonEditable: true, text: '1' }, { type: 'text', text: 'CNC' }, { type: 'text', text: 'Công ty cổ phần CMA - CGM Việt Nam (CMA)' }, { type: 'checkbox', checked: false }] },
+        { rowId: 2, cells: [{ type: 'text', nonEditable: true, text: '2' }, { type: 'text', text: 'CNC' }, { type: 'text', text: 'Công ty cổ phần CMA - CGM Việt Nam (CMA)' }, { type: 'checkbox', checked: false }] },
+        { rowId: 3, cells: [{ type: 'text', nonEditable: true, text: '3' }, { type: 'text', text: 'CNC' }, { type: 'text', text: 'Công ty cổ phần CMA - CGM Việt Nam (CMA)' }, { type: 'checkbox', checked: false }] },
+        { rowId: 4, cells: [{ type: 'text', nonEditable: true, text: '4' }, { type: 'text', text: 'CNC' }, { type: 'text', text: 'Công ty cổ phần CMA - CGM Việt Nam (CMA)' }, { type: 'checkbox', checked: false }] },
+      ],
     };
 
     this.mButtonRef = createRef();
@@ -300,6 +325,31 @@ class ShowComponent extends Component {
     this.setState({ tableData: newData });
   };
 
+  // ReactGrid
+
+  handleCellsChanged = (changes) => {
+    const rows = this.state.reactGridRows.map(row => ({
+      ...row,
+      cells: row.cells?.map(cell => ({ ...cell }))
+    }));
+
+    changes.forEach(change => {
+      const row = rows?.find(r => r.rowId === change.rowId);
+      if (row) {
+        const columnIndex = this.state?.reactGridColumns.findIndex(col => col.columnId === change.columnId);
+        if (columnIndex >= 0) {
+          const cell = row.cells[columnIndex];
+          if (change?.newCell?.type === 'checkbox') {
+            cell.checked = change?.newCell?.checked;
+          } else {
+            cell.text = change?.newCell?.text;
+          }
+        }
+      }
+    });
+
+    this.setState({ reactGridRows: rows });
+  };
 
 
   render() {
@@ -385,7 +435,7 @@ class ShowComponent extends Component {
         <Header />
         <div className="typography-container">
           <h1 className="heading-lg-normal" style={{ margin: "0 0 30px 0" }}>
-          Typography
+            Typography
           </h1>
           <div className="typo-heading-xl-normal">
             <div className="typography-example">
@@ -798,7 +848,7 @@ class ShowComponent extends Component {
           />
 
           <h2 className="heading-md-normal">Mbutton</h2>
-          <div className="component-mbutton">
+          <div className="component-mbutton" style={{ width: "100%" }}>
             <div className="component-mbutton-1">
               <Mbutton
                 color=""
@@ -865,6 +915,15 @@ class ShowComponent extends Component {
             </div>
           </div>
 
+          <h2 className="heading-md-normal">ReactGrid</h2>
+          <div className="custom-grid-container">
+            <ReactGrid
+              rows={this.state.reactGridRows}
+              columns={this.state.reactGridColumns}
+              stickyTopRows={1}
+              onCellsChanged={this.handleCellsChanged}
+            />
+          </div>
         </div>
       </>
     );

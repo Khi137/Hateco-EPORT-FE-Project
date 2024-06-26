@@ -1,0 +1,13 @@
+.custom-grid-container {
+    width: 90%;
+    margin: 0 auto;
+
+    .reactgrid {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+
+        .rg-row {
+            border-bottom: 1px solid #ddd;
+        }
+    }
+}
