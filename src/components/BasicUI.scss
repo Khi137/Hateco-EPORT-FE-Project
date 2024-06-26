@@ -188,12 +188,14 @@ $body-xl-line-height: 28px;
 //body-lg
 $body-lg-font-size: 16px;
 $body-lg-line-height: 24px;
+
 .body-lg-normal {
   font-family: $main-font;
   font-size: $body-lg-font-size;
   line-height: $body-lg-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .body-lg-bold {
   font-family: $main-font;
   font-size: $body-lg-font-size;
@@ -204,12 +206,14 @@ $body-lg-line-height: 24px;
 //body-md
 $body-md-font-size: 14px;
 $body-md-line-height: 20px;
+
 .body-md-normal {
   font-family: $main-font;
   font-size: $body-md-font-size;
   line-height: $body-md-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .body-md-bold {
   font-family: $main-font;
   font-size: $body-md-font-size;
@@ -220,12 +224,14 @@ $body-md-line-height: 20px;
 //body-sm
 $body-sm-font-size: 12px;
 $body-sm-line-height: 18px;
+
 .body-sm-normal {
   font-family: $main-font;
   font-size: $body-sm-font-size;
   line-height: $body-sm-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .body-sm-bold {
   font-family: $main-font;
   font-size: $body-sm-font-size;
@@ -236,12 +242,14 @@ $body-sm-line-height: 18px;
 //caption
 $caption-font-size: 10px;
 $caption-line-height: 14px;
+
 .caption-normal {
   font-family: $main-font;
   font-size: $caption-font-size;
   line-height: $caption-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .caption-bold {
   font-family: $main-font;
   font-size: $caption-font-size;
@@ -426,9 +434,11 @@ $caption-line-height: 14px;
 .m_button.orange {
   background-color: #f2ab53;
   color: #202327;
+
   &:hover {
     background-color: #ee9322 !important;
     color: #202327 !important;
+
     &:active {
       background-color: #f2ab53;
     }
@@ -465,12 +475,13 @@ $caption-line-height: 14px;
   &:hover {
     background-color: #f8f5ff !important;
     border-width: 1px !important;
-    border-color: $color-third !important;
+
+    // border-color: $color-third !important;
     .ant-checkbox-wrapper {
       // padding: 0 8px;
 
       .ant-checkbox {
-        .ant-checkbox-inner:hover {
+        .ant-checkbox-inner {
           border-color: #00B1CC !important;
         }
       }
@@ -518,7 +529,12 @@ $caption-line-height: 14px;
   }
 }
 
+.m-checkbox_checked {
+  .m-form__Checkbox:hover {
+    border-color: $color-third !important;
 
+  }
+}
 
 //SCSS of ShowComponent.jsx
 .component-bodylayout {
@@ -540,6 +556,7 @@ $caption-line-height: 14px;
 .typography-example {
   display: flex;
   clear: both;
+
   .typography-info {
     flex: 1;
     display: flex;
@@ -547,11 +564,13 @@ $caption-line-height: 14px;
     width: auto;
     float: left;
   }
+
   .typography-info div {
     flex: 1;
     padding: 0 10px 0 10px;
     text-align: top left;
   }
+
   .example-text {
     flex: 1;
     margin: 0 0 0 40px;

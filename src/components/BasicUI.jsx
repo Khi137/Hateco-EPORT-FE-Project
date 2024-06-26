@@ -2499,7 +2499,7 @@ class Mcheckbox extends React.Component {
         md={span.md || span}
         lg={span.lg || span}
         style={data.style}
-        className={"m-form__Mcheckbox" + (data.className || "")}
+        className={"m-form__Mcheckbox " + (this.props.dataSource.value ? "m-checkbox_checked" : "")}
       >
         <span className="m-form__Checkbox">
           <Checkbox
