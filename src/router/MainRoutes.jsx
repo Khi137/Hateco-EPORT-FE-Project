@@ -8,6 +8,8 @@ import Register from "../views/register/register";
 import ForgotPassword from "../views/forgotPassword/forgotPassword";
 import ShowComponent from "../ShowComponent";
 import Dashboard from "../components/Dashboard/Dashboard";
+import Customer from "../views/category/customer/Customer";
+
 
 class MainRoutes extends Component {
   render() {
@@ -22,8 +24,9 @@ class MainRoutes extends Component {
 
         <Route element={<AuthLayout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard/>}/>
+          <Route path="/category-customer" element={<Customer />} />
         </Route>
+          <Route path="/dashboard" element={<Dashboard/>}/>
       </Routes>
     );
   }

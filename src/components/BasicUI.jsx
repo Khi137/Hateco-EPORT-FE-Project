@@ -1284,19 +1284,6 @@ class Msearch extends React.Component {
   render() {
     const { dataSource, config } = this.props;
     const data = config && config?.icon ? config : dataSource;
-    const icon = data?.icon ? (
-      <i
-        className={`m-form__icon ${
-          LOL[data?.icon] ? "" : "material-" + data?.icon
-        }`}
-      />
-    ) : (
-      <i
-        className={`m-form__icon ${
-          LOL["AlignLeftOutlined"] ? "" : "material-" + data?.icon
-        }`}
-      />
-    );
     const span = (data && data.span) || 24;
 
     return (
@@ -1309,20 +1296,19 @@ class Msearch extends React.Component {
         style={{ display: data?.isHide === true ? "none" : "block" }}
       >
         <div className="m-form__input">
-          <label className="m-form__label">
-            {data?.label || "sample text..."}
-          </label>
-          <Input.Search
+          <Input
+           classNames={"m-form__search"}
             ref={this.searchRef}
             value={this.state.value}
             onChange={this.handleChange}
             onBlur={this.handleBlur}
             onFocus={this.handleFocus}
+            placeholder={dataSource?.text ? dataSource?.text : "Tìm kiếm ..."}
             className={`inputUppercase ${data?.className || ""}`}
             {...(data?.safeString ? { onKeyPress: this.handleKeyPress } : {})}
             {...config}
-          />
-          {icon}
+          />   
+        <span className="ant__search-icon"><LOL.SearchOutlined/></span>
         </div>
       </Col>
     );
