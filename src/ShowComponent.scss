@@ -1,5 +1,5 @@
 .custom-grid-container {
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
 
     .reactgrid {
@@ -9,5 +9,13 @@
         .rg-row {
             border-bottom: 1px solid #ddd;
         }
+
+        .selected-row {
+            background-color: #6f6f6f;
+        }
+    }
+
+    .custom-column-tenhangtau {
+        width: 80% !important;
     }
 }

@@ -187,8 +187,8 @@ class ShowComponent extends Component {
 
       reactGridColumns: [
         { columnId: 'STT', width: 50, resizable: true, sortable: true, header: 'STT' },
-        { columnId: 'MaHangTau', width: 150, resizable: true, sortable: true, header: 'Mã Hãng Tàu' },
-        { columnId: 'TenHangTau', width: 500, resizable: true, sortable: true, header: 'Tên Hãng Tàu' },
+        { columnId: 'MaHangTau', width: 100, resizable: true, sortable: true, header: 'Mã Hãng Tàu' },
+        { columnId: 'TenHangTau', width: 500, resizable: true, sortable: true, header: 'Tên Hãng Tàu', className: "shipname" },
         { columnId: 'TrangThai', width: 100, resizable: true, sortable: true, header: 'Trạng thái' },
       ],
       reactGridRows: [
@@ -249,6 +249,7 @@ class ShowComponent extends Component {
   };
 
   handleFormSubmit = () => {
+    console.log(this.state.reactGridRows);
     if (this.mButtonRef.current) {
       this.mButtonRef.current.loading();
     }
@@ -314,6 +315,7 @@ class ShowComponent extends Component {
   };
 
   handleRowClick = (record) => {
+    console.log(record);
     const { tableData } = this.state;
     const newData = tableData.map(item => {
       if (item.key === record.key) {
@@ -350,6 +352,26 @@ class ShowComponent extends Component {
 
     this.setState({ reactGridRows: rows });
   };
+
+  handleRowClick = (rowId) => {
+    const { selectedRows } = this.state;
+    const newSelectedRows = new Set(selectedRows);
+
+    if (newSelectedRows.has(rowId)) {
+      newSelectedRows.delete(rowId);
+    } else {
+      newSelectedRows.add(rowId);
+    }
+
+    this.setState({ selectedRows: newSelectedRows });
+  };
+
+  renderTrangThaiColumn = ({ cell }) => {
+    const { status } = cell;
+    console.log(cell);
+    return <div>a</div>;
+  };
+
 
 
   render() {
@@ -921,7 +943,15 @@ class ShowComponent extends Component {
               rows={this.state.reactGridRows}
               columns={this.state.reactGridColumns}
               stickyTopRows={1}
+              
               onCellsChanged={this.handleCellsChanged}
+              rowClassName={({ row }) => this.state.selectedRows.has(row.rowId) ? 'selected-row' : ''}
+              // onRowClick={({ row }) => this.handleRowClick(row.rowId)}
+              enableRowSelection
+              onSelectionChanged={(e) => this.setState({ selectedRow: e[0].first.row })}
+              columnProps={{
+                TrangThai: { className: 'custom-trangthai-column' }
+              }}
             />
           </div>
         </div>
