@@ -11,6 +11,8 @@ import {
   Minput,
   Mtable,
   Mdatepicker,
+  Mselect,
+  Msearch,
 } from "./components/BasicUI";
 import Header from "./components/Header";
 import "./components/BasicUI.scss";
@@ -54,7 +56,13 @@ class ShowComponent extends Component {
       radioValue: "option1",
       dropdownItems: ["Item 1", "Item 2", "Item 3"],
       inputValue: "",
-      // Mtable data
+      selectValue: "",
+      searchValue: "",
+      checkbox: false,
+      formdata: {
+        user: "",
+        userError: "Không được để trống",
+      },
       tableData: [
         {
           key: '1',
@@ -260,6 +268,19 @@ class ShowComponent extends Component {
         console.log(this.state.tableData);
       }
     }, 2000);
+  };
+
+  handleSelectChange = (value) => {
+    console.log(value);
+    this.setState({
+      selectValue: value,
+    });
+  };
+
+  handleSearchChange = (value) => {
+    this.setState({
+      searchValue: value,
+    });
   };
 
   // MButton
@@ -798,6 +819,7 @@ class ShowComponent extends Component {
                   { label: "Option 2", value: "option2" },
                   { label: "Option 3", value: "option3" },
                 ],
+                radioStyle: { gap: "50px" }
               }}
               onChangeValue={this.handleRadioChange}
             />
@@ -963,6 +985,41 @@ class ShowComponent extends Component {
               value: new Date(),
             }}
           />
+
+          <h2 className="heading-md-normal">Mselect</h2>
+          <div>
+            <Mselect
+              dataSource={{
+                id: "select1",
+                label: "Choose an option",
+                value: this.state.selectValue,
+                options: [
+                  { label: "Option 1", value: "option1" },
+                  { label: "Option 2", value: "option2" },
+                  { label: "Option 3", value: "option3" },
+                ],
+              }}
+              onChangeValue={(e) => this.handleSelectChange(e["select1"])}
+            />
+          </div>
+
+          <h2 className="heading-md-normal">Msearch</h2>
+          <div>
+            <Msearch
+              dataSource={{
+                id: "search1",
+                label: "Search",
+                value: this.state.searchValue,
+                icon: "SearchOutlined",
+                text: "abc"
+              }}
+              config={{
+                onLiveSearch: (value) => console.log("Live search:", value),
+              }}
+              onChangeValue={(e) => this.handleSearchChange(e["search1"])}
+            />
+          </div>
+
         </div>
       </>
     );

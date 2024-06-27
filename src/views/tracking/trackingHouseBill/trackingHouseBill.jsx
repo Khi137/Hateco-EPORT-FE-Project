@@ -2,7 +2,7 @@ import React, { Component, createRef } from 'react';
 import './styles.scss'
 import { Col, Row, Tooltip } from 'antd';
 import { DatabaseOutlined, InfoCircleOutlined } from '@ant-design/icons';
-import { Mbutton, Mdatepicker, Winput } from '../../../components/BasicUI';
+import { Mbutton, Mdatepicker, Mselect, Winput } from '../../../components/BasicUI';
 import moment from 'moment';
 
 class TrackingHouseBill extends Component {
@@ -16,15 +16,26 @@ class TrackingHouseBill extends Component {
                 // toDate: moment('2024-06-27').endOf('day').toDate(),
                 fromDate: new Date('2024-06-27T00:00:00'),
                 toDate: new Date('2024-06-27T23:59:59'),
+
+                miningCompany: ""
             }
         };
         this.submitButtonRef = createRef();
     }
 
-    handleInputChange = (e) => {
-        const { value } = e.target;
-        this.setState({ houseBillNumber: value });
+    handleInputChange = (e, dataForm) => {
+        const { name, value } = e.target;
+        this.setState(prevState => ({
+            [dataForm]: {
+                ...prevState[dataForm],
+                [name]: value
+            }
+        }));
         return value
+    };
+
+    handleSelect = (e) => {
+        console.log(e);
     };
 
     handleLoadData = () => {
@@ -43,7 +54,7 @@ class TrackingHouseBill extends Component {
                             Tra cứu thông tin HouseBill
                         </Row>
                         <div className="input_container">
-                            <Row className="date_input_container">
+                            <Row className="input_item date_input_container">
                                 <Col className="date_input">
                                     <Row className="body-lg-normal">
                                         Từ ngày
@@ -73,9 +84,22 @@ class TrackingHouseBill extends Component {
                                     />
                                 </Col>
                             </Row>
-                            <Row>
-                                {/* <Mselect
-                                /> */}
+                            <Row className="input_item">
+                                <Mselect
+                                    dataSource={{
+                                        id: "miningCompany",
+                                        ref: "miningCompany",
+                                        name: "miningCompany",
+                                        label: "Chọn Hãng Khai Thác",
+                                        value: this.state.formData.miningCompany,
+                                        options: [
+                                            { label: "Option 1", value: "option1" },
+                                            { label: "Option 2", value: "option2" },
+                                            { label: "Option 3", value: "option3" },
+                                        ],
+                                    }}
+                                    onChangeValue={(e) => this.handleSelect(e)}
+                                />
                             </Row>
                         </div>
                         <div className="input_button">

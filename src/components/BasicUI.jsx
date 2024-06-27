@@ -1309,20 +1309,19 @@ class Msearch extends React.Component {
         style={{ display: data?.isHide === true ? "none" : "block" }}
       >
         <div className="m-form__input">
-          <label className="m-form__label">
-            {data?.label || "sample text..."}
-          </label>
-          <Input.Search
+          <Input
+            classNames={"m-form__search"}
             ref={this.searchRef}
             value={this.state.value}
             onChange={this.handleChange}
             onBlur={this.handleBlur}
             onFocus={this.handleFocus}
+            placeholder={dataSource?.text ? dataSource?.text : "Tìm kiếm ..."}
             className={`inputUppercase ${data?.className || ""}`}
             {...(data?.safeString ? { onKeyPress: this.handleKeyPress } : {})}
             {...config}
           />
-          {icon}
+          <span className="ant__search-icon"><LOL.SearchOutlined /></span>
         </div>
       </Col>
     );
@@ -2170,7 +2169,6 @@ class Mdatepicker extends React.Component {
 
   render() {
     const data = this.props.dataSource;
-    console.log(data);
     const span = data?.span || 24;
     let value = this.state.value
       ? moment(this.state.value, data.format || "YYYY-MM-DD HH:mm:ss")
@@ -2533,7 +2531,6 @@ class Mselect extends React.Component {
 
   handleChange(e) {
     const { value } = e.target;
-
     this.setState({ value });
 
     const returnvalue = {
