@@ -239,17 +239,15 @@ $caption-line-height: 14px;
   font-weight: $main-font-weight-bold;
 }
 
-.m-form__box{
-  max-height: 50px;
-}
+// .m-form__box {
+//   max-height: 50px;
+// }
 //Mradio Buttons
 
 //Mradio
 .ant-radio-group {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
+  justify-content: space-between;
 }
 .ant-radio-wrapper {
   font-family: $main-font !important;
@@ -282,12 +280,10 @@ $caption-line-height: 14px;
 .m-form__input {
   font-family: $main-font !important;
   font-size: 12px;
-  position: relative;
-  display: inline-block;
   background: initial !important;
   width: 100%;
   border-width: 0 !important;
-  margin-bottom: 24px;
+
 
   .m-form__label {
     color: #4f575e;
@@ -314,7 +310,6 @@ $caption-line-height: 14px;
     border: 2px solid #cbcfd2;
     border-radius: 4px;
     transition: border-color 0.3s;
-
     &:hover {
       border-color: $color-third;
     }
@@ -334,7 +329,6 @@ $caption-line-height: 14px;
 
 .m-form__input {
   .ant-input {
-    position: relative;
     width: 100%;
     height: 100%;
     border: 2px solid lightgray;
@@ -342,7 +336,6 @@ $caption-line-height: 14px;
     &:hover {
       border-color: $color-third;
     }
-    
 
     &:focus {
       outline: none;
@@ -355,7 +348,21 @@ $caption-line-height: 14px;
     top: 20%;
     color: lightgray;
     left: 12px;
+  }
 
+  .m-form__select {
+    height: 40px !important;
+    width: 100%;
+    border: 2px solid lightgray;
+    border-radius: 4px;
+    &:hover {
+      border-color: $color-third;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $color-third;
+    }
   }
 }
 
