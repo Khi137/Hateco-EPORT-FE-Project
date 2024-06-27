@@ -1,0 +1,51 @@
+.system-group-container{
+    padding: var(--padding-page);
+    background-color: white;
+    header{
+        color: white;
+        background-color: var( --second-color);
+        padding: 12px;
+        font-weight: bold;
+        font-size: 20px;
+        text-align: center;
+        margin-bottom: 12px;
+        border-radius: 4px;
+    }
+    .system-group-actions{
+        display: flex;
+        gap: 12px;
+        .action-search{
+            flex: 4;
+        }
+        .action-list{
+            display: flex;
+            justify-content: end;
+            flex: 8;
+            gap: 12px;
+            .btn{
+                background-color: transparent;
+                border: none;
+                padding: var(--padding-page) 0;
+                width: 100px;
+                max-height: 40px;
+                border-radius: 4px;
+                cursor: pointer;
+                .icon{
+                    margin-right: 4px;
+                }
+            }
+            .green{
+                border: 1px solid green;
+                color: green;
+            }
+            .red{
+                border: 1px solid red;
+                color: red;
+            }
+            .blue{
+                border: 1px solid blue;
+                color: blue;
+            }
+        }
+    }
+}

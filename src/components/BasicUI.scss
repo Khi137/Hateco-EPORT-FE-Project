@@ -272,7 +272,7 @@ $caption-line-height: 14px;
 }
 .ant-radio-wrapper {
   font-family: $main-font !important;
-  font-size: 16px !important;
+  font-size: 14px !important;
   color: hsl(208, 9%, 34%) !important;
 }
 
@@ -285,8 +285,8 @@ $caption-line-height: 14px;
   right: 0;
   bottom: 0;
   left: 0;
-  width: 20px !important;
-  height: 20px !important;
+  width: 15px !important;
+  height: 15px !important;
   margin: auto !important;
   background-color: initial !important;
   border-width: 2px !important;
@@ -294,7 +294,7 @@ $caption-line-height: 14px;
 
   &::after {
     border-color: $color-third !important;
-    transform: scale(0.8) !important;
+    transform: scale(0.6) !important;
     background-color: $color-third !important;
   }
 }
@@ -372,6 +372,7 @@ $caption-line-height: 14px;
 
 //Msearch
 .m-form__input {
+  position: relative;
   .ant-input {
     position: relative;
     width: 100%;
@@ -388,6 +389,7 @@ $caption-line-height: 14px;
       outline: none;
       border-color: $color-third;
     }
+  
   }
   .ant__search-icon {
     position: absolute;
@@ -396,6 +398,23 @@ $caption-line-height: 14px;
     color: lightgray;
     left: 12px;
 
+  }
+
+  .m-form__select{
+    height: 40px !important;
+    width: 100%;
+    border: 2px solid lightgray;
+    border-radius: 4px ;
+    &:hover {
+      border-color: $color-third;
+      
+    }
+    
+
+    &:focus {
+      outline: none;
+      border-color: $color-third;
+    }
   }
 }
 

@@ -10,6 +10,8 @@ import ShowComponent from "../ShowComponent";
 import Dashboard from "../components/Dashboard/Dashboard";
 import Header from "../components/Header";
 import SystemManageUser from "../views/system/systemManageUser/SystemManageUser";
+import SystemManageGroup from "../views/system/systemManageGroup/SystemManageGroup";
+import SystemManagerGroupPermission from "../views/system/systemManagerGroupPermission/SystemManagerGroupPermission";
 
 class MainRoutes extends Component {
   render() {
@@ -22,7 +24,18 @@ class MainRoutes extends Component {
         </Route>
         <Route element={<AuthLayout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/SystemManageUser" element={<SystemManageUser />} />
+          <Route
+            path="/system_manager/SystemManageUser"
+            element={<SystemManageUser />}
+          />
+          <Route
+            path="/system_manager/SystemManageGroup"
+            element={<SystemManageGroup />}
+          />
+          <Route
+            path="/system_manager/SystemManagerGroupPermission"
+            element={<SystemManagerGroupPermission />}
+          />
         </Route>
         {/* <Route path="/" element={<Header />} /> */}
         <Route path="/dashboard" element={<Dashboard />} />

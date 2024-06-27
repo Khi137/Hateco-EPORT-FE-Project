@@ -1686,7 +1686,7 @@ class Mtable extends React.Component {
   }
 
   render() {
-    return <Table {...this.props}></Table>;
+    return <Table scroll={{ x: 2500, y: 400 }} {...this.props}></Table>;
   }
 }
 
@@ -2554,12 +2554,13 @@ class Mselect extends React.Component {
       this.props.config.returnValue(value);
     }
   }
-
   checkBlur(e) {
-    if (!e.target?.value || e.target?.value === "default") {
-      e.target.parentElement
-        .getElementsByTagName("label")[0]
-        .classList.remove("m-form__label--focus");
+    const parentElement = e.target?.parentElement;
+    if (parentElement) {
+      const labelElement = parentElement.getElementsByTagName("label")[0];
+      if (labelElement && (!e.target?.value || e.target?.value === "default")) {
+        labelElement.classList.remove("m-form__label--focus");
+      }
     }
 
     if (typeof (this.props.dataSource || {}).onBlur == "function") {
@@ -2568,9 +2569,13 @@ class Mselect extends React.Component {
   }
 
   checkFocus(e) {
-    e.target.parentElement
-      .getElementsByTagName("label")[0]
-      .classList.add("m-form__label--focus");
+    const parentElement = e.target?.parentElement;
+    if (parentElement) {
+      const labelElement = parentElement.getElementsByTagName("label")[0];
+      if (labelElement) {
+        labelElement.classList.add("m-form__label--focus");
+      }
+    }
   }
 
   renderOptions(value) {
@@ -2639,7 +2644,7 @@ class Mselect extends React.Component {
             (readonly ? "readonly" : "")
           }
         >
-          <label
+          {/* <label
             className={
               data?.value || this.state.value
                 ? "m-form__label m-form__label--focus"
@@ -2647,7 +2652,7 @@ class Mselect extends React.Component {
             }
           >
             {data?.label}
-          </label>
+          </label> */}
           <select
             ref={this.selectRef}
             id={data?.ref}
@@ -2660,11 +2665,17 @@ class Mselect extends React.Component {
             required={data?.required}
             defaultValue={data?.value || this.state.value}
             tabIndex={data?.tabindex || 1}
+            className="m-form__select"
           >
-            <option key="" value=""></option>
+            <option key="" value="">
+              <span>
+                <LOL.UnorderedListOutlined />
+              </span>{" "}
+              {data?.label}
+            </option>
             {this.renderOptions(data?.value || this.state.value)}
           </select>
-          {icon}
+          {/* {icon} */}
         </div>
       </Col>
     );

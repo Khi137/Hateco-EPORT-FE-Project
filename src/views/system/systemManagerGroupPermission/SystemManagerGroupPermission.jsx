@@ -1,17 +1,8 @@
 import React, { Component } from "react";
-import "./SystemManageUser.scss";
-import { Mradio, Msearch, Mselect, Mtable } from "../../../components/BasicUI";
-import {
-  CloseCircleOutlined,
-  CloudDownloadOutlined,
-  FileTextOutlined,
-  PlusCircleOutlined,
-  PlusOutlined,
-  SaveOutlined,
-} from "@ant-design/icons";
-import { ReactGrid } from "@silevis/reactgrid";
-
-export class SystemManageUser extends Component {
+import "./SystemManagerGroupPermission.scss";
+import { Msearch, Mselect, Mtable } from "../../../components/BasicUI";
+import { CloudDownloadOutlined, SaveOutlined } from "@ant-design/icons";
+export class SystemManagerGroupPermission extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -91,7 +82,6 @@ export class SystemManageUser extends Component {
           status: true,
         },
       ],
-      loadData: false,
     };
     this.columns = [
       {
@@ -168,21 +158,12 @@ export class SystemManageUser extends Component {
       },
     ];
   }
-
-  handleLoadData = () => {
-    this.setState((prev) => ({
-      loadData: !prev.loadData,
-    }));
-  };
-
   render() {
-    const { loadData } = this.state;
-    console.log(loadData);
     return (
-      <div className="systemManageUser-container">
-        <div className="panel-left">
-          <header>Quản lý người dùng</header>
-          <div className="select-group">
+      <div className="system-permission-container">
+        <div className="panel-manage-permission">
+          <header>Quản lý phân quyền </header>
+          <div className="list-select">
             <Mselect
               dataSource={{
                 id: "select1",
@@ -199,7 +180,6 @@ export class SystemManageUser extends Component {
               dataSource={{
                 id: "select1",
                 label: "Chọn cảng",
-                // value: this.state.selectValue,
                 options: [
                   { label: "NDV", value: "NDV" },
                   { label: "Cát lái", value: "Catlai" },
@@ -209,61 +189,26 @@ export class SystemManageUser extends Component {
             />
           </div>
           <div className="button">
-            <button className="button-load-data" onClick={this.handleLoadData}>
+            <button className="button-load-data">
+              {" "}
               <CloudDownloadOutlined /> Nạp dữ liệu
             </button>
           </div>
-          <div>
-            <Mradio
-              dataSource={{
-                label: "Select an option",
-                options: [
-                  { label: "Tất cả", value: "option1" },
-                  { label: "Đã kích hoạt", value: "option2" },
-                  { label: "Chưa kích hoạt", value: "option3" },
-                ],
-                radioStyle: { gap: "50px", padding: "12px 0" },
-              }}
-            />
-          </div>
         </div>
-        <div className="panel-right">
-          <div className="action-right">
-            <div className="header-action">
-              <div className="search">
-                <Msearch />
-              </div>
-              <div className="lists-action">
-                <button className="btn green">
-                  <PlusCircleOutlined className="icon" />
-                  Thêm dòng
-                </button>
-                <button className="btn red">
-                  <CloseCircleOutlined className="icon" />
-                  Xóa dòng
-                </button>
-                <button className="btn blue">
-                  <SaveOutlined className="icon" />
-                  Lưu
-                </button>
-                <button className="btn black">
-                  <FileTextOutlined className="icon" />
-                  Xuất excel
-                </button>
-              </div>
+        <div className="panel-table">
+          <div className="header-action">
+            <div className="search">
+              <Msearch />
             </div>
-
-            <div className="line">Danh sách người dùng</div>
-            <div className="table-data-user">
-              {loadData ? (
-                <Mtable
-                  columns={this.columns}
-                  dataSource={this.state.tableData}
-                />
-              ) : (
-                <Mtable columns={this.columns} />
-              )}
+            <div className="save">
+              <button>
+                <SaveOutlined className="icon" />
+                Lưu
+              </button>
             </div>
+          </div>
+          <div className="table-data-user">
+            <Mtable columns={this.columns} dataSource={this.state.tableData} />
           </div>
         </div>
       </div>
@@ -271,4 +216,4 @@ export class SystemManageUser extends Component {
   }
 }
 
-export default SystemManageUser;
+export default SystemManagerGroupPermission;
