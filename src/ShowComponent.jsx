@@ -10,6 +10,7 @@ import {
   Mdropdown,
   Minput,
   Mtable,
+  Mdatepicker,
 } from "./components/BasicUI";
 import Header from "./components/Header";
 import "./components/BasicUI.scss";
@@ -367,7 +368,7 @@ class ShowComponent extends Component {
   };
 
   renderTrangThaiColumn = ({ cell }) => {
-    const { status } = cell;  
+    const { status } = cell;
     console.log(cell);
     return <div>a</div>;
   };
@@ -952,9 +953,16 @@ class ShowComponent extends Component {
               columnProps={{
                 TrangThai: { columnRenderer: this.renderTrangThaiColumn }
               }}
-              
+
             />
           </div>
+
+          <h2 className="heading-md-normal">Mdatepicker</h2>
+          <Mdatepicker
+            dataSource={{
+              value: new Date(),
+            }}
+          />
         </div>
       </>
     );

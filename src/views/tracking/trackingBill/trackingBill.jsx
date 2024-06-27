@@ -23,6 +23,7 @@ class TrackingBill extends Component {
 
     handleInputChange = (e) => {
         const { name, value } = e.target;
+        console.log({ name, value });
         this.setState(prevState => ({
             formData: {
                 ...prevState.formData,
@@ -36,7 +37,6 @@ class TrackingBill extends Component {
         this.setState({
             radioValue: returnValue,
         });
-        console.log(returnValue);
     };
 
     handleLoadData = () => {
@@ -45,7 +45,7 @@ class TrackingBill extends Component {
 
     renderInputField = (item, key) => {
         return (
-            <Col className="input_item" key={key}>
+            <Col className="input_item" key={key + item?.name}>
                 <Row className="item_header">
                     <Col>{item?.title} {item.require && <span className="item_require">*</span>}</Col>
                     <Tooltip placement="top" title={item?.tooltip} className="item_tooltip">
@@ -62,7 +62,6 @@ class TrackingBill extends Component {
                     defaultValue={item?.value}
                     onChange={(e) => this.handleInputChange(e, item?.regex)}
                     errorText={item?.error && item?.error}
-                    onBlur={(e) => this.handleOnblurCheck(item?.name + "Error", item?.checkFunction)}
                 />
             </Col>
         )
@@ -119,53 +118,61 @@ class TrackingBill extends Component {
                 name: "pinCode",
                 type: "text",
                 value: formData.pinCode,
-                require: true
+                require: true,
+                errorText: "Mã tra cứu không được để trống"
             },
         ]
 
         return (
             <div className='tracking-bill_container'>
                 <div className='content'>
-                    <Row className='header body-md-normal'>
-                        Tra cứu số container
-                    </Row>
-                    <Row className='radio_form'>
-                        <Mradio
-                            dataSource={{
-                                value: this.state.radioValue,
-                                label: "Select an option",
-                                options: [
-                                    { label: "Mã tra cứu", value: "pincode" },
-                                    { label: "Thông tin hóa đơn", value: "infor" },
-                                ],
-                            }}
-                            onChangeValue={(returnValue) => this.handleRadioChange(returnValue.undefined)}
-                        />
-                    </Row>
-                    <Row className="input_container">
-                        {(this.state.radioValue === "pincode" ?
-                            pincodeForm
-                            :
-                            inputForm
-                        ).map((item, key) => this.renderInputField(item, key))}
-                    </Row>
-                    <div className="input_button">
-                        <Mbutton
-                            color=""
-                            className="m_button third"
-                            type="primary"
-                            htmlType="submit"
-                            block
-                            onClick={this.handleLoadData}
-                            ref={this.submitButtonRef}
-                            size={"12"}
-                            dataSource={{ textbutton: "Nạp dữ liệu" }}
-                        />
+                    <div className="input_content">
+                        <Row className='header body-md-normal'>
+                            Truy vấn thông tin hóa đơn
+                        </Row>
+                        <Row className='radio_form'>
+                            <Mradio
+                                dataSource={{
+                                    value: this.state.radioValue,
+                                    label: "Select an option",
+                                    options: [
+                                        { label: "Mã tra cứu", value: "pincode" },
+                                        { label: "Thông tin hóa đơn", value: "infor" },
+                                    ],
+                                }}
+                                onChangeValue={(returnValue) => this.handleRadioChange(returnValue.undefined)}
+                            />
+                        </Row>
+                        <div className="input_container">
+                            {(this.state.radioValue === "pincode" ?
+                                pincodeForm
+                                :
+                                inputForm
+                            ).map((item, key) => this.renderInputField(item, key))}
+                        </div>
+                        <div className="input_button">
+                            <Mbutton
+                                color=""
+                                className="m_button third"
+                                type="primary"
+                                htmlType="submit"
+                                block
+                                onClick={this.handleLoadData}
+                                ref={this.submitButtonRef}
+                                size={"12"}
+                                dataSource={{ textbutton: "Nạp dữ liệu" }}
+                            />
+                        </div>
                     </div>
-                    <div className="table_content">
-                        <div className="no_data">
-                            <DatabaseOutlined style={{ fontSize: '64px' }} />
-                            <p>Truy vấn thông tin lệnh để nạp dữ liệu hóa đơn...</p>
+                    <div className="container_list">
+                        <Row className='header body-md-normal'>
+                            Danh sách container
+                        </Row>
+                        <div className="table_content">
+                            <div className="no_data">
+                                <DatabaseOutlined style={{ fontSize: '64px' }} />
+                                <p>Nhập số booking để nạp dữ liệu container...</p>
+                            </div>
                         </div>
                     </div>
                 </div>

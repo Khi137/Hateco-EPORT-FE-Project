@@ -845,14 +845,14 @@ export class Winput extends React.Component {
           {...otherProps}
           value={this.state.value}
           onChange={(dt) => {
-            typeof this.props.onChange == "function"
+            typeof this.props.onChange === "function"
               ? (this.props.onChange(dt) || dt.target.value === "") &&
               this.handleChange(dt)
               : this.handleChange(dt);
           }}
           className={"Winput " + (className || "")}
         />
-        <Row className="Winput_error_text">{errorText && errorText}</Row>
+        {errorText && <Row className="Winput_error_text">{errorText}</Row>}
       </>
     );
   }
@@ -2170,6 +2170,7 @@ class Mdatepicker extends React.Component {
 
   render() {
     const data = this.props.dataSource;
+    console.log(data);
     const span = data?.span || 24;
     let value = this.state.value
       ? moment(this.state.value, data.format || "YYYY-MM-DD HH:mm:ss")
