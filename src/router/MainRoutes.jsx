@@ -8,6 +8,11 @@ import Register from "../views/register/register";
 import ForgotPassword from "../views/forgotPassword/forgotPassword";
 import ShowComponent from "../ShowComponent";
 import Dashboard from "../components/Dashboard/Dashboard";
+import TrackingContainer from "../views/tracking/trackingContainer/trackingContainer";
+import TrackingBill from "../views/tracking/trackingBill/trackingBill";
+import TrackingBooking from "../views/tracking/trackingBooking/trackingBooking";
+import TrackingEdo from "../views/tracking/trackingEdo/trackingEdo";
+import TrackingHouseBill from "../views/tracking/trackingHouseBill/trackingHouseBill";
 
 class MainRoutes extends Component {
   render() {
@@ -21,7 +26,16 @@ class MainRoutes extends Component {
 
         <Route element={<AuthLayout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard/>}/>
+          <Route path="/dashboard" element={<Dashboard />} />
+
+          <Route path="/tracking">
+            <Route path="tracking_container" element={<TrackingContainer />} />
+            <Route path="tracking_bill" element={<TrackingBill />} />
+            <Route path="tracking_booking" element={<TrackingBooking />} />
+            <Route path="tracking_edo" element={<TrackingEdo />} />
+            <Route path="tracking_housebill" element={<TrackingHouseBill />} />
+          </Route>
+
         </Route>
       </Routes>
     );

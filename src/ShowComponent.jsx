@@ -367,7 +367,7 @@ class ShowComponent extends Component {
   };
 
   renderTrangThaiColumn = ({ cell }) => {
-    const { status } = cell;
+    const { status } = cell;  
     console.log(cell);
     return <div>a</div>;
   };
@@ -943,15 +943,16 @@ class ShowComponent extends Component {
               rows={this.state.reactGridRows}
               columns={this.state.reactGridColumns}
               stickyTopRows={1}
-              
+              // enableFullWidthHeader
               onCellsChanged={this.handleCellsChanged}
               rowClassName={({ row }) => this.state.selectedRows.has(row.rowId) ? 'selected-row' : ''}
               // onRowClick={({ row }) => this.handleRowClick(row.rowId)}
               enableRowSelection
               onSelectionChanged={(e) => this.setState({ selectedRow: e[0].first.row })}
               columnProps={{
-                TrangThai: { className: 'custom-trangthai-column' }
+                TrangThai: { columnRenderer: this.renderTrangThaiColumn }
               }}
+              
             />
           </div>
         </div>

@@ -1,0 +1,79 @@
+@import '../../../components/BasicUI.scss';
+
+.tracking-bill_container {
+    width: 100%;
+    height: 80vh;
+    margin-bottom: 20px;
+
+    .content {
+        min-height: 100%;
+        height: fit-content;
+        margin: 12px 24px;
+        border-radius: 6px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        background-color: white;
+        box-shadow: 0px 2px 1px 0px rgb(0, 0, 0, 0.3) inset;
+
+        .header {
+            width: 100%;
+            height: 48px;
+            text-align: center;
+            background-color: $color-third;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: 600;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+
+        .radio_form{
+            text-align: center;
+        }
+
+        .input_container {
+            width: 50%;
+            margin: 12px auto;
+            height: 12%;
+
+            .input_item {
+                width: 45%;
+                margin: 0 auto;
+            }
+
+            .item_header {
+                margin-bottom: 12px;
+
+                .item_tooltip {
+                    margin: 0 5px;
+                }
+
+                .item_require {
+                    color: red;
+                }
+            }
+        }
+
+        .input_button {
+            height: 7%;
+            width: 20%;
+            margin: 0 auto;
+        }
+
+        .table_content {
+            display: flex;
+            width: 100%;
+            height: 73%;
+            min-height: 40vh;
+            justify-content: center;
+            align-items: center;
+
+            .no_data {
+                text-align: center;
+                line-height: 36px;
+
+            }
+        }
+    }
+}
