@@ -17,7 +17,7 @@
             width: 100%;
             height: 48px;
             text-align: center;
-            background-color: $color-third;
+            background-color: $color-second;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -69,50 +69,73 @@
                 line-height: 36px;
             }
 
-            .data_table {
-                display: flex;
-                width: 90%;
-                margin: 12px 0;
-                flex-wrap: wrap;
-                border-radius: 6px;
-                border: 1px solid rgba(0, 0, 0, 0.1);
-                overflow: hidden;
+            .have_data {
+                width: 100%;
 
-                .data_table_column {
-                    flex: 1 1 50%;
-                    min-width: fit-content;
+                .data_table {
+                    display: flex;
+                    width: 90%;
+                    margin: 12px 5%;
+                    flex-wrap: wrap;
+                    border-radius: 6px;
+                    border: 1px solid rgba(0, 0, 0, 0.1);
+                    overflow: hidden;
 
-                    .data_table_row {
-                        width: 100%;
-                        flex-wrap: nowrap;
-                        border: 1px solid rgba(0, 0, 0, 0.1);
-                        border-bottom-width: 0;
-                        border-right-width: 0;
+                    .data_table_column {
+                        flex: 1 1 50%;
+                        height: 100%;
+                        min-width: fit-content;
 
-                        .data_table_row_column {
-                            width: 60%;
-                            padding: 8px 12px;
+                        .data_table_row {
+                            width: 100%;
+                            flex-wrap: nowrap;
                             border: 1px solid rgba(0, 0, 0, 0.1);
-                            border-top-width: 0;
-                            border-left-width: 0;
-                        }
+                            border-bottom-width: 0;
+                            border-right-width: 0;
 
-                        .liquidation {
-                            color: #04B900;
-                            text-transform: capitalize;
-                            font-weight: 600;
-                        }
+                            .data_table_row_column {
+                                width: 60%;
+                                padding: 8px 12px;
+                                border: 1px solid rgba(0, 0, 0, 0.1);
+                                border-top-width: 0;
+                                border-left-width: 0;
+                            }
 
-                        .location {
-                            color: #C92929;
-                            text-transform: capitalize;
-                            font-weight: 600;
-                        }
+                            .liquidation {
+                                color: #04B900;
+                                text-transform: capitalize;
+                                font-weight: 600;
+                            }
 
-                        .left_column {
-                            background-color: #ECEDEE;
-                            width: 40%;
+                            .location {
+                                color: #C92929;
+                                text-transform: capitalize;
+                                font-weight: 600;
+                            }
+
+                            .left_column {
+                                background-color: #ECEDEE;
+                                width: 40%;
+                            }
                         }
+                    }
+                }
+
+                .table_index_container {
+                    width: 100%;
+                    margin: 12px 5%;
+                    align-items: center;
+
+                    .table_index_input {
+                        height: 100%;
+                        width: 75px;
+                        text-align: center;
+                        margin: 0 5px;
+                        padding: auto 2px;
+                    }
+
+                    .next_index_button {
+                        margin-left: 5px;
                     }
                 }
             }

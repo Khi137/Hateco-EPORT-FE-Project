@@ -1,7 +1,7 @@
 import React, { Component, createRef } from 'react';
 import './styles.scss'
 import { Col, Row, Tooltip } from 'antd';
-import { DatabaseOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { BoldOutlined, DatabaseOutlined, InfoCircleOutlined, NumberOutlined } from '@ant-design/icons';
 import { Mbutton, Mdatepicker, Mselect, Winput } from '../../../components/BasicUI';
 import moment from 'moment';
 
@@ -11,13 +11,13 @@ class TrackingHouseBill extends Component {
         this.state = {
             formData: {
                 houseBillNumber: "",
-
+                DOCode: "",
                 // fromDate: moment('2024-06-27').startOf('day').toDate(),
                 // toDate: moment('2024-06-27').endOf('day').toDate(),
                 fromDate: new Date('2024-06-27T00:00:00'),
                 toDate: new Date('2024-06-27T23:59:59'),
 
-                miningCompany: ""
+
             }
         };
         this.submitButtonRef = createRef();
@@ -42,9 +42,53 @@ class TrackingHouseBill extends Component {
         console.log(this.state.houseBillNumber);
     }
 
+    renderInputField = (item, key) => {
+        return (
+            <Col className="input_item" key={key + item?.name}>
+                <Row className="item_header">
+                    <Col>{item?.title} {item.require && <span className="item_require">*</span>}</Col>
+                    <Tooltip placement="top" title={item?.tooltip} className="item_tooltip">
+                        <InfoCircleOutlined />
+                    </Tooltip>
+                </Row>
+                <Winput
+                    name={item?.name}
+                    type={item?.type}
+                    className={`form_input_field ${item?.error ? 'error_item' : ''}`}
+                    prefix={item?.inputIcon}
+                    placeholder={item?.placeholder}
+                    value={item?.value}
+                    defaultValue={item?.value}
+                    onChange={(e) => this.handleInputChange(e, "formData")}
+                    errorText={item?.error && item?.error}
+                />
+            </Col>
+        )
+    }
+
     render() {
 
         const { formData } = this.state
+        const inputForm = [
+            {
+                title: "Mã lệnh (D/O)",
+                tooltip: "Nhập Mã lệnh (D/O)",
+                placeholder: "Nhập Mã lệnh (D/O)",
+                inputIcon: <NumberOutlined />,
+                name: "DOCode",
+                type: "text",
+                value: formData.DOCode,
+            },
+            {
+                title: "Số Housebill",
+                tooltip: "Số Housebill",
+                placeholder: "nhập số Housebill",
+                inputIcon: <BoldOutlined />,
+                name: "houseBillNumber",
+                type: "text",
+                value: formData.houseBillNumber,
+            }
+        ]
 
         return (
             <Row className='tracking-house-bill_container'>
@@ -101,11 +145,12 @@ class TrackingHouseBill extends Component {
                                     onChangeValue={(e) => this.handleSelect(e)}
                                 />
                             </Row>
+                            {inputForm.map((item, key) => this.renderInputField(item, key))}
                         </div>
                         <div className="input_button">
                             <Mbutton
                                 color=""
-                                className="m_button third"
+                                className="m_button second"
                                 type="primary"
                                 htmlType="submit"
                                 block

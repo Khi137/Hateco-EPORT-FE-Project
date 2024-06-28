@@ -53,7 +53,7 @@ class TrackingEdo extends Component {
                     <div className="input_button">
                         <Mbutton
                             color=""
-                            className="m_button third"
+                            className="m_button second"
                             type="primary"
                             htmlType="submit"
                             block
