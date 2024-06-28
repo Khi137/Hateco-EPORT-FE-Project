@@ -92,6 +92,7 @@ export class SystemManageUser extends Component {
         },
       ],
       loadData: false,
+      selectedRowKeys: [],
     };
     this.columns = [
       {
@@ -174,10 +175,48 @@ export class SystemManageUser extends Component {
       loadData: !prev.loadData,
     }));
   };
+  handleAddRow = () => {
+    const newKey = (this.state.tableData.length + 1).toString();
+    const newRow = {
+      key: newKey,
+      group: "",
+      portCode: "",
+      username: "",
+      password: null,
+      name: "",
+      cardId: null,
+      address: "",
+      phone: "",
+      email: "",
+      support: null,
+      status: false,
+    };
+    this.setState((prevState) => ({
+      tableData: [...prevState.tableData, newRow],
+    }));
+  };
+
+  onSelectChange = (selectedRowKeys) => {
+    this.setState({ selectedRowKeys });
+  };
+
+  handleDeleteRow = () => {
+    const { selectedRowKeys, tableData } = this.state;
+    const newData = tableData.filter(
+      (item) => !selectedRowKeys.includes(item.key)
+    );
+    this.setState({
+      tableData: newData,
+      selectedRowKeys: [],
+    });
+  };
 
   render() {
-    const { loadData } = this.state;
-    console.log(loadData);
+    const { loadData, selectedRowKeys } = this.state;
+    const rowSelection = {
+      selectedRowKeys,
+      onChange: this.onSelectChange,
+    };
     return (
       <div className="systemManageUser-container">
         <div className="panel-left">
@@ -234,11 +273,11 @@ export class SystemManageUser extends Component {
                 <Msearch />
               </div>
               <div className="lists-action">
-                <button className="btn green">
+                <button className="btn green" onClick={this.handleAddRow}>
                   <PlusCircleOutlined className="icon" />
                   Thêm dòng
                 </button>
-                <button className="btn red">
+                <button className="btn red" onClick={this.handleDeleteRow}>
                   <CloseCircleOutlined className="icon" />
                   Xóa dòng
                 </button>
@@ -257,11 +296,12 @@ export class SystemManageUser extends Component {
             <div className="table-data-user">
               {loadData ? (
                 <Mtable
+                  rowSelection={rowSelection}
                   columns={this.columns}
                   dataSource={this.state.tableData}
                 />
               ) : (
-                <Mtable columns={this.columns} />
+                <Mtable rowSelection={rowSelection} columns={this.columns} />
               )}
             </div>
           </div>
