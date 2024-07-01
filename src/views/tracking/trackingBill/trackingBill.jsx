@@ -4,7 +4,7 @@ import { Col, Row, Tooltip } from 'antd';
 import { BarcodeOutlined, BoldOutlined, DatabaseOutlined, EnvironmentOutlined, InfoCircleOutlined, NumberOutlined, SearchOutlined } from '@ant-design/icons';
 import { Mbutton, Mradio, Winput } from '../../../components/BasicUI';
 import { ReactGrid } from '@silevis/reactgrid';
-import { formatDateTime } from '../../../utils/util';
+import { formatDateTime, handleColumnsReorder, handleRowsReorder } from '../../../utils/util';
 
 const rowData = [
     {
@@ -115,8 +115,20 @@ const rowData = [
     }
 ]
 
+function generateRandomContainerNo() {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let result = '';
+    const charactersLength = characters.length;
+    for (let i = 0; i < 10; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
 for (let index = 0; index < 20; index++) {
-    rowData.push(rowData[0])
+    const duplicatedData = { ...rowData[0] };
+    duplicatedData.ContainerNo = generateRandomContainerNo();
+    rowData.push(duplicatedData);
 }
 
 class TrackingBill extends Component {
@@ -125,6 +137,7 @@ class TrackingBill extends Component {
         this.state = {
             formData: {
                 pinCode: "",
+                pinCodeError: "",
 
                 taxCode: "",
                 billForm: "",
@@ -164,8 +177,7 @@ class TrackingBill extends Component {
                             { type: "header", text: "Ngày ra bãi" },
                             { type: "header", text: "Tình trạng cont" },
                         ]
-                    },
-                    ...this.generateTableData(rowData)
+                    }
                 ],
             }
         };
@@ -190,22 +202,82 @@ class TrackingBill extends Component {
         });
     };
 
+    checkPinCodeError = (value) => {
+        switch (true) {
+            case (value === ""):
+                return "Mã tra cứu không được để trống";
+            default:
+                return false;
+        }
+    }
+
     handleLoadData = () => {
-        console.log(this.state.formData);
+        const pinCodeError = this.checkPinCodeError(this.state.formData.pinCode)
+        if (pinCodeError) {
+            this.setState(prevState => ({
+                formData: {
+                    ...prevState.formData,
+                    pinCodeError: pinCodeError
+                }
+            }));
+        } else {
+            if (this.submitButtonRef.current) {
+                this.submitButtonRef.current.loading();
+            }
+            setTimeout(() => {
+                if (this.submitButtonRef.current) {
+                    this.submitButtonRef.current.reset();
+                    this.setState(prevState => ({
+                        generalInformation: rowData[0] ? rowData[0] : {},
+                        tableData: {
+                            ...prevState.tableData,
+                            reactGridColumns: [...this.generateColumnsData()],
+                            reactGridRows: [
+                                ...prevState.tableData.reactGridRows,
+                                ...this.generateTableData(rowData)
+                            ],
+                        },
+                        formData: {
+                            ...prevState.formData,
+                            pinCodeError: false
+                        }
+                    }));
+                }
+            }, 1000);
+        }
     }
 
     handleColumnsReorder = (targetColumnId, columnIds) => {
-        const { reactGridColumns } = this.state.tableData;
-        const to = reactGridColumns.findIndex((column) => column.columnId === targetColumnId);
-        const columnIdxs = columnIds.map((columnId) => reactGridColumns.findIndex((c) => c.columnId === columnId));
-        const reorderedColumns = this.reorderArray(reactGridColumns, columnIdxs, to);
-        this.setState(prevState => ({
-            tableData: {
-                ...prevState.tableData,
-                reactGridColumns: reorderedColumns
-            }
-        }));
-    };
+        const { tableData } = this.state;
+        const updatedTableData = handleColumnsReorder(tableData, targetColumnId, columnIds);
+        this.setState({ tableData: updatedTableData });
+    }
+
+    handleRowsReorder = (targetRowId, rowIds) => {
+        const { tableData } = this.state;
+        const updatedTableData = handleRowsReorder(tableData, targetRowId, rowIds);
+        this.setState({ tableData: updatedTableData });
+    }
+
+    handleCanReorderRows = (targetRowId, rowIds) => {
+        return targetRowId !== 'header';
+    }
+
+    handleRowsSearch = (reactGridRows, searchValue) => {
+        if (!searchValue) return reactGridRows;
+        const searchLower = searchValue.toLowerCase();
+        const filteredRows = reactGridRows.slice(1).filter(row => {
+            const containerNo = row.cells[1]?.text.toLowerCase();
+            const operationCode = row.cells[2]?.text.toLowerCase();
+            const isoSizetype = row.cells[3]?.text.toLowerCase();
+            return (
+                containerNo.includes(searchLower) ||
+                operationCode.includes(searchLower) ||
+                isoSizetype.includes(searchLower)
+            );
+        });
+        return [reactGridRows[0], ...filteredRows];
+    }
 
     reorderArray = (arr, indexes, to) => {
         const arrayCopy = [...arr];
@@ -233,16 +305,33 @@ class TrackingBill extends Component {
                     value={item?.value}
                     defaultValue={item?.value}
                     onChange={(e) => this.handleInputChange(e, item?.regex)}
-                    errorText={item?.error && item?.error}
+                    errorText={item?.error !== undefined ? item?.error || true : false}
                 />
             </Col>
         )
     }
 
+    generateColumnsData = () => {
+        return ([
+            { columnId: 'STT', width: 50, resizable: true, header: 'STT' },
+            { columnId: 'ContainerNumber', width: 150, resizable: true, reorderable: true, header: 'Số Container' },
+            { columnId: 'OperationCode', width: 150, resizable: true, reorderable: true, header: 'Hãng Tàu' },
+            { columnId: 'IsoSizetype', width: 150, resizable: true, reorderable: true, header: 'Kích cỡ' },
+            { columnId: 'CargoTypeName', width: 150, resizable: true, reorderable: true, header: 'Full/Empty' },
+            { columnId: 'ClassName', width: 150, resizable: true, reorderable: true, header: 'Hướng' },
+            { columnId: 'ExpDate', width: 150, resizable: true, reorderable: true, header: 'Hạn Booking' },
+            { columnId: 'Position', width: 150, resizable: true, reorderable: true, header: 'Vị trí bãi' },
+            { columnId: 'DateIn', width: 150, resizable: true, reorderable: true, header: 'Ngày vào bãi' },
+            { columnId: 'DateOut', width: 150, resizable: true, reorderable: true, header: 'Ngày ra bãi' },
+            { columnId: 'ContainerStatusName', width: 150, resizable: true, reorderable: true, header: 'Tình trạng cont' }
+        ])
+    };
+
     generateRowData = (container, index) => {
         return (
             {
                 rowId: String(index + 1),
+                reorderable: true,
                 cells: [
                     { type: 'text', nonEditable: true, text: String(index + 1) },
                     { type: 'text', nonEditable: true, text: container?.ContainerNo || "" },
@@ -317,11 +406,9 @@ class TrackingBill extends Component {
                 type: "text",
                 value: formData.pinCode,
                 require: true,
-                errorText: "Mã tra cứu không được để trống"
+                error: formData.pinCodeError
             },
         ]
-
-        console.log(this.generateTableData(rowData));
 
         return (
             <div className='tracking-bill_container'>
@@ -353,7 +440,7 @@ class TrackingBill extends Component {
                         <div className="input_button">
                             <Mbutton
                                 color=""
-                                className="m_button second"
+                                className="m_button third"
                                 type="primary"
                                 htmlType="submit"
                                 block
@@ -382,7 +469,7 @@ class TrackingBill extends Component {
                             <Col className="exel_export">
                                 <Mbutton
                                     color=""
-                                    className="m_button second"
+                                    className="m_button third"
                                     type="primary"
                                     htmlType="submit"
                                     block
@@ -393,22 +480,27 @@ class TrackingBill extends Component {
                             </Col>
                         </Row>
                         <div className="table_content">
-                            {/* <div className="no_data">
-                                <DatabaseOutlined style={{ fontSize: '64px' }} />
-                                <p>Nhập số booking để nạp dữ liệu container...</p>
-                            </div> */}
-                            <div className="react_grid_table">
-                                <ReactGrid
-                                    rows={this.state.tableData.reactGridRows}
-                                    columns={this.state.tableData.reactGridColumns}
-                                    stickyTopRows={1}
-                                    enableRowSelection
-                                    enableColumnSelection
-                                    onColumnsReordered={this.handleColumnsReorder}
-                                    topScrollBoudary={0}
-                                    leftScrollBoudary={0}
-                                />
-                            </div>
+                            {
+                                !this.state.tableData.reactGridRows[1] ?
+                                    <div className="no_data">
+                                        <DatabaseOutlined style={{ fontSize: '64px' }} />
+                                        <p>Nhập mã tra cứu để nạp dữ liệu container...</p>
+                                    </div>
+                                    :
+                                    <div className="react_grid_table">
+                                        <ReactGrid
+                                            rows={this.handleRowsSearch(this.state.tableData.reactGridRows, formData.searchData)}
+                                            columns={this.state.tableData.reactGridColumns}
+                                            stickyTopRows={1}
+                                            stickyLeftColumns={1}
+                                            onColumnsReordered={this.handleColumnsReorder}
+                                            onRowsReordered={this.handleRowsReorder}
+                                            canReorderRows={this.handleCanReorderRows}
+                                            enableRowSelection
+                                            enableColumnSelection
+                                        />
+                                    </div>
+                            }
                         </div>
                     </div>
                 </div>

@@ -3,7 +3,7 @@ import { Row, Col, Typography, Tooltip, Modal, message, Select } from 'antd';
 import { InfoCircleOutlined, MailOutlined, LockOutlined, NumberOutlined, PhoneOutlined, EnvironmentOutlined, BoldOutlined, DownOutlined, BarcodeOutlined } from '@ant-design/icons';
 import './styles.scss'
 
-import { Mbutton, Mcapcha, Mcheckbox, Mdropdown, MoneFieldInput, Winput } from "../../components/BasicUI"
+import { Mbutton, Mcapcha, Mcheckbox, Winput } from "../../components/BasicUI"
 import { withRouter } from '../../utils/withRouter';
 import { NavLink } from 'react-router-dom';
 
@@ -292,7 +292,7 @@ class Register extends Component {
                     value={item?.value}
                     defaultValue={item?.value}
                     onChange={(e) => this.handleInputChange(e, item?.regex)}
-                    errorText={item?.error && item?.error}
+                    errorText={item?.error || true}
                     onBlur={(e) => this.handleOnblurCheck(item?.name + "Error", item?.checkFunction)}
                 />
             </Col>

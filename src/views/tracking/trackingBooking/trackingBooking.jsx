@@ -4,7 +4,7 @@ import { Col, Row, Tooltip } from 'antd';
 import { DatabaseOutlined, InfoCircleOutlined, SearchOutlined } from '@ant-design/icons';
 import { Mbutton, Winput } from '../../../components/BasicUI';
 import { ReactGrid } from '@silevis/reactgrid';
-import { formatDateTime } from '../../../utils/util';
+import { formatDateTime, handleColumnsReorder, handleRowsReorder } from '../../../utils/util';
 
 const rowData = [
     {
@@ -115,8 +115,20 @@ const rowData = [
     }
 ]
 
+function generateRandomContainerNo() {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let result = '';
+    const charactersLength = characters.length;
+    for (let i = 0; i < 10; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
 for (let index = 0; index < 20; index++) {
-    rowData.push(rowData[0])
+    const duplicatedData = { ...rowData[0] };
+    duplicatedData.ContainerNo = generateRandomContainerNo();
+    rowData.push(duplicatedData);
 }
 
 class TrackingBooking extends Component {
@@ -125,23 +137,12 @@ class TrackingBooking extends Component {
         this.state = {
             formData: {
                 bookingNumber: "",
-                searchData: ""
+                searchData: "",
+                bookingNumberError: ""
             },
             generalInformation: {},
             tableData: {
-                reactGridColumns: [
-                    { columnId: 'STT', width: 50, resizable: true, header: 'STT' },
-                    { columnId: 'ContainerNumber', width: 150, resizable: true, reorderable: true, header: 'Số Container' },
-                    { columnId: 'OperationCode', width: 150, resizable: true, reorderable: true, header: 'Hãng Tàu' },
-                    { columnId: 'IsoSizetype', width: 150, resizable: true, reorderable: true, header: 'Kích cỡ' },
-                    { columnId: 'CargoTypeName', width: 150, resizable: true, reorderable: true, header: 'Full/Empty' },
-                    { columnId: 'ClassName', width: 150, resizable: true, reorderable: true, header: 'Hướng' },
-                    { columnId: 'ExpDate', width: 150, resizable: true, reorderable: true, header: 'Hạn Booking' },
-                    { columnId: 'Position', width: 150, resizable: true, reorderable: true, header: 'Vị trí bãi' },
-                    { columnId: 'DateIn', width: 150, resizable: true, reorderable: true, header: 'Ngày vào bãi' },
-                    { columnId: 'DateOut', width: 150, resizable: true, reorderable: true, header: 'Ngày ra bãi' },
-                    { columnId: 'ContainerStatusName', width: 150, resizable: true, reorderable: true, header: 'Tình trạng cont' },
-                ],
+                reactGridColumns: [],
                 reactGridRows: [
                     {
                         rowId: "header",
@@ -158,7 +159,8 @@ class TrackingBooking extends Component {
                             { type: "header", text: "Ngày ra bãi" },
                             { type: "header", text: "Tình trạng cont" },
                         ]
-                    }
+                    },
+
                 ],
             }
         };
@@ -177,26 +179,75 @@ class TrackingBooking extends Component {
     };
 
     handleLoadData = () => {
-        this.setState(prevState => ({
-            generalInformation: rowData[0] ? rowData[0] : {},
-            tableData: {
-                ...prevState.tableData,
-                reactGridRows: [
-                    ...prevState.tableData.reactGridRows,
-                    ...this.generateTableData(rowData)
-                ],
+        const bookingNumberError = this.checkBookingNumberError(this.state.formData.bookingNumber)
+        if (bookingNumberError) {
+            this.setState(prevState => ({
+                formData: {
+                    ...prevState.formData,
+                    bookingNumberError: bookingNumberError
+                }
+            }));
+        } else {
+            if (this.submitButtonRef.current) {
+                this.submitButtonRef.current.loading();
             }
-        }));
+            setTimeout(() => {
+                if (this.submitButtonRef.current) {
+                    this.submitButtonRef.current.reset();
+                    this.setState(prevState => ({
+                        generalInformation: rowData[0] ? rowData[0] : {},
+                        tableData: {
+                            ...prevState.tableData,
+                            reactGridColumns: [...this.generateColumnsData()],
+                            reactGridRows: [
+                                ...prevState.tableData.reactGridRows,
+                                ...this.generateTableData(rowData)
+                            ],
+                        },
+                        formData: {
+                            ...prevState.formData,
+                            bookingNumberError: false
+                        }
+                    }));
+                }
+            }, 1000);
+        }
     }
 
     handleExportExel = () => {
         console.log(this.state.formData);
     }
 
+    checkBookingNumberError = (value) => {
+        switch (true) {
+            case (value === ""):
+                return "Số booking không được để trống";
+            default:
+                return false;
+        }
+    }
+
+    generateColumnsData = () => {
+        return ([
+            { columnId: 'STT', width: 50, resizable: true, header: 'STT' },
+            { columnId: 'ContainerNumber', width: 150, resizable: true, reorderable: true, header: 'Số Container' },
+            { columnId: 'OperationCode', width: 150, resizable: true, reorderable: true, header: 'Hãng Tàu' },
+            { columnId: 'IsoSizetype', width: 150, resizable: true, reorderable: true, header: 'Kích cỡ' },
+            { columnId: 'CargoTypeName', width: 150, resizable: true, reorderable: true, header: 'Full/Empty' },
+            { columnId: 'ClassName', width: 150, resizable: true, reorderable: true, header: 'Hướng' },
+            { columnId: 'ExpDate', width: 150, resizable: true, reorderable: true, header: 'Hạn Booking' },
+            { columnId: 'Position', width: 150, resizable: true, reorderable: true, header: 'Vị trí bãi' },
+            { columnId: 'DateIn', width: 150, resizable: true, reorderable: true, header: 'Ngày vào bãi' },
+            { columnId: 'DateOut', width: 150, resizable: true, reorderable: true, header: 'Ngày ra bãi' },
+            { columnId: 'ContainerStatusName', width: 150, resizable: true, reorderable: true, header: 'Tình trạng cont' }
+        ])
+    };
+
     generateRowData = (container, index) => {
         return (
             {
                 rowId: String(index + 1),
+                reorderable: true,
                 cells: [
                     { type: 'text', nonEditable: true, text: String(index + 1) },
                     { type: 'text', nonEditable: true, text: container?.ContainerNo || "" },
@@ -218,6 +269,38 @@ class TrackingBooking extends Component {
         const generateData = dataList.map((container, index) => this.generateRowData(container, index));
         return generateData;
     };
+
+    handleColumnsReorder = (targetColumnId, columnIds) => {
+        const { tableData } = this.state;
+        const updatedTableData = handleColumnsReorder(tableData, targetColumnId, columnIds);
+        this.setState({ tableData: updatedTableData });
+    }
+
+    handleRowsReorder = (targetRowId, rowIds) => {
+        const { tableData } = this.state;
+        const updatedTableData = handleRowsReorder(tableData, targetRowId, rowIds);
+        this.setState({ tableData: updatedTableData });
+    }
+
+    handleCanReorderRows = (targetRowId, rowIds) => {
+        return targetRowId !== 'header';
+    }
+
+    handleRowsSearch = (reactGridRows, searchValue) => {
+        if (!searchValue) return reactGridRows;
+        const searchLower = searchValue.toLowerCase();
+        const filteredRows = reactGridRows.slice(1).filter(row => {
+            const containerNo = row.cells[1]?.text.toLowerCase();
+            const operationCode = row.cells[2]?.text.toLowerCase();
+            const isoSizetype = row.cells[3]?.text.toLowerCase();
+            return (
+                containerNo.includes(searchLower) ||
+                operationCode.includes(searchLower) ||
+                isoSizetype.includes(searchLower)
+            );
+        });
+        return [reactGridRows[0], ...filteredRows];
+    }
 
     render() {
         const { formData, generalInformation } = this.state;
@@ -267,13 +350,14 @@ class TrackingBooking extends Component {
                                     placeholder={"Nhập số booking"}
                                     value={formData.bookingNumber}
                                     onChange={(e) => this.handleInputChange(e, 'formData')}
+                                    errorText={formData?.bookingNumberError || true}
                                 />
                             </Col>
                         </div>
                         <div className="input_button">
                             <Mbutton
                                 color=""
-                                className="m_button second"
+                                className="m_button third"
                                 type="primary"
                                 htmlType="submit"
                                 block
@@ -330,14 +414,15 @@ class TrackingBooking extends Component {
                                     :
                                     <div className="react_grid_table">
                                         <ReactGrid
-                                            rows={this.state.tableData.reactGridRows}
+                                            rows={this.handleRowsSearch(this.state.tableData.reactGridRows, formData.searchData)}
                                             columns={this.state.tableData.reactGridColumns}
                                             stickyTopRows={1}
+                                            stickyLeftColumns={1}
+                                            onColumnsReordered={this.handleColumnsReorder}
+                                            onRowsReordered={this.handleRowsReorder}
+                                            canReorderRows={this.handleCanReorderRows}
                                             enableRowSelection
                                             enableColumnSelection
-                                            onColumnsReordered={this.handleColumnsReorder}
-                                            topScrollBoudary={0}
-                                            leftScrollBoudary={0}
                                         />
                                     </div>
                             }

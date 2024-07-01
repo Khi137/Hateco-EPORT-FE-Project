@@ -126,6 +126,12 @@
                     margin: 12px 5%;
                     align-items: center;
 
+                    .form_input_field {
+                        padding: 6px 4px;
+                        border-radius: 6px;
+                        border: 1px solid rgba(0, 0, 0, 0.1);
+                    }
+
                     .table_index_input {
                         height: 100%;
                         width: 75px;

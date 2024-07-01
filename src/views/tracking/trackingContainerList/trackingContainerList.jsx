@@ -1,9 +1,8 @@
 import React, { Component, createRef } from 'react';
 import './styles.scss'
 import { Col, Row, Tooltip } from 'antd';
-import { BoldOutlined, DatabaseOutlined, InfoCircleOutlined, NumberOutlined, SearchOutlined } from '@ant-design/icons';
-import { Mbutton, Mdatepicker, Mselect, Winput } from '../../../components/BasicUI';
-import moment from 'moment';
+import { Mbutton, Winput } from '../../../components/BasicUI';
+import { DatabaseOutlined, FieldNumberOutlined, InfoCircleOutlined, SearchOutlined } from '@ant-design/icons';
 import { formatDateTime, handleColumnsReorder, handleRowsReorder } from '../../../utils/util';
 import { ReactGrid } from '@silevis/reactgrid';
 
@@ -132,18 +131,16 @@ for (let index = 0; index < 20; index++) {
     rowData.push(duplicatedData);
 }
 
-class TrackingHouseBill extends Component {
+class TrackingContainerList extends Component {
     constructor(props) {
         super(props);
         this.state = {
             formData: {
-                houseBillNumber: "",
-                DOCode: "",
-                // fromDate: moment('2024-06-27').startOf('day').toDate(),
-                // toDate: moment('2024-06-27').endOf('day').toDate(),
-                fromDate: new Date('2024-06-27T00:00:00'),
-                toDate: new Date('2024-06-27T23:59:59'),
+                containerNumber: "",
+                containerNumberError: "",
+                searchData: ""
             },
+            containerList: [],
             tableData: {
                 reactGridColumns: [],
                 reactGridRows: [
@@ -162,27 +159,38 @@ class TrackingHouseBill extends Component {
                             { type: "header", text: "Ngày ra bãi" },
                             { type: "header", text: "Tình trạng cont" },
                         ]
-                    },
-
+                    }
                 ],
             }
         };
         this.submitButtonRef = createRef();
     }
 
-    handleInputChange = (e, dataForm) => {
+    handleInputChange = (e, regex) => {
         const { name, value } = e.target;
-        this.setState(prevState => ({
-            [dataForm]: {
-                ...prevState[dataForm],
-                [name]: value
-            }
-        }));
-        return value
-    };
 
-    handleSelect = (e) => {
-        console.log(e);
+        if (value === "") {
+            this.setState(prevState => ({
+                formData: {
+                    ...prevState.formData,
+                    [name]: value
+                }
+            }));
+            return value
+        }
+
+        if (regex && !regex?.test(value)) {
+            console.error(`Value does not match the regex: ${regex}`);
+            return
+        } else {
+            this.setState(prevState => ({
+                formData: {
+                    ...prevState.formData,
+                    [name]: value
+                }
+            }));
+        }
+        return value
     };
 
     handleLoadData = () => {
@@ -201,15 +209,12 @@ class TrackingHouseBill extends Component {
                             ...prevState.tableData.reactGridRows,
                             ...this.generateTableData(rowData)
                         ],
-                    },
-                    formData: {
-                        ...prevState.formData,
-                        bookingNumberError: false
                     }
                 }));
             }
         }, 1000);
     }
+
 
     generateColumnsData = () => {
         return ([
@@ -286,167 +291,71 @@ class TrackingHouseBill extends Component {
         return [reactGridRows[0], ...filteredRows];
     }
 
-    renderInputField = (item, key) => {
-        return (
-            <Col className="input_item" key={key + item?.name}>
-                <Row className="item_header">
-                    <Col>{item?.title} {item.require && <span className="item_require">*</span>}</Col>
-                    <Tooltip placement="top" title={item?.tooltip} className="item_tooltip">
-                        <InfoCircleOutlined />
-                    </Tooltip>
-                </Row>
-                <Winput
-                    name={item?.name}
-                    type={item?.type}
-                    className={`form_input_field ${item?.error ? 'error_item' : ''}`}
-                    prefix={item?.inputIcon}
-                    placeholder={item?.placeholder}
-                    value={item?.value}
-                    defaultValue={item?.value}
-                    onChange={(e) => this.handleInputChange(e, "formData")}
-                    errorText={item?.error && item?.error}
-                />
-            </Col>
-        )
-    }
-
     render() {
-
-        const { formData } = this.state
-        const inputForm = [
-            {
-                title: "Mã lệnh (D/O)",
-                tooltip: "Nhập Mã lệnh (D/O)",
-                placeholder: "Nhập Mã lệnh (D/O)",
-                inputIcon: <NumberOutlined />,
-                name: "DOCode",
-                type: "text",
-                value: formData.DOCode,
-            },
-            {
-                title: "Số Housebill",
-                tooltip: "Số Housebill",
-                placeholder: "nhập số Housebill",
-                inputIcon: <BoldOutlined />,
-                name: "houseBillNumber",
-                type: "text",
-                value: formData.houseBillNumber,
-            }
-        ]
-
+        const { formData, containerList } = this.state
         return (
-            <Row className='tracking-house-bill_container'>
+            <Row className='tracking-container-list_container'>
                 <div className='content'>
-                    <div className="input_content">
-                        <Row className='header body-md-normal'>
-                            Tra cứu thông tin HouseBill
-                        </Row>
-                        <div className="input_container">
-                            <Row className="input_item date_input_container">
-                                <Col className="date_input">
-                                    <Row className="body-lg-normal">
-                                        Từ ngày
-                                    </Row>
-                                    <Mdatepicker
-                                        dataSource={{
-                                            id: "fromDate",
-                                            value: formData.fromDate,
-                                            defaultValue: formData.fromDate,
-                                            className: "date_input"
-                                        }}
-                                    />
-                                </Col>
-                                <Col className="date_input">
-                                    <Row className="body-lg-normal">
-                                        Đến ngày
-                                    </Row>
-                                    <Mdatepicker
-                                        dataSource={{
-                                            id: "toDate",
-                                            value: formData.toDate,
-                                            defaultValue: formData.toDate,
-                                            className: "date_input"
-                                        }}
-                                        value={formData.toDate}
-                                        defaultValue={formData.toDate}
-                                    />
-                                </Col>
+                    <Row className='header body-md-normal'>
+                        Tra cứu danh sách container
+                    </Row>
+                    <div className="input_container">
+                        <Col className="input_item">
+                            <Row className="item_header">
+                                <Col>Nhập danh sách số container <span className="item_require">*</span></Col>
+                                <Tooltip placement="top" title={"Nhập số container ngăn cách nhau bằng dấu cách."} className="item_tooltip">
+                                    <InfoCircleOutlined />
+                                </Tooltip>
                             </Row>
-                            <Row className="input_item">
-                                <Mselect
-                                    dataSource={{
-                                        id: "miningCompany",
-                                        ref: "miningCompany",
-                                        name: "miningCompany",
-                                        label: "Chọn Hãng Khai Thác",
-                                        value: this.state.formData.miningCompany,
-                                        options: [
-                                            { label: "Option 1", value: "option1" },
-                                            { label: "Option 2", value: "option2" },
-                                            { label: "Option 3", value: "option3" },
-                                        ],
-                                    }}
-                                    onChangeValue={(e) => this.handleSelect(e)}
-                                />
-                            </Row>
-                            {inputForm.map((item, key) => this.renderInputField(item, key))}
-                        </div>
-                        <div className="input_button">
-                            <Mbutton
-                                color=""
-                                className="m_button third"
-                                type="primary"
-                                htmlType="submit"
-                                block
-                                onClick={this.handleLoadData}
-                                ref={this.submitButtonRef}
-                                size={"12"}
-                                dataSource={{ textbutton: "Nạp dữ liệu" }}
+                            <Winput
+                                name={"containerNumber"}
+                                className={`form_input_field`}
+                                prefix={<FieldNumberOutlined />}
+                                placeholder={"Nhập số container"}
+                                value={this.state.formData.containerNumber}
+                                onChange={(e) => this.handleInputChange(e)}
                             />
-                        </div>
+                        </Col>
                     </div>
-                    <div className="container_list">
-                        <Row className='header body-md-normal'>
-                            Danh sách container
-                        </Row>
-                        <Row className='table_feature'>
-                            <Col className="search_bar">
-                                <Winput
-                                    name={"searchData"}
-                                    className={`form_input_field`}
-                                    prefix={<SearchOutlined />}
-                                    placeholder={"Tìm kiếm..."}
-                                    value={formData.searchData}
-                                    onChange={(e) => this.handleInputChange(e, 'formData')}
-                                />
-                            </Col>
-                            <Col className="exel_export">
-                                <Mbutton
-                                    color=""
-                                    className="m_button third"
-                                    type="primary"
-                                    htmlType="submit"
-                                    block
-                                    onClick={this.handleLoadData}
-                                    size={"12"}
-                                    dataSource={{ textbutton: "Xuất File Exel", color: "second" }}
-                                />
-                            </Col>
-                        </Row>
-                        <div className="table_content">
-                            {
-                                !this.state.tableData?.reactGridRows[1] ?
-                                    <div className="no_data">
-                                        <DatabaseOutlined style={{ fontSize: '64px' }} />
-                                        <p>Nhập số booking để nạp dữ liệu container...</p>
-                                    </div>
-                                    :
+                    <div className="input_button">
+                        <Mbutton
+                            color=""
+                            className="m_button third"
+                            type="primary"
+                            htmlType="submit"
+                            block
+                            onClick={this.handleLoadData}
+                            ref={this.submitButtonRef}
+                            size={"12"}
+                            dataSource={{ textbutton: "Nạp dữ liệu" }}
+                        />
+                    </div>
+                    <div className={`table_content ${containerList.length !== 0 && "table_exist_data"}`}>
+                        {
+                            !this.state.tableData?.reactGridRows[1] ?
+                                <div className="no_data">
+                                    <DatabaseOutlined style={{ fontSize: '64px' }} />
+                                    <p>Nhập số container để nạp dữ liệu container...</p>
+                                </div>
+                                :
+                                <Col className="have_data">
+                                    <Row className='table_feature'>
+                                        <Col className="search_bar">
+                                            <Winput
+                                                name={"searchData"}
+                                                className={`form_input_field`}
+                                                prefix={<SearchOutlined />}
+                                                placeholder={"Tìm kiếm..."}
+                                                value={formData.searchData}
+                                                onChange={(e) => this.handleInputChange(e)}
+                                            />
+                                        </Col>
+                                    </Row>
                                     <div className="react_grid_table">
                                         <ReactGrid
                                             rows={this.handleRowsSearch(this.state.tableData.reactGridRows, formData.searchData)}
                                             columns={this.state.tableData.reactGridColumns}
                                             stickyTopRows={1}
-                                            stickyLeftColumns={1}
                                             onColumnsReordered={this.handleColumnsReorder}
                                             onRowsReordered={this.handleRowsReorder}
                                             canReorderRows={this.handleCanReorderRows}
@@ -454,8 +363,8 @@ class TrackingHouseBill extends Component {
                                             enableColumnSelection
                                         />
                                     </div>
-                            }
-                        </div>
+                                </Col>
+                        }
                     </div>
                 </div>
             </Row>
@@ -463,4 +372,4 @@ class TrackingHouseBill extends Component {
     }
 }
 
-export default TrackingHouseBill
+export default TrackingContainerList

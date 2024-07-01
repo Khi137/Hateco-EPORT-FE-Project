@@ -137,7 +137,7 @@ class Login extends Component {
                     placeholder={item?.placeholder}
                     value={item?.value}
                     onChange={(e) => this.handleInputChange(e, item?.regex)}
-                    errorText={item?.error && item?.error}
+                    errorText={item?.error || true}
                     onBlur={(e) => this.handleOnblurCheck(item?.name + "Error", item?.checkFunction)}
                 />
             </Col>

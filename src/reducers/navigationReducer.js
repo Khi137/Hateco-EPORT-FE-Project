@@ -370,7 +370,7 @@ const initialState = [
       {
         id: "tracuu-02",
         text: "Tra cứu danh sách container",
-        url: "/tracking/tracking_container",
+        url: "/tracking/tracking_container_list",
         icon: "FileSearchOutlined",
       },
       {

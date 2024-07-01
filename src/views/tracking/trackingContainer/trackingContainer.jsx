@@ -624,7 +624,7 @@ class TrackingContainer extends Component {
                     <div className="input_button">
                         <Mbutton
                             color=""
-                            className="m_button second"
+                            className="m_button third"
                             type="primary"
                             htmlType="submit"
                             block
@@ -651,7 +651,13 @@ class TrackingContainer extends Component {
                                             }}
                                             onClick={() => this.handleSetIndex("back")}
                                         />
-                                        <Winput
+                                        {/* <Winput
+                                            name={"containerIndex"}
+                                            className={`form_input_field table_index_input`}
+                                            value={this.state.formData.containerIndex}
+                                            onChange={(e) => this.handleChangeIndex(e, /^[0-9\-\+]{0,3}$/)}
+                                        /> */}
+                                        <input
                                             name={"containerIndex"}
                                             className={`form_input_field table_index_input`}
                                             value={this.state.formData.containerIndex}

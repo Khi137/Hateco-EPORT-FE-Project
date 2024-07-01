@@ -14,6 +14,7 @@ import TrackingBooking from "../views/tracking/trackingBooking/trackingBooking";
 import TrackingEdo from "../views/tracking/trackingEdo/trackingEdo";
 import TrackingHouseBill from "../views/tracking/trackingHouseBill/trackingHouseBill";
 import Customer from "../views/category/customer/Customer";
+import TrackingContainerList from "../views/tracking/trackingContainerList/trackingContainerList";
 
 
 class MainRoutes extends Component {
@@ -32,6 +33,7 @@ class MainRoutes extends Component {
 
           <Route path="/tracking">
             <Route path="tracking_container" element={<TrackingContainer />} />
+            <Route path="tracking_container_list" element={<TrackingContainerList />} />
             <Route path="tracking_bill" element={<TrackingBill />} />
             <Route path="tracking_booking" element={<TrackingBooking />} />
             <Route path="tracking_edo" element={<TrackingEdo />} />

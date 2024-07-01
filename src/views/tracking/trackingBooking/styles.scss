@@ -26,6 +26,10 @@
 
                 .input_item {
                     margin: 0 12px;
+
+                    .form_input_field{
+                        height: 40px;
+                    }
                 }
 
                 .item_header {
@@ -72,6 +76,7 @@
 
                     p {
                         background-color: white;
+                        color: $color-third;
                         padding: 0 18px;
                     }
                 }
@@ -79,6 +84,7 @@
 
             .general_information_content {
                 .information_content_item {
+                    height: 24px;
                     margin: 12px;
                     display: flex;
                     justify-content: space-between;
