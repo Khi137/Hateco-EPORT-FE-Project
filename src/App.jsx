@@ -6,6 +6,8 @@ import { Mcard, Mselect } from "./components/BasicUI";
 import Header from "./components/Header";
 import MainRoutes from "./router/MainRoutes";
 import "./App.css"
+import "../src/components/BasicUI.scss"
+import "@silevis/reactgrid/styles.css";
 
 class App extends React.Component {
   constructor(props) {

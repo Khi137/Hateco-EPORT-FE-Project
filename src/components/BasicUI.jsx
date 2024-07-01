@@ -42,6 +42,7 @@ import {
 
 import * as LOL from "@ant-design/icons";
 import moment from "moment";
+import { ReactGrid } from "@silevis/reactgrid";
 
 export {
   Mcollapse,
@@ -1138,6 +1139,7 @@ class Mbutton extends React.Component {
       opacity: this.props.dataSource?.opacity || "20",
       size: this.props?.size || "12",
       textbutton: this.props.dataSource?.textbutton || "Button",
+      icon: this.props.dataSource?.icon || "abc",
     };
   }
 
@@ -1156,9 +1158,23 @@ class Mbutton extends React.Component {
       };
     }
   }
+
   render() {
+    const { icon } = this.state;
+    let IconComponent = null;
+
+    if (icon && LOL[icon]) {
+      IconComponent = React.createElement(LOL[icon], {
+        className: "m-form__icon",
+      });
+    } else {
+      IconComponent = React.createElement(LOL["BarsOutlined"], {
+        className: "m-form__icon",
+      });
+    }
+
     return (
-      <div style={{ height: "100px" }}>
+      <div>
         <Button
           className={
             this.state.color === ""
@@ -1171,7 +1187,8 @@ class Mbutton extends React.Component {
           {...this.props}
           style={this.style()}
         >
-          <text className="body-lg-bold">{this.state.textbutton}</text>
+          {IconComponent}
+          <text className="body-lg-normal">{this.state.textbutton}</text>
         </Button>
       </div>
     );
@@ -1675,7 +1692,7 @@ class Mtable extends React.Component {
   }
 
   render() {
-    return <Table scroll={{x: 2500, y:400}} {...this.props}></Table>;
+    return <ReactGrid scroll={{ x: 3500, y: 400 }} {...this.props}></ReactGrid>;
   }
 }
 
@@ -2054,6 +2071,7 @@ class Minput extends React.Component {
               maxLength={data?.maxLength || 9999}
               tabIndex={data?.tabindex || 1}
               pattern={data?.format || ""}
+              placeholder={data?.text || "Nhập dữ liệu ..."}
             ></input>
           </span>
           {this.state.blur && (
@@ -2652,7 +2670,7 @@ class Mselect extends React.Component {
             required={data?.required}
             defaultValue={data?.value || this.state.value}
             tabIndex={data?.tabindex || 1}
-            className="m-form__select"
+            className="m-form__select body-lg-normal"
           >
             <option key="" value="">
               <span>

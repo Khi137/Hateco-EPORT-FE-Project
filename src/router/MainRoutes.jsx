@@ -9,6 +9,8 @@ import ForgotPassword from "../views/forgotPassword/forgotPassword";
 import ShowComponent from "../ShowComponent";
 import Dashboard from "../components/Dashboard/Dashboard";
 import Customer from "../views/category/customer/Customer";
+import ShipExploitBrand from "../views/category/shipExploitBrand/ShipExploitBrand";
+// import task from "../views/category/shipExploitBrand/Task";
 
 
 class MainRoutes extends Component {
@@ -25,11 +27,12 @@ class MainRoutes extends Component {
         <Route element={<AuthLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/category-customer" element={<Customer />} />
+          <Route path="/category-shipExploitBrand" element={<ShipExploitBrand />} />
+          {/* <Route path="/category-task" element={<Task />} /> */}
         </Route>
           <Route path="/dashboard" element={<Dashboard/>}/>
       </Routes>
     );
   }
 }
-
 export default MainRoutes;
