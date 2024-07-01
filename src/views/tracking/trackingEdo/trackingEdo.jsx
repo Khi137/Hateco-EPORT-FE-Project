@@ -137,7 +137,7 @@ class TrackingEdo extends Component {
         this.state = {
             formData: {
                 houseBillNumber: "",
-                DOCode: "",
+                EdoCode: "",
                 // fromDate: moment('2024-06-27').startOf('day').toDate(),
                 // toDate: moment('2024-06-27').endOf('day').toDate(),
                 fromDate: new Date('2024-06-27T00:00:00'),
@@ -161,6 +161,27 @@ class TrackingEdo extends Component {
                             { type: "header", text: "Ngày ra bãi" },
                             { type: "header", text: "Tình trạng cont" },
                         ]
+                        // STT
+                        // Trạng thái
+                        // Mã lệnh (EDO)
+                        // Số Container
+                        // Số vận đơn
+                        // Hàng khai thác
+                        // Kích Cỡ ISO
+                        // F/E
+                        // Hướng
+                        // Ngày phát hành
+                        // Ngày hết hạn
+                        // Chủ hàng
+                        // Tên tàu
+                        // Chuyến nhập
+                        // Chuyến xuất
+                        // POD
+                        // FPOD
+                        // Nơi trả rỗng
+                        // Số ngày miễn
+                        // Ghi chú
+                        // HouseBill
                     },
 
                 ],
@@ -314,13 +335,14 @@ class TrackingEdo extends Component {
         const { formData } = this.state
         const inputForm = [
             {
-                title: "Mã lệnh (D/O)",
-                tooltip: "Nhập Mã lệnh (D/O)",
-                placeholder: "Nhập Mã lệnh (D/O)",
+                title: "Mã số Edo",
+                tooltip: "Mã số Edo",
+                placeholder: "Mã số Edo",
                 inputIcon: <NumberOutlined />,
                 name: "DOCode",
                 type: "text",
-                value: formData.DOCode,
+                value: formData.EdoCode,
+                require: true
             }
         ]
 
@@ -363,6 +385,12 @@ class TrackingEdo extends Component {
                                 </Col>
                             </Row>
                             <Row className="input_item">
+                                <Row className="item_header">
+                                    <Col>Chọn hãng khai thác <span className="item_require">*</span></Col>
+                                    <Tooltip placement="top" title={"Chọn hãng khai thác"} className="item_tooltip">
+                                        <InfoCircleOutlined />
+                                    </Tooltip>
+                                </Row>
                                 <Mselect
                                     dataSource={{
                                         id: "miningCompany",
@@ -428,7 +456,7 @@ class TrackingEdo extends Component {
                                 !this.state.tableData?.reactGridRows[1] ?
                                     <div className="no_data">
                                         <DatabaseOutlined style={{ fontSize: '64px' }} />
-                                        <p>Nhập số booking để nạp dữ liệu container...</p>
+                                        <p>Nhập thông tin để nạp dữ liệu container...</p>
                                     </div>
                                     :
                                     <div className="react_grid_table">

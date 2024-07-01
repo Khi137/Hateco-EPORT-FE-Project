@@ -44,6 +44,8 @@ import {
 
 import * as LOL from "@ant-design/icons";
 import moment from "moment";
+import { ReactGrid } from "@silevis/reactgrid";
+import { handleColumnsReorder, handleRowsReorder } from "../utils/util";
 
 export {
   Mcollapse,
@@ -821,6 +823,7 @@ export class Winput extends React.Component {
     this.inputRef = React.createRef();
     this.state = {
       value: this.props.value || "",
+      error: ""
     };
   }
 
@@ -828,31 +831,51 @@ export class Winput extends React.Component {
     this.inputRef.current.value = this.state.value;
   }
 
-  handleChange = (event) => {
+  checkError = (value) => {
+    switch (true) {
+      case (this.props.require && value === ""):
+        return `${this.props.title} không được để trống`
+      case (value.length < (this.props.minLength || 0)):
+        return `${this.props.title} phải có ít nhất ${this.props.minLength} ký tự`
+      default:
+        return false
+    }
+  }
+
+  handleCheckError = () => {
+    const error = this.checkError(this.state.value);
+    this.setState({ error });
+    if (this.props.checkError) {
+      this.props.checkError(error)
+    }
+  }
+
+  handleChange = (event, regex) => {
     const { value } = event.target;
-    this.setState({ value });
-    if (this.props.onChange) {
-      this.props.onChange(event);
+
+    if (regex && !regex.test(value)) {
+      return;
+    } else {
+      this.setState({ value });
+      if (this.props.onChange) {
+        this.props.onChange(event)
+      }
     }
   };
 
   render() {
-    const { className, errorText, ...otherProps } = this.props;
+    const { className, ...otherProps } = this.props;
     return (
       <>
         <Input
-          ref={this.inputRef} // Attach Ref to the input element
+          ref={this.inputRef}
           {...otherProps}
           value={this.state.value}
-          onChange={(dt) => {
-            typeof this.props.onChange === "function"
-              ? (this.props.onChange(dt) || dt.target.value === "") &&
-              this.handleChange(dt)
-              : this.handleChange(dt);
-          }}
-          className={"Winput " + (className || "")}
+          className={`Winput ${this.state.error ? 'error_input ' : ''} ${className || ""}`}
+          onChange={(e) => this.handleChange(e, this.props.inputRegex)}
+          onBlur={this.handleCheckError}
         />
-        {errorText && <Row className="Winput_error_text">{errorText}</Row>}
+        <Row className="Winput_error_text">{this.state.error}</Row>
       </>
     );
   }
@@ -1154,7 +1177,7 @@ class Mbutton extends React.Component {
     const size = this.state.size;
     if (size) {
       return {
-        padding: `${size}px`,
+        padding: `${size} px`,
       };
     }
   }
@@ -1321,7 +1344,9 @@ class Msearch extends React.Component {
             {...(data?.safeString ? { onKeyPress: this.handleKeyPress } : {})}
             {...config}
           />
-          <span className="ant__search-icon"><LOL.SearchOutlined /></span>
+          <span className="ant__search-icon">
+            <LOL.SearchOutlined />
+          </span>
         </div>
       </Col>
     );
@@ -1683,10 +1708,54 @@ class Mselectsearch extends React.Component {
 class Mtable extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      tableData: {
+        reactGridColumns: [],
+        reactGridRows: [
+          {
+            rowId: "header",
+            cells: [
+              { type: "header", text: "STT" },
+              { type: "header", text: "Số Container" },
+              { type: "header", text: "Hãng Tàu" },
+              { type: "header", text: "Kích cỡ" },
+              { type: "header", text: "Full/Empty" },
+              { type: "header", text: "Hướng" },
+              { type: "header", text: "Hạn Booking" },
+              { type: "header", text: "Vị trí bãi" },
+              { type: "header", text: "Ngày vào bãi" },
+              { type: "header", text: "Ngày ra bãi" },
+              { type: "header", text: "Tình trạng cont" },
+            ]
+          },
+        ],
+      }
+    };
+  }
+
+  handleColumnsReorder = (targetColumnId, columnIds) => {
+    const { tableData } = this.state;
+    const updatedTableData = handleColumnsReorder(tableData, targetColumnId, columnIds);
+    this.setState({ tableData: updatedTableData });
+  }
+
+  handleRowsReorder = (targetRowId, rowIds) => {
+    const { tableData } = this.state;
+    const updatedTableData = handleRowsReorder(tableData, targetRowId, rowIds);
+    this.setState({ tableData: updatedTableData });
+  }
+
+  handleCanReorderRows = (targetRowId, rowIds) => {
+    return targetRowId !== 'header';
   }
 
   render() {
-    return <Table {...this.props}></Table>;
+    const { rows, columns } = this.props.dataSource
+    return <ReactGrid
+      rows={rows}
+      columns={columns}
+      {...this.props}
+    ></ReactGrid>;
   }
 }
 
@@ -2038,8 +2107,8 @@ class Minput extends React.Component {
                 ? ""
                 : this.state.value + ""
               ).length > 0
-                ? "m-form__label m-form__label--focus"
-                : "m-form__label"
+                ? "m-form__label m-form__label--focus body-lg-normal"
+                : "m-form__label body-lg-normal"
             }
           >
             {data?.label || ""}
@@ -2549,12 +2618,13 @@ class Mselect extends React.Component {
       this.props.config.returnValue(value);
     }
   }
-
   checkBlur(e) {
-    if (!e.target?.value || e.target?.value === "default") {
-      e.target.parentElement
-        .getElementsByTagName("label")[0]
-        .classList.remove("m-form__label--focus");
+    const parentElement = e.target?.parentElement;
+    if (parentElement) {
+      const labelElement = parentElement.getElementsByTagName("label")[0];
+      if (labelElement && (!e.target?.value || e.target?.value === "default")) {
+        labelElement.classList.remove("m-form__label--focus");
+      }
     }
 
     if (typeof (this.props.dataSource || {}).onBlur == "function") {
@@ -2563,9 +2633,13 @@ class Mselect extends React.Component {
   }
 
   checkFocus(e) {
-    e.target.parentElement
-      .getElementsByTagName("label")[0]
-      .classList.add("m-form__label--focus");
+    const parentElement = e.target?.parentElement;
+    if (parentElement) {
+      const labelElement = parentElement.getElementsByTagName("label")[0];
+      if (labelElement) {
+        labelElement.classList.add("m-form__label--focus");
+      }
+    }
   }
 
   renderOptions(value) {
@@ -2634,7 +2708,7 @@ class Mselect extends React.Component {
             (readonly ? "readonly" : "")
           }
         >
-          <label
+          {/* <label
             className={
               data?.value || this.state.value
                 ? "m-form__label m-form__label--focus"
@@ -2642,7 +2716,7 @@ class Mselect extends React.Component {
             }
           >
             {data?.label}
-          </label>
+          </label> */}
           <select
             ref={this.selectRef}
             id={data?.ref}
@@ -2655,11 +2729,17 @@ class Mselect extends React.Component {
             required={data?.required}
             defaultValue={data?.value || this.state.value}
             tabIndex={data?.tabindex || 1}
+            className="m-form__select"
           >
-            <option key="" value=""></option>
+            <option key="" value="">
+              <span>
+                <LOL.UnorderedListOutlined />
+              </span>{" "}
+              {data?.label}
+            </option>
             {this.renderOptions(data?.value || this.state.value)}
           </select>
-          {icon}
+          {/* {icon} */}
         </div>
       </Col>
     );

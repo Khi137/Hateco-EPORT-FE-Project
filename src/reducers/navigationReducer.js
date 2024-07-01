@@ -415,6 +415,12 @@ const initialState = [
         url: "/tra-cứu-thời-gian-thực-hiện",
         icon: "CarryOutOutlined",
       },
+      {
+        id: "tracuu-10",
+        text: "Tra cứu Edo",
+        url: "/tracking/tracking_edo",
+        icon: "CarryOutOutlined",
+      },
     ],
   },
 ];

@@ -19,3 +19,18 @@
         width: 80% !important;
     }
 }
+
+.rg-header-cell {
+    background-color: var(--second-color) !important;
+    color: white !important;
+    align-items: center !important;
+    justify-content: center !important;
+    display: flex !important;
+    font-weight: bold !important;
+}
+
+.rg-text-cell {
+    align-items: center !important;
+    justify-content: center !important;
+    display: flex !important;
+}

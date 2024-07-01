@@ -8,110 +8,104 @@ import { ReactGrid } from '@silevis/reactgrid';
 
 const rowData = [
     {
-        "Area": null,
-        "BLNo": "HDMUSELA06055400",
-        "BargeExVoy": null,
-        "BargeImVoy": null,
-        "BargeKey": null,
-        "Bay": "06",
-        "Block": "KT",
-        "BookingAmount": 1,
-        "BookingDate": "2022-01-06T17:22:52.000Z",
-        "BookingNo": "ABC",
-        "BookingReleaseDate": null,
-        "BookingStatus": 2,
-        "BookingType": true,
-        "CO2": null,
-        "CallSign": null,
-        "CargoTypeCode": "MT",
-        "CargoTypeName": "Empty",
-        "Class": null,
-        "ClassCode": "2",
-        "ClassName": "Storage Empty",
-        "Commodity": null,
-        "ContainerCondition": null,
-        "ContainerNo": "HDMU7603991",
-        "ContainerStatusCode": "S",
-        "ContainerStatusName": "Stacking",
-        "CreatedBy": "trammtm",
-        "CreatedTime": "2022-01-06T17:22:52.000Z",
-        "CusHold": false,
-        "DateIn": "2021-03-07T03:14:41.000Z",
-        "DateOut": null,
-        "DeliveryOrder": null,
-        "DraftNo": null,
+        "Rowguid": "B75F4063-11ED-4635-BF74-E3EED8BA2677",
+        "TerminalCode": null,
+        "VesselKey": "V.170S",
+        "VesselImVoy": null,
+        "VesselExVoy": null,
         "ETB": null,
         "ETD": null,
+        "BargeKey": null,
+        "BargeImVoy": null,
+        "BargeExVoy": null,
+        "DeliveryOrder": null,
+        "BLNo": "GMD21CMEHPH0060",
+        "BookingNo": "50940502",
+        "HousebillNo": null,
+        "ContainerNo": "TCNU8698362",
+        "ClassCode": "3",
+        "OperationCode": "HLC",
+        "FE": "F",
+        "ContainerStatusCode": "D",
+        "CargoTypeCode": "GP",
+        "Commodity": "XE MAY",
+        "LocalSizetype": "4500",
+        "IsoSizetype": "45G0",
+        "IsLocalForeign": "F",
+        "JobModeCodeIn": "HBAI",
+        "MethodCodeIn": "T",
+        "DateIn": "2021-04-10T19:44:22.000Z",
+        "DateOut": "2021-04-14T12:54:30.000Z",
+        "JobModeCodeOut": "LAYN",
+        "MethodCodeOut": "V",
         "EirInNo": null,
         "EirOutNo": null,
-        "ExpDate": "2022-01-29T23:59:59.000Z",
-        "FE": "E",
-        "FPOD": "",
-        "HousebillNo": null,
-        "Humidity": null,
-        "ID_TOS": "0000000639599",
+        "StuffNo": null,
+        "UnstuffNo": null,
+        "ServiceNo": null,
+        "DraftNo": null,
         "InvoiceNo": null,
-        "IsLocalForeign": "F",
-        "IsReturnBack": false,
-        "IsSpecialWarning": false,
-        "IsTruckBarge": null,
-        "IsoSizetype": "42P0",
-        "JobModeCodeIn": "CI",
-        "JobModeCodeOut": null,
-        "LocalSizetype": "40FR",
-        "MCWeight": null,
-        "MaxGrossWeight": null,
-        "MethodCodeIn": "C",
-        "MethodCodeOut": null,
-        "ModifiedBy": "trammtm",
-        "ModifiedTime": "2022-01-06T17:23:19.000Z",
-        "Note": " / ",
-        "O2": null,
-        "OogBack": null,
-        "OogFront": null,
-        "OogLeft": null,
-        "OogRight": null,
-        "OogTop": null,
-        "OperationCode": "HMM",
-        "OperationName": "HYUNDAI MERCHANT MARINE CO;LTD",
-        "POD": "",
-        "POL": "",
-        "RemoocNo": null,
-        "Row": "05",
-        "Rowguid": "F246A4EA-EB54-468A-8C74-646F5E20CA8A",
+        "Block": "A6",
+        "Bay": "06",
+        "Row": "02",
+        "Tier": "4",
+        "Area": null,
+        "VGM": true,
+        "MCWeight": 8684,
+        "TareWeight": null,
         "Sealno": null,
         "Sealno1": null,
-        "Sealno2": null,
-        "ServiceNo": null,
-        "ShipperName": "abc",
-        "SpecialWarning": null,
-        "StackingAmount": 0,
-        "StuffNo": null,
-        "TareWeight": null,
-        "Temperature": null,
-        "TerHold": false,
-        "TerHoldReason": null,
-        "TerminalCode": "f9a0050f-04d4-4184-96ae-d462382de6f2",
-        "Tier": "3",
+        "Sealno2": "8256247",
+        "POL": "VNHPH",
+        "POD": "VNCME",
+        "FPOD": null,
         "TransitCode": null,
-        "TransitPort": "VNHPH",
-        "TruckNo": null,
-        "Unno": null,
-        "UnstuffNo": null,
-        "UserGroupRank": null,
-        "VETB": null,
-        "VETD": null,
-        "VExVoy": null,
-        "VGM": false,
-        "VImVoy": null,
+        "TransitPort": null,
+        "Temperature": null,
         "Vent": null,
         "VentUnit": null,
-        "VesselExVoy": null,
-        "VesselImVoy": null,
-        "VesselKey": null,
-        "VesselName": null,
+        "Class": null,
+        "Unno": null,
+        "OogTop": null,
+        "OogLeft": null,
+        "OogRight": null,
+        "OogBack": null,
+        "OogFront": null,
+        "CusHold": false,
+        "TerHold": false,
+        "TerHoldReason": null,
+        "IsReturnBack": false,
+        "IsSpecialWarning": false,
+        "SpecialWarning": null,
+        "ContainerCondition": null,
+        "IsTruckBarge": "T",
+        "TruckNo": null,
+        "RemoocNo": null,
+        "Note": "975156655",
+        "ID_TOS": "0000000671104",
+        "CreatedBy": "catos_ndv",
+        "CreatedTime": "2021-04-10T19:46:00.000Z",
+        "ModifiedBy": "catos_ndv",
+        "ModifiedTime": "2021-04-14T12:56:27.000Z",
+        "MaxGrossWeight": null,
         "XuatNeo": null,
-        "XuatPhao": null
+        "XuatPhao": null,
+        "RowguidCntrDetails": "B75F4063-11ED-4635-BF74-E3EED8BA2677",
+        "CargoTypeName": "General",
+        "VesselName": "GREEN PACIFIC",
+        "CallSign": null,
+        "ContainerConditionName": null,
+        "JobModeNameIn": "HẠ BÃI",
+        "JobModeNameOut": "LẤY NGUYÊN",
+        "VETB": "2021-04-13T17:35:22.000Z",
+        "VETD": "2021-04-14T17:30:27.000Z",
+        "VImVoy": "170S",
+        "VExVoy": "170S",
+        "ClassName": "Export",
+        "ContainerStatusName": "Delivered",
+        "OperationName": "CÔNG TY TNHH HAPAG- LLOYD  (VIET NAM)",
+        "MethodNameIn": null,
+        "MethodNameOut": null
     }
 ]
 
@@ -147,23 +141,43 @@ class TrackingContainerList extends Component {
                     {
                         rowId: "header",
                         cells: [
-                            { type: "header", text: "STT" },
-                            { type: "header", text: "Số Container" },
-                            { type: "header", text: "Hãng Tàu" },
-                            { type: "header", text: "Kích cỡ" },
-                            { type: "header", text: "Full/Empty" },
-                            { type: "header", text: "Hướng" },
-                            { type: "header", text: "Hạn Booking" },
-                            { type: "header", text: "Vị trí bãi" },
-                            { type: "header", text: "Ngày vào bãi" },
-                            { type: "header", text: "Ngày ra bãi" },
-                            { type: "header", text: "Tình trạng cont" },
+                            { type: "header", text: "STT" }, // 1
+                            { type: "header", text: "Tình trạng" }, // 2
+                            { type: "header", text: "Số Container" }, // 3
+                            { type: "header", text: "Thanh lý HQ" }, // 4
+                            { type: "header", text: "Hãng tàu" }, // 5
+                            { type: "header", text: "Kích cỡ" }, // 6
+                            { type: "header", text: "Full/Empty" }, // 7
+                            { type: "header", text: "Hướng" }, // 8
+                            { type: "header", text: "Vị trí bãi" }, // 9
+                            { type: "header", text: "Tàu chuyến" }, // 10
+                            { type: "header", text: "Cảng chuyển tải / Cảng đích" }, // 11
+                            { type: "header", text: "Số vận đơn" }, // 12
+                            { type: "header", text: "Số Booking" }, // 13
+                            { type: "header", text: "Trọng lượng (VGM)" }, // 14
+                            { type: "header", text: "Số niêm chì" }, // 15
+                            { type: "header", text: "Hàng Nội/Ngoại" }, // 16
+                            { type: "header", text: "Loại hàng" }, // 17
+                            { type: "header", text: "Nhiệt độ" }, // 18
+                            { type: "header", text: "Class/UNNo" }, // 19
+                            { type: "header", text: "Ngày vào bãi" }, // 20
+                            { type: "header", text: "Ngày ra bãi" }, //21
+                            { type: "header", text: "Sổ tàu" }, //22
                         ]
                     }
                 ],
             }
         };
         this.submitButtonRef = createRef();
+    }
+
+    checkContainerNumberError = (value) => {
+        switch (true) {
+            case (value === ""):
+                return "Số container không được để trống";
+            default:
+                return false;
+        }
     }
 
     handleInputChange = (e, regex) => {
@@ -194,41 +208,65 @@ class TrackingContainerList extends Component {
     };
 
     handleLoadData = () => {
-        if (this.submitButtonRef.current) {
-            this.submitButtonRef.current.loading();
-        }
-        setTimeout(() => {
+        const containerNumberError = this.checkContainerNumberError(this.state.formData.containerNumber)
+        if (containerNumberError) {
+            this.setState(prevState => ({
+                formData: {
+                    ...prevState.formData,
+                    containerNumberError: containerNumberError
+                }
+            }));
+        } else {
             if (this.submitButtonRef.current) {
-                this.submitButtonRef.current.reset();
-                this.setState(prevState => ({
-                    generalInformation: rowData[0] ? rowData[0] : {},
-                    tableData: {
-                        ...prevState.tableData,
-                        reactGridColumns: [...this.generateColumnsData()],
-                        reactGridRows: [
-                            ...prevState.tableData.reactGridRows,
-                            ...this.generateTableData(rowData)
-                        ],
-                    }
-                }));
+                this.submitButtonRef.current.loading();
             }
-        }, 1000);
+            setTimeout(() => {
+                if (this.submitButtonRef.current) {
+                    this.submitButtonRef.current.reset();
+                    this.setState(prevState => ({
+                        generalInformation: rowData[0] ? rowData[0] : {},
+                        tableData: {
+                            ...prevState.tableData,
+                            reactGridColumns: [...this.generateColumnsData()],
+                            reactGridRows: [
+                                ...prevState.tableData.reactGridRows,
+                                ...this.generateTableData(rowData)
+                            ],
+                        },
+                        formData: {
+                            ...prevState.formData,
+                            containerNumberError: false
+                        }
+                    }));
+                }
+            }, 1000);
+        }
     }
-
 
     generateColumnsData = () => {
         return ([
-            { columnId: 'STT', width: 50, resizable: true, header: 'STT' },
-            { columnId: 'ContainerNumber', width: 150, resizable: true, reorderable: true, header: 'Số Container' },
-            { columnId: 'OperationCode', width: 150, resizable: true, reorderable: true, header: 'Hãng Tàu' },
-            { columnId: 'IsoSizetype', width: 150, resizable: true, reorderable: true, header: 'Kích cỡ' },
-            { columnId: 'CargoTypeName', width: 150, resizable: true, reorderable: true, header: 'Full/Empty' },
-            { columnId: 'ClassName', width: 150, resizable: true, reorderable: true, header: 'Hướng' },
-            { columnId: 'ExpDate', width: 150, resizable: true, reorderable: true, header: 'Hạn Booking' },
-            { columnId: 'Position', width: 150, resizable: true, reorderable: true, header: 'Vị trí bãi' },
-            { columnId: 'DateIn', width: 150, resizable: true, reorderable: true, header: 'Ngày vào bãi' },
-            { columnId: 'DateOut', width: 150, resizable: true, reorderable: true, header: 'Ngày ra bãi' },
-            { columnId: 'ContainerStatusName', width: 150, resizable: true, reorderable: true, header: 'Tình trạng cont' }
+            { columnId: 'STT', width: 50, resizable: true, header: 'STT' }, // 1
+            { columnId: 'ContainerStatusName', width: 125, resizable: true, reorderable: true, header: 'Tình trạng' }, // 2
+            { columnId: 'ContainerNo', width: 150, resizable: true, reorderable: true, header: 'Số Container' }, // 3
+            { columnId: 'ContainerNo', width: 150, resizable: true, reorderable: true, header: 'Thanh lý HQ' }, // 4
+            { columnId: 'OperationCode', width: 100, resizable: true, reorderable: true, header: 'Hãng Tàu' }, // 5
+            { columnId: 'IsoSizetype', width: 100, resizable: true, reorderable: true, header: 'Kích cỡ' }, // 6
+            { columnId: 'CargoTypeName', width: 110, resizable: true, reorderable: true, header: 'Full/Empty' }, // 7
+            { columnId: 'ClassName', width: 110, resizable: true, reorderable: true, header: 'Hướng' }, // 8
+            { columnId: 'Position', width: 150, resizable: true, reorderable: true, header: 'Vị trí bãi' }, // 9
+            { columnId: 'VesselName', width: 150, resizable: true, reorderable: true, header: 'Tàu chuyến' }, // 10
+            { columnId: 'POL', width: 200, resizable: true, reorderable: true, header: 'Cảng chuyển tải/ Cảng đích' }, // 11
+            { columnId: 'BLNo', width: 150, resizable: true, reorderable: true, header: 'Số vận đơn' }, // 12
+            { columnId: 'BookingNo', width: 150, resizable: true, reorderable: true, header: 'Số Booking' }, // 13
+            { columnId: 'MCWeight', width: 200, resizable: true, reorderable: true, header: 'Trọng lượng (VGM)' }, // 14
+            { columnId: 'Sealno2', width: 150, resizable: true, reorderable: true, header: 'Số niêm chì' }, // 15
+            { columnId: 'Position', width: 150, resizable: true, reorderable: true, header: 'Hàng Nội/Ngoại' }, // 16
+            { columnId: 'CargoTypeCode', width: 150, resizable: true, reorderable: true, header: 'Loại hàng' }, // 17
+            { columnId: 'Position', width: 150, resizable: true, reorderable: true, header: 'Nhiệt độ' }, // 18
+            { columnId: 'Position', width: 150, resizable: true, reorderable: true, header: 'Class/UNNo' }, // 19
+            { columnId: 'DateIn', width: 150, resizable: true, reorderable: true, header: 'Ngày vào bãi' }, // 20
+            { columnId: 'DateOut', width: 150, resizable: true, reorderable: true, header: 'Ngày ra bãi' }, // 21
+            { columnId: 'ExpDate', width: 150, resizable: true, reorderable: true, header: 'Sổ tàu' }, // 22
         ])
     };
 
@@ -239,16 +277,27 @@ class TrackingContainerList extends Component {
                 reorderable: true,
                 cells: [
                     { type: 'text', nonEditable: true, text: String(index + 1) },
+                    { type: 'text', nonEditable: true, text: container?.ContainerStatusName || "" },
                     { type: 'text', nonEditable: true, text: container?.ContainerNo || "" },
+                    { type: 'text', nonEditable: true, text: container?.Nodata || "" },
                     { type: 'text', nonEditable: true, text: container?.OperationCode || "" },
                     { type: 'text', nonEditable: true, text: container?.IsoSizetype || "" },
                     { type: 'text', nonEditable: true, text: container?.CargoTypeName || "" },
                     { type: 'text', nonEditable: true, text: container?.ClassName || "" },
-                    { type: 'text', nonEditable: true, text: container?.ExpDate ? formatDateTime(container?.ExpDate) : "" },
                     { type: 'text', nonEditable: true, text: (container?.Block || "") + "-" + (container?.Bay || "") + "-" + (container?.Row || "") + "-" + (container?.Tier || "") },
+                    { type: 'text', nonEditable: true, text: container?.VesselName || "" },
+                    { type: 'text', nonEditable: true, text: container?.POL || "" },
+                    { type: 'text', nonEditable: true, text: container?.BLNo || "" },
+                    { type: 'text', nonEditable: true, text: container?.BookingNo || "" },
+                    { type: 'text', nonEditable: true, text: String(container?.MCWeight) || "" },
+                    { type: 'text', nonEditable: true, text: container?.Sealno2 || "" },
+                    { type: 'text', nonEditable: true, text: container?.Nodata || "" },
+                    { type: 'text', nonEditable: true, text: container?.CargoTypeCode || "" },
+                    { type: 'text', nonEditable: true, text: container?.Nodata || "" },
+                    { type: 'text', nonEditable: true, text: container?.Nodata || "/" },
                     { type: 'text', nonEditable: true, text: container?.DateIn ? formatDateTime(container?.DateIn) : "" },
                     { type: 'text', nonEditable: true, text: container?.DateOut ? formatDateTime(container?.DateOut) : "" },
-                    { type: 'text', nonEditable: true, text: container?.ContainerStatusName || "" }
+                    { type: 'text', nonEditable: true, text: container?.ExpDate ? formatDateTime(container?.ExpDate) : "" },
                 ]
             }
         )
@@ -312,8 +361,9 @@ class TrackingContainerList extends Component {
                                 className={`form_input_field`}
                                 prefix={<FieldNumberOutlined />}
                                 placeholder={"Nhập số container"}
-                                value={this.state.formData.containerNumber}
+                                value={formData.containerNumber}
                                 onChange={(e) => this.handleInputChange(e)}
+                                errorText={formData?.containerNumberError || true}
                             />
                         </Col>
                     </div>

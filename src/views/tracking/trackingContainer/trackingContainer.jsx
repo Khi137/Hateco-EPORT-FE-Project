@@ -324,6 +324,15 @@ class TrackingContainer extends Component {
         this.submitButtonRef = createRef();
     }
 
+    checkContainerNumberError = (value) => {
+        switch (true) {
+            case (value === ""):
+                return "Số container không được để trống";
+            default:
+                return false;
+        }
+    }
+
     handleInputChange = (e, regex) => {
         const { name, value } = e.target;
 
@@ -396,9 +405,38 @@ class TrackingContainer extends Component {
     };
 
     handleLoadData = () => {
+
         this.setState({
             containerList: defaultData
         });
+    }
+
+    handleLoadData = () => {
+        const containerNumberError = this.checkContainerNumberError(this.state.formData.containerNumber)
+        if (containerNumberError) {
+            this.setState(prevState => ({
+                formData: {
+                    ...prevState.formData,
+                    containerNumberError: containerNumberError
+                },
+            }));
+        } else {
+            if (this.submitButtonRef.current) {
+                this.submitButtonRef.current.loading();
+            }
+            setTimeout(() => {
+                if (this.submitButtonRef.current) {
+                    this.submitButtonRef.current.reset();
+                    this.setState(prevState => ({
+                        formData: {
+                            ...prevState.formData,
+                            containerNumberError: false
+                        },
+                        containerList: defaultData
+                    }));
+                }
+            }, 1000);
+        }
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -618,6 +656,7 @@ class TrackingContainer extends Component {
                                 placeholder={"Nhập số container"}
                                 value={this.state.formData.containerNumber}
                                 onChange={(e) => this.handleInputChange(e)}
+                                errorText={this.state.formData?.containerNumberError || true}
                             />
                         </Col>
                     </div>

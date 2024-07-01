@@ -322,6 +322,7 @@ class TrackingHouseBill extends Component {
                 name: "DOCode",
                 type: "text",
                 value: formData.DOCode,
+                require: true
             },
             {
                 title: "Số Housebill",
@@ -331,6 +332,7 @@ class TrackingHouseBill extends Component {
                 name: "houseBillNumber",
                 type: "text",
                 value: formData.houseBillNumber,
+                require: true
             }
         ]
 
@@ -373,6 +375,12 @@ class TrackingHouseBill extends Component {
                                 </Col>
                             </Row>
                             <Row className="input_item">
+                                <Row className="item_header">
+                                    <Col>Chọn hãng khai thác <span className="item_require">*</span></Col>
+                                    <Tooltip placement="top" title={"Chọn hãng khai thác"} className="item_tooltip">
+                                        <InfoCircleOutlined />
+                                    </Tooltip>
+                                </Row>
                                 <Mselect
                                     dataSource={{
                                         id: "miningCompany",
@@ -438,7 +446,7 @@ class TrackingHouseBill extends Component {
                                 !this.state.tableData?.reactGridRows[1] ?
                                     <div className="no_data">
                                         <DatabaseOutlined style={{ fontSize: '64px' }} />
-                                        <p>Nhập số booking để nạp dữ liệu container...</p>
+                                        <p>Nhập thông tin HouseBill để nạp dữ liệu container...</p>
                                     </div>
                                     :
                                     <div className="react_grid_table">
