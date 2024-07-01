@@ -2,162 +2,286 @@ import React, { Component } from "react";
 import "./SystemManagerGroupPermission.scss";
 import { Msearch, Mselect, Mtable } from "../../../components/BasicUI";
 import { CloudDownloadOutlined, SaveOutlined } from "@ant-design/icons";
+import { ReactGrid } from "@silevis/reactgrid";
+import { Checkbox } from "antd";
+import CheckboxCellTemplate from "../systemManageUser/CellTemplate";
+let rowData = [
+  {
+    key: "1",
+    category: "Lệnh đóng hàng container",
+    parentCode: "Task",
+    view: false,
+    add: true,
+    edit: true,
+    delete: false,
+  },
+  {
+    key: "2",
+    category: "Cập nhật thông tin lệnh",
+    parentCode: "Task",
+    view: true,
+    add: false,
+    edit: true,
+    delete: true,
+  },
+  {
+    key: "3",
+    category: "	Lệnh rút hàng Container",
+    parentCode: "Task",
+    view: true,
+    add: false,
+    edit: false,
+    delete: true,
+  },
+  {
+    key: "4",
+    category: "Duyệt lệnh",
+    parentCode: "Task",
+    view: false,
+    add: false,
+    edit: false,
+    delete: true,
+  },
+];
 export class SystemManagerGroupPermission extends Component {
   constructor(props) {
     super(props);
+    this.checkboxCellTemplate = new CheckboxCellTemplate();
     this.state = {
-      tableData: [
+      tableData: {
+        reactGridColumns: [
+          { columnId: "STT", width: 50, resizable: true, header: "STT" },
+          {
+            columnId: "Category",
+            width: 350,
+            resizable: true,
+            reorderable: true,
+            header: "Tên danh mục",
+          },
+          {
+            columnId: "ParentCode",
+            width: 200,
+            resizable: true,
+            reorderable: true,
+            header: "ParentCode",
+          },
+          {
+            columnId: "View",
+            width: 100,
+            resizable: true,
+            header: <Checkbox />,
+            header: "Xem",
+          },
+          {
+            columnId: "Add",
+            width: 100,
+            resizable: true,
+            header: <Checkbox />,
+            header: "Thêm",
+          },
+          {
+            columnId: "Edit",
+            width: 100,
+            resizable: true,
+            header: <Checkbox />,
+            header: "Sửa",
+          },
+          {
+            columnId: "Delete",
+            width: 100,
+            resizable: true,
+            header: <Checkbox />,
+            header: "Xóa",
+          },
+        ],
+        reactGridRows: [
+          {
+            rowId: "header",
+            cells: [
+              { type: "header", text: "STT" },
+              { type: "header", text: "Tên danh mục" },
+              { type: "header", text: "ParentCode" },
+              { type: "header", text: "Xem" },
+              { type: "header", text: "Thêm" },
+              { type: "header", text: "Sửa" },
+              { type: "header", text: "Xóa" },
+            ],
+          },
+          ...this.generateTableData(rowData),
+        ],
+      },
+      loadData: false,
+      selectedRowKeys: [],
+    };
+  }
+
+  getColumns = () => [
+    { columnId: "STT", width: 50, resizable: true, header: "STT" },
+    {
+      columnId: "Category",
+      width: 200,
+      resizable: true,
+      reorderable: true,
+      header: "Tên danh mục",
+    },
+    {
+      columnId: "ParentCode",
+      width: 50,
+      resizable: true,
+      reorderable: true,
+      header: "ParentCode",
+    },
+    {
+      columnId: "View",
+      width: 50,
+      resizable: true,
+      reorderable: true,
+      header: "Xem",
+    },
+    {
+      columnId: "Add",
+      width: 50,
+      resizable: true,
+      reorderable: true,
+      header: "Thêm",
+    },
+    {
+      columnId: "Edit",
+      width: 50,
+      resizable: true,
+      reorderable: true,
+      header: "Sửa",
+    },
+    {
+      columnId: "Delete",
+      width: 50,
+      resizable: true,
+      reorderable: true,
+      header: "Xóa",
+    },
+  ];
+
+  generateRowData = (container, index) => {
+    return {
+      rowId: String(index + 1),
+      cells: [
+        { type: "text", nonEditable: true, text: container?.key || "" },
+        { type: "text", nonEditable: false, text: container?.category || "" },
         {
-          key: "1",
-          group: "Hãng Tàu",
-          portCode: "NDV,NDP",
-          username: "LCL",
-          password: null,
-          name: "CTY TNHH LITCO CONTAINER LINE VIET NAM",
-          cardId: null,
-          address:
-            "Room 816, TD Business Center, Lot4 & 5/20A, Le Hong Phong Street, Dong Khe Ward, Ngo Quyen District, Hai Phong City, Viet Nam",
-          phone: "0936793580",
-          email: "cs-hph@litcoline.com",
-          support: null,
-          status: true,
+          type: "text",
+          nonEditable: true,
+          text: container?.parentCode || "",
         },
         {
-          key: "2",
-          group: "Marketing - BDD",
-          portCode: "NDV,NDP",
-          username: "huynn",
-          password: null,
-          name: "Nguyễn Ngọc Huy",
-          cardId: null,
-          address: "Cảng Nam Đình Vũ",
-          phone: "09367935888",
-          email: "huy.nn@namdinhvuport.com.vn",
-          support: null,
-          status: true,
+          type: "custom",
+          value: {
+            checked: container.view,
+            rowId: container.key,
+          },
         },
         {
-          key: "3",
-          group: "Cty FWD",
-          portCode: "NDV,NDP",
-          username: "tnamtest",
-          password: null,
-          name: "CTY TNHH LITCO CONTAINER LINE VIET NAM",
-          cardId: null,
-          address:
-            "Room 816, TD Business Center, Lot4 & 5/20A, Le Hong Phong Street, Dong Khe Ward, Ngo Quyen District, Hai Phong City, Viet Nam",
-          phone: "0936793580",
-          email: "cs-hph@litcoline.com",
-          support: null,
-          status: true,
+          type: "custom",
+          value: {
+            checked: container.add,
+            rowId: container.key,
+          },
         },
         {
-          key: "4",
-          group: "Hãng Tàu",
-          portCode: "NDV,NDP",
-          username: "LCL",
-          password: null,
-          name: "CTY TNHH LITCO CONTAINER LINE VIET NAM",
-          cardId: null,
-          address:
-            "Room 816, TD Business Center, Lot4 & 5/20A, Le Hong Phong Street, Dong Khe Ward, Ngo Quyen District, Hai Phong City, Viet Nam",
-          phone: "0936793580",
-          email: "cs-hph@litcoline.com",
-          support: null,
-          status: true,
+          type: "custom",
+          value: {
+            checked: container.edit,
+            rowId: container.key,
+          },
         },
         {
-          key: "5",
-          group: "Hãng Tàu",
-          portCode: "NDV,NDP",
-          username: "LCL",
-          password: null,
-          name: "CTY TNHH LITCO CONTAINER LINE VIET NAM",
-          cardId: null,
-          address:
-            "Room 816, TD Business Center, Lot4 & 5/20A, Le Hong Phong Street, Dong Khe Ward, Ngo Quyen District, Hai Phong City, Viet Nam",
-          phone: "0936793580",
-          email: "cs-hph@litcoline.com",
-          support: null,
-          status: true,
+          type: "custom",
+          value: {
+            checked: container.delete,
+            rowId: container.key,
+          },
         },
       ],
     };
-    this.columns = [
-      {
-        title: "STT",
-        dataIndex: "key",
-        key: "key",
-        width: 100,
+  };
+
+  generateTableData = (dataList) => {
+    const generateData = dataList.map((container, index) =>
+      this.generateRowData(container, index)
+    );
+    return generateData;
+  };
+
+  handleRowSelect = (e) => {
+    const target = e[0].first.row;
+    this.setState((prevState) => {
+      const alreadySelected = prevState.selectedRowKeys.includes(target);
+      const selectedRowKeys = alreadySelected
+        ? prevState.selectedRowKeys.filter((key) => key !== target)
+        : [...prevState.selectedRowKeys, target];
+
+      return { selectedRowKeys };
+    });
+  };
+
+  handleSelectAll = () => {
+    const updatedRows = rowData.map((row) => ({ ...row, selected: true }));
+    this.setState({
+      tableData: {
+        ...this.state.tableData,
+        reactGridRows: this.generateTableData(updatedRows),
       },
-      {
-        title: "Nhóm",
-        dataIndex: "group",
-        key: "group",
-        width: 200,
+    });
+  };
+
+  handleDeleteSelected = () => {
+    const filteredRows = rowData.filter((row) => !row.selected);
+    this.setState({
+      tableData: {
+        ...this.state.tableData,
+        reactGridRows: this.generateTableData(filteredRows),
       },
-      {
-        title: "Mã cảng",
-        dataIndex: "portCode",
-        key: "portCode",
-        width: 200,
-      },
-      {
-        title: "Tên đăng nhập",
-        dataIndex: "username",
-        key: "username",
-        width: 150,
-      },
-      {
-        title: "Mật khẩu",
-        dataIndex: "password",
-        key: "password",
-        width: 100,
-      },
-      {
-        title: "Họ tên",
-        dataIndex: "name",
-        key: "name",
-        width: 250,
-      },
-      {
-        title: "CCCD/CMND",
-        dataIndex: "cardId",
-        key: "cardId",
-        width: 150,
-      },
-      {
-        title: "Địa chỉ",
-        dataIndex: "address",
-        key: "address",
-        width: 600,
-      },
-      {
-        title: "Số điện thoại",
-        dataIndex: "phone",
-        key: "phone",
-        width: 150,
-      },
-      {
-        title: "Email",
-        dataIndex: "email",
-        key: "email",
-        width: 300,
-      },
-      {
-        title: "Kinh doanh hổ trợ",
-        dataIndex: "support",
-        key: "support",
-        width: 500,
-      },
-      {
-        title: "Trạng thái",
-        dataIndex: "status",
-        key: "status",
-        width: 150,
-      },
-    ];
-  }
+    });
+  };
+
+  handleLoadData = () => {
+    this.setState((prev) => ({
+      loadData: !prev.loadData,
+    }));
+  };
+
+  handleAddRow = () => {
+    const newKey = (rowData.length + 1).toString();
+    const newRow = {
+      key: newKey,
+      group: "",
+      portCode: "",
+      username: "",
+      password: null,
+      name: "",
+      cardId: null,
+      address: "",
+      phone: "",
+      email: "",
+      support: null,
+      status: false,
+    };
+    rowData = [...rowData, newRow];
+    const updatedTableData = {
+      reactGridColumns: this.state.tableData.reactGridColumns,
+      reactGridRows: [
+        ...this.state.tableData.reactGridRows,
+        this.generateRowData(newRow, rowData.length - 1),
+      ],
+    };
+
+    this.setState({
+      tableData: updatedTableData,
+    });
+  };
+
+  onSelectChange = (selectedRowKeys) => {
+    this.setState({ selectedRowKeys });
+  };
   render() {
     return (
       <div className="system-permission-container">
@@ -208,7 +332,11 @@ export class SystemManagerGroupPermission extends Component {
             </div>
           </div>
           <div className="table-data-user">
-            <Mtable columns={this.columns} dataSource={this.state.tableData} />
+            <ReactGrid
+              rows={this.state.tableData.reactGridRows}
+              columns={this.state.tableData.reactGridColumns}
+              customCellTemplates={{ custom: this.checkboxCellTemplate }}
+            />
           </div>
         </div>
       </div>

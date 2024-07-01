@@ -50,5 +50,17 @@
     }
     .table-data-user{
         margin-top: 12px;
+        .rg-header-cell{
+            background-color: var(--second-color) !important;
+            color: white !important;
+            align-items: center !important;
+            justify-content: center !important;
+            display: flex !important;
+        }   
+        .rg-text-cell {
+            align-items: center !important;
+            justify-content: center !important;
+            display: flex !important;
+        }
     }
 }

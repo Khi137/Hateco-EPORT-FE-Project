@@ -39,7 +39,7 @@
           background-color: transparent;
           border-radius: 4px;
           border: none;
-          background-color: var(--logo-main-2);
+          background-color: var(--third-color);
           color: white;
           cursor: pointer;
         }
@@ -123,7 +123,27 @@
         .table-data-user{
             max-width: 1000px;
             padding: 12px;
+            overflow: auto;
+
+                    .reactgrid {
+                        display: block;
+                        min-width: 100vw;
+                        .rg-header-cell{
+                          background-color: var(--second-color) !important;
+                          color: white !important;
+                          align-items: center !important;
+                          justify-content: center !important;
+                          display: flex !important;
+                      }   
+                      .rg-text-cell, .rg-custom-cell {
+                          align-items: center !important;
+                          justify-content: center !important;
+                          display: flex !important;
+                      }
+            
+                    }
         }
+        
       }
     }
   }
