@@ -688,30 +688,26 @@ $caption-line-height: 14px;
 }
 
 // Mtable
-.m_table {
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 6px;
-  overflow: hidden;
-}
+.reactgrid {
+  border: 1px solid #ddd;
+  border-radius: 4px;
 
-.ant-table-cell-ellipsis {
-  overflow: visible !important;
-}
+  .rg-row {
+    border-bottom: 1px solid #ddd;
+  }
 
-.table-row-light {
-  background-color: #ffffff;
-}
+  .rg-header-cell {
+    background-color: var(--second-color) !important;
+    color: white !important;
+    align-items: center !important;
+    justify-content: center !important;
+    display: flex !important;
+    font-weight: bold !important;
+  }
 
-.table-row-dark {
-  background-color: #f5f5f5;
-}
-
-.table-row-selected {
-  border: 1px solid rgb(30, 30, 30, 30.3);
-  background-color: #CBCFD2;
-  box-shadow: 0 8px 8px 0 rgb(18, 18, 18, 0.2) inset !important;
-
-  .ant-table-cell-row-hover {
-    background-color: rgba(0, 0, 0, 0) !important;
+  .rg-text-cell {
+    align-items: center !important;
+    justify-content: center !important;
+    display: flex !important;
   }
 }

@@ -1,36 +1,7 @@
 .custom-grid-container {
     width: 100%;
+
     margin: 0 auto;
 
-    .reactgrid {
-        border: 1px solid #ddd;
-        border-radius: 4px;
 
-        .rg-row {
-            border-bottom: 1px solid #ddd;
-        }
-
-        .selected-row {
-            background-color: #6f6f6f;
-        }
-    }
-
-    .custom-column-tenhangtau {
-        width: 80% !important;
-    }
-}
-
-.rg-header-cell {
-    background-color: var(--second-color) !important;
-    color: white !important;
-    align-items: center !important;
-    justify-content: center !important;
-    display: flex !important;
-    font-weight: bold !important;
-}
-
-.rg-text-cell {
-    align-items: center !important;
-    justify-content: center !important;
-    display: flex !important;
 }

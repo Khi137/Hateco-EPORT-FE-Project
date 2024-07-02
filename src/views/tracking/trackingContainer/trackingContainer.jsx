@@ -626,12 +626,6 @@ class TrackingContainer extends Component {
                     </Row>
                     <div className="input_container">
                         <Col className="input_item">
-                            {/* <Row className="item_header">
-                                <Col>Nhập số container <span className="item_require">*</span></Col>
-                                <Tooltip placement="top" title={"Nhập số container"} className="item_tooltip">
-                                    <InfoCircleOutlined />
-                                </Tooltip>
-                            </Row> */}
                             <Winput
                                 title={"Số container"}
                                 tooltip={"Nhập số container"}

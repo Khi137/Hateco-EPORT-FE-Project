@@ -1724,29 +1724,66 @@ class Mtable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      data: this.props.tableData,
       tableData: {
-        reactGridColumns: [],
+        reactGridColumns: [...this.generateColumnsData()],
         reactGridRows: [
-          {
-            rowId: "header",
-            cells: [
-              { type: "header", text: "STT" },
-              { type: "header", text: "Số Container" },
-              { type: "header", text: "Hãng Tàu" },
-              { type: "header", text: "Kích cỡ" },
-              { type: "header", text: "Full/Empty" },
-              { type: "header", text: "Hướng" },
-              { type: "header", text: "Hạn Booking" },
-              { type: "header", text: "Vị trí bãi" },
-              { type: "header", text: "Ngày vào bãi" },
-              { type: "header", text: "Ngày ra bãi" },
-              { type: "header", text: "Tình trạng cont" },
-            ]
-          },
+          this.generateRowsHeader(),
+          ...this.generateTableData(this.props.tableData || [])
         ],
-      }
+      },
     };
   }
+
+  // hanlde change data
+  handleCellsChanged = (changes) => {
+    const rows = this.state.tableData.reactGridRows.map(row => ({
+      ...row,
+      cells: row.cells?.map(cell => ({ ...cell }))
+    }));
+
+    let updatedData = [...this.state.data];
+    let changedObjects = [];
+
+    changes.forEach(change => {
+      const row = rows?.find(r => r.rowId === change.rowId);
+      if (row) {
+        const columnIndex = this.state.tableData.reactGridColumns.findIndex(col => col.columnId === change.columnId);
+        if (columnIndex >= 0) {
+          const cell = row.cells[columnIndex];
+          if (change?.newCell?.type === 'checkbox') {
+            cell.checked = change?.newCell?.checked;
+          } else {
+            cell.text = change?.newCell?.text;
+          }
+
+          // Find the corresponding object in the state.data array
+          const dataIndex = parseInt(change.rowId, 10) - 1;
+          if (updatedData[dataIndex]) {
+            const columnKey = this.state.tableData.reactGridColumns[columnIndex].columnId;
+            updatedData[dataIndex] = {
+              ...updatedData[dataIndex],
+              [columnKey]: change?.newCell?.type === 'checkbox' ? change?.newCell?.checked : change?.newCell?.text
+            };
+
+            changedObjects.push(updatedData[dataIndex]);
+          }
+        }
+      }
+    });
+
+    this.setState(prevState => ({
+      tableData: {
+        ...prevState.tableData,
+        reactGridRows: rows
+      },
+      data: updatedData
+    }));
+
+    console.log("Changed Objects:", changedObjects);
+  };
+
+  // handle reoder
 
   handleColumnsReorder = (targetColumnId, columnIds) => {
     const { tableData } = this.state;
@@ -1764,12 +1801,86 @@ class Mtable extends React.Component {
     return targetRowId !== 'header';
   }
 
+  // format data
+
+  generateColumnsData = () => {
+    let columnsData = []
+    this.props.columnsFormat ?
+      columnsData = this.props.columnsFormat
+      :
+      columnsData =
+      [
+        { columnId: 'STT', width: 50, resizable: true, header: 'STT' },
+        { columnId: 'ContainerStatusName', width: 125, resizable: true, reorderable: true, header: 'Tình trạng' },
+        { columnId: 'ContainerNo', width: 150, resizable: true, reorderable: true, header: 'Số Container' },
+      ]
+    return columnsData
+  };
+
+  generateRowsHeader = () => {
+    if (this.props.rowsHeader) {
+      return (
+        {
+          rowId: "header",
+          cells: this.props.rowsHeader
+        }
+      )
+    } else {
+      return (
+        {
+          rowId: "header",
+          cells: [
+            { type: "header", text: "STT" }, // 1
+            { type: "header", text: "Tình trạng" }, // 2
+            { type: "header", text: "Số Container" }, // 3
+          ]
+        }
+      )
+    }
+  }
+
+  generateRowData = (container, index) => {
+    if (this.props.rowsFormat) {
+      return (
+        {
+          rowId: String(index + 1),
+          reorderable: Boolean(this.props.reorderable),
+          cells: this.props.rowsFormat(container, index)
+        }
+      )
+    } else {
+      return (
+        {
+          rowId: String(index + 1),
+          reorderable: this.props.reorderable,
+          cells: [
+            { type: 'text', nonEditable: true, text: String(index + 1) },
+            { type: 'text', nonEditable: true, text: container?.ContainerStatusName || "" },
+            { type: 'text', nonEditable: true, text: container?.ContainerNo || "" },
+          ]
+        }
+      )
+    }
+  }
+
+  generateTableData = (dataList) => {
+    const generateData = dataList?.map((container, index) => this.generateRowData(container, index));
+    return generateData;
+  };
+
   render() {
-    const { rows, columns } = this.props.dataSource
+    const { tableData } = this.state
     return <ReactGrid
-      rows={rows}
-      columns={columns}
       {...this.props}
+      rows={tableData.reactGridRows}
+      columns={tableData.reactGridColumns}
+      stickyTopRows={1}
+      onColumnsReordered={this.handleColumnsReorder}
+      onRowsReordered={this.handleRowsReorder}
+      canReorderRows={this.handleCanReorderRows}
+      onCellsChanged={this.handleCellsChanged}
+      enableRowSelection
+      enableColumnSelection
     ></ReactGrid>;
   }
 }
