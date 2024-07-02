@@ -180,31 +180,14 @@ class TrackingContainerList extends Component {
         }
     }
 
-    handleInputChange = (e, regex) => {
+    handleInputChange = (e) => {
         const { name, value } = e.target;
-
-        if (value === "") {
-            this.setState(prevState => ({
-                formData: {
-                    ...prevState.formData,
-                    [name]: value
-                }
-            }));
-            return value
-        }
-
-        if (regex && !regex?.test(value)) {
-            console.error(`Value does not match the regex: ${regex}`);
-            return
-        } else {
-            this.setState(prevState => ({
-                formData: {
-                    ...prevState.formData,
-                    [name]: value
-                }
-            }));
-        }
-        return value
+        this.setState(prevState => ({
+            formData: {
+                ...prevState.formData,
+                [name]: value
+            }
+        }));
     };
 
     handleLoadData = () => {
@@ -350,19 +333,23 @@ class TrackingContainerList extends Component {
                     </Row>
                     <div className="input_container">
                         <Col className="input_item">
-                            <Row className="item_header">
-                                <Col>Nhập danh sách số container <span className="item_require">*</span></Col>
-                                <Tooltip placement="top" title={"Nhập số container ngăn cách nhau bằng dấu cách."} className="item_tooltip">
-                                    <InfoCircleOutlined />
-                                </Tooltip>
-                            </Row>
                             <Winput
+                                title={"Danh sách số container"}
+                                tooltip={"Nhập số container ngăn cách nhau bằng dấu cách."}
+                                onChange={(e) => this.handleInputChange(e)}
+                                checkError={(error) => this.setState(prevState => ({
+                                    formData: {
+                                        ...prevState.formData,
+                                        containerNumberError: error
+                                    }
+                                }))}
+                                require={true}
+
                                 name={"containerNumber"}
                                 className={`form_input_field`}
                                 prefix={<FieldNumberOutlined />}
                                 placeholder={"Nhập số container"}
                                 value={formData.containerNumber}
-                                onChange={(e) => this.handleInputChange(e)}
                                 errorText={formData?.containerNumberError || true}
                             />
                         </Col>

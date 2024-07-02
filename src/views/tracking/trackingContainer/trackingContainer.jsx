@@ -333,31 +333,14 @@ class TrackingContainer extends Component {
         }
     }
 
-    handleInputChange = (e, regex) => {
+    handleInputChange = (e) => {
         const { name, value } = e.target;
-
-        if (value === "") {
-            this.setState(prevState => ({
-                formData: {
-                    ...prevState.formData,
-                    [name]: value
-                }
-            }));
-            return value
-        }
-
-        if (regex && !regex.test(value)) {
-            console.error(`Value does not match the regex: ${regex}`);
-            return
-        } else {
-            this.setState(prevState => ({
-                formData: {
-                    ...prevState.formData,
-                    [name]: value
-                }
-            }));
-        }
-        return value
+        this.setState(prevState => ({
+            formData: {
+                ...prevState.formData,
+                [name]: value
+            }
+        }));
     };
 
     handleChangeIndex = (e, regex) => {
@@ -412,7 +395,7 @@ class TrackingContainer extends Component {
     }
 
     handleLoadData = () => {
-        const containerNumberError = this.checkContainerNumberError(this.state.formData.containerNumber)
+        const containerNumberError = this.state.formData.containerNumberError
         if (containerNumberError) {
             this.setState(prevState => ({
                 formData: {
@@ -643,19 +626,30 @@ class TrackingContainer extends Component {
                     </Row>
                     <div className="input_container">
                         <Col className="input_item">
-                            <Row className="item_header">
+                            {/* <Row className="item_header">
                                 <Col>Nhập số container <span className="item_require">*</span></Col>
                                 <Tooltip placement="top" title={"Nhập số container"} className="item_tooltip">
                                     <InfoCircleOutlined />
                                 </Tooltip>
-                            </Row>
+                            </Row> */}
                             <Winput
+                                title={"Số container"}
+                                tooltip={"Nhập số container"}
+                                onChange={(e) => this.handleInputChange(e)}
+                                checkError={(error) => this.setState(prevState => ({
+                                    formData: {
+                                        ...prevState.formData,
+                                        containerNumberError: error
+                                    }
+                                }))}
+                                require={true}
+
                                 name={"containerNumber"}
                                 className={`form_input_field`}
                                 prefix={<FieldNumberOutlined />}
                                 placeholder={"Nhập số container"}
                                 value={this.state.formData.containerNumber}
-                                onChange={(e) => this.handleInputChange(e)}
+                                // onChange={(e) => this.handleInputChange(e)}
                                 errorText={this.state.formData?.containerNumberError || true}
                             />
                         </Col>

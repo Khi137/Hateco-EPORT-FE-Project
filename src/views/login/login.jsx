@@ -14,12 +14,15 @@ class Login extends Component {
             formData: {
                 user: "",
                 password: "",
-                userError: false,
-                passwordError: false,
+                userError: true,
+                passwordError: true,
                 remember: false,
             }
         };
         this.mButtonRef = createRef();
+
+        this.userRef = createRef();
+        this.passwordRef = createRef();
     }
 
     handleInputChange = (e) => {
@@ -44,6 +47,8 @@ class Login extends Component {
     handleFormSubmit = () => {
         const formData = this.state.formData;
         if (formData.userError || formData.passwordError) {
+            this.userRef.current.handleCheckError()
+            this.passwordRef.current.handleCheckError()
             return
         }
 
@@ -59,24 +64,12 @@ class Login extends Component {
     };
 
     renderInputField = (item, key) => {
-        const { formData } = this.state;
         return (
             <Col className="form_item" key={key}>
-                <Row className="item_header">
-                    <Col>{item?.title} <span className="item_require">*</span></Col>
-                    <Tooltip placement="top" title={item?.tooltip} className="item_tooltip">
-                        <InfoCircleOutlined />
-                    </Tooltip>
-                </Row>
                 <Winput
-                    name={item?.name}
                     title={item?.title}
-                    type={item?.type}
-                    key={item?.key}
-                    className={`form_input_field ${item?.error ? 'error_input' : ''}`}
-                    prefix={item?.inputIcon}
-                    placeholder={item?.placeholder}
-                    value={formData[item?.name]}
+                    value={item.value}
+                    tooltip={item.tooltip}
                     onChange={(e) => this.handleInputChange(e)}
                     checkError={(error) => this.setState(prevState => ({
                         formData: {
@@ -84,7 +77,16 @@ class Login extends Component {
                             [item?.name + "Error"]: error
                         }
                     }))}
-                    require={true}
+                    require={item.require}
+                    inputRegex={item.regex}
+                    minLength={item.minLength}
+
+                    name={item?.name}
+                    type={item?.type}
+                    className={`form_input_field`}
+                    prefix={item?.inputIcon}
+                    placeholder={item?.placeholder}
+                    ref={item.ref}
                 />
             </Col>
         );
@@ -102,21 +104,28 @@ class Login extends Component {
         const inputForm = [
             {
                 title: "Tên đăng nhập",
+                value: formData.user,
+                require: true,
+
                 tooltip: "Email, sđt hoặc username",
                 placeholder: "Email, sđt hoặc username",
                 inputIcon: <MailOutlined />,
                 name: "user",
                 type: "text",
-                value: formData.user,
+                ref: this.userRef
             },
             {
                 title: "Nhập mật khẩu",
+                value: formData.password,
+                require: true,
+                minLength: 6,
+
                 tooltip: "Nhập mật khẩu",
                 placeholder: "Nhập mật khẩu",
                 inputIcon: <LockOutlined />,
                 name: "password",
                 type: "password",
-                value: formData.password,
+                ref: this.passwordRef
             },
         ];
 

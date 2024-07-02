@@ -832,18 +832,21 @@ export class Winput extends React.Component {
   }
 
   checkError = (value) => {
-    switch (true) {
-      case (this.props.require && value === ""):
-        return `${this.props.title} không được để trống`
-      case (value.length < (this.props.minLength || 0)):
-        return `${this.props.title} phải có ít nhất ${this.props.minLength} ký tự`
-      default:
-        return false
-    }
+    if (this.props.require && value === "") return `${this.props.title} không được để trống`
+    if (value.length < (this.props.minLength || 0)) return `${this.props.title} phải có ít nhất ${this.props.minLength} ký tự`
+    if (this.props.submitRegex && !this.props.submitRegex.test(value)) return `${this.props.title} không đúng định dạng`
+    return false
   }
 
   handleCheckError = () => {
     const error = this.checkError(this.state.value);
+    this.setState({ error });
+    if (this.props.checkError) {
+      this.props.checkError(error)
+    }
+  }
+
+  handleSetError = (error) => {
     this.setState({ error });
     if (this.props.checkError) {
       this.props.checkError(error)
@@ -864,19 +867,31 @@ export class Winput extends React.Component {
   };
 
   render() {
-    const { className, ...otherProps } = this.props;
+    const { className, regex, minLength, require, tooltip, title, ...otherProps } = this.props;
+    const { value, error } = this.state;
     return (
-      <>
+      <Col className="winput">
+        {
+          (title || tooltip) &&
+          <Row className="winput_header">
+            {title && <Col>{title} <span className="winput_require">*</span></Col>}
+            {tooltip && <Tooltip placement="top" title={tooltip} className="winput_tooltip">
+              <LOL.InfoCircleOutlined />
+            </Tooltip>}
+          </Row>
+        }
         <Input
           ref={this.inputRef}
           {...otherProps}
-          value={this.state.value}
-          className={`Winput ${this.state.error ? 'error_input ' : ''} ${className || ""}`}
+          value={value}
+          className={`Winput ${error ? 'error_input ' : ''} ${className || ""}`}
           onChange={(e) => this.handleChange(e, this.props.inputRegex)}
           onBlur={this.handleCheckError}
         />
-        <Row className="Winput_error_text">{this.state.error}</Row>
-      </>
+        {
+          (require || regex || minLength) && <Row className="Winput_error_text">{error}</Row>
+        }
+      </Col>
     );
   }
 }
