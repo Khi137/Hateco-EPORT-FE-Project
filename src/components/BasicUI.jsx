@@ -1780,7 +1780,9 @@ class Mtable extends React.Component {
       data: updatedData
     }));
 
-    console.log("Changed Objects:", changedObjects);
+    if (this.props.hanldeChangeTableData) {
+      hanldeChangeTableData(changedObjects)
+    }
   };
 
   // handle reoder
@@ -1852,7 +1854,7 @@ class Mtable extends React.Component {
       return (
         {
           rowId: String(index + 1),
-          reorderable: this.props.reorderable,
+          reorderable: this.props.reoderRow,
           cells: [
             { type: 'text', nonEditable: true, text: String(index + 1) },
             { type: 'text', nonEditable: true, text: container?.ContainerStatusName || "" },

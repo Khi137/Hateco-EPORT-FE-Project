@@ -1026,7 +1026,7 @@ class ShowComponent extends Component {
                 { type: "header", text: "Trạng thái" },
               ]
             }
-            reorderable={true}
+            reoderRow={true}
           />
 
           <h2 className="heading-md-normal">Mbutton</h2>
