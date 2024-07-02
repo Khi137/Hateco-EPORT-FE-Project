@@ -350,11 +350,13 @@ class TrackingBooking extends Component {
                                     :
                                     <div className="react_grid_table">
                                         <Mtable
-                                            tableData={handleRowsSearch(this.state.tableData, formData.searchData)}
+                                            tableData={this.state.tableData}
                                             columnsFormat={columnsFormat}
                                             rowsFormat={rowsFormat}
                                             rowsHeader={rowsHeader}
                                             reoderRow={true}
+                                            onSearch={(tableData, searchValue) => handleRowsSearch(tableData, searchValue)}
+                                            searchValue={formData.searchData}
                                         />
                                     </div>
                             }

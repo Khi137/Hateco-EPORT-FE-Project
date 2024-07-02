@@ -1874,7 +1874,7 @@ class Mtable extends React.Component {
       return (
         {
           rowId: String(index + 1),
-          reorderable: Boolean(this.props.reorderable),
+          reorderable: Boolean(this.props.reoderRow),
           cells: this.props.rowsFormat(container, index)
         }
       )
@@ -1900,6 +1900,7 @@ class Mtable extends React.Component {
 
   render() {
     const { tableData, searchValue } = this.state
+    console.log(this.props.onSearch(tableData.reactGridRows, searchValue || ""));
     return <ReactGrid
       {...this.props}
       rows={this.props.onSearch ? this.props.onSearch(tableData.reactGridRows, searchValue || "") : tableData.reactGridRows}

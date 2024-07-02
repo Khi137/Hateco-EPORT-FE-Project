@@ -183,7 +183,7 @@ class TrackingContainerList extends Component {
             { columnId: 'STT', width: 50, resizable: true, header: 'STT' }, // 1
             { columnId: 'ContainerStatusName', width: 125, resizable: true, reorderable: true, header: 'Tình trạng' }, // 2
             { columnId: 'ContainerNo', width: 150, resizable: true, reorderable: true, header: 'Số Container' }, // 3
-            { columnId: 'ContainerNo', width: 150, resizable: true, reorderable: true, header: 'Thanh lý HQ' }, // 4
+            { columnId: 'ContainerNo1', width: 150, resizable: true, reorderable: true, header: 'Thanh lý HQ' }, // 4
             { columnId: 'OperationCode', width: 100, resizable: true, reorderable: true, header: 'Hãng Tàu' }, // 5
             { columnId: 'IsoSizetype', width: 100, resizable: true, reorderable: true, header: 'Kích cỡ' }, // 6
             { columnId: 'CargoTypeName', width: 110, resizable: true, reorderable: true, header: 'Full/Empty' }, // 7
@@ -195,10 +195,10 @@ class TrackingContainerList extends Component {
             { columnId: 'BookingNo', width: 150, resizable: true, reorderable: true, header: 'Số Booking' }, // 13
             { columnId: 'MCWeight', width: 200, resizable: true, reorderable: true, header: 'Trọng lượng (VGM)' }, // 14
             { columnId: 'Sealno2', width: 150, resizable: true, reorderable: true, header: 'Số niêm chì' }, // 15
-            { columnId: 'Position', width: 150, resizable: true, reorderable: true, header: 'Hàng Nội/Ngoại' }, // 16
+            { columnId: 'Position1', width: 150, resizable: true, reorderable: true, header: 'Hàng Nội/Ngoại' }, // 16
             { columnId: 'CargoTypeCode', width: 150, resizable: true, reorderable: true, header: 'Loại hàng' }, // 17
-            { columnId: 'Position', width: 150, resizable: true, reorderable: true, header: 'Nhiệt độ' }, // 18
-            { columnId: 'Position', width: 150, resizable: true, reorderable: true, header: 'Class/UNNo' }, // 19
+            { columnId: 'Position2', width: 150, resizable: true, reorderable: true, header: 'Nhiệt độ' }, // 18
+            { columnId: 'Position3', width: 150, resizable: true, reorderable: true, header: 'Class/UNNo' }, // 19
             { columnId: 'DateIn', width: 150, resizable: true, reorderable: true, header: 'Ngày vào bãi' }, // 20
             { columnId: 'DateOut', width: 150, resizable: true, reorderable: true, header: 'Ngày ra bãi' }, // 21
             { columnId: 'ExpDate', width: 150, resizable: true, reorderable: true, header: 'Sổ tàu' }, // 22
@@ -325,11 +325,13 @@ class TrackingContainerList extends Component {
                                     </Row>
                                     <div className="react_grid_table">
                                         <Mtable
-                                            tableData={handleRowsSearch(this.state.tableData, formData.searchData)}
+                                            tableData={this.state.tableData}
                                             columnsFormat={columnsFormat}
                                             rowsFormat={rowsFormat}
                                             rowsHeader={rowsHeader}
                                             reoderRow={true}
+                                            onSearch={(tableData, searchValue) => handleRowsSearch(tableData, searchValue)}
+                                            searchValue={formData.searchData}
                                         />
                                     </div>
                                 </Col>
