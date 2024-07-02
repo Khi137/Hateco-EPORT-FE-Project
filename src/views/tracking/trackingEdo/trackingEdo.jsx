@@ -136,16 +136,18 @@ class TrackingEdo extends Component {
         super(props);
         this.state = {
             formData: {
-                houseBillNumber: "",
                 EdoCode: "",
+                EdoCodeError: true,
                 // fromDate: moment('2024-06-27').startOf('day').toDate(),
                 // toDate: moment('2024-06-27').endOf('day').toDate(),
                 fromDate: new Date('2024-06-27T00:00:00'),
                 toDate: new Date('2024-06-27T23:59:59'),
+                EdoCodeRef: true,
             },
             tableData: []
         };
         this.submitButtonRef = createRef();
+        this.EdoCodeRef = createRef();
     }
 
     handleInputChange = (e, dataForm) => {
@@ -164,6 +166,14 @@ class TrackingEdo extends Component {
     };
 
     handleLoadData = () => {
+        const { EdoCodeError } = this.state.formData
+        
+        if (EdoCodeError) {
+            console.log("getin");
+            this.EdoCodeRef.current.handleCheckError()
+            return
+        }
+
         if (this.submitButtonRef.current) {
             this.submitButtonRef.current.loading();
         }
@@ -222,10 +232,11 @@ class TrackingEdo extends Component {
                 tooltip: "Mã số Edo",
                 placeholder: "Mã số Edo",
                 inputIcon: <NumberOutlined />,
-                name: "DOCode",
+                name: "EdoCode",
                 type: "text",
                 value: formData.EdoCode,
-                require: true
+                require: true,
+                ref: this.EdoCodeRef
             }
         ]
 
@@ -335,6 +346,7 @@ class TrackingEdo extends Component {
                                     }}
                                     onChangeValue={(e) => this.handleSelect(e)}
                                 />
+                                <Row className="Winput_error_text">{this.miningCompanyError}</Row>
                             </Row>
                             {inputForm.map((item, key) => this.renderInputField(item, key))}
                         </div>
@@ -369,12 +381,12 @@ class TrackingEdo extends Component {
                             </Col>
                             <Col className="exel_export">
                                 <Mbutton
+                                    name="exelExport"
                                     color=""
                                     className="m_button third"
                                     type="primary"
                                     htmlType="submit"
                                     block
-                                    onClick={this.handleLoadData}
                                     size={"12"}
                                     dataSource={{ textbutton: "Xuất File Exel", color: "second" }}
                                 />

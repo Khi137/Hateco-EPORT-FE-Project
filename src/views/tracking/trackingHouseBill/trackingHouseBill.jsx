@@ -9,6 +9,7 @@ import { ReactGrid } from '@silevis/reactgrid';
 
 const rowData = [
     {
+        "status": false,
         "Area": null,
         "BLNo": "HDMUSELA06055400",
         "BargeExVoy": null,
@@ -126,7 +127,7 @@ function generateRandomContainerNo() {
     return result;
 }
 
-for (let index = 0; index < 20; index++) {
+for (let index = 0; index < 100; index++) {
     const duplicatedData = { ...rowData[0] };
     duplicatedData.ContainerNo = generateRandomContainerNo();
     rowData.push(duplicatedData);
@@ -143,10 +144,15 @@ class TrackingHouseBill extends Component {
                 // toDate: moment('2024-06-27').endOf('day').toDate(),
                 fromDate: new Date('2024-06-27T00:00:00'),
                 toDate: new Date('2024-06-27T23:59:59'),
+                houseBillNumberError: true,
+                DOCodeError: true,
             },
             tableData: []
         };
         this.submitButtonRef = createRef();
+
+        this.houseBillNumberRef = createRef();
+        this.DOCodeRef = createRef();
     }
 
     handleInputChange = (e, dataForm) => {
@@ -165,6 +171,12 @@ class TrackingHouseBill extends Component {
     };
 
     handleLoadData = () => {
+        const { houseBillNumberError, DOCodeError } = this.state.formData
+        if (houseBillNumberError || DOCodeError) {
+            this.houseBillNumberRef.current.handleCheckError()
+            this.DOCodeRef.current.handleCheckError()
+            return
+        }
         if (this.submitButtonRef.current) {
             this.submitButtonRef.current.loading();
         }
@@ -226,7 +238,8 @@ class TrackingHouseBill extends Component {
                 name: "DOCode",
                 type: "text",
                 value: formData.DOCode,
-                require: true
+                require: true,
+                ref: this.DOCodeRef
             },
             {
                 title: "Số Housebill",
@@ -236,7 +249,8 @@ class TrackingHouseBill extends Component {
                 name: "houseBillNumber",
                 type: "text",
                 value: formData.houseBillNumber,
-                require: true
+                require: true,
+                ref: this.houseBillNumberRef
             }
         ]
 
@@ -251,23 +265,25 @@ class TrackingHouseBill extends Component {
             { columnId: 'Position', width: 150, resizable: true, reorderable: true, header: 'Vị trí bãi' },
             { columnId: 'DateIn', width: 150, resizable: true, reorderable: true, header: 'Ngày vào bãi' },
             { columnId: 'DateOut', width: 150, resizable: true, reorderable: true, header: 'Ngày ra bãi' },
-            { columnId: 'ContainerStatusName', width: 150, resizable: true, reorderable: true, header: 'Tình trạng cont' }
+            { columnId: 'ContainerStatusName', width: 150, resizable: true, reorderable: true, header: 'Tình trạng cont' },
+            { columnId: 'Status', width: 150, resizable: true, reorderable: true, header: 'Trạng thái' }
         ]
 
         const rowsFormat = (container, index) => {
             return (
                 [
                     { type: 'text', nonEditable: true, text: String(index + 1) },
-                    { type: 'text', nonEditable: true, text: container?.ContainerNo || "" },
-                    { type: 'text', nonEditable: true, text: container?.OperationCode || "" },
-                    { type: 'text', nonEditable: true, text: container?.IsoSizetype || "" },
-                    { type: 'text', nonEditable: true, text: container?.CargoTypeName || "" },
-                    { type: 'text', nonEditable: true, text: container?.ClassName || "" },
-                    { type: 'text', nonEditable: true, text: container?.ExpDate ? formatDateTime(container?.ExpDate) : "" },
-                    { type: 'text', nonEditable: true, text: (container?.Block || "") + "-" + (container?.Bay || "") + "-" + (container?.Row || "") + "-" + (container?.Tier || "") },
-                    { type: 'text', nonEditable: true, text: container?.DateIn ? formatDateTime(container?.DateIn) : "" },
-                    { type: 'text', nonEditable: true, text: container?.DateOut ? formatDateTime(container?.DateOut) : "" },
-                    { type: 'text', nonEditable: true, text: container?.ContainerStatusName || "" }
+                    { type: 'text', nonEditable: false, text: container?.ContainerNo || "" },
+                    { type: 'text', nonEditable: false, text: container?.OperationCode || "" },
+                    { type: 'text', nonEditable: false, text: container?.IsoSizetype || "" },
+                    { type: 'text', nonEditable: false, text: container?.CargoTypeName || "" },
+                    { type: 'text', nonEditable: false, text: container?.ClassName || "" },
+                    { type: 'text', nonEditable: false, text: container?.ExpDate ? formatDateTime(container?.ExpDate) : "" },
+                    { type: 'text', nonEditable: false, text: (container?.Block || "") + "-" + (container?.Bay || "") + "-" + (container?.Row || "") + "-" + (container?.Tier || "") },
+                    { type: 'text', nonEditable: false, text: container?.DateIn ? formatDateTime(container?.DateIn) : "" },
+                    { type: 'text', nonEditable: false, text: container?.DateOut ? formatDateTime(container?.DateOut) : "" },
+                    { type: 'text', nonEditable: false, text: container?.ContainerStatusName || "" },
+                    { type: 'checkbox', nonEditable: false, checked: container?.status }
                 ]
             )
         }
@@ -284,6 +300,7 @@ class TrackingHouseBill extends Component {
             { type: "header", text: "Ngày vào bãi" },
             { type: "header", text: "Ngày ra bãi" },
             { type: "header", text: "Tình trạng cont" },
+            { type: "header", text: "Trạng Tình" },
         ]
 
         return (
@@ -346,6 +363,7 @@ class TrackingHouseBill extends Component {
                                     }}
                                     onChangeValue={(e) => this.handleSelect(e)}
                                 />
+                                <Row className="Winput_error_text">{this.miningCompanyError}</Row>
                             </Row>
                             {inputForm.map((item, key) => this.renderInputField(item, key))}
                         </div>
@@ -385,7 +403,6 @@ class TrackingHouseBill extends Component {
                                     type="primary"
                                     htmlType="submit"
                                     block
-                                    onClick={this.handleLoadData}
                                     size={"12"}
                                     dataSource={{ textbutton: "Xuất File Exel", color: "second" }}
                                 />

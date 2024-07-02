@@ -137,7 +137,7 @@ class TrackingBill extends Component {
         this.state = {
             formData: {
                 pinCode: "",
-                pinCodeError: "",
+                pinCodeError: true,
 
                 taxCode: "",
                 billForm: "",
@@ -173,7 +173,7 @@ class TrackingBill extends Component {
     handleLoadData = () => {
         const pinCodeError = this.state.formData.pinCodeError
         if (pinCodeError) {
-            this.pinCodeRef.current.handleCheckError()
+            this.pinCodeRef?.current?.handleCheckError()
             return
         }
         if (this.submitButtonRef.current) {
@@ -219,7 +219,7 @@ class TrackingBill extends Component {
                     prefix={item?.inputIcon}
                     placeholder={item?.placeholder}
                     defaultValue={item?.value}
-                    errorText={item?.error !== undefined ? item?.error || true : false}
+                    error={item?.error !== undefined ? item?.error || true : false}
                     ref={item.ref}
                 />
             </Col>
@@ -278,7 +278,8 @@ class TrackingBill extends Component {
                 type: "text",
                 value: formData.pinCode,
                 require: true,
-                ref: this.pinCodeRef
+                ref: this.pinCodeRef,
+                // error: formData.pinCodeError,
             },
         ]
 
@@ -391,7 +392,6 @@ class TrackingBill extends Component {
                                     type="primary"
                                     htmlType="submit"
                                     block
-                                    onClick={this.handleLoadData}
                                     size={"12"}
                                     dataSource={{ textbutton: "Xuất File Exel", color: "second" }}
                                 />
