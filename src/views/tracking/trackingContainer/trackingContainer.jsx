@@ -314,7 +314,7 @@ class TrackingContainer extends Component {
         this.state = {
             formData: {
                 containerNumber: "",
-                containerNumberError: "",
+                containerNumberError: true,
                 containerIndex: 1,
                 containerPrevIndex: 1,
             },
@@ -322,6 +322,7 @@ class TrackingContainer extends Component {
 
         };
         this.submitButtonRef = createRef();
+        this.containerNumberRef = createRef();
     }
 
     checkContainerNumberError = (value) => {
@@ -388,38 +389,27 @@ class TrackingContainer extends Component {
     };
 
     handleLoadData = () => {
-
-        this.setState({
-            containerList: defaultData
-        });
-    }
-
-    handleLoadData = () => {
         const containerNumberError = this.state.formData.containerNumberError
         if (containerNumberError) {
-            this.setState(prevState => ({
-                formData: {
-                    ...prevState.formData,
-                    containerNumberError: containerNumberError
-                },
-            }));
-        } else {
-            if (this.submitButtonRef.current) {
-                this.submitButtonRef.current.loading();
-            }
-            setTimeout(() => {
-                if (this.submitButtonRef.current) {
-                    this.submitButtonRef.current.reset();
-                    this.setState(prevState => ({
-                        formData: {
-                            ...prevState.formData,
-                            containerNumberError: false
-                        },
-                        containerList: defaultData
-                    }));
-                }
-            }, 1000);
+            this.containerNumberRef.current.handleCheckError()
+            return
         }
+        if (this.submitButtonRef.current) {
+            this.submitButtonRef.current.loading();
+        }
+        setTimeout(() => {
+            if (this.submitButtonRef.current) {
+                this.submitButtonRef.current.reset();
+                this.setState(prevState => ({
+                    formData: {
+                        ...prevState.formData,
+                        containerNumberError: false
+                    },
+                    containerList: defaultData
+                }));
+            }
+        }, 1000);
+
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -645,6 +635,7 @@ class TrackingContainer extends Component {
                                 value={this.state.formData.containerNumber}
                                 // onChange={(e) => this.handleInputChange(e)}
                                 errorText={this.state.formData?.containerNumberError || true}
+                                ref={this.containerNumberRef}
                             />
                         </Col>
                     </div>

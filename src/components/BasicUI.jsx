@@ -874,7 +874,7 @@ export class Winput extends React.Component {
         {
           (title || tooltip) &&
           <Row className="winput_header">
-            {title && <Col>{title} <span className="winput_require">*</span></Col>}
+            {title && <Col>{title} {require && <span className="winput_require">*</span>}</Col>}
             {tooltip && <Tooltip placement="top" title={tooltip} className="winput_tooltip">
               <LOL.InfoCircleOutlined />
             </Tooltip>}
@@ -1735,6 +1735,34 @@ class Mtable extends React.Component {
     };
   }
 
+  // handlle columns resize
+  handleColumnResize = (ci, width) => {
+    this.setState(prevState => {
+      const updatedColumns = prevState.tableData.reactGridColumns.map(column => {
+        if (column.columnId === ci) {
+          return { ...column, width };
+        }
+        return column;
+      });
+
+      return {
+        tableData: {
+          ...prevState.tableData,
+          reactGridColumns: updatedColumns
+        }
+      };
+    });
+  }
+
+  // update when data change
+  componentDidUpdate(prevProps) {
+    if (prevProps.searchValue !== this.props.searchValue) {
+      this.setState({
+        searchValue: this.props.searchValue,
+      });
+    }
+  }
+
   // hanlde change data
   handleCellsChanged = (changes) => {
     const rows = this.state.tableData.reactGridRows.map(row => ({
@@ -1781,7 +1809,7 @@ class Mtable extends React.Component {
     }));
 
     if (this.props.hanldeChangeTableData) {
-      hanldeChangeTableData(changedObjects)
+      this.props.hanldeChangeTableData(changedObjects)
     }
   };
 
@@ -1871,16 +1899,17 @@ class Mtable extends React.Component {
   };
 
   render() {
-    const { tableData } = this.state
+    const { tableData, searchValue } = this.state
     return <ReactGrid
       {...this.props}
-      rows={tableData.reactGridRows}
+      rows={this.props.onSearch ? this.props.onSearch(tableData.reactGridRows, searchValue || "") : tableData.reactGridRows}
       columns={tableData.reactGridColumns}
       stickyTopRows={1}
       onColumnsReordered={this.handleColumnsReorder}
       onRowsReordered={this.handleRowsReorder}
       canReorderRows={this.handleCanReorderRows}
       onCellsChanged={this.handleCellsChanged}
+      onColumnResized={this.handleColumnResize}
       enableRowSelection
       enableColumnSelection
     ></ReactGrid>;

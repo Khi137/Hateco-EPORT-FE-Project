@@ -2,9 +2,9 @@ import React, { Component, createRef } from 'react';
 import './styles.scss'
 import { Col, Row, Tooltip } from 'antd';
 import { BoldOutlined, DatabaseOutlined, InfoCircleOutlined, NumberOutlined, SearchOutlined } from '@ant-design/icons';
-import { Mbutton, Mdatepicker, Mselect, Winput } from '../../../components/BasicUI';
+import { Mbutton, Mdatepicker, Mselect, Mtable, Winput } from '../../../components/BasicUI';
 import moment from 'moment';
-import { formatDateTime, handleColumnsReorder, handleRowsReorder } from '../../../utils/util';
+import { formatDateTime, handleColumnsReorder, handleRowsReorder, handleRowsSearch } from '../../../utils/util';
 import { ReactGrid } from '@silevis/reactgrid';
 
 const rowData = [
@@ -144,28 +144,7 @@ class TrackingHouseBill extends Component {
                 fromDate: new Date('2024-06-27T00:00:00'),
                 toDate: new Date('2024-06-27T23:59:59'),
             },
-            tableData: {
-                reactGridColumns: [],
-                reactGridRows: [
-                    {
-                        rowId: "header",
-                        cells: [
-                            { type: "header", text: "STT" },
-                            { type: "header", text: "Số Container" },
-                            { type: "header", text: "Hãng Tàu" },
-                            { type: "header", text: "Kích cỡ" },
-                            { type: "header", text: "Full/Empty" },
-                            { type: "header", text: "Hướng" },
-                            { type: "header", text: "Hạn Booking" },
-                            { type: "header", text: "Vị trí bãi" },
-                            { type: "header", text: "Ngày vào bãi" },
-                            { type: "header", text: "Ngày ra bãi" },
-                            { type: "header", text: "Tình trạng cont" },
-                        ]
-                    },
-
-                ],
-            }
+            tableData: []
         };
         this.submitButtonRef = createRef();
     }
@@ -194,14 +173,7 @@ class TrackingHouseBill extends Component {
                 this.submitButtonRef.current.reset();
                 this.setState(prevState => ({
                     generalInformation: rowData[0] ? rowData[0] : {},
-                    tableData: {
-                        ...prevState.tableData,
-                        reactGridColumns: [...this.generateColumnsData()],
-                        reactGridRows: [
-                            ...prevState.tableData.reactGridRows,
-                            ...this.generateTableData(rowData)
-                        ],
-                    },
+                    tableData: rowData,
                     formData: {
                         ...prevState.formData,
                         bookingNumberError: false
@@ -211,100 +183,32 @@ class TrackingHouseBill extends Component {
         }, 1000);
     }
 
-    generateColumnsData = () => {
-        return ([
-            { columnId: 'STT', width: 50, resizable: true, header: 'STT' },
-            { columnId: 'ContainerNumber', width: 150, resizable: true, reorderable: true, header: 'Số Container' },
-            { columnId: 'OperationCode', width: 150, resizable: true, reorderable: true, header: 'Hãng Tàu' },
-            { columnId: 'IsoSizetype', width: 150, resizable: true, reorderable: true, header: 'Kích cỡ' },
-            { columnId: 'CargoTypeName', width: 150, resizable: true, reorderable: true, header: 'Full/Empty' },
-            { columnId: 'ClassName', width: 150, resizable: true, reorderable: true, header: 'Hướng' },
-            { columnId: 'ExpDate', width: 150, resizable: true, reorderable: true, header: 'Hạn Booking' },
-            { columnId: 'Position', width: 150, resizable: true, reorderable: true, header: 'Vị trí bãi' },
-            { columnId: 'DateIn', width: 150, resizable: true, reorderable: true, header: 'Ngày vào bãi' },
-            { columnId: 'DateOut', width: 150, resizable: true, reorderable: true, header: 'Ngày ra bãi' },
-            { columnId: 'ContainerStatusName', width: 150, resizable: true, reorderable: true, header: 'Tình trạng cont' }
-        ])
-    };
-
-    generateRowData = (container, index) => {
-        return (
-            {
-                rowId: String(index + 1),
-                reorderable: true,
-                cells: [
-                    { type: 'text', nonEditable: true, text: String(index + 1) },
-                    { type: 'text', nonEditable: true, text: container?.ContainerNo || "" },
-                    { type: 'text', nonEditable: true, text: container?.OperationCode || "" },
-                    { type: 'text', nonEditable: true, text: container?.IsoSizetype || "" },
-                    { type: 'text', nonEditable: true, text: container?.CargoTypeName || "" },
-                    { type: 'text', nonEditable: true, text: container?.ClassName || "" },
-                    { type: 'text', nonEditable: true, text: container?.ExpDate ? formatDateTime(container?.ExpDate) : "" },
-                    { type: 'text', nonEditable: true, text: (container?.Block || "") + "-" + (container?.Bay || "") + "-" + (container?.Row || "") + "-" + (container?.Tier || "") },
-                    { type: 'text', nonEditable: true, text: container?.DateIn ? formatDateTime(container?.DateIn) : "" },
-                    { type: 'text', nonEditable: true, text: container?.DateOut ? formatDateTime(container?.DateOut) : "" },
-                    { type: 'text', nonEditable: true, text: container?.ContainerStatusName || "" }
-                ]
-            }
-        )
-    }
-
-    generateTableData = (dataList) => {
-        const generateData = dataList.map((container, index) => this.generateRowData(container, index));
-        return generateData;
-    };
-
-    handleColumnsReorder = (targetColumnId, columnIds) => {
-        const { tableData } = this.state;
-        const updatedTableData = handleColumnsReorder(tableData, targetColumnId, columnIds);
-        this.setState({ tableData: updatedTableData });
-    }
-
-    handleRowsReorder = (targetRowId, rowIds) => {
-        const { tableData } = this.state;
-        const updatedTableData = handleRowsReorder(tableData, targetRowId, rowIds);
-        this.setState({ tableData: updatedTableData });
-    }
-
-    handleCanReorderRows = (targetRowId, rowIds) => {
-        return targetRowId !== 'header';
-    }
-
-    handleRowsSearch = (reactGridRows, searchValue) => {
-        if (!searchValue) return reactGridRows;
-        const searchLower = searchValue.toLowerCase();
-        const filteredRows = reactGridRows.slice(1).filter(row => {
-            const containerNo = row.cells[1]?.text.toLowerCase();
-            const operationCode = row.cells[2]?.text.toLowerCase();
-            const isoSizetype = row.cells[3]?.text.toLowerCase();
-            return (
-                containerNo.includes(searchLower) ||
-                operationCode.includes(searchLower) ||
-                isoSizetype.includes(searchLower)
-            );
-        });
-        return [reactGridRows[0], ...filteredRows];
-    }
-
     renderInputField = (item, key) => {
         return (
             <Col className="input_item" key={key + item?.name}>
-                <Row className="item_header">
-                    <Col>{item?.title} {item.require && <span className="item_require">*</span>}</Col>
-                    <Tooltip placement="top" title={item?.tooltip} className="item_tooltip">
-                        <InfoCircleOutlined />
-                    </Tooltip>
-                </Row>
                 <Winput
+                    title={item?.title}
+                    value={item.value}
+                    tooltip={item.tooltip}
+                    onChange={(e) => this.handleInputChange(e)}
+                    checkError={(error) => this.setState(prevState => ({
+                        formData: {
+                            ...prevState.formData,
+                            [item?.name + "Error"]: error
+                        }
+                    }))}
+                    require={item.require}
+                    inputRegex={item.regex}
+                    minLength={item.minLength}
+
                     name={item?.name}
                     type={item?.type}
                     className={`form_input_field ${item?.error ? 'error_item' : ''}`}
                     prefix={item?.inputIcon}
                     placeholder={item?.placeholder}
-                    value={item?.value}
                     defaultValue={item?.value}
-                    onChange={(e) => this.handleInputChange(e, "formData")}
                     errorText={item?.error && item?.error}
+                    ref={item.ref}
                 />
             </Col>
         )
@@ -334,6 +238,52 @@ class TrackingHouseBill extends Component {
                 value: formData.houseBillNumber,
                 require: true
             }
+        ]
+
+        const columnsFormat = [
+            { columnId: 'STT', width: 50, resizable: true, header: 'STT' },
+            { columnId: 'ContainerNumber', width: 150, resizable: true, reorderable: true, header: 'Số Container' },
+            { columnId: 'OperationCode', width: 150, resizable: true, reorderable: true, header: 'Hãng Tàu' },
+            { columnId: 'IsoSizetype', width: 150, resizable: true, reorderable: true, header: 'Kích cỡ' },
+            { columnId: 'CargoTypeName', width: 150, resizable: true, reorderable: true, header: 'Full/Empty' },
+            { columnId: 'ClassName', width: 150, resizable: true, reorderable: true, header: 'Hướng' },
+            { columnId: 'ExpDate', width: 150, resizable: true, reorderable: true, header: 'Hạn Booking' },
+            { columnId: 'Position', width: 150, resizable: true, reorderable: true, header: 'Vị trí bãi' },
+            { columnId: 'DateIn', width: 150, resizable: true, reorderable: true, header: 'Ngày vào bãi' },
+            { columnId: 'DateOut', width: 150, resizable: true, reorderable: true, header: 'Ngày ra bãi' },
+            { columnId: 'ContainerStatusName', width: 150, resizable: true, reorderable: true, header: 'Tình trạng cont' }
+        ]
+
+        const rowsFormat = (container, index) => {
+            return (
+                [
+                    { type: 'text', nonEditable: true, text: String(index + 1) },
+                    { type: 'text', nonEditable: true, text: container?.ContainerNo || "" },
+                    { type: 'text', nonEditable: true, text: container?.OperationCode || "" },
+                    { type: 'text', nonEditable: true, text: container?.IsoSizetype || "" },
+                    { type: 'text', nonEditable: true, text: container?.CargoTypeName || "" },
+                    { type: 'text', nonEditable: true, text: container?.ClassName || "" },
+                    { type: 'text', nonEditable: true, text: container?.ExpDate ? formatDateTime(container?.ExpDate) : "" },
+                    { type: 'text', nonEditable: true, text: (container?.Block || "") + "-" + (container?.Bay || "") + "-" + (container?.Row || "") + "-" + (container?.Tier || "") },
+                    { type: 'text', nonEditable: true, text: container?.DateIn ? formatDateTime(container?.DateIn) : "" },
+                    { type: 'text', nonEditable: true, text: container?.DateOut ? formatDateTime(container?.DateOut) : "" },
+                    { type: 'text', nonEditable: true, text: container?.ContainerStatusName || "" }
+                ]
+            )
+        }
+
+        const rowsHeader = [
+            { type: "header", text: "STT" },
+            { type: "header", text: "Số Container" },
+            { type: "header", text: "Hãng Tàu" },
+            { type: "header", text: "Kích cỡ" },
+            { type: "header", text: "Full/Empty" },
+            { type: "header", text: "Hướng" },
+            { type: "header", text: "Hạn Booking" },
+            { type: "header", text: "Vị trí bãi" },
+            { type: "header", text: "Ngày vào bãi" },
+            { type: "header", text: "Ngày ra bãi" },
+            { type: "header", text: "Tình trạng cont" },
         ]
 
         return (
@@ -443,23 +393,19 @@ class TrackingHouseBill extends Component {
                         </Row>
                         <div className="table_content">
                             {
-                                !this.state.tableData?.reactGridRows[1] ?
+                                !this.state.tableData[0] ?
                                     <div className="no_data">
                                         <DatabaseOutlined style={{ fontSize: '64px' }} />
                                         <p>Nhập thông tin HouseBill để nạp dữ liệu container...</p>
                                     </div>
                                     :
                                     <div className="react_grid_table">
-                                        <ReactGrid
-                                            rows={this.handleRowsSearch(this.state.tableData.reactGridRows, formData.searchData)}
-                                            columns={this.state.tableData.reactGridColumns}
-                                            stickyTopRows={1}
-                                            stickyLeftColumns={1}
-                                            onColumnsReordered={this.handleColumnsReorder}
-                                            onRowsReordered={this.handleRowsReorder}
-                                            canReorderRows={this.handleCanReorderRows}
-                                            enableRowSelection
-                                            enableColumnSelection
+                                        <Mtable
+                                            tableData={handleRowsSearch(this.state.tableData, formData.searchData)}
+                                            columnsFormat={columnsFormat}
+                                            rowsFormat={rowsFormat}
+                                            rowsHeader={rowsHeader}
+                                            reoderRow={true}
                                         />
                                     </div>
                             }
