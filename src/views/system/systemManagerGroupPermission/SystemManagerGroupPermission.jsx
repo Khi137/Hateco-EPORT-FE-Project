@@ -1,7 +1,17 @@
 import React, { Component } from "react";
 import "./SystemManagerGroupPermission.scss";
-import { Msearch, Mselect, Mtable } from "../../../components/BasicUI";
-import { CloudDownloadOutlined, SaveOutlined } from "@ant-design/icons";
+import {
+  Mbutton,
+  Msearch,
+  Mselect,
+  Mtable,
+  Winput,
+} from "../../../components/BasicUI";
+import {
+  CloudDownloadOutlined,
+  SaveOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
 import { ReactGrid } from "@silevis/reactgrid";
 import { Checkbox } from "antd";
 import CheckboxCellTemplate from "../systemManageUser/CellTemplate";
@@ -322,13 +332,28 @@ export class SystemManagerGroupPermission extends Component {
         <div className="panel-table">
           <div className="header-action">
             <div className="search">
-              <Msearch />
+              <Winput
+                name={"searchData"}
+                className={`form_input_field`}
+                prefix={<SearchOutlined />}
+                placeholder={"Tìm kiếm..."}
+              />
             </div>
             <div className="save">
-              <button>
-                <SaveOutlined className="icon" />
-                Lưu
-              </button>
+              <Mbutton
+                className="m_button red drop-button-shadow"
+                block
+                htmlType="submit"
+                type="primary"
+                onClick={this.handleFormSubmit}
+                ref={this.mButtonRef}
+                dataSource={{
+                  textbutton: "Lưu",
+                  color: "",
+                  size: "12",
+                  icon: "SaveOutlined",
+                }}
+              />
             </div>
           </div>
           <div className="table-data-user">

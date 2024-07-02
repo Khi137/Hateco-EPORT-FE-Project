@@ -39,6 +39,8 @@
                 background-color: var(--third-color);
                 color: white;
                 cursor: pointer;
+                font-size: 16px;
+                font-weight: 700;
     
             }
         }
@@ -59,21 +61,7 @@
                 display: flex;
                 justify-content: end;
                 flex: 6;
-                button{
-                    background-color: transparent;
-                    border: none;
-                    padding: var(--padding-page) 0;
-                    width: 100px;
-                    max-height: 40px;
-                    border-radius: 4px;
-                    cursor: pointer;
-                    border: 1px solid blue;
-                    color: blue;
-                    
-                    .icon{
-                        margin-right: 4px;
-                    }
-                }
+                
             }
         }
         .table-data-user{

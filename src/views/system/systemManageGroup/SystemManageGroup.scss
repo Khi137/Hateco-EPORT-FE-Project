@@ -1,66 +1,51 @@
 .system-group-container{
     padding: var(--padding-page);
-    background-color: white;
-    header{
-        color: white;
-        background-color: var( --second-color);
-        padding: 12px;
-        font-weight: bold;
-        font-size: 20px;
-        text-align: center;
-        margin-bottom: 12px;
-        border-radius: 4px;
-    }
-    .system-group-actions{
-        display: flex;
-        gap: 12px;
-        .action-search{
-            flex: 4;
+    .panel-system-group{
+        padding: var(--padding-page);
+        background-color: white;
+        border-radius: 6px;
+        header{
+            color: white;
+            background-color: var( --second-color);
+            padding: 12px;
+            font-weight: bold;
+            font-size: 20px;
+            text-align: center;
+            margin-bottom: 12px;
+            border-radius: 4px;
         }
-        .action-list{
+        .system-group-actions{
             display: flex;
-            justify-content: end;
-            flex: 8;
             gap: 12px;
-            .btn{
-                background-color: transparent;
-                border: none;
-                padding: var(--padding-page) 0;
-                width: 100px;
-                max-height: 40px;
-                border-radius: 4px;
-                cursor: pointer;
-                .icon{
-                    margin-right: 4px;
-                }
+            .action-search{
+                flex: 4;
             }
-            .green{
-                border: 1px solid green;
-                color: green;
+            .action-list{
+                display: flex;
+                justify-content: end;
+                flex: 8;
+                gap: 12px;
+               
             }
-            .red{
-                border: 1px solid red;
-                color: red;
-            }
-            .blue{
-                border: 1px solid blue;
-                color: blue;
+        }
+        .table-data-user{
+            max-width: 100%;
+            padding: 12px;
+            overflow: auto;
+
+            .rg-header-cell{
+                background-color: var(--second-color) !important;
+                color: white !important;
+                align-items: center !important;
+                justify-content: center !important;
+                display: flex !important;
+            }   
+            .rg-text-cell {
+                align-items: center !important;
+                justify-content: center !important;
+                display: flex !important;
             }
         }
     }
-    .table-data-user{
-        margin-top: 12px;
-        .rg-header-cell{
-            background-color: var(--second-color) !important;
-            color: white !important;
-            align-items: center !important;
-            justify-content: center !important;
-            display: flex !important;
-        }   
-        .rg-text-cell {
-            align-items: center !important;
-            justify-content: center !important;
-            display: flex !important;
-        }
-    }
+   
 }

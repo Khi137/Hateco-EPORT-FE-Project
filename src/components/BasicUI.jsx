@@ -1194,6 +1194,7 @@ class Mbutton extends React.Component {
       opacity: this.props.dataSource?.opacity || "20",
       size: this.props?.size || "12",
       textbutton: this.props.dataSource?.textbutton || "Button",
+      icon: this.props.dataSource?.icon || "",
     };
   }
 
@@ -1208,11 +1209,25 @@ class Mbutton extends React.Component {
     const size = this.state.size;
     if (size) {
       return {
-        padding: `${size} px`,
+        padding: `${size}px`,
       };
     }
   }
+
   render() {
+    const { icon } = this.state;
+    let IconComponent = null;
+
+    if (icon && LOL[icon]) {
+      IconComponent = React.createElement(LOL[icon], {
+        className: "m-form__icon",
+      });
+    } else {
+      IconComponent = React.createElement(LOL["BarsOutlined"], {
+        className: "m-form__icon",
+      });
+    }
+
     return (
       <div>
         <Button
@@ -1227,7 +1242,8 @@ class Mbutton extends React.Component {
           {...this.props}
           style={this.style()}
         >
-          <text className="body-lg-bold">{this.state.textbutton}</text>
+          {IconComponent}
+          <text className="body-lg-normal">{this.state.textbutton}</text>
         </Button>
       </div>
     );
@@ -1810,6 +1826,25 @@ class Mtable extends React.Component {
   };
 
   // handle reoder
+  handleColumnResize = (ci, width) => {
+    this.setState((prevState) => {
+      const updatedColumns = prevState.tableData.reactGridColumns.map(
+        (column) => {
+          if (column.columnId === ci) {
+            return { ...column, width };
+          }
+          return column;
+        }
+      );
+
+      return {
+        tableData: {
+          ...prevState.tableData,
+          reactGridColumns: updatedColumns,
+        },
+      };
+    });
+  };
 
   handleColumnsReorder = (targetColumnId, columnIds) => {
     const { tableData } = this.state;
@@ -1922,6 +1957,7 @@ class Mtable extends React.Component {
         onRowsReordered={this.handleRowsReorder}
         canReorderRows={this.handleCanReorderRows}
         onCellsChanged={this.handleCellsChanged}
+        onColumnResized={this.handleColumnResize}
         enableRowSelection
         enableColumnSelection
       ></ReactGrid>

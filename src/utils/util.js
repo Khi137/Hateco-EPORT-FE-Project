@@ -65,3 +65,19 @@ export const handleRowsReorder = (tableData, targetRowId, rowIds) => {
     reactGridRows: reorderedRows,
   };
 };
+
+export const handleRowsSearch = (reactGridRows, searchValue) => {
+  if (!searchValue) return reactGridRows;
+  const searchLower = searchValue.toLowerCase();
+  const filteredRows = reactGridRows.slice(1).filter((row) => {
+    const containerNo = row.cells[1]?.text.toLowerCase();
+    const operationCode = row.cells[2]?.text.toLowerCase();
+    const isoSizetype = row.cells[3]?.text.toLowerCase();
+    return (
+      containerNo.includes(searchLower) ||
+      operationCode.includes(searchLower) ||
+      isoSizetype.includes(searchLower)
+    );
+  });
+  return [reactGridRows[0], ...filteredRows];
+};

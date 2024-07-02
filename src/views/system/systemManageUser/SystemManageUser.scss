@@ -42,6 +42,8 @@
           background-color: var(--third-color);
           color: white;
           cursor: pointer;
+          font-size: 16px;
+          font-weight: 700;
         }
       }
     }
@@ -70,39 +72,7 @@
           flex-direction: row;
           gap: 12px;
   
-          .btn {
-            background-color: transparent;
-            border: none;
-            padding: var(--padding-page) 0;
-            width: 100px;
-            max-height: 40px;
-            border-radius: 4px;
-            cursor: pointer;
-  
-            .icon {
-              margin-right: 4px;
-            }
-          }
-  
-          .green {
-            border: 1px solid green;
-            color: green;
-          }
-  
-          .red {
-            border: 1px solid red;
-            color: red;
-          }
-  
-          .blue {
-            border: 1px solid blue;
-            color: blue;
-          }
-  
-          .black {
-            border: 1px solid black;
-            color: black;
-          }
+         
         }
   
         .line {

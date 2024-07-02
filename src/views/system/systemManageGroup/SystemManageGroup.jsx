@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import "./SystemManageGroup.scss";
-import { Msearch, Mtable } from "../../../components/BasicUI";
+import { Mbutton, Msearch, Mtable, Winput } from "../../../components/BasicUI";
 import {
   CloseCircleOutlined,
   PlusCircleOutlined,
   SaveOutlined,
+  SearchOutlined,
 } from "@ant-design/icons";
 import { ReactGrid } from "@silevis/reactgrid";
 import { Checkbox } from "antd";
@@ -183,33 +184,69 @@ export class SystemManageGroup extends Component {
   render() {
     return (
       <div className="system-group-container">
-        <header>Danh sách nhóm người dùng</header>
-        <div className="system-group-actions">
-          <div className="action-search">
-            {" "}
-            <Msearch />
+        <div className="panel-system-group">
+          <header>Danh sách nhóm người dùng</header>
+          <div className="system-group-actions">
+            <div className="action-search">
+              <Winput
+                name={"searchData"}
+                className={`form_input_field`}
+                prefix={<SearchOutlined />}
+                placeholder={"Tìm kiếm..."}
+              />
+            </div>
+            <div className="action-list">
+              <Mbutton
+                className="m_button green drop-button-shadow"
+                block
+                htmlType="submit"
+                type="primary"
+                onClick={this.handleFormSubmit}
+                ref={this.mButtonRef}
+                dataSource={{
+                  textbutton: "Thêm dòng",
+                  color: "",
+                  size: "12",
+                  icon: "PlusCircleOutlined",
+                }}
+              />
+              <Mbutton
+                className="m_button orange drop-button-shadow"
+                block
+                htmlType="submit"
+                type="primary"
+                onClick={this.handleFormSubmit}
+                ref={this.mButtonRef}
+                dataSource={{
+                  textbutton: "Xóa dòng",
+                  color: "",
+                  size: "12",
+                  icon: "MinusCircleOutlined",
+                }}
+              />
+              <Mbutton
+                className="m_button red drop-button-shadow"
+                block
+                htmlType="submit"
+                type="primary"
+                onClick={this.handleFormSubmit}
+                ref={this.mButtonRef}
+                dataSource={{
+                  textbutton: "Lưu",
+                  color: "",
+                  size: "12",
+                  icon: "SaveOutlined",
+                }}
+              />
+            </div>
           </div>
-          <div className="action-list">
-            <button className="btn green">
-              <PlusCircleOutlined className="icon" />
-              Thêm dòng
-            </button>
-            <button className="btn red">
-              <CloseCircleOutlined className="icon" />
-              Xóa dòng
-            </button>
-            <button className="btn blue">
-              <SaveOutlined className="icon" />
-              Lưu
-            </button>
+          <div className="table-data-user">
+            <ReactGrid
+              rows={this.state.tableData.reactGridRows}
+              columns={this.state.tableData.reactGridColumns}
+              customCellTemplates={{ custom: this.checkboxCellTemplate }}
+            />
           </div>
-        </div>
-        <div className="table-data-user">
-          <ReactGrid
-            rows={this.state.tableData.reactGridRows}
-            columns={this.state.tableData.reactGridColumns}
-            customCellTemplates={{ custom: this.checkboxCellTemplate }}
-          />
         </div>
       </div>
     );

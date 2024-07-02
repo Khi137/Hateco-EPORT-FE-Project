@@ -1,18 +1,29 @@
 import React, { Component } from "react";
 import "./SystemManageUser.scss";
-import { Mradio, Msearch, Mselect, Mtable } from "../../../components/BasicUI";
+import {
+  Mbutton,
+  Mradio,
+  Msearch,
+  Mselect,
+  Mtable,
+  Winput,
+} from "../../../components/BasicUI";
 import {
   CloseCircleOutlined,
   CloudDownloadOutlined,
   FileTextOutlined,
   PlusCircleOutlined,
-  PlusOutlined,
   SaveOutlined,
+  SearchOutlined,
 } from "@ant-design/icons";
-import { ReactGrid } from "@silevis/reactgrid";
-import { Checkbox } from "antd";
-import CheckboxCellTemplate from "./CellTemplate.jsx";
-let rowData = [
+import {
+  formatDateTime,
+  handleColumnsReorder,
+  handleRowsReorder,
+  handleRowsSearch,
+} from "../../../utils/util.js";
+import Empty from "../Empty.jsx";
+const tableData = [
   {
     selected: false,
     key: "1",
@@ -94,301 +105,117 @@ let rowData = [
   },
 ];
 
+function generateRandomContainerNo() {
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let result = "";
+  const charactersLength = characters.length;
+  for (let i = 0; i < 10; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
+for (let index = 0; index < 10; index++) {
+  const duplicatedData = { ...tableData[0] };
+  duplicatedData.ContainerNo = generateRandomContainerNo();
+  tableData.push(duplicatedData);
+}
+
 export class SystemManageUser extends Component {
   constructor(props) {
     super(props);
-    this.checkboxCellTemplate = new CheckboxCellTemplate();
     this.state = {
-      tableData: {
-        reactGridColumns: [
-          {
-            columnId: "checkbox",
-            width: 50,
-            resizable: true,
-            header: <Checkbox />,
-          },
-
-          { columnId: "STT", width: 50, resizable: true, header: "STT" },
-          {
-            columnId: "ContainerNumber",
-            width: 150,
-            resizable: true,
-            reorderable: true,
-            header: "Số Container",
-          },
-          {
-            columnId: "OperationCode",
-            width: 150,
-            resizable: true,
-            reorderable: true,
-            header: "Hãng Tàu",
-          },
-          {
-            columnId: "IsoSizetype",
-            width: 150,
-            resizable: true,
-            reorderable: true,
-            header: "Kích cỡ",
-          },
-          {
-            columnId: "CargoTypeName",
-            width: 150,
-            resizable: true,
-            reorderable: true,
-            header: "Full/Empty",
-          },
-          {
-            columnId: "ClassName",
-            width: 400,
-            resizable: true,
-            reorderable: true,
-            header: "Hướng",
-          },
-          {
-            columnId: "ExpDate",
-            width: 150,
-            resizable: true,
-            reorderable: true,
-            header: "Hạn Booking",
-          },
-          {
-            columnId: "Position",
-            width: 1000,
-            resizable: true,
-            reorderable: true,
-            header: "Vị trí bãi",
-          },
-          {
-            columnId: "DateIn",
-            width: 150,
-            resizable: true,
-            reorderable: true,
-            header: "Ngày vào bãi",
-          },
-          {
-            columnId: "DateOut",
-            width: 150,
-            resizable: true,
-            reorderable: true,
-            header: "Ngày ra bãi",
-          },
-          {
-            columnId: "ContainerStatusName",
-            width: 150,
-            resizable: true,
-            reorderable: true,
-            header: "Tình trạng cont",
-          },
-          {
-            columnId: "Cabc",
-            width: 150,
-            resizable: true,
-            reorderable: true,
-            header: "Tình trạng cont",
-          },
-        ],
-        reactGridRows: [
-          {
-            rowId: "header",
-            cells: [
-              { type: "header", text: "Chọn" },
-              { type: "header", text: "STT" },
-              { type: "header", text: "Số Container" },
-              { type: "header", text: "Hãng Tàu" },
-              { type: "header", text: "Kích cỡ" },
-              { type: "header", text: "Full/Empty" },
-              { type: "header", text: "Hướng" },
-              { type: "header", text: "Hạn Booking" },
-              { type: "header", text: "Vị trí bãi" },
-              { type: "header", text: "Ngày vào bãi" },
-              { type: "header", text: "Ngày ra bãi" },
-              { type: "header", text: "Tình trạng cont" },
-              { type: "header", text: "Tình trạng cont" },
-            ],
-          },
-          ...this.generateTableData(rowData),
-        ],
-      },
+      tableData: tableData,
       loadData: false,
       selectedRowKeys: [],
     };
-    this.columns = [
-      {
-        title: "STT",
-        dataIndex: "key",
-        key: "key",
-        width: 100,
-      },
-      {
-        title: "Nhóm",
-        dataIndex: "group",
-        key: "group",
-        width: 200,
-      },
-      {
-        title: "Mã cảng",
-        dataIndex: "portCode",
-        key: "portCode",
-        width: 200,
-      },
-      {
-        title: "Tên đăng nhập",
-        dataIndex: "username",
-        key: "username",
-        width: 150,
-      },
-      {
-        title: "Mật khẩu",
-        dataIndex: "password",
-        key: "password",
-        width: 100,
-      },
-      {
-        title: "Họ tên",
-        dataIndex: "name",
-        key: "name",
-        width: 250,
-      },
-      {
-        title: "CCCD/CMND",
-        dataIndex: "cardId",
-        key: "cardId",
-        width: 150,
-      },
-      {
-        title: "Địa chỉ",
-        dataIndex: "address",
-        key: "address",
-        width: 600,
-      },
-      {
-        title: "Số điện thoại",
-        dataIndex: "phone",
-        key: "phone",
-        width: 150,
-      },
-      {
-        title: "Email",
-        dataIndex: "email",
-        key: "email",
-        width: 300,
-      },
-      {
-        title: "Kinh doanh hổ trợ",
-        dataIndex: "support",
-        key: "support",
-        width: 500,
-      },
-      {
-        title: "Trạng thái",
-        dataIndex: "status",
-        key: "status",
-        width: 150,
-      },
-    ];
   }
 
-  getColumns = () => [
-    {
-      columnId: "checkbox",
-      width: 50,
-      resizable: true,
-      header: <Checkbox />,
-    },
+  handleLoadData = () => {
+    this.setState((prev) => ({
+      loadData: !prev.loadData,
+    }));
+  };
 
-    { columnId: "STT", width: 50, resizable: true, header: "STT" },
-    {
-      columnId: "ContainerNumber",
-      width: 150,
-      resizable: true,
-      reorderable: true,
-      header: "Số Container",
-    },
-    {
-      columnId: "OperationCode",
-      width: 150,
-      resizable: true,
-      reorderable: true,
-      header: "Hãng Tàu",
-    },
-    {
-      columnId: "IsoSizetype",
-      width: 150,
-      resizable: true,
-      reorderable: true,
-      header: "Kích cỡ",
-    },
-    {
-      columnId: "CargoTypeName",
-      width: 150,
-      resizable: true,
-      reorderable: true,
-      header: "Full/Empty",
-    },
-    {
-      columnId: "ClassName",
-      width: 150,
-      resizable: true,
-      reorderable: true,
-      header: "Hướng",
-    },
-    {
-      columnId: "ExpDate",
-      width: 150,
-      resizable: true,
-      reorderable: true,
-      header: "Hạn Booking",
-    },
-    {
-      columnId: "Position",
-      width: 150,
-      resizable: true,
-      reorderable: true,
-      header: "Vị trí bãi",
-    },
-    {
-      columnId: "DateIn",
-      width: 150,
-      resizable: true,
-      reorderable: true,
-      header: "Ngày vào bãi",
-    },
-    {
-      columnId: "DateOut",
-      width: 150,
-      resizable: true,
-      reorderable: true,
-      header: "Ngày ra bãi",
-    },
-    {
-      columnId: "ContainerStatusName",
-      width: 150,
-      resizable: true,
-      reorderable: true,
-      header: "Tình trạng cont",
-    },
-    {
-      columnId: "Cabc",
-      width: 150,
-      resizable: true,
-      reorderable: true,
-      header: "Tình trạng cont",
-    },
-  ];
+  render() {
+    const columnsFormat = [
+      { columnId: "STT", width: 50, resizable: true, header: "STT" },
+      {
+        columnId: "Group",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "Nhóm",
+      },
+      {
+        columnId: "Code",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "Mã cảng",
+      },
+      {
+        columnId: "Username",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "Tên đăng nhập",
+      },
+      {
+        columnId: "Password",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "Mật khẩu",
+      },
+      {
+        columnId: "FullName",
+        width: 500,
+        resizable: true,
+        reorderable: true,
+        header: "Họ và tên",
+      },
+      {
+        columnId: "CardId",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "CCCD",
+      },
+      {
+        columnId: "Address",
+        width: 1000,
+        resizable: true,
+        reorderable: true,
+        header: "Địa chỉ",
+      },
+      {
+        columnId: "Phone",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "Số điện thoại",
+      },
+      {
+        columnId: "Email",
+        width: 300,
+        resizable: true,
+        reorderable: true,
+        header: "Email",
+      },
+      {
+        columnId: "Support",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "Hổ trợ",
+      },
+    ];
 
-  generateRowData = (container, index) => {
-    return {
-      rowId: String(index + 1),
-      cells: [
-        {
-          type: "custom",
-          value: {
-            checked: container.selected,
-            rowId: container.key,
-          },
-        },
-        { type: "text", nonEditable: true, text: container?.key || "" },
-        { type: "text", nonEditable: false, text: container?.group || "" },
+    const rowsFormat = (container, index) => {
+      return [
+        { type: "text", nonEditable: true, text: String(index + 1) },
+        { type: "text", nonEditable: true, text: container?.group || "" },
         {
           type: "text",
           nonEditable: true,
@@ -400,7 +227,6 @@ export class SystemManageUser extends Component {
           nonEditable: true,
           text: container?.password || "",
         },
-
         { type: "text", nonEditable: true, text: container?.name || "" },
         {
           type: "text",
@@ -427,101 +253,23 @@ export class SystemManageUser extends Component {
           nonEditable: true,
           text: container?.support || "",
         },
-        {
-          type: "text",
-          nonEditable: true,
-          text: container?.status || "",
-        },
-      ],
-    };
-  };
-
-  generateTableData = (dataList) => {
-    const generateData = dataList.map((container, index) =>
-      this.generateRowData(container, index)
-    );
-    return generateData;
-  };
-
-  handleRowSelect = (e) => {
-    const target = e[0].first.row;
-    this.setState((prevState) => {
-      const alreadySelected = prevState.selectedRowKeys.includes(target);
-      const selectedRowKeys = alreadySelected
-        ? prevState.selectedRowKeys.filter((key) => key !== target)
-        : [...prevState.selectedRowKeys, target];
-
-      return { selectedRowKeys };
-    });
-  };
-
-  handleSelectAll = () => {
-    const updatedRows = rowData.map((row) => ({ ...row, selected: true }));
-    this.setState({
-      tableData: {
-        ...this.state.tableData,
-        reactGridRows: this.generateTableData(updatedRows),
-      },
-    });
-  };
-
-  handleDeleteSelected = () => {
-    const filteredRows = rowData.filter((row) => !row.selected);
-    this.setState({
-      tableData: {
-        ...this.state.tableData,
-        reactGridRows: this.generateTableData(filteredRows),
-      },
-    });
-  };
-
-  handleLoadData = () => {
-    this.setState((prev) => ({
-      loadData: !prev.loadData,
-    }));
-  };
-
-  handleAddRow = () => {
-    const newKey = (rowData.length + 1).toString();
-    const newRow = {
-      key: newKey,
-      group: "",
-      portCode: "",
-      username: "",
-      password: null,
-      name: "",
-      cardId: null,
-      address: "",
-      phone: "",
-      email: "",
-      support: null,
-      status: false,
-    };
-    rowData = [...rowData, newRow];
-    const updatedTableData = {
-      reactGridColumns: this.state.tableData.reactGridColumns,
-      reactGridRows: [
-        ...this.state.tableData.reactGridRows,
-        this.generateRowData(newRow, rowData.length - 1),
-      ],
+      ];
     };
 
-    this.setState({
-      tableData: updatedTableData,
-    });
-  };
+    const rowsHeader = [
+      { type: "header", text: "STT" },
+      { type: "header", text: "Nhóm" },
+      { type: "header", text: "Mã cảng" },
+      { type: "header", text: "Tên đăng nhập" },
+      { type: "header", text: "Mật khẩu" },
+      { type: "header", text: "Họ và tên" },
+      { type: "header", text: "CCCD" },
+      { type: "header", text: "Địa chỉ" },
+      { type: "header", text: "Số điện thoại" },
+      { type: "header", text: "Email" },
+      { type: "header", text: "Hổ trợ" },
+    ];
 
-  onSelectChange = (selectedRowKeys) => {
-    this.setState({ selectedRowKeys });
-  };
-
-  render() {
-    const { loadData, selectedRowKeys } = this.state;
-    const rowSelection = {
-      selectedRowKeys,
-      onChange: this.onSelectChange,
-    };
-    console.log(selectedRowKeys);
     return (
       <div className="systemManageUser-container">
         <div className="panel-left">
@@ -556,8 +304,18 @@ export class SystemManageUser extends Component {
             <button className="button-load-data" onClick={this.handleLoadData}>
               <CloudDownloadOutlined /> Nạp dữ liệu
             </button>
+            {/* <Mbutton
+              color=""
+              className="m_button third"
+              type="primary"
+              htmlType="submit"
+              block
+              onClick={this.handleLoadData}
+              size={"12"}
+              dataSource={{ textbutton: "Nạp dữ liệu" }}
+            /> */}
           </div>
-          <div>
+          <div style={{ padding: "0 12px" }}>
             <Mradio
               dataSource={{
                 label: "Select an option",
@@ -575,35 +333,90 @@ export class SystemManageUser extends Component {
           <div className="action-right">
             <div className="header-action">
               <div className="search">
-                <Msearch />
+                <Winput
+                  name={"searchData"}
+                  className={`form_input_field`}
+                  prefix={<SearchOutlined />}
+                  placeholder={"Tìm kiếm..."}
+                />
               </div>
               <div className="lists-action">
-                <button className="btn green" onClick={this.handleAddRow}>
-                  <PlusCircleOutlined className="icon" />
-                  Thêm dòng
-                </button>
-                <button className="btn red" onClick={this.handleDeleteRow}>
-                  <CloseCircleOutlined className="icon" />
-                  Xóa dòng
-                </button>
-                <button className="btn blue">
-                  <SaveOutlined className="icon" />
-                  Lưu
-                </button>
-                <button className="btn black">
-                  <FileTextOutlined className="icon" />
-                  Xuất excel
-                </button>
+                <Mbutton
+                  className="m_button green drop-button-shadow"
+                  block
+                  htmlType="submit"
+                  type="primary"
+                  onClick={this.handleFormSubmit}
+                  ref={this.mButtonRef}
+                  dataSource={{
+                    textbutton: "Thêm dòng",
+                    color: "",
+                    size: "12",
+                    icon: "PlusCircleOutlined",
+                  }}
+                />
+                <Mbutton
+                  className="m_button orange drop-button-shadow"
+                  block
+                  htmlType="submit"
+                  type="primary"
+                  onClick={this.handleFormSubmit}
+                  ref={this.mButtonRef}
+                  dataSource={{
+                    textbutton: "Xóa dòng",
+                    color: "",
+                    size: "12",
+                    icon: "MinusCircleOutlined",
+                  }}
+                />
+                <Mbutton
+                  className="m_button red drop-button-shadow"
+                  block
+                  htmlType="submit"
+                  type="primary"
+                  onClick={this.handleFormSubmit}
+                  ref={this.mButtonRef}
+                  dataSource={{
+                    textbutton: "Lưu",
+                    color: "",
+                    size: "12",
+                    icon: "SaveOutlined",
+                  }}
+                />
+                <Mbutton
+                  className="m_button third_border drop-button-shadow"
+                  block
+                  htmlType="submit"
+                  type="primary"
+                  onClick={this.handleFormSubmit}
+                  ref={this.mButtonRef}
+                  dataSource={{
+                    textbutton: "Xuất file excel",
+                    color: "",
+                    size: "12",
+                    icon: "FileExcelOutlined",
+                  }}
+                />
               </div>
             </div>
 
             <div className="line">Danh sách người dùng</div>
             <div className="table-data-user">
-              <ReactGrid
-                rows={this.state.tableData.reactGridRows}
-                columns={this.state.tableData.reactGridColumns}
-                customCellTemplates={{ custom: this.checkboxCellTemplate }}
-              />
+              {this.state.loadData ? (
+                <Mtable
+                  tableData={this.state.tableData}
+                  columnsFormat={columnsFormat}
+                  rowsFormat={rowsFormat}
+                  rowsHeader={rowsHeader}
+                  reoderRow={true}
+                />
+              ) : (
+                <Empty
+                  text={
+                    "Dữ liệu đang trống vui lòng chọn thông tin và nạp dữ liệu..."
+                  }
+                />
+              )}
             </div>
           </div>
         </div>
