@@ -44,6 +44,8 @@ import {
 
 import * as LOL from "@ant-design/icons";
 import moment from "moment";
+import { ReactGrid } from "@silevis/reactgrid";
+import { handleColumnsReorder, handleRowsReorder } from "../utils/util";
 
 export {
   Mcollapse,
@@ -821,6 +823,7 @@ export class Winput extends React.Component {
     this.inputRef = React.createRef();
     this.state = {
       value: this.props.value || "",
+      error: "",
     };
   }
 
@@ -828,32 +831,87 @@ export class Winput extends React.Component {
     this.inputRef.current.value = this.state.value;
   }
 
-  handleChange = (event) => {
+  checkError = (value) => {
+    if (this.props.require && value === "")
+      return `${this.props.title} không được để trống`;
+    if (value.length < (this.props.minLength || 0))
+      return `${this.props.title} phải có ít nhất ${this.props.minLength} ký tự`;
+    if (this.props.submitRegex && !this.props.submitRegex.test(value))
+      return `${this.props.title} không đúng định dạng`;
+    return false;
+  };
+
+  handleCheckError = () => {
+    const error = this.checkError(this.state.value);
+    this.setState({ error });
+    if (this.props.checkError) {
+      this.props.checkError(error);
+    }
+  };
+
+  handleSetError = (error) => {
+    this.setState({ error });
+    if (this.props.checkError) {
+      this.props.checkError(error);
+    }
+  };
+
+  handleChange = (event, regex) => {
     const { value } = event.target;
-    this.setState({ value });
-    if (this.props.onChange) {
-      this.props.onChange(event);
+
+    if (regex && !regex.test(value)) {
+      return;
+    } else {
+      this.setState({ value });
+      if (this.props.onChange) {
+        this.props.onChange(event);
+      }
     }
   };
 
   render() {
-    const { className, errorText, ...otherProps } = this.props;
+    const {
+      className,
+      regex,
+      minLength,
+      require,
+      tooltip,
+      title,
+      ...otherProps
+    } = this.props;
+    const { value, error } = this.state;
     return (
-      <>
+      <Col className="winput">
+        {(title || tooltip) && (
+          <Row className="winput_header">
+            {title && (
+              <Col>
+                {title} <span className="winput_require">*</span>
+              </Col>
+            )}
+            {tooltip && (
+              <Tooltip
+                placement="top"
+                title={tooltip}
+                className="winput_tooltip"
+              >
+                <LOL.InfoCircleOutlined />
+              </Tooltip>
+            )}
+          </Row>
+        )}
         <Input
-          ref={this.inputRef} // Attach Ref to the input element
+          ref={this.inputRef}
           {...otherProps}
-          value={this.state.value}
-          onChange={(dt) => {
-            typeof this.props.onChange == "function"
-              ? (this.props.onChange(dt) || dt.target.value === "") &&
-                this.handleChange(dt)
-              : this.handleChange(dt);
-          }}
-          className={"Winput " + (className || "")}
+          value={value}
+          className={`Winput ${error ? "error_input " : ""} ${className || ""}`}
+          onChange={(e) => this.handleChange(e, this.props.inputRegex)}
+          onBlur={this.handleCheckError}
         />
-        <Row className="Winput_error_text">{errorText && errorText}</Row>
-      </>
+        {(require || regex || minLength) && (
+          <Row className="Winput_error_text">{error}</Row>
+        )}
+      </Col>
     );
   }
 }
@@ -1150,7 +1208,7 @@ class Mbutton extends React.Component {
     const size = this.state.size;
     if (size) {
       return {
-        padding: `${size}px`,
+        padding: `${size} px`,
       };
     }
   }
@@ -1683,10 +1741,191 @@ class Mselectsearch extends React.Component {
 class Mtable extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      data: this.props.tableData,
+      tableData: {
+        reactGridColumns: [...this.generateColumnsData()],
+        reactGridRows: [
+          this.generateRowsHeader(),
+          ...this.generateTableData(this.props.tableData || []),
+        ],
+      },
+    };
   }
 
+  // hanlde change data
+  handleCellsChanged = (changes) => {
+    const rows = this.state.tableData.reactGridRows.map((row) => ({
+      ...row,
+      cells: row.cells?.map((cell) => ({ ...cell })),
+    }));
+
+    let updatedData = [...this.state.data];
+    let changedObjects = [];
+
+    changes.forEach((change) => {
+      const row = rows?.find((r) => r.rowId === change.rowId);
+      if (row) {
+        const columnIndex = this.state.tableData.reactGridColumns.findIndex(
+          (col) => col.columnId === change.columnId
+        );
+        if (columnIndex >= 0) {
+          const cell = row.cells[columnIndex];
+          if (change?.newCell?.type === "checkbox") {
+            cell.checked = change?.newCell?.checked;
+          } else {
+            cell.text = change?.newCell?.text;
+          }
+
+          // Find the corresponding object in the state.data array
+          const dataIndex = parseInt(change.rowId, 10) - 1;
+          if (updatedData[dataIndex]) {
+            const columnKey =
+              this.state.tableData.reactGridColumns[columnIndex].columnId;
+            updatedData[dataIndex] = {
+              ...updatedData[dataIndex],
+              [columnKey]:
+                change?.newCell?.type === "checkbox"
+                  ? change?.newCell?.checked
+                  : change?.newCell?.text,
+            };
+
+            changedObjects.push(updatedData[dataIndex]);
+          }
+        }
+      }
+    });
+
+    this.setState((prevState) => ({
+      tableData: {
+        ...prevState.tableData,
+        reactGridRows: rows,
+      },
+      data: updatedData,
+    }));
+
+    // if (this.props.hanldeChangeTableData) {
+    //   hanldeChangeTableData(changedObjects);
+    // }
+  };
+
+  // handle reoder
+
+  handleColumnsReorder = (targetColumnId, columnIds) => {
+    const { tableData } = this.state;
+    const updatedTableData = handleColumnsReorder(
+      tableData,
+      targetColumnId,
+      columnIds
+    );
+    this.setState({ tableData: updatedTableData });
+  };
+
+  handleRowsReorder = (targetRowId, rowIds) => {
+    const { tableData } = this.state;
+    const updatedTableData = handleRowsReorder(tableData, targetRowId, rowIds);
+    this.setState({ tableData: updatedTableData });
+  };
+
+  handleCanReorderRows = (targetRowId, rowIds) => {
+    return targetRowId !== "header";
+  };
+
+  // format data
+
+  generateColumnsData = () => {
+    let columnsData = [];
+    this.props.columnsFormat
+      ? (columnsData = this.props.columnsFormat)
+      : (columnsData = [
+          { columnId: "STT", width: 50, resizable: true, header: "STT" },
+          {
+            columnId: "ContainerStatusName",
+            width: 125,
+            resizable: true,
+            reorderable: true,
+            header: "Tình trạng",
+          },
+          {
+            columnId: "ContainerNo",
+            width: 150,
+            resizable: true,
+            reorderable: true,
+            header: "Số Container",
+          },
+        ]);
+    return columnsData;
+  };
+
+  generateRowsHeader = () => {
+    if (this.props.rowsHeader) {
+      return {
+        rowId: "header",
+        cells: this.props.rowsHeader,
+      };
+    } else {
+      return {
+        rowId: "header",
+        cells: [
+          { type: "header", text: "STT" }, // 1
+          { type: "header", text: "Tình trạng" }, // 2
+          { type: "header", text: "Số Container" }, // 3
+        ],
+      };
+    }
+  };
+
+  generateRowData = (container, index) => {
+    if (this.props.rowsFormat) {
+      return {
+        rowId: String(index + 1),
+        reorderable: Boolean(this.props.reorderable),
+        cells: this.props.rowsFormat(container, index),
+      };
+    } else {
+      return {
+        rowId: String(index + 1),
+        reorderable: this.props.reoderRow,
+        cells: [
+          { type: "text", nonEditable: true, text: String(index + 1) },
+          {
+            type: "text",
+            nonEditable: true,
+            text: container?.ContainerStatusName || "",
+          },
+          {
+            type: "text",
+            nonEditable: true,
+            text: container?.ContainerNo || "",
+          },
+        ],
+      };
+    }
+  };
+
+  generateTableData = (dataList) => {
+    const generateData = dataList?.map((container, index) =>
+      this.generateRowData(container, index)
+    );
+    return generateData;
+  };
+
   render() {
-    return <Table scroll={{ x: 2500, y: 400 }} {...this.props}></Table>;
+    const { tableData } = this.state;
+    return (
+      <ReactGrid
+        {...this.props}
+        rows={tableData.reactGridRows}
+        columns={tableData.reactGridColumns}
+        stickyTopRows={1}
+        onColumnsReordered={this.handleColumnsReorder}
+        onRowsReordered={this.handleRowsReorder}
+        canReorderRows={this.handleCanReorderRows}
+        onCellsChanged={this.handleCellsChanged}
+        enableRowSelection
+        enableColumnSelection
+      ></ReactGrid>
+    );
   }
 }
 
@@ -2038,8 +2277,8 @@ class Minput extends React.Component {
                 ? ""
                 : this.state.value + ""
               ).length > 0
-                ? "m-form__label m-form__label--focus"
-                : "m-form__label"
+                ? "m-form__label m-form__label--focus body-lg-normal"
+                : "m-form__label body-lg-normal"
             }
           >
             {data?.label || ""}
@@ -2535,7 +2774,6 @@ class Mselect extends React.Component {
 
   handleChange(e) {
     const { value } = e.target;
-
     this.setState({ value });
 
     const returnvalue = {

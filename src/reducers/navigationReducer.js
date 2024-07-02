@@ -364,13 +364,13 @@ const initialState = [
       {
         id: "tracuu-01",
         text: "Tra cứu thông tin container",
-        url: "/tra-cứu-thông-tin-container",
+        url: "/tracking/tracking_container",
         icon: "RadiusBottomleftOutlined",
       },
       {
         id: "tracuu-02",
         text: "Tra cứu danh sách container",
-        url: "/tra-cứu-danh-sách-container",
+        url: "/tracking/tracking_container_list",
         icon: "FileSearchOutlined",
       },
       {
@@ -382,19 +382,19 @@ const initialState = [
       {
         id: "tracuu-04",
         text: "Tra cứu vận đơn (BillNo)",
-        url: "/tra-cứu-vận-đơn",
+        url: "/tracking/tracking_bill",
         icon: "FileSearchOutlined",
       },
       {
         id: "tracuu-05",
         text: "Tra cứu booking",
-        url: "/tra-cứu-booking",
+        url: "/tracking/tracking_booking",
         icon: "FileSearchOutlined",
       },
       {
         id: "tracuu-06",
         text: "Tra cứu thông tin số HouseBill",
-        url: "/tra-cứu-thông-tin-số-housebill",
+        url: "/tracking/tracking_housebill",
         icon: "LaptopOutlined",
       },
       {
@@ -413,6 +413,12 @@ const initialState = [
         id: "tracuu-09",
         text: "Tra cứu thời gian thực hiện",
         url: "/tra-cứu-thời-gian-thực-hiện",
+        icon: "CarryOutOutlined",
+      },
+      {
+        id: "tracuu-10",
+        text: "Tra cứu Edo",
+        url: "/tracking/tracking_edo",
         icon: "CarryOutOutlined",
       },
     ],

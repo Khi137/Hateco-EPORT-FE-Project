@@ -1,54 +1,38 @@
 import React, { Component, createRef } from 'react';
 import { Row, Col, Typography, Tooltip } from 'antd';
 import { InfoCircleOutlined, MailOutlined, LockOutlined } from '@ant-design/icons';
-import './styles.scss'
+import './styles.scss';
 
-import { Mbutton, Mcheckbox, Winput } from "../../components/BasicUI"
+import { Mbutton, Mcheckbox, Winput } from "../../components/BasicUI";
 import { withRouter } from '../../utils/withRouter';
 import { NavLink } from 'react-router-dom';
 
 class Login extends Component {
-
-
     constructor(props) {
         super(props);
         this.state = {
             formData: {
                 user: "",
                 password: "",
-                userError: false,
-                passwordError: false,
+                userError: true,
+                passwordError: true,
                 remember: false,
             }
         };
         this.mButtonRef = createRef();
+
+        this.userRef = createRef();
+        this.passwordRef = createRef();
     }
 
-    handleInputChange = (e, regex) => {
+    handleInputChange = (e) => {
         const { name, value } = e.target;
-
-        if (value === "") {
-            this.setState(prevState => ({
-                formData: {
-                    ...prevState.formData,
-                    [name]: value
-                }
-            }));
-            return value
-        }
-
-        if (regex && !regex.test(value)) {
-            console.error(`Value does not match the regex: ${regex}`);
-            return
-        } else {
-            this.setState(prevState => ({
-                formData: {
-                    ...prevState.formData,
-                    [name]: value
-                }
-            }));
-        }
-        return value
+        this.setState(prevState => ({
+            formData: {
+                ...prevState.formData,
+                [name]: value
+            }
+        }));
     };
 
     handleCheckboxChange = (value) => {
@@ -60,89 +44,53 @@ class Login extends Component {
         }));
     };
 
-    checkUserError = (value) => {
-        switch (true) {
-            case (value === ""):
-                return "Tên đăng nhập không được để trống"
-
-            default:
-                return false
-        }
-    }
-
-    checkPasswordError = (value) => {
-        switch (true) {
-            case (value === ""):
-                return "Mật khẩu không được để trống";
-            case (value.length < 6):
-                return "Mật khẩu ít nhất có 6 ký tự";
-            default:
-                return false;
-        }
-    }
-
     handleFormSubmit = () => {
-        const formData = this.state.formData
-        if (
-            !this.checkUserError(formData.user) &&
-            !this.checkPasswordError(formData.password)
-        ) {
-            console.log('Form Data:', {
-                user: formData.user,
-                password: formData.password,
-                remember: formData.remember,
-            });
-            if (this.mButtonRef.current) {
-                this.mButtonRef.current.loading();
-            }
-            setTimeout(() => {
-                if (this.mButtonRef.current) {
-                    this.mButtonRef.current.reset();
-                    this.props.navigate('/')
-                }
-            }, 2000);
+        const formData = this.state.formData;
+        if (formData.userError || formData.passwordError) {
+            this.userRef.current.handleCheckError()
+            this.passwordRef.current.handleCheckError()
+            return
         }
-        this.setState(prevState => ({
-            formData: {
-                ...prevState.formData,
-                userError: this.checkUserError(formData.user),
-                passwordError: this.checkPasswordError(formData.password),
-            }
-        }));
-    };
 
-    handleOnblurCheck = (field, checkfunction) => {
-        this.setState(prevState => ({
-            formData: {
-                ...prevState.formData,
-                [field]: checkfunction ? checkfunction() : false
+        if (this.mButtonRef.current) {
+            this.mButtonRef.current.loading();
+        }
+        setTimeout(() => {
+            if (this.mButtonRef.current) {
+                this.mButtonRef.current.reset();
+                this.props.navigate('/')
             }
-        }));
+        }, 2000);
     };
 
     renderInputField = (item, key) => {
         return (
-            <Col className="form_item " key={key}>
-                <Row className="item_header">
-                    <Col>{item?.title} <span className="item_require">*</span></Col>
-                    <Tooltip placement="top" title={item?.tooltip} className="item_tooltip">
-                        <InfoCircleOutlined />
-                    </Tooltip>
-                </Row>
+            <Col className="form_item" key={key}>
                 <Winput
+                    title={item?.title}
+                    value={item.value}
+                    tooltip={item.tooltip}
+                    onChange={(e) => this.handleInputChange(e)}
+                    checkError={(error) => this.setState(prevState => ({
+                        formData: {
+                            ...prevState.formData,
+                            [item?.name + "Error"]: error
+                        }
+                    }))}
+                    require={item.require}
+                    inputRegex={item.regex}
+                    minLength={item.minLength}
+
                     name={item?.name}
                     type={item?.type}
-                    className={`form_input_field ${item?.error ? 'error_input' : ''}`}
+                    className={`form_input_field`}
                     prefix={item?.inputIcon}
                     placeholder={item?.placeholder}
-                    value={item?.value}
-                    onChange={(e) => this.handleInputChange(e, item?.regex)}
-                    errorText={item?.error && item?.error}
-                    onBlur={(e) => this.handleOnblurCheck(item?.name + "Error", item?.checkFunction)}
+                    ref={item.ref}
                 />
             </Col>
-        )
-    }
+        );
+    };
 
     render() {
         const { formData } = this.state;
@@ -156,30 +104,33 @@ class Login extends Component {
         const inputForm = [
             {
                 title: "Tên đăng nhập",
+                value: formData.user,
+                require: true,
+
                 tooltip: "Email, sđt hoặc username",
                 placeholder: "Email, sđt hoặc username",
                 inputIcon: <MailOutlined />,
                 name: "user",
                 type: "text",
-                value: formData.user,
-                error: formData.userError,
-                checkFunction: () => this.checkUserError(formData.user)
+                ref: this.userRef
             },
             {
                 title: "Nhập mật khẩu",
+                value: formData.password,
+                require: true,
+                minLength: 6,
+
                 tooltip: "Nhập mật khẩu",
                 placeholder: "Nhập mật khẩu",
                 inputIcon: <LockOutlined />,
                 name: "password",
                 type: "password",
-                value: formData.password,
-                error: formData.passwordError,
-                checkFunction: () => this.checkPasswordError(formData.password)
+                ref: this.passwordRef
             },
-        ]
+        ];
 
         return (
-            <Col className='login_container' >
+            <Col className='login_container'>
                 <Row className="login_content">
                     <Col
                         name="login_form"
@@ -216,9 +167,9 @@ class Login extends Component {
                         </Row>
                     </Col>
                 </Row>
-            </Col >
-        )
+            </Col>
+        );
     }
 }
 
-export default withRouter(Login)
+export default withRouter(Login);

@@ -14,7 +14,7 @@ $color-surface-700: #4f575e;
 $color-surface-800: #33383d;
 $color-surface-900: #202327;
 $color-primary: #1c1c54;
-$color-second: #d2c5ff;
+$color-second: #0065A1;
 $color-third: #00b1cc;
 $color-fourth: #5ffbd6;
 
@@ -263,13 +263,12 @@ $caption-line-height: 14px;
 //Mradio Buttons
 
 
-//Mradio: theme=light, size=md, padding=on
+//Mradio
 .ant-radio-group {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
+  justify-content: space-between;
 }
+
 .ant-radio-wrapper {
   font-family: $main-font !important;
   font-size: 14px !important;
@@ -301,16 +300,41 @@ $caption-line-height: 14px;
 
 // Winput
 
-.Winput.error_input {
-  border-color: #C92929;
-  // padding: 0 5px;
-}
+.winput {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
 
-.Winput_error_text {
-  height: 16px;
-  margin-top: 4px;
-  font-size: 12px;
-  color: red;
+  .winput_header {
+    margin-bottom: 12px;
+
+    .winput_tooltip {
+      margin: 0 5px;
+    }
+
+    .winput_require {
+      color: red;
+    }
+  }
+
+  .ant-input {
+    width: 100%;
+    height: 100% !important;
+    margin: auto 0;
+  }
+
+  .Winput.error_input {
+    border-color: #C92929;
+    // padding: 0 5px;
+  }
+
+  .Winput_error_text {
+    width: 100%;
+    height: 16px;
+    margin-top: 4px;
+    font-size: 12px;
+    color: red;
+  }
 }
 
 //Minput
@@ -318,12 +342,10 @@ $caption-line-height: 14px;
 .m-form__input {
   font-family: $main-font !important;
   font-size: 12px;
-  position: relative;
-  display: inline-block;
   background: initial !important;
   width: 100%;
   border-width: 0 !important;
-  margin-bottom: 24px;
+
 
   .m-form__label {
     color: #4f575e;
@@ -371,45 +393,41 @@ $caption-line-height: 14px;
 }
 
 //Msearch
+
 .m-form__input {
-  position: relative;
   .ant-input {
-    position: relative;
     width: 100%;
     height: 100%;
     border: 2px solid lightgray;
     padding: 8px 8px 8px 48px;
+
     &:hover {
       border-color: $color-third;
-      
     }
-    
 
     &:focus {
       outline: none;
       border-color: $color-third;
     }
-  
   }
+
   .ant__search-icon {
     position: absolute;
     font-size: 20px;
     top: 20%;
     color: lightgray;
     left: 12px;
-
   }
 
-  .m-form__select{
+  .m-form__select {
     height: 40px !important;
     width: 100%;
     border: 2px solid lightgray;
-    border-radius: 4px ;
+    border-radius: 4px;
+
     &:hover {
       border-color: $color-third;
-      
     }
-    
 
     &:focus {
       outline: none;
@@ -503,6 +521,20 @@ $caption-line-height: 14px;
     &:active {
       background-color: #f2ab53;
     }
+  }
+}
+
+.m_button.second {
+  background-color: $color-second;
+  color: white;
+
+  &:hover {
+    background-color: $color-second !important;
+    color: white !important;
+  }
+
+  &:active {
+    background-color: $color-second !important;
   }
 }
 
@@ -600,7 +632,10 @@ $caption-line-height: 14px;
 
 //SCSS of ShowComponent.jsx
 .component-bodylayout {
-  padding: 100px 25% 100px 25%;
+  width: 80%;
+  // padding: 100px 25% 100px 25%;
+  margin: 0 auto;
+  padding-bottom: 10%;
 }
 
 .typography-container {
@@ -643,48 +678,44 @@ $caption-line-height: 14px;
 }
 
 .component-mbutton {
-  width: auto;
+  width: 100%;
 
   .component-mbutton-1 {
     border-top-left-radius: 10px;
     padding: 50px;
     background-color: $color-dark-50;
-    float: left;
+    // float: left;
   }
 
   .component-mbutton-2 {
     border-top-right-radius: 10px;
     padding: 50px;
     background-color: $color-dark-50;
-    float: left;
+    // float: left;
   }
 }
 
 // Mtable
-.m_table {
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 6px;
-  overflow: hidden;
-}
+.reactgrid {
+  border: 1px solid #ddd;
+  border-radius: 4px;
 
-.ant-table-cell-ellipsis {
-  overflow: visible !important;
-}
+  .rg-row {
+    border-bottom: 1px solid #ddd;
+  }
 
-.table-row-light {
-  background-color: #ffffff;
-}
+  .rg-header-cell {
+    background-color: var(--second-color) !important;
+    color: white !important;
+    align-items: center !important;
+    justify-content: center !important;
+    display: flex !important;
+    font-weight: bold !important;
+  }
 
-.table-row-dark {
-  background-color: #f5f5f5;
-}
-
-.table-row-selected {
-  border: 1px solid rgb(30, 30, 30, 30.3);
-  background-color: #CBCFD2;
-  box-shadow: 0 8px 8px 0 rgb(18, 18, 18, 0.2) inset !important;
-
-  .ant-table-cell-row-hover {
-    background-color: rgba(0, 0, 0, 0) !important;
+  .rg-text-cell {
+    align-items: center !important;
+    justify-content: center !important;
+    display: flex !important;
   }
 }

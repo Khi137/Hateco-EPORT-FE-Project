@@ -21,6 +21,131 @@ import * as LOL from "@ant-design/icons";
 import { ReactGrid, Column, Row, CellChange } from "@silevis/reactgrid";
 import "@silevis/reactgrid/styles.css";
 
+const tableData = [
+  {
+    Rowguid: "20383CFB-35E4-454E-BA7E-C112ADE17335",
+    TerminalCode: null,
+    VesselKey: "TBA",
+    VesselImVoy: null,
+    VesselExVoy: null,
+    ETB: null,
+    ETD: null,
+    BargeKey: null,
+    BargeImVoy: null,
+    BargeExVoy: null,
+    DeliveryOrder: null,
+    BLNo: null,
+    BookingNo: "50940502",
+    HousebillNo: null,
+    ContainerNo: "TCNU8698362",
+    ClassCode: "3",
+    OperationCode: "HLC",
+    FE: "F",
+    ContainerStatusCode: "D",
+    CargoTypeCode: "GP",
+    Commodity: null,
+    LocalSizetype: "4500",
+    IsoSizetype: "45G0",
+    IsLocalForeign: "F",
+    JobModeCodeIn: "HBAI",
+    MethodCodeIn: "T",
+    DateIn: "2021-04-10T19:44:22.000Z",
+    DateOut: "2021-04-14T12:54:30.000Z",
+    JobModeCodeOut: "LAYN",
+    MethodCodeOut: "V",
+    EirInNo: null,
+    EirOutNo: null,
+    StuffNo: null,
+    UnstuffNo: null,
+    ServiceNo: null,
+    DraftNo: null,
+    InvoiceNo: null,
+    Block: "A6",
+    Bay: "06",
+    Row: "02",
+    Tier: "4",
+    Area: null,
+    VGM: true,
+    MCWeight: null,
+    TareWeight: null,
+    Sealno: null,
+    Sealno1: null,
+    Sealno2: "8256247",
+    POL: "VNHPH",
+    POD: "VNHPH",
+    FPOD: null,
+    TransitCode: null,
+    TransitPort: null,
+    Temperature: null,
+    Vent: null,
+    VentUnit: null,
+    Class: null,
+    Unno: null,
+    OogTop: null,
+    OogLeft: null,
+    OogRight: null,
+    OogBack: null,
+    OogFront: null,
+    CusHold: false,
+    TerHold: false,
+    TerHoldReason: null,
+    IsReturnBack: false,
+    IsSpecialWarning: false,
+    SpecialWarning: null,
+    ContainerCondition: null,
+    IsTruckBarge: "T",
+    TruckNo: null,
+    RemoocNo: null,
+    Note: null,
+    ID_TOS: "0000000671104",
+    CreatedBy: "catos_ndv",
+    CreatedTime: "2021-04-06T10:36:05.000Z",
+    ModifiedBy: "catos_ndv",
+    ModifiedTime: "2021-04-06T10:37:01.000Z",
+    MaxGrossWeight: null,
+    XuatNeo: null,
+    XuatPhao: null,
+    ClassName: "Export",
+    CargoTypeName: "General",
+    ContainerStatusName: "Delivered",
+    BookingType: true,
+    BookingDate: "2021-04-06T10:35:25.000Z",
+    ExpDate: null,
+    BookingAmount: 1,
+    StackingAmount: 0,
+    ShipperName: "shipperName",
+    BookingStatus: 0,
+    VesselName: "To Be Assign",
+    Humidity: null,
+    O2: null,
+    CO2: null,
+    BookingReleaseDate: null,
+    UserGroupRank: null,
+    OperationName: "CÔNG TY TNHH HAPAG- LLOYD  (VIET NAM)",
+    CallSign: null,
+    VETB: "2017-02-01T00:00:00.000Z",
+    VETD: "2017-02-01T00:00:00.000Z",
+    VImVoy: null,
+    VExVoy: null,
+  },
+];
+
+function generateRandomContainerNo() {
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let result = "";
+  const charactersLength = characters.length;
+  for (let i = 0; i < 10; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
+for (let index = 0; index < 20; index++) {
+  const duplicatedData = { ...tableData[0] };
+  duplicatedData.ContainerNo = generateRandomContainerNo();
+  tableData.push(duplicatedData);
+}
+
 class ShowComponent extends Component {
   constructor(props) {
     super(props);
@@ -930,25 +1055,47 @@ class ShowComponent extends Component {
 
           <h2 className="h2-tile-component">Mtable</h2>
           <Mtable
-            columns={this.state.tableColumns}
-            dataSource={this.state.tableData}
-            pagination={false}
-            scroll={{
-              // x: 1500,
-              y: "35vh",
+            tableData={tableData}
+            columnsFormat={[
+              { columnId: "STT", width: 50, resizable: true, header: "STT" },
+              {
+                columnId: "ContainerNo",
+                width: 200,
+                resizable: true,
+                reorderable: true,
+                header: "Mã Hãng Tàu",
+              },
+              {
+                columnId: "TenHangTau",
+                width: 200,
+                resizable: true,
+                reorderable: true,
+                header: "Tên Hãng Tàu",
+                className: "shipname",
+              },
+              {
+                columnId: "TrangThai",
+                width: 100,
+                resizable: true,
+                reorderable: true,
+                header: "Trạng thái",
+              },
+            ]}
+            rowsFormat={(container, index) => {
+              return [
+                { type: "text", nonEditable: true, text: String(index + 1) },
+                { type: "text", text: container.ContainerNo },
+                { type: "text", text: container.ContainerNo },
+                { type: "checkbox", checked: false },
+              ];
             }}
-            bordered={true}
-            rowClassName={(record, index) => {
-              return record.selected
-                ? "table-row-selected"
-                : index % 2 === 0
-                ? "table-row-light"
-                : "table-row-dark";
-            }}
-            onRow={(record) => ({
-              onClick: () => this.handleRowClick(record),
-            })}
-            className="m_table"
+            rowsHeader={[
+              { type: "header", text: "STT" },
+              { type: "header", text: "Mã hãng tàu" },
+              { type: "header", text: "Tên hãng tàu" },
+              { type: "header", text: "Trạng thái" },
+            ]}
+            reoderRow={true}
           />
 
           <h2 className="heading-md-normal">Mbutton</h2>
@@ -1025,12 +1172,7 @@ class ShowComponent extends Component {
               rows={this.state.reactGridRows}
               columns={this.state.reactGridColumns}
               stickyTopRows={1}
-              // enableFullWidthHeader
               onCellsChanged={this.handleCellsChanged}
-              rowClassName={({ row }) =>
-                this.state.selectedRows.has(row.rowId) ? "selected-row" : ""
-              }
-              // onRowClick={({ row }) => this.handleRowClick(row.rowId)}
               enableRowSelection
               onSelectionChanged={(e) =>
                 this.setState({ selectedRow: e[0].first.row })
