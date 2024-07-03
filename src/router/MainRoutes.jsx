@@ -8,15 +8,21 @@ import Register from "../views/register/register";
 import ForgotPassword from "../views/forgotPassword/forgotPassword";
 import ShowComponent from "../ShowComponent";
 import Dashboard from "../components/Dashboard/Dashboard";
+
 import TrackingContainer from "../views/tracking/trackingContainer/trackingContainer";
 import TrackingBill from "../views/tracking/trackingBill/trackingBill";
 import TrackingBooking from "../views/tracking/trackingBooking/trackingBooking";
 import TrackingEdo from "../views/tracking/trackingEdo/trackingEdo";
 import TrackingHouseBill from "../views/tracking/trackingHouseBill/trackingHouseBill";
-import Customer from "../views/category/customer/Customer";
 import TrackingContainerList from "../views/tracking/trackingContainerList/trackingContainerList";
 
-
+import Customer from "../views/category/customer/Customer";
+import ShipExploitBrand from "../views/category/shipExploitBrand/ShipExploitBrand";
+import Task from "../views/category/task/task";
+import CommoditiesType from "../views/category/commoditiesType/commoditiesType";
+import DirectionContainer from "../views/category/directionContainer/directionContainer";
+import PortsList from "../views/category/portsList/portsList";
+import StatesContainer from "../views/category/statesContainer/statesContainer";
 class MainRoutes extends Component {
   render() {
     return (
@@ -39,6 +45,12 @@ class MainRoutes extends Component {
             <Route path="tracking_edo" element={<TrackingEdo />} />
             <Route path="tracking_housebill" element={<TrackingHouseBill />} />
           </Route>
+          <Route path="/category-shipExploitBrand" element={<ShipExploitBrand />} />
+          <Route path="/category-task" element={<Task />} />
+          <Route path="/category-commoditiesType" element={<CommoditiesType />} />
+          <Route path="/category-directionContainer" element={<DirectionContainer />} />
+          <Route path="/category-portsList" element={<PortsList />} />
+          <Route path="/category-statesContainer" element={<StatesContainer />} />
         </Route>
         <Route path="/dashboard" element={<Dashboard />} />
 
@@ -46,5 +58,4 @@ class MainRoutes extends Component {
     );
   }
 }
-
 export default MainRoutes;

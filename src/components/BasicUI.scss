@@ -263,6 +263,14 @@ $caption-line-height: 14px;
   font-weight: $main-font-weight-bold;
 }
 
+// .m-form__box {
+//   max-height: 50px;
+// }
+
+.m-form__icon {
+  align-items: center;
+}
+
 //Mradio Buttons
 
 //Mradio
@@ -272,6 +280,7 @@ $caption-line-height: 14px;
 }
 
 .ant-radio-wrapper {
+  margin: 0 0 0 8px !important;
   font-family: $main-font !important;
   font-size: 16px !important;
   color: #4f575e !important;
@@ -349,14 +358,12 @@ $caption-line-height: 14px;
   width: 100%;
   border-width: 0 !important;
 
-
   .m-form__label {
-    color: #4f575e;
+    color: black;
     transition: all 0.3s ease;
   }
 
   .ant-input-search {
-    font-family: $main-font !important;
     display: flex;
     align-items: center;
   }
@@ -367,7 +374,7 @@ $caption-line-height: 14px;
     width: 100%;
   }
 
-  input {
+  .m_input {
     font-family: $main-font !important;
     font-size: 16px;
     flex: 1;
@@ -419,11 +426,11 @@ $caption-line-height: 14px;
   }
 
   .m-form__select {
-    height: 40px !important;
+    padding: 12px;
     width: 100%;
     border: 2px solid lightgray;
     border-radius: 4px;
-
+    color: #cbcfd2;
     &:hover {
       border-color: $color-third;
     }
@@ -451,12 +458,12 @@ $caption-line-height: 14px;
 }
 
 .m_button.third_border {
-  background-color: transparent;
+  background-color: white;
   color: $color-third;
   border: 2px solid $color-third;
 
   &:hover {
-    background-color: transparent !important;
+    background-color: white !important;
     color: #1d99d6 !important;
     border-color: #1d99d6;
 
@@ -588,43 +595,42 @@ $caption-line-height: 14px;
       }
     }
   }
-
-  .m-form__box {
-    flex: 0 0 100%;
-    max-width: 100%;
-  }
-
-  .m-form__input:hover {
-    background-color: #F8F5FF;
-
-    .ant-checkbox-wrapper {
-      .ant-checkbox {
-        .ant-checkbox-inner:hover {
-          border-color: #00b1cc !important;
-        }
-      }
-
-      .ant-checkbox-checked {
-        .ant-checkbox-inner {
-          border-color: #00b1cc !important;
-          background-color: #00b1cc !important;
-        }
+  .ant-checkbox-wrapper {
+    .ant-checkbox {
+      .ant-checkbox-inner:hover {
+        border-color: #00b1cc !important;
       }
     }
-  }
-
-  .ant-checkbox-checked {
-    .ant-checkbox-inner {
-      border-color: #00b1cc !important;
-      background-color: #00b1cc !important;
+    .ant-checkbox-checked {
+      .ant-checkbox-inner {
+        border-color: #00b1cc;
+        background-color: #00b1cc !important;
+      }
     }
   }
 }
 
-.m-checkbox_checked {
-  .m-form__Checkbox:hover {
-    border-color: $color-third !important;
+//Mtable (new)
+.reactgrid {
+  border: 1px solid #ddd;
+  border-radius: 4px;
 
+  .reactgrid-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rg-header-cell {
+    background-color: var(--color-second) !important;
+    color: white !important;
+  }
+
+  .rg-row {
+    border-bottom: 1px solid #ddd;
+  }
+
+  .selected-row {
+    background-color: #6f6f6f;
   }
 }
 

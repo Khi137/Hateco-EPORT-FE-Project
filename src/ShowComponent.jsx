@@ -943,7 +943,7 @@ class ShowComponent extends Component {
                   { label: "Option 2", value: "option2" },
                   { label: "Option 3", value: "option3" },
                 ],
-                radioStyle: { gap: "50px" }
+                radioStyle: { gap: "50px" },
               }}
               onChangeValue={this.handleRadioChange}
             />
@@ -1033,66 +1033,84 @@ class ShowComponent extends Component {
           <div className="component-mbutton" style={{ width: "100%" }}>
             <div className="component-mbutton-1">
               <Mbutton
-                color=""
                 className="m_button third"
-                type="primary"
-                htmlType="submit"
                 block
+                htmlType="submit"
+                type="primary"
                 onClick={this.handleFormSubmit}
                 ref={this.mButtonRef}
-                size={"12"}
+                dataSource={{
+                  color: "",
+                  size: "12",
+                  icon: "UploadOutlined",
+                }}
               ></Mbutton>
               <Mbutton
-                color=""
                 className="m_button third_border"
-                type="primary"
-                htmlType="submit"
                 block
+                htmlType="submit"
+                type="primary"
                 onClick={this.handleFormSubmit}
                 ref={this.mButtonRef}
-                size={"12"}
+                dataSource={{
+                  color: "",
+                  size: "12",
+                  icon: "UploadOutlined",
+                }}
               ></Mbutton>
               <Mbutton
-                color=""
                 className="m_button white_border"
-                type="primary"
-                htmlType="submit"
                 block
+                htmlType="submit"
+                type="primary"
                 onClick={this.handleFormSubmit}
                 ref={this.mButtonRef}
-                size={"12"}
+                dataSource={{
+                  color: "",
+                  size: "12",
+                  icon: "UploadOutlined",
+                }}
               ></Mbutton>
             </div>
             <div className="component-mbutton-2">
               <Mbutton
-                color=""
                 className="m_button red"
-                type="primary"
-                htmlType="submit"
                 block
+                htmlType="submit"
+                type="primary"
                 onClick={this.handleFormSubmit}
                 ref={this.mButtonRef}
-                size={"12"}
+                dataSource={{
+                  color: "",
+                  size: "12",
+                  icon: "UploadOutlined",
+                }}
               ></Mbutton>
               <Mbutton
-                color=""
                 className="m_button green"
-                type="primary"
-                htmlType="submit"
                 block
+                htmlType="submit"
+                type="primary"
                 onClick={this.handleFormSubmit}
                 ref={this.mButtonRef}
-                size={"12"}
+                dataSource={{
+                  color: "",
+                  size: "12",
+                  icon: "CloudDownloadOutlined",
+                }}
               ></Mbutton>
               <Mbutton
-                color=""
                 className="m_button orange"
-                type="primary"
-                htmlType="submit"
                 block
+                htmlType="submit"
+                type="primary"
                 onClick={this.handleFormSubmit}
                 ref={this.mButtonRef}
-                size={"12"}
+                dataSource={{
+                  color: "",
+                  size: "12",
+                  icon: "CloudSyncOutlined",
+                }}
               ></Mbutton>
             </div>
           </div>
@@ -1145,7 +1163,7 @@ class ShowComponent extends Component {
                 label: "Search",
                 value: this.state.searchValue,
                 icon: "SearchOutlined",
-                text: "abc"
+                text: "abc",
               }}
               config={{
                 onLiveSearch: (value) => console.log("Live search:", value),
@@ -1153,7 +1171,6 @@ class ShowComponent extends Component {
               onChangeValue={(e) => this.handleSearchChange(e["search1"])}
             />
           </div>
-
         </div>
       </>
     );
