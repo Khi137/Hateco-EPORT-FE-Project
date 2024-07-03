@@ -117,8 +117,8 @@ const rowData = [
 ]
 
 function generateRandomContainerNo() {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    let result = '';
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let result = "";
     const charactersLength = characters.length;
     for (let i = 0; i < 10; i++) {
         result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -139,10 +139,8 @@ class TrackingHouseBill extends Component {
             formData: {
                 houseBillNumber: "",
                 DOCode: "",
-                // fromDate: moment('2024-06-27').startOf('day').toDate(),
-                // toDate: moment('2024-06-27').endOf('day').toDate(),
-                fromDate: new Date('2024-06-27T00:00:00'),
-                toDate: new Date('2024-06-27T23:59:59'),
+                fromDate: moment(new Date()).startOf('day').toDate(),
+                toDate: moment(new Date()).endOf('day').toDate(),
                 houseBillNumberError: true,
                 DOCodeError: true,
             },
@@ -156,13 +154,13 @@ class TrackingHouseBill extends Component {
 
     handleInputChange = (e, dataForm) => {
         const { name, value } = e.target;
-        this.setState(prevState => ({
+        this.setState((prevState) => ({
             [dataForm]: {
                 ...prevState[dataForm],
-                [name]: value
-            }
+                [name]: value,
+            },
         }));
-        return value
+        return value;
     };
 
     handleSelect = (e) => {
@@ -312,31 +310,40 @@ class TrackingHouseBill extends Component {
                         <div className="input_container">
                             <Row className="input_item date_input_container">
                                 <Col className="date_input">
-                                    <Row className="body-lg-normal">
+                                    <Row className="body-md-normal">
                                         Từ ngày
                                     </Row>
                                     <Mdatepicker
                                         dataSource={{
-                                            id: "fromDate",
                                             value: formData.fromDate,
+                                            format: 'YYYY-MM-DD HH:mm:ss',
                                             defaultValue: formData.fromDate,
-                                            className: "date_input"
+                                            id: 'my-datepicker',
+                                            // label: 'Select Date',
+                                            // span: { xs: 24, sm: 12, md: 8 },
+                                            required: true,
+                                            lockbefore: true,
+                                            propReadonly: false,
                                         }}
                                     />
                                 </Col>
                                 <Col className="date_input">
-                                    <Row className="body-lg-normal">
+                                    <Row className="body-md-normal">
                                         Đến ngày
                                     </Row>
                                     <Mdatepicker
                                         dataSource={{
-                                            id: "toDate",
                                             value: formData.toDate,
+                                            format: 'YYYY-MM-DD HH:mm:ss',
                                             defaultValue: formData.toDate,
+                                            id: 'my-datepicker',
+                                            // label: 'Select Date',
+                                            // span: { xs: 24, sm: 12, md: 8 },
+                                            required: true,
+                                            lockbefore: true,
+                                            propReadonly: false,
                                             className: "date_input"
                                         }}
-                                        value={formData.toDate}
-                                        defaultValue={formData.toDate}
                                     />
                                 </Col>
                             </Row>
@@ -406,7 +413,7 @@ class TrackingHouseBill extends Component {
                                     htmlType="submit"
                                     block
                                     size={"12"}
-                                    dataSource={{ textbutton: "Xuất File Exel", color: "second" }}
+                                    dataSource={{ textbutton: "Xuất File Exel", color: "second", icon: "UploadOutlined" }}
                                 />
                             </Col>
                         </Row>
@@ -427,6 +434,7 @@ class TrackingHouseBill extends Component {
                                             reoderRow={true}
                                             onSearch={(tableData, searchValue) => handleRowsSearch(tableData, searchValue)}
                                             searchValue={formData.searchData}
+                                            searchField={["ContainerNumber", "OperationCode", "IsoSizetype"]}
                                         />
                                     </div>
                             }
@@ -438,4 +446,4 @@ class TrackingHouseBill extends Component {
     }
 }
 
-export default TrackingHouseBill
+export default TrackingHouseBill;

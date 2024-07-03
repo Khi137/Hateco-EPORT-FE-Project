@@ -396,7 +396,7 @@ class TrackingBill extends Component {
                                     htmlType="submit"
                                     block
                                     size={"12"}
-                                    dataSource={{ textbutton: "Xuất File Exel", color: "second" }}
+                                    dataSource={{ textbutton: "Xuất File Exel", color: "second", icon: "UploadOutlined" }}
                                 />
                             </Col>
                         </Row>
@@ -417,6 +417,7 @@ class TrackingBill extends Component {
                                             reoderRow={true}
                                             onSearch={(tableData, searchValue) => handleRowsSearch(tableData, searchValue)}
                                             searchValue={formData.searchData}
+                                            searchField={["ContainerNumber", "OperationCode", "IsoSizetype"]}
                                         />
                                     </div>
                             }

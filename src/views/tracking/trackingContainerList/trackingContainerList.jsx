@@ -335,6 +335,7 @@ class TrackingContainerList extends Component {
                                             reoderRow={true}
                                             onSearch={(tableData, searchValue) => handleRowsSearch(tableData, searchValue)}
                                             searchValue={formData.searchData}
+                                            searchField={["ContainerNumber", "OperationCode", "IsoSizetype"]}
                                         />
                                     </div>
                                 </Col>

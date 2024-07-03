@@ -23,116 +23,116 @@ import "@silevis/reactgrid/styles.css";
 
 const tableData = [
   {
-    "Rowguid": "20383CFB-35E4-454E-BA7E-C112ADE17335",
-    "TerminalCode": null,
-    "VesselKey": "TBA",
-    "VesselImVoy": null,
-    "VesselExVoy": null,
-    "ETB": null,
-    "ETD": null,
-    "BargeKey": null,
-    "BargeImVoy": null,
-    "BargeExVoy": null,
-    "DeliveryOrder": null,
-    "BLNo": null,
-    "BookingNo": "50940502",
-    "HousebillNo": null,
-    "ContainerNo": "TCNU8698362",
-    "ClassCode": "3",
-    "OperationCode": "HLC",
-    "FE": "F",
-    "ContainerStatusCode": "D",
-    "CargoTypeCode": "GP",
-    "Commodity": null,
-    "LocalSizetype": "4500",
-    "IsoSizetype": "45G0",
-    "IsLocalForeign": "F",
-    "JobModeCodeIn": "HBAI",
-    "MethodCodeIn": "T",
-    "DateIn": "2021-04-10T19:44:22.000Z",
-    "DateOut": "2021-04-14T12:54:30.000Z",
-    "JobModeCodeOut": "LAYN",
-    "MethodCodeOut": "V",
-    "EirInNo": null,
-    "EirOutNo": null,
-    "StuffNo": null,
-    "UnstuffNo": null,
-    "ServiceNo": null,
-    "DraftNo": null,
-    "InvoiceNo": null,
-    "Block": "A6",
-    "Bay": "06",
-    "Row": "02",
-    "Tier": "4",
-    "Area": null,
-    "VGM": true,
-    "MCWeight": null,
-    "TareWeight": null,
-    "Sealno": null,
-    "Sealno1": null,
-    "Sealno2": "8256247",
-    "POL": "VNHPH",
-    "POD": "VNHPH",
-    "FPOD": null,
-    "TransitCode": null,
-    "TransitPort": null,
-    "Temperature": null,
-    "Vent": null,
-    "VentUnit": null,
-    "Class": null,
-    "Unno": null,
-    "OogTop": null,
-    "OogLeft": null,
-    "OogRight": null,
-    "OogBack": null,
-    "OogFront": null,
-    "CusHold": false,
-    "TerHold": false,
-    "TerHoldReason": null,
-    "IsReturnBack": false,
-    "IsSpecialWarning": false,
-    "SpecialWarning": null,
-    "ContainerCondition": null,
-    "IsTruckBarge": "T",
-    "TruckNo": null,
-    "RemoocNo": null,
-    "Note": null,
-    "ID_TOS": "0000000671104",
-    "CreatedBy": "catos_ndv",
-    "CreatedTime": "2021-04-06T10:36:05.000Z",
-    "ModifiedBy": "catos_ndv",
-    "ModifiedTime": "2021-04-06T10:37:01.000Z",
-    "MaxGrossWeight": null,
-    "XuatNeo": null,
-    "XuatPhao": null,
-    "ClassName": "Export",
-    "CargoTypeName": "General",
-    "ContainerStatusName": "Delivered",
-    "BookingType": true,
-    "BookingDate": "2021-04-06T10:35:25.000Z",
-    "ExpDate": null,
-    "BookingAmount": 1,
-    "StackingAmount": 0,
-    "ShipperName": "shipperName",
-    "BookingStatus": 0,
-    "VesselName": "To Be Assign",
-    "Humidity": null,
-    "O2": null,
-    "CO2": null,
-    "BookingReleaseDate": null,
-    "UserGroupRank": null,
-    "OperationName": "CÔNG TY TNHH HAPAG- LLOYD  (VIET NAM)",
-    "CallSign": null,
-    "VETB": "2017-02-01T00:00:00.000Z",
-    "VETD": "2017-02-01T00:00:00.000Z",
-    "VImVoy": null,
-    "VExVoy": null
-  }
-]
+    Rowguid: "20383CFB-35E4-454E-BA7E-C112ADE17335",
+    TerminalCode: null,
+    VesselKey: "TBA",
+    VesselImVoy: null,
+    VesselExVoy: null,
+    ETB: null,
+    ETD: null,
+    BargeKey: null,
+    BargeImVoy: null,
+    BargeExVoy: null,
+    DeliveryOrder: null,
+    BLNo: null,
+    BookingNo: "50940502",
+    HousebillNo: null,
+    ContainerNo: "TCNU8698362",
+    ClassCode: "3",
+    OperationCode: "HLC",
+    FE: "F",
+    ContainerStatusCode: "D",
+    CargoTypeCode: "GP",
+    Commodity: null,
+    LocalSizetype: "4500",
+    IsoSizetype: "45G0",
+    IsLocalForeign: "F",
+    JobModeCodeIn: "HBAI",
+    MethodCodeIn: "T",
+    DateIn: "2021-04-10T19:44:22.000Z",
+    DateOut: "2021-04-14T12:54:30.000Z",
+    JobModeCodeOut: "LAYN",
+    MethodCodeOut: "V",
+    EirInNo: null,
+    EirOutNo: null,
+    StuffNo: null,
+    UnstuffNo: null,
+    ServiceNo: null,
+    DraftNo: null,
+    InvoiceNo: null,
+    Block: "A6",
+    Bay: "06",
+    Row: "02",
+    Tier: "4",
+    Area: null,
+    VGM: true,
+    MCWeight: null,
+    TareWeight: null,
+    Sealno: null,
+    Sealno1: null,
+    Sealno2: "8256247",
+    POL: "VNHPH",
+    POD: "VNHPH",
+    FPOD: null,
+    TransitCode: null,
+    TransitPort: null,
+    Temperature: null,
+    Vent: null,
+    VentUnit: null,
+    Class: null,
+    Unno: null,
+    OogTop: null,
+    OogLeft: null,
+    OogRight: null,
+    OogBack: null,
+    OogFront: null,
+    CusHold: false,
+    TerHold: false,
+    TerHoldReason: null,
+    IsReturnBack: false,
+    IsSpecialWarning: false,
+    SpecialWarning: null,
+    ContainerCondition: null,
+    IsTruckBarge: "T",
+    TruckNo: null,
+    RemoocNo: null,
+    Note: null,
+    ID_TOS: "0000000671104",
+    CreatedBy: "catos_ndv",
+    CreatedTime: "2021-04-06T10:36:05.000Z",
+    ModifiedBy: "catos_ndv",
+    ModifiedTime: "2021-04-06T10:37:01.000Z",
+    MaxGrossWeight: null,
+    XuatNeo: null,
+    XuatPhao: null,
+    ClassName: "Export",
+    CargoTypeName: "General",
+    ContainerStatusName: "Delivered",
+    BookingType: true,
+    BookingDate: "2021-04-06T10:35:25.000Z",
+    ExpDate: null,
+    BookingAmount: 1,
+    StackingAmount: 0,
+    ShipperName: "shipperName",
+    BookingStatus: 0,
+    VesselName: "To Be Assign",
+    Humidity: null,
+    O2: null,
+    CO2: null,
+    BookingReleaseDate: null,
+    UserGroupRank: null,
+    OperationName: "CÔNG TY TNHH HAPAG- LLOYD  (VIET NAM)",
+    CallSign: null,
+    VETB: "2017-02-01T00:00:00.000Z",
+    VETD: "2017-02-01T00:00:00.000Z",
+    VImVoy: null,
+    VExVoy: null,
+  },
+];
 
 function generateRandomContainerNo() {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  let result = '';
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let result = "";
   const charactersLength = characters.length;
   for (let i = 0; i < 10; i++) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -189,91 +189,91 @@ class ShowComponent extends Component {
       },
       tableData: [
         {
-          key: '1',
+          key: "1",
           orderNumber: 1,
           shipCode: "CNC",
-          shipName: 'Công ty cổ phần  CMA - CGM Việt Nam (CMA)',
+          shipName: "Công ty cổ phần  CMA - CGM Việt Nam (CMA)",
           status: false,
         },
         {
-          key: '2',
+          key: "2",
           orderNumber: 2,
           shipCode: "CNC",
-          shipName: 'Công ty cổ phần  CMA - CGM Việt Nam (CMA)',
+          shipName: "Công ty cổ phần  CMA - CGM Việt Nam (CMA)",
           status: false,
         },
         {
-          key: '3',
+          key: "3",
           orderNumber: 3,
           shipCode: "CNC",
-          shipName: 'Công ty cổ phần  CMA - CGM Việt Nam (CMA)',
+          shipName: "Công ty cổ phần  CMA - CGM Việt Nam (CMA)",
           status: false,
         },
         {
-          key: '4',
+          key: "4",
           orderNumber: 4,
           shipCode: "CNC",
-          shipName: 'Công ty cổ phần  CMA - CGM Việt Nam (CMA)',
+          shipName: "Công ty cổ phần  CMA - CGM Việt Nam (CMA)",
           status: false,
         },
         {
-          key: '5',
+          key: "5",
           orderNumber: 5,
           shipCode: "CNC",
-          shipName: 'Công ty cổ phần  CMA - CGM Việt Nam (CMA)',
+          shipName: "Công ty cổ phần  CMA - CGM Việt Nam (CMA)",
           status: false,
         },
         {
-          key: '6',
+          key: "6",
           orderNumber: 6,
           shipCode: "CNC",
-          shipName: 'Công ty cổ phần  CMA - CGM Việt Nam (CMA)',
+          shipName: "Công ty cổ phần  CMA - CGM Việt Nam (CMA)",
           status: false,
         },
         {
-          key: '7',
+          key: "7",
           orderNumber: 7,
           shipCode: "CNC",
-          shipName: 'Công ty cổ phần  CMA - CGM Việt Nam (CMA)',
+          shipName: "Công ty cổ phần  CMA - CGM Việt Nam (CMA)",
           status: false,
         },
         {
-          key: '8',
+          key: "8",
           orderNumber: 8,
           shipCode: "CNC",
-          shipName: 'Công ty cổ phần  CMA - CGM Việt Nam (CMA)',
+          shipName: "Công ty cổ phần  CMA - CGM Việt Nam (CMA)",
           status: false,
         },
       ],
       // Mtable columns
       tableColumns: [
         {
-          title: 'STT',
-          dataIndex: 'orderNumber',
-          key: 'orderNumber',
+          title: "STT",
+          dataIndex: "orderNumber",
+          key: "orderNumber",
           sorter: (a, b) => a.orderNumber - b.orderNumber,
           ellipsis: true,
           width: 100,
         },
         {
-          title: 'Mã Hãng Tàu',
-          dataIndex: 'shipCode',
-          key: 'shipCode',
+          title: "Mã Hãng Tàu",
+          dataIndex: "shipCode",
+          key: "shipCode",
           sorter: (a, b) => a.shipCode.localeCompare(b.shipCode),
           ellipsis: true,
           width: 200,
           render: (text, record) => (
             <input
               value={text}
-              onChange={(e) => this.handleChange(e, record.key, 'shipCode')}
+              onChange={(e) => this.handleChange(e, record.key, "shipCode")}
               style={{
-                width: '100%',
-                height: '100%',
-                border: 'none',
-                outline: 'none',
-                backgroundColor: 'transparent',
-                fontSize: '1rem',
-                padding: '0.2rem',
+                width: "100%",
+                height: "100%",
+                border: "none",
+                outline: "none",
+                backgroundColor: "transparent",
+                fontSize: "1rem",
+                padding: "0.2rem",
 
                 paddingLeft: 0,
               }}
@@ -281,31 +281,31 @@ class ShowComponent extends Component {
           ),
         },
         {
-          title: 'Tên Hãng Tàu',
-          dataIndex: 'shipName',
-          key: 'shipName',
+          title: "Tên Hãng Tàu",
+          dataIndex: "shipName",
+          key: "shipName",
           editable: true,
           render: (text, record) => (
             <input
               value={text}
               style={{
-                width: '100%',
-                height: '100%',
-                border: 'none',
-                outline: 'none',
-                backgroundColor: 'transparent',
-                fontSize: '1rem',
-                padding: '0.6rem',
+                width: "100%",
+                height: "100%",
+                border: "none",
+                outline: "none",
+                backgroundColor: "transparent",
+                fontSize: "1rem",
+                padding: "0.6rem",
                 paddingLeft: 0,
               }}
-              onChange={(e) => this.handleChange(e, record.key, 'shipName')}
+              onChange={(e) => this.handleChange(e, record.key, "shipName")}
             />
           ),
         },
         {
-          title: 'Trạng thái',
-          dataIndex: 'status',
-          key: 'status',
+          title: "Trạng thái",
+          dataIndex: "status",
+          key: "status",
           width: 100,
           render: (status, record) => (
             <Mcheckbox
@@ -319,10 +319,35 @@ class ShowComponent extends Component {
       ],
 
       reactGridColumns: [
-        { columnId: 'STT', width: 50, resizable: true, sortable: true, header: 'STT' },
-        { columnId: 'MaHangTau', width: 100, resizable: true, sortable: true, header: 'Mã Hãng Tàu' },
-        { columnId: 'TenHangTau', width: 500, resizable: true, sortable: true, header: 'Tên Hãng Tàu', className: "shipname" },
-        { columnId: 'TrangThai', width: 100, resizable: true, sortable: true, header: 'Trạng thái' },
+        {
+          columnId: "STT",
+          width: 50,
+          resizable: true,
+          sortable: true,
+          header: "STT",
+        },
+        {
+          columnId: "MaHangTau",
+          width: 100,
+          resizable: true,
+          sortable: true,
+          header: "Mã Hãng Tàu",
+        },
+        {
+          columnId: "TenHangTau",
+          width: 500,
+          resizable: true,
+          sortable: true,
+          header: "Tên Hãng Tàu",
+          className: "shipname",
+        },
+        {
+          columnId: "TrangThai",
+          width: 100,
+          resizable: true,
+          sortable: true,
+          header: "Trạng thái",
+        },
       ],
       reactGridRows: [
         {
@@ -332,12 +357,44 @@ class ShowComponent extends Component {
             { type: "header", text: "Mã hãng tàu" },
             { type: "header", text: "Tên hãng tàu" },
             { type: "header", text: "Trạng thái" },
-          ]
+          ],
         },
-        { rowId: 1, cells: [{ type: 'text', nonEditable: true, text: '1' }, { type: 'text', text: 'CNC' }, { type: 'text', text: 'Công ty cổ phần CMA - CGM Việt Nam (CMA)' }, { type: 'checkbox', checked: false }] },
-        { rowId: 2, cells: [{ type: 'text', nonEditable: true, text: '2' }, { type: 'text', text: 'CNC' }, { type: 'text', text: 'Công ty cổ phần CMA - CGM Việt Nam (CMA)' }, { type: 'checkbox', checked: false }] },
-        { rowId: 3, cells: [{ type: 'text', nonEditable: true, text: '3' }, { type: 'text', text: 'CNC' }, { type: 'text', text: 'Công ty cổ phần CMA - CGM Việt Nam (CMA)' }, { type: 'checkbox', checked: false }] },
-        { rowId: 4, cells: [{ type: 'text', nonEditable: true, text: '4' }, { type: 'text', text: 'CNC' }, { type: 'text', text: 'Công ty cổ phần CMA - CGM Việt Nam (CMA)' }, { type: 'checkbox', checked: false }] },
+        {
+          rowId: 1,
+          cells: [
+            { type: "text", nonEditable: true, text: "1" },
+            { type: "text", text: "CNC" },
+            { type: "text", text: "Công ty cổ phần CMA - CGM Việt Nam (CMA)" },
+            { type: "checkbox", checked: false },
+          ],
+        },
+        {
+          rowId: 2,
+          cells: [
+            { type: "text", nonEditable: true, text: "2" },
+            { type: "text", text: "CNC" },
+            { type: "text", text: "Công ty cổ phần CMA - CGM Việt Nam (CMA)" },
+            { type: "checkbox", checked: false },
+          ],
+        },
+        {
+          rowId: 3,
+          cells: [
+            { type: "text", nonEditable: true, text: "3" },
+            { type: "text", text: "CNC" },
+            { type: "text", text: "Công ty cổ phần CMA - CGM Việt Nam (CMA)" },
+            { type: "checkbox", checked: false },
+          ],
+        },
+        {
+          rowId: 4,
+          cells: [
+            { type: "text", nonEditable: true, text: "4" },
+            { type: "text", text: "CNC" },
+            { type: "text", text: "Công ty cổ phần CMA - CGM Việt Nam (CMA)" },
+            { type: "checkbox", checked: false },
+          ],
+        },
       ],
     };
 
@@ -409,7 +466,6 @@ class ShowComponent extends Component {
 
   // MButton
 
-
   // Winput
 
   // handleInputChange = (e, regex) => {
@@ -441,7 +497,7 @@ class ShowComponent extends Component {
 
   // Mtable
   handleStatusChange = (e, key) => {
-    const newData = this.state.tableData.map(item => {
+    const newData = this.state.tableData.map((item) => {
       if (item.key === key) {
         return { ...item, status: e.checked };
       }
@@ -451,7 +507,7 @@ class ShowComponent extends Component {
   };
 
   handleChange = (e, key, column) => {
-    const newData = this.state.tableData.map(item => {
+    const newData = this.state.tableData.map((item) => {
       if (item.key === key) {
         return { ...item, [column]: e.target.value };
       }
@@ -463,7 +519,7 @@ class ShowComponent extends Component {
   handleRowClick = (record) => {
     console.log(record);
     const { tableData } = this.state;
-    const newData = tableData.map(item => {
+    const newData = tableData.map((item) => {
       if (item.key === record.key) {
         return { ...item, selected: true };
       } else {
@@ -476,18 +532,20 @@ class ShowComponent extends Component {
   // ReactGrid
 
   handleCellsChanged = (changes) => {
-    const rows = this.state.reactGridRows.map(row => ({
+    const rows = this.state.reactGridRows.map((row) => ({
       ...row,
-      cells: row.cells?.map(cell => ({ ...cell }))
+      cells: row.cells?.map((cell) => ({ ...cell })),
     }));
 
-    changes.forEach(change => {
-      const row = rows?.find(r => r.rowId === change.rowId);
+    changes.forEach((change) => {
+      const row = rows?.find((r) => r.rowId === change.rowId);
       if (row) {
-        const columnIndex = this.state?.reactGridColumns.findIndex(col => col.columnId === change.columnId);
+        const columnIndex = this.state?.reactGridColumns.findIndex(
+          (col) => col.columnId === change.columnId
+        );
         if (columnIndex >= 0) {
           const cell = row.cells[columnIndex];
-          if (change?.newCell?.type === 'checkbox') {
+          if (change?.newCell?.type === "checkbox") {
             cell.checked = change?.newCell?.checked;
           } else {
             cell.text = change?.newCell?.text;
@@ -518,8 +576,6 @@ class ShowComponent extends Component {
     return <div>a</div>;
   };
 
-
-
   render() {
     const checkboxDataSource = {
       label: "Ghi nhớ mật khẩu",
@@ -530,62 +586,62 @@ class ShowComponent extends Component {
     // Mtable columns
     const columns = [
       {
-        title: 'STT',
-        dataIndex: 'orderNumber',
-        key: 'orderNumber',
+        title: "STT",
+        dataIndex: "orderNumber",
+        key: "orderNumber",
         sorter: (a, b) => a.orderNumber - b.orderNumber,
         ellipsis: true,
         width: 100,
       },
       {
-        title: 'Mã Hãng Tàu',
-        dataIndex: 'shipCode',
-        key: 'shipCode',
+        title: "Mã Hãng Tàu",
+        dataIndex: "shipCode",
+        key: "shipCode",
         sorter: (a, b) => a.shipCode.localeCompare(b.shipCode),
         ellipsis: true,
         width: 200,
         render: (text, record) => (
           <input
             value={text}
-            onChange={(e) => this.handleChange(e, record.key, 'shipCode')}
+            onChange={(e) => this.handleChange(e, record.key, "shipCode")}
             style={{
-              width: '100%',
-              height: '100%',
-              border: 'none',
-              outline: 'none',
-              backgroundColor: 'transparent',
-              fontSize: '1rem',
-              padding: '0.6rem',
+              width: "100%",
+              height: "100%",
+              border: "none",
+              outline: "none",
+              backgroundColor: "transparent",
+              fontSize: "1rem",
+              padding: "0.6rem",
             }}
           />
         ),
       },
       {
-        title: 'Tên Hãng Tàu',
-        dataIndex: 'shipName',
-        key: 'shipName',
+        title: "Tên Hãng Tàu",
+        dataIndex: "shipName",
+        key: "shipName",
         editable: true,
         render: (text, record) => (
           <input
             value={text}
             style={{
-              width: '100%',
-              height: '100%',
-              border: 'none',
-              outline: 'none',
-              backgroundColor: 'transparent',
-              fontSize: '1rem',
-              padding: '0.6rem',
-              paddingLeft: '2.5rem'
+              width: "100%",
+              height: "100%",
+              border: "none",
+              outline: "none",
+              backgroundColor: "transparent",
+              fontSize: "1rem",
+              padding: "0.6rem",
+              paddingLeft: "2.5rem",
             }}
-            onChange={(e) => this.handleChange(e, record.key, 'shipName')}
+            onChange={(e) => this.handleChange(e, record.key, "shipName")}
           />
         ),
       },
       {
-        title: 'Trạng thái',
-        dataIndex: 'status',
-        key: 'status',
+        title: "Trạng thái",
+        dataIndex: "status",
+        key: "status",
         width: 100,
         render: (status, record) => (
           <Mcheckbox
@@ -1000,32 +1056,45 @@ class ShowComponent extends Component {
           <h2 className="h2-tile-component">Mtable</h2>
           <Mtable
             tableData={tableData}
-            columnsFormat={
-              [
-                { columnId: 'STT', width: 50, resizable: true, header: 'STT' },
-                { columnId: 'ContainerNo', width: 200, resizable: true, reorderable: true, header: 'Mã Hãng Tàu' },
-                { columnId: 'TenHangTau', width: 200, resizable: true, reorderable: true, header: 'Tên Hãng Tàu', className: "shipname" },
-                { columnId: 'TrangThai', width: 100, resizable: true, reorderable: true, header: 'Trạng thái' },
-              ]
-            }
+            columnsFormat={[
+              { columnId: "STT", width: 50, resizable: true, header: "STT" },
+              {
+                columnId: "ContainerNo",
+                width: 200,
+                resizable: true,
+                reorderable: true,
+                header: "Mã Hãng Tàu",
+              },
+              {
+                columnId: "TenHangTau",
+                width: 200,
+                resizable: true,
+                reorderable: true,
+                header: "Tên Hãng Tàu",
+                className: "shipname",
+              },
+              {
+                columnId: "TrangThai",
+                width: 100,
+                resizable: true,
+                reorderable: true,
+                header: "Trạng thái",
+              },
+            ]}
             rowsFormat={(container, index) => {
-              return (
-                [
-                  { type: 'text', nonEditable: true, text: String(index + 1) },
-                  { type: 'text', text: container.ContainerNo },
-                  { type: 'text', text: container.ContainerNo },
-                  { type: 'checkbox', checked: false }
-                ]
-              )
+              return [
+                { type: "text", nonEditable: true, text: String(index + 1) },
+                { type: "text", text: container.ContainerNo },
+                { type: "text", text: container.ContainerNo },
+                { type: "checkbox", checked: false },
+              ];
             }}
-            rowsHeader={
-              [
-                { type: "header", text: "STT" },
-                { type: "header", text: "Mã hãng tàu" },
-                { type: "header", text: "Tên hãng tàu" },
-                { type: "header", text: "Trạng thái" },
-              ]
-            }
+            rowsHeader={[
+              { type: "header", text: "STT" },
+              { type: "header", text: "Mã hãng tàu" },
+              { type: "header", text: "Tên hãng tàu" },
+              { type: "header", text: "Trạng thái" },
+            ]}
             reoderRow={true}
           />
 
@@ -1123,11 +1192,12 @@ class ShowComponent extends Component {
               stickyTopRows={1}
               onCellsChanged={this.handleCellsChanged}
               enableRowSelection
-              onSelectionChanged={(e) => this.setState({ selectedRow: e[0].first.row })}
+              onSelectionChanged={(e) =>
+                this.setState({ selectedRow: e[0].first.row })
+              }
               columnProps={{
-                TrangThai: { columnRenderer: this.renderTrangThaiColumn }
+                TrangThai: { columnRenderer: this.renderTrangThaiColumn },
               }}
-
             />
           </div>
 

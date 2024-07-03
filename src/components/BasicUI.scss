@@ -245,6 +245,9 @@ $body-sm-line-height: 18px;
   font-weight: $main-font-weight-bold;
 }
 
+.m-form__box{
+  max-height: 40px;
+}
 //caption
 $caption-font-size: 10px;
 $caption-line-height: 14px;
@@ -273,6 +276,7 @@ $caption-line-height: 14px;
 
 //Mradio Buttons
 
+
 //Mradio
 .ant-radio-group {
   display: flex;
@@ -282,9 +286,8 @@ $caption-line-height: 14px;
 .ant-radio-wrapper {
   margin: 0 0 0 8px !important;
   font-family: $main-font !important;
-  font-size: 16px !important;
-  color: #4f575e !important;
-  padding: 8px 16px 8px 16px;
+  font-size: 14px !important;
+  color: hsl(208, 9%, 34%) !important;
 }
 
 .ant-radio-wrapper:hover {
@@ -296,8 +299,8 @@ $caption-line-height: 14px;
   right: 0;
   bottom: 0;
   left: 0;
-  width: 20px !important;
-  height: 20px !important;
+  width: 15px !important;
+  height: 15px !important;
   margin: auto !important;
   background-color: initial !important;
   border-width: 2px !important;
@@ -305,7 +308,7 @@ $caption-line-height: 14px;
 
   &::after {
     border-color: $color-third !important;
-    transform: scale(0.8) !important;
+    transform: scale(0.6) !important;
     background-color: $color-third !important;
   }
 }
@@ -361,7 +364,11 @@ $caption-line-height: 14px;
   .m-form__label {
     color: black;
     transition: all 0.3s ease;
+  
   }
+
+
+
 
   .ant-input-search {
     display: flex;

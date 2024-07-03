@@ -240,14 +240,14 @@ const initialState = [
     subMenu: [
       {
         id: "qtht-01",
-        text: "Lịch sử người dùng",
-        url: "/lịch-sử-người-dùng",
+        text: "Quản lý tải khoản",
+        url: "/system_manager/SystemManageUser",
         icon: "WalletOutlined",
       },
       {
         id: "qtht-02",
-        text: "Lịch sử gửi API-TOS",
-        url: "/lịch-sử-gửi-api-tos",
+        text: "Quản lý nhóm tài khoản",
+        url: "/system_manager/SystemManageGroup",
         icon: "TableOutlined",
       },
       {
@@ -258,8 +258,8 @@ const initialState = [
       },
       {
         id: "qtht-04",
-        text: "Quản lý phiên bản yêu cầu",
-        url: "/quản-lý-phiên-bản-yêu-cầu",
+        text: "Quản lý phân quyền",
+        url: "/system_manager/SystemManagerGroupPermission",
         icon: "SwitcherOutlined",
       },
     ],
