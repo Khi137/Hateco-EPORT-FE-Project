@@ -15,9 +15,26 @@ import * as AntdIcons from "@ant-design/icons";
 class Header extends Component {
   constructor(props) {
     super(props);
+    const savedCurrentFolder = localStorage.getItem("currentFolder");
+    const savedCurrentSubFolder = localStorage.getItem("currentSubFolder");
     this.state = {
       toggle: false,
+      currentFolder: savedCurrentFolder || "Tổng quan",
+      currentSubFolder: savedCurrentSubFolder || "",
     };
+  }
+
+  componentDidMount() {
+    const currentPath = this.props.location.pathname;
+  }
+
+  componentDidUpdate(_, prevState) {
+    if (prevState.currentFolder !== this.state.currentFolder) {
+      localStorage.setItem("currentFolder", this.state.currentFolder);
+    }
+    if (prevState.currentSubFolder !== this.state.currentSubFolder) {
+      localStorage.setItem("currentSubFolder", this.state.currentSubFolder);
+    }
   }
 
   handleToggle = () => {
@@ -27,6 +44,7 @@ class Header extends Component {
   };
 
   handleClick = (menuText) => {
+    this.setState({ currentFolder: menuText, currentSubFolder: "" });
     this.props.toggleSubMenu({ text: menuText });
   };
 
@@ -59,12 +77,15 @@ class Header extends Component {
     }
   };
 
-  handleNavigateSubMenu = (url) => {
+  handleNavigateSubMenu = (url, menuText) => {
+    this.setState({ currentSubFolder: menuText, toggle: false });
     this.props.navigate(url);
   };
 
   render() {
     const { navigations } = this.props;
+    const { currentFolder, currentSubFolder } = this.state;
+
     return (
       <div className="header-container">
         {this.state.toggle && (
@@ -90,16 +111,7 @@ class Header extends Component {
           <div className="navigate">
             <div className="toggle">
               <AlignLeftOutlined
-                style={{
-                  fontSize: "24px",
-                  borderRight: "1px solid white",
-                  paddingRight: "12px",
-                  cursor: "pointer",
-                  backgroundColor: "white",
-                  color: "#D03438",
-                  padding: "4px 12px",
-                  borderRadius: "4px",
-                }}
+                className="icon-menu"
                 onClick={this.handleToggle}
               />
             </div>
@@ -108,7 +120,7 @@ class Header extends Component {
               onClick={() => this.handleClick("Tổng quan")}
             >
               <HomeOutlined />
-              <span>Tổng quan</span>
+              <span> {currentFolder}</span>
             </div>
             <div className="des">
               <Breadcrumb
@@ -116,19 +128,19 @@ class Header extends Component {
                   {
                     title: (
                       <a className="breadcrum" href="">
-                        Danh mục chức năng
+                        {currentFolder}
                       </a>
                     ),
                   },
-                  {
+
+                  currentSubFolder !== "" && {
                     title: (
                       <a className="breadcrum" href="">
-                        Danh mục hãng tàu
+                        {currentSubFolder}
                       </a>
                     ),
                   },
-                ]}
-                // style={{ border: "1px solid white" }}
+                ].filter(Boolean)}
               />
             </div>
             <Extension />
@@ -145,7 +157,10 @@ class Header extends Component {
                         onClick={() => this.handleClick(item.text)}
                         className={item.isOpen ? "active" : ""}
                       >
-                        <IconComponentParent style={{ marginRight: "8px" }} />
+                        <IconComponentParent
+                          style={{ marginRight: "8px" }}
+                          className="icon-parent"
+                        />
                         <span> {item.text}</span>
                       </li>
                     );
@@ -170,7 +185,10 @@ class Header extends Component {
                                   this.handleAddExtendsion(subItem.id)
                                 }
                                 onConfirm={() =>
-                                  this.handleNavigateSubMenu(subItem.url)
+                                  this.handleNavigateSubMenu(
+                                    subItem.url,
+                                    subItem.text
+                                  )
                                 }
                               >
                                 <Button className="button-custom">

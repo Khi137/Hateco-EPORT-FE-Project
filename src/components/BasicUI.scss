@@ -14,7 +14,7 @@ $color-surface-700: #4f575e;
 $color-surface-800: #33383d;
 $color-surface-900: #202327;
 $color-primary: #1c1c54;
-$color-second: #d2c5ff;
+$color-second: #0065A1;
 $color-third: #00b1cc;
 $color-fourth: #5ffbd6;
 
@@ -55,12 +55,10 @@ $color-warning-400: #a6620d;
 
 //Opacity
 $color-opacity-primary: rgba(red(#7d49f8), green(#7d49f8), blue(#7d49f8), 0.15);
-$color-opacity-secondary: rgba(
-  red(#1c6fe3),
-  green(#1c6fe3),
-  blue(#1c6fe3),
-  0.15
-);
+$color-opacity-secondary: rgba(red(#1c6fe3),
+    green(#1c6fe3),
+    blue(#1c6fe3),
+    0.15);
 $color-opacity-danger: rgba(red(#c92929), green(#c92929), blue(#c92929), 0.15);
 $color-opacity-success: rgba(red(#12825f), green(#12825f), blue(#12825f), 0.15);
 $color-opacity-warning: rgba(red(#f2ab53), green(#f2ab53), blue(#f2ab53), 0.15);
@@ -82,12 +80,14 @@ $main-font-weight-bold: 700;
 //heading-xl
 $heading-xl-font-size: 60px;
 $heading-xl-line-height: 78px;
+
 .heading-xl-normal {
   font-family: $main-font;
   font-size: $heading-xl-font-size;
   line-height: $heading-xl-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .heading-xl-bold {
   font-family: $main-font;
   font-size: $heading-xl-font-size;
@@ -98,12 +98,14 @@ $heading-xl-line-height: 78px;
 //heading-lg
 $heading-lg-font-size: 48px;
 $heading-lg-line-height: 64px;
+
 .heading-lg-normal {
   font-family: $main-font;
   font-size: $heading-lg-font-size;
   line-height: $heading-lg-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .heading-lg-bold {
   font-family: $main-font;
   font-size: $heading-lg-font-size;
@@ -114,12 +116,14 @@ $heading-lg-line-height: 64px;
 //heading-md
 $heading-md-font-size: 34px;
 $heading-md-line-height: 48px;
+
 .heading-md-normal {
   font-family: $main-font;
   font-size: $heading-md-font-size;
   line-height: $heading-md-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .heading-md-bold {
   font-family: $main-font;
   font-size: $heading-md-font-size;
@@ -130,12 +134,14 @@ $heading-md-line-height: 48px;
 //title-xl
 $title-xl-font-size: 24px;
 $title-xl-line-height: 34px;
+
 .title-xl-normal {
   font-family: $main-font;
   font-size: $title-xl-font-size;
   line-height: $title-xl-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .title-xl-bold {
   font-family: $main-font;
   font-size: $title-xl-font-size;
@@ -146,12 +152,14 @@ $title-xl-line-height: 34px;
 //title-lg
 $title-lg-font-size: 20px;
 $title-lg-line-height: 30px;
+
 .title-lg-normal {
   font-family: $main-font;
   font-size: $title-lg-font-size;
   line-height: $title-lg-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .title-lg-bold {
   font-family: $main-font;
   font-size: $title-lg-font-size;
@@ -162,12 +170,14 @@ $title-lg-line-height: 30px;
 //body-xl
 $body-xl-font-size: 18px;
 $body-xl-line-height: 28px;
+
 .body-xl-normal {
   font-family: $main-font;
   font-size: $body-xl-font-size;
   line-height: $body-xl-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .body-xl-bold {
   font-family: $main-font;
   font-size: $body-xl-font-size;
@@ -178,12 +188,14 @@ $body-xl-line-height: 28px;
 //body-lg
 $body-lg-font-size: 16px;
 $body-lg-line-height: 24px;
+
 .body-lg-normal {
   font-family: $main-font;
   font-size: $body-lg-font-size;
   line-height: $body-lg-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .body-lg-bold {
   font-family: $main-font;
   font-size: $body-lg-font-size;
@@ -194,12 +206,14 @@ $body-lg-line-height: 24px;
 //body-md
 $body-md-font-size: 14px;
 $body-md-line-height: 20px;
+
 .body-md-normal {
   font-family: $main-font;
   font-size: $body-md-font-size;
   line-height: $body-md-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .body-md-bold {
   font-family: $main-font;
   font-size: $body-md-font-size;
@@ -210,12 +224,14 @@ $body-md-line-height: 20px;
 //body-sm
 $body-sm-font-size: 12px;
 $body-sm-line-height: 18px;
+
 .body-sm-normal {
   font-family: $main-font;
   font-size: $body-sm-font-size;
   line-height: $body-sm-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .body-sm-bold {
   font-family: $main-font;
   font-size: $body-sm-font-size;
@@ -223,15 +239,20 @@ $body-sm-line-height: 18px;
   font-weight: $main-font-weight-bold;
 }
 
+.m-form__box{
+  max-height: 40px;
+}
 //caption
 $caption-font-size: 10px;
 $caption-line-height: 14px;
+
 .caption-normal {
   font-family: $main-font;
   font-size: $caption-font-size;
   line-height: $caption-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .caption-bold {
   font-family: $main-font;
   font-size: $caption-font-size;
@@ -239,6 +260,7 @@ $caption-line-height: 14px;
   font-weight: $main-font-weight-bold;
 }
 
+<<<<<<< HEAD
 // .m-form__box {
 //   max-height: 50px;
 // }
@@ -247,37 +269,83 @@ $caption-line-height: 14px;
   align-items: center;
 }
 
+=======
+>>>>>>> 45ee27627e1121192a3cc12950a1d3d4f65a24ae
 //Mradio Buttons
+
 
 //Mradio
 .ant-radio-group {
   display: flex;
   justify-content: space-between;
 }
+
 .ant-radio-wrapper {
   margin: 0 0 0 8px !important;
   font-family: $main-font !important;
-  font-size: 16px !important;
-  color: #4f575e !important;
+  font-size: 14px !important;
+  color: hsl(208, 9%, 34%) !important;
 }
+
 .ant-radio-wrapper:hover {
   background-color: #f8f5ff;
 }
+
 .ant-radio-inner {
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  width: 20px !important;
-  height: 20px !important;
+  width: 15px !important;
+  height: 15px !important;
   margin: auto !important;
   background-color: initial !important;
   border-width: 2px !important;
   border-color: #4f575e !important;
+
   &::after {
     border-color: $color-third !important;
-    transform: scale(0.8) !important;
+    transform: scale(0.6) !important;
     background-color: $color-third !important;
+  }
+}
+
+// Winput
+
+.winput {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  .winput_header {
+    margin-bottom: 12px;
+
+    .winput_tooltip {
+      margin: 0 5px;
+    }
+
+    .winput_require {
+      color: red;
+    }
+  }
+
+  .ant-input {
+    width: 100%;
+    height: 100% !important;
+    margin: auto 0;
+  }
+
+  .Winput.error_input {
+    border-color: #C92929;
+    // padding: 0 5px;
+  }
+
+  .Winput_error_text {
+    width: 100%;
+    height: 16px;
+    margin-top: 4px;
+    font-size: 12px;
+    color: red;
   }
 }
 
@@ -293,7 +361,11 @@ $caption-line-height: 14px;
   .m-form__label {
     color: black;
     transition: all 0.3s ease;
+  
   }
+
+
+
 
   .ant-input-search {
     display: flex;
@@ -314,6 +386,7 @@ $caption-line-height: 14px;
     border: 2px solid #cbcfd2;
     border-radius: 4px;
     transition: border-color 0.3s;
+
     &:hover {
       border-color: $color-third;
     }
@@ -337,6 +410,7 @@ $caption-line-height: 14px;
     height: 100%;
     border: 2px solid lightgray;
     padding: 8px 8px 8px 48px;
+
     &:hover {
       border-color: $color-third;
     }
@@ -346,6 +420,7 @@ $caption-line-height: 14px;
       border-color: $color-third;
     }
   }
+
   .ant__search-icon {
     position: absolute;
     font-size: 20px;
@@ -359,7 +434,11 @@ $caption-line-height: 14px;
     width: 100%;
     border: 2px solid lightgray;
     border-radius: 4px;
+<<<<<<< HEAD
     color: #cbcfd2;
+=======
+
+>>>>>>> 45ee27627e1121192a3cc12950a1d3d4f65a24ae
     &:hover {
       border-color: $color-third;
     }
@@ -375,9 +454,11 @@ $caption-line-height: 14px;
 .m_button.third {
   background-color: $color-third;
   color: #ffffff;
+
   &:hover {
     background-color: $color-third !important;
     color: #ffffff !important;
+
     &:active {
       background-color: $color-third !important;
     }
@@ -388,10 +469,12 @@ $caption-line-height: 14px;
   background-color: white;
   color: $color-third;
   border: 2px solid $color-third;
+
   &:hover {
     background-color: white !important;
     color: #1d99d6 !important;
     border-color: #1d99d6;
+
     &:active {
       border: 2px solid #1d99d6;
     }
@@ -402,10 +485,12 @@ $caption-line-height: 14px;
   background-color: transparent;
   color: #ffffff;
   border: 2px solid #ffffff;
+
   &:hover {
     background-color: transparent !important;
     color: #cbcfd2 !important;
     border: 2px solid #cbcfd2;
+
     &:active {
       border: 2px solid #cbcfd2;
     }
@@ -415,9 +500,11 @@ $caption-line-height: 14px;
 .m_button.red {
   background-color: #c92929 !important;
   color: white;
+
   &:hover {
     background-color: #a92323;
     color: white;
+
     &:active {
       background-color: #a92323 !important;
     }
@@ -427,8 +514,10 @@ $caption-line-height: 14px;
 .m_button.green {
   background-color: #12825f;
   color: white;
+
   &:hover {
     background-color: #0e674b !important;
+
     &:active {
       background-color: #12825f;
     }
@@ -438,12 +527,28 @@ $caption-line-height: 14px;
 .m_button.orange {
   background-color: #f2ab53;
   color: #202327;
+
   &:hover {
     background-color: #ee9322 !important;
     color: #202327 !important;
+
     &:active {
       background-color: #f2ab53;
     }
+  }
+}
+
+.m_button.second {
+  background-color: $color-second;
+  color: white;
+
+  &:hover {
+    background-color: $color-second !important;
+    color: white !important;
+  }
+
+  &:active {
+    background-color: $color-second !important;
   }
 }
 
@@ -461,6 +566,7 @@ $caption-line-height: 14px;
   flex: 0 0 100%;
   max-width: 100%;
 }
+
 .m-checkbox_checked {
   .m-form__Mcheckbox:hover {
     background-color: #f8f5ff;
@@ -470,34 +576,68 @@ $caption-line-height: 14px;
 .m-form__Checkbox {
   padding: 8px 16px;
   border-radius: 4px;
-  border: 1px solid white;
+  border: 1px solid transparent;
+
+
   &:hover {
     background-color: #f8f5ff !important;
     border-width: 1px !important;
-    border-color: $color-third !important;
+
+    // border-color: $color-third !important;
     .ant-checkbox-wrapper {
+      // padding: 0 8px;
+
       .ant-checkbox {
         .ant-checkbox-inner {
-          border-color: #00b1cc;
+          border-color: #00B1CC !important;
+        }
+      }
+
+      .ant-checkbox-checked {
+
+        .ant-checkbox-inner {
+          border-color: #00B1CC !important;
+          background-color: #00B1CC !important;
+
         }
       }
     }
   }
-  .ant-checkbox-wrapper {
-    .ant-checkbox {
-      .ant-checkbox-inner:hover {
-        border-color: #00b1cc !important;
+
+  .m-form__box {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .m-form__input:hover {
+    background-color: #F8F5FF;
+    
+
+    .ant-checkbox-wrapper {
+      .ant-checkbox {
+        .ant-checkbox-inner:hover {
+          border-color: #00b1cc !important;
+        }
+      }
+
+      .ant-checkbox-checked {
+        .ant-checkbox-inner {
+          border-color: #00b1cc !important;
+          background-color: #00b1cc !important;
+        }
       }
     }
-    .ant-checkbox-checked {
-      .ant-checkbox-inner {
-        border-color: #00b1cc;
-        background-color: #00b1cc !important;
-      }
+  }
+
+  .ant-checkbox-checked {
+    .ant-checkbox-inner {
+      border-color: #00b1cc !important;
+      background-color: #00b1cc !important;
     }
   }
 }
 
+<<<<<<< HEAD
 //Mtable (new)
 .reactgrid {
   border: 1px solid #ddd;
@@ -519,12 +659,21 @@ $caption-line-height: 14px;
 
   .selected-row {
     background-color: #6f6f6f;
+=======
+.m-checkbox_checked {
+  .m-form__Checkbox:hover {
+    border-color: $color-third !important;
+
+>>>>>>> 45ee27627e1121192a3cc12950a1d3d4f65a24ae
   }
 }
 
 //SCSS of ShowComponent.jsx
 .component-bodylayout {
-  padding: 100px 25% 100px 25%;
+  width: 80%;
+  // padding: 100px 25% 100px 25%;
+  margin: 0 auto;
+  padding-bottom: 10%;
 }
 
 .typography-container {
@@ -542,6 +691,7 @@ $caption-line-height: 14px;
 .typography-example {
   display: flex;
   clear: both;
+
   .typography-info {
     flex: 1;
     display: flex;
@@ -549,11 +699,13 @@ $caption-line-height: 14px;
     width: auto;
     float: left;
   }
+
   .typography-info div {
     flex: 1;
     padding: 0 10px 0 10px;
     text-align: top left;
   }
+
   .example-text {
     flex: 1;
     margin: 0 0 0 40px;
@@ -564,15 +716,44 @@ $caption-line-height: 14px;
 }
 
 .component-mbutton {
-  width: auto;
+  width: 100%;
+
   .component-mbutton-1 {
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    border-top-left-radius: 10px;
     padding: 50px;
     background-color: $color-dark-50;
+    // float: left;
   }
+
   .component-mbutton-2 {
+    border-top-right-radius: 10px;
     padding: 50px;
     background-color: $color-dark-50;
+    // float: left;
+  }
+}
+
+// Mtable
+.reactgrid {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+
+  .rg-row {
+    border-bottom: 1px solid #ddd;
+  }
+
+  .rg-header-cell {
+    background-color: var(--second-color) !important;
+    color: white !important;
+    align-items: center !important;
+    justify-content: center !important;
+    display: flex !important;
+    font-weight: bold !important;
+  }
+
+  .rg-text-cell {
+    align-items: center !important;
+    justify-content: center !important;
+    display: flex !important;
   }
 }

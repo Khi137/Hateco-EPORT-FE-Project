@@ -18,6 +18,11 @@
             align-items: center;
             justify-content: center;
             border: 4px 4px 0 0;
+            @media (max-width: 768px) {
+              
+                    font-size: 14px;
+                
+            }
         }
         .danhsach-lenhha{
             margin: 0;
@@ -39,6 +44,14 @@
                     margin-bottom: 0;
                 }
             }
+            @media (max-width: 768px) {
+                max-height: 300px;
+                overflow-y: scroll;
+                li{
+                    font-size: 14px;
+                    padding: 2px 4px;
+                }
+            }
             
         }
     }
@@ -46,6 +59,7 @@
         flex: 8;
         // padding: var(--padding-page);
         position: relative;
+   
         .header{
             font-size: 24px;
             padding: var(--padding-page);
@@ -60,6 +74,19 @@
             }
             .buoc{
                 padding: 0 var(--padding-page);
+            }
+            @media (max-width: 768px) {
+                font-size: 12px;
+                .icon-menu{
+                    font-size: 12px !important;
+                }
+                .huongdan,
+                .lenh,
+                .buoc {
+                    padding: 1px 4px;
+                    position: relative;
+                }
+               
             }
         }
         .modal-huongdan{
@@ -105,6 +132,14 @@
         }
         .huongdanchitiet{
             height: 600px;
+            @media (max-width: 768px) {
+               height: 300px;
+               .image{
+                height: 110%;
+                border-radius: 0 0 4px 4px;
+               }
+
+            }
         }
     }
 }

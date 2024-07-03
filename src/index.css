@@ -4,6 +4,7 @@ body {
   background-color: rgb(236, 236, 236);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #eaedf0;
 }
 
 code {
@@ -13,7 +14,7 @@ code {
 :root {
   --primary-color: #1c1c54;
   --second-color: #0065a1;
-  --third-color: #068fb9;
+  --third-color: #00b1cc;
   --logo-main-2: #d03438;
   --padding-page: 12px;
   /* new update from BasicUI.scss */
@@ -72,42 +73,30 @@ code {
   --color-warning-400: #a6620d;
 
   /* Opacity */
-  --color-opacity-primary: rgba(
-    red(#7d49f8),
-    green(#7d49f8),
-    blue(#7d49f8),
-    0.15
-  );
-  --color-opacity-secondary: rgba(
-    red(#1c6fe3),
-    green(#1c6fe3),
-    blue(#1c6fe3),
-    0.15
-  );
-  --color-opacity-danger: rgba(
-    red(#c92929),
-    green(#c92929),
-    blue(#c92929),
-    0.15
-  );
-  --color-opacity-success: rgba(
-    red(#12825f),
-    green(#12825f),
-    blue(#12825f),
-    0.15
-  );
-  --color-opacity-warning: rgba(
-    red(#f2ab53),
-    green(#f2ab53),
-    blue(#f2ab53),
-    0.15
-  );
-  --color-background-modal: rgba(
-    red(#121212),
-    green(#121212),
-    blue(#121212),
-    92%
-  );
+  --color-opacity-primary: rgba(red(#7d49f8),
+      green(#7d49f8),
+      blue(#7d49f8),
+      0.15);
+  --color-opacity-secondary: rgba(red(#1c6fe3),
+      green(#1c6fe3),
+      blue(#1c6fe3),
+      0.15);
+  --color-opacity-danger: rgba(red(#c92929),
+      green(#c92929),
+      blue(#c92929),
+      0.15);
+  --color-opacity-success: rgba(red(#12825f),
+      green(#12825f),
+      blue(#12825f),
+      0.15);
+  --color-opacity-warning: rgba(red(#f2ab53),
+      green(#f2ab53),
+      blue(#f2ab53),
+      0.15);
+  --color-background-modal: rgba(red(#121212),
+      green(#121212),
+      blue(#121212),
+      92%);
 
   /* Dark */
   --color-dark-50: #121212;
@@ -172,6 +161,7 @@ code {
   line-height: var(--heading-xl-line-height);
   font-weight: var(--main-font-weight-normal);
 }
+
 .heading-xl-bold {
   font-family: var(--main-font);
   font-size: var(--heading-xl-font-size);
@@ -186,6 +176,7 @@ code {
   line-height: var(--heading-lg-line-height);
   font-weight: var(--main-font-weight-normal);
 }
+
 .heading-lg-bold {
   font-family: var(--main-font);
   font-size: var(--heading-lg-font-size);
@@ -200,6 +191,7 @@ code {
   line-height: var(--heading-md-line-height);
   font-weight: var(--main-font-weight-normal);
 }
+
 .heading-md-bold {
   font-family: var(--main-font);
   font-size: var(--heading-md-font-size);
@@ -214,6 +206,7 @@ code {
   line-height: var(--title-xl-line-height);
   font-weight: var(--main-font-weight-normal);
 }
+
 .title-xl-bold {
   font-family: var(--main-font);
   font-size: var(--title-xl-font-size);
@@ -228,6 +221,7 @@ code {
   line-height: var(--title-lg-line-height);
   font-weight: var(--main-font-weight-normal);
 }
+
 .title-lg-bold {
   font-family: var(--main-font);
   font-size: var(--title-lg-font-size);
@@ -242,6 +236,7 @@ code {
   line-height: var(--body-xl-line-height);
   font-weight: var(--main-font-weight-normal);
 }
+
 .body-xl-bold {
   font-family: var(--main-font);
   font-size: var(--body-xl-font-size);
@@ -256,6 +251,7 @@ code {
   line-height: var(--body-lg-line-height);
   font-weight: var(--main-font-weight-normal);
 }
+
 .body-lg-bold {
   font-family: var(--main-font);
   font-size: var(--body-lg-font-size);
@@ -270,6 +266,7 @@ code {
   line-height: var(--body-md-line-height);
   font-weight: var(--main-font-weight-normal);
 }
+
 .body-md-bold {
   font-family: var(--main-font);
   font-size: var(--body-md-font-size);
@@ -284,6 +281,7 @@ code {
   line-height: var(--body-sm-line-height);
   font-weight: var(--main-font-weight-normal);
 }
+
 .body-sm-bold {
   font-family: var(--main-font);
   font-size: var(--body-sm-font-size);
@@ -298,11 +296,13 @@ code {
   line-height: var(--caption-line-height);
   font-weight: var(--main-font-weight-normal);
 }
+
 .caption-bold {
   font-family: var(--main-font);
   font-size: var(--caption-font-size);
   line-height: var(--caption-line-height);
   font-weight: var(--main-font-weight-bold);
+<<<<<<< HEAD
 }
 
 /* box shadow */
@@ -312,4 +312,6 @@ code {
 
 .drop-button-shadow {
   filter: drop-shadow(0.05rem 0.05rem 0.1rem rgba(0, 0, 30, 0.5));
+=======
+>>>>>>> 45ee27627e1121192a3cc12950a1d3d4f65a24ae
 }

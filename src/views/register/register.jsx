@@ -1,9 +1,9 @@
 import React, { Component, createRef } from 'react';
-import { Row, Col, Typography, Tooltip } from 'antd';
-import { InfoCircleOutlined, MailOutlined, LockOutlined, NumberOutlined, PhoneOutlined, EnvironmentOutlined, BoldOutlined } from '@ant-design/icons';
+import { Row, Col, Typography, Tooltip, Modal, message, Select } from 'antd';
+import { InfoCircleOutlined, MailOutlined, LockOutlined, NumberOutlined, PhoneOutlined, EnvironmentOutlined, BoldOutlined, DownOutlined, BarcodeOutlined } from '@ant-design/icons';
 import './styles.scss'
 
-import { Mbutton, Mcheckbox, Mdropdown, Winput } from "../../components/BasicUI"
+import { Mbutton, Mcapcha, Mcheckbox, Winput } from "../../components/BasicUI"
 import { withRouter } from '../../utils/withRouter';
 import { NavLink } from 'react-router-dom';
 
@@ -21,8 +21,9 @@ class Register extends Component {
                 email: "",
                 password: "",
                 rePassword: "",
-                service: "",
+                selectedService: [],
                 termsAgreed: false,
+                captchaVerify: false,
 
                 taxNumberError: false,
                 companyNameError: false,
@@ -32,10 +33,21 @@ class Register extends Component {
                 emailError: false,
                 passwordError: false,
                 rePasswordError: false,
-            }
+                selectedServiceError: false
+            },
+            termsAgreedModal: false
         };
         this.mButtonRef = createRef();
         this.dropdownRef = createRef();
+
+        this.taxNumberRef = createRef();
+        this.companyNameRef = createRef();
+        this.addressRef = createRef();
+        this.businessNumberRef = createRef();
+        this.phoneNumberRef = createRef();
+        this.emailRef = createRef();
+        this.passwordRef = createRef();
+        this.rePasswordRef = createRef();
     }
 
     handleInputChange = (e, regex) => {
@@ -74,110 +86,80 @@ class Register extends Component {
         }));
     };
 
-    handleChange = (event) => {
-        this.setState({ service: event.target.textContent });
+    handleSelectService = (value) => {
+        this.setState(prevState => ({
+            formData: {
+                ...prevState.formData,
+                selectedService: value
+            }
+        }));
     };
 
-    checkTaxNumberError = (value) => {
-        switch (value) {
-            case "":
-                return "Mã số thuế không được để trống"
+    handleVerifyCaptcha = (value) => {
+        this.setState(prevState => ({
+            formData: {
+                ...prevState.formData,
+                captchaVerify: value
+            }
+        }));
+    };
+
+    checkSelectedServiceError = (value) => {
+        switch (true) {
+            case (value.length === 0):
+                return "Vui lòng chọn dịch vụ"
 
             default:
                 return false
         }
     }
 
-    checkCompanyNameError = (value) => {
-        switch (value) {
-            case "":
-                return "Tên doanh nghiệp không được để trống"
-
-            default:
-                return false
-        }
-    }
-
-    checkAddressError = (value) => {
-        switch (value) {
-            case "":
-                return "Địa chỉ không được để trống"
-
-            default:
-                return false
-        }
-    }
-
-    checkBusinessNumberError = (value) => {
-        switch (value) {
-            case "":
-                return "Số đăng ký kinh doanh không được để trống"
-
-            default:
-                return false
-        }
-    }
-
-    checkPhoneNumberError = (value) => {
-        switch (value) {
-            case "":
-                return "Số điện thoại không được để trống"
-
-            default:
-                return false
-        }
-    }
-
-    checkEmailError = (value) => {
-        switch (value) {
-            case "":
-                return "Email không được để trống"
-
-            default:
-                return false
-        }
-    }
-
-    checkPasswordError = (value) => {
-        switch (value) {
-            case "":
-                return "Mật khẩu không được để trống"
-
-            default:
-                return false
-        }
-    }
-
-    checkRePasswordError = (value) => {
-        switch (value) {
-            case "":
-                return "Mật khẩu không được để trống"
-
-            default:
-                return false
-        }
-    }
-
-    // taxNumber: "",
-    // companyName: "",
-    // address: "",
-    // businessNumber: "",
-    // phoneNumber: "",
-    // email: "",
-    // password: "",
-    // rePassword: "",
+    handleCaptchaVerify = (isVerified) => {
+        this.setState({
+            isCaptchaVerified: isVerified,
+        });
+    };
 
     handleFormSubmit = () => {
         const formData = this.state.formData
         if (
-            !this.checkTaxNumberError(formData.taxNumber) &&
-            !this.checkCompanyNameError(formData.companyName) &&
-            !this.checkAddressError(formData.address) &&
-            !this.checkBusinessNumberError(formData.businessNumber) &&
-            !this.checkPhoneNumberError(formData.phoneNumber) &&
-            !this.checkEmailError(formData.email) &&
-            !this.checkPasswordError(formData.password) &&
-            !this.checkRePasswordError(formData.rePassword)
+            formData.taxNumberError ||
+            formData.companyNameError ||
+            formData.addressError ||
+            formData.businessNumberError ||
+            formData.phoneNumberError ||
+            formData.emailError ||
+            formData.passwordError ||
+            formData.rePasswordError ||
+            this.checkSelectedServiceError(formData.selectedService)
+        ) {
+            this.taxNumberRef.current.handleCheckError()
+            this.companyNameRef.current.handleCheckError()
+            this.addressRef.current.handleCheckError()
+            this.businessNumberRef.current.handleCheckError()
+            this.phoneNumberRef.current.handleCheckError()
+            this.emailRef.current.handleCheckError()
+            this.passwordRef.current.handleCheckError()
+            this.rePasswordRef.current.handleCheckError()
+
+            this.setState(prevState => ({
+                formData: {
+                    ...prevState.formData,
+                    selectedServiceError: this.checkSelectedServiceError(formData.selectedService)
+                }
+            }));
+
+            return
+        }
+
+        if (formData.password !== formData.rePassword) {
+            this.rePasswordRef.current.handleSetError("Mật khẩu không khớp")
+            return
+        }
+
+        if (
+            !this.checkSelectedServiceError(formData.selectedService) &&
+            this.state.isCaptchaVerified
             // true
         ) {
             if (this.mButtonRef.current) {
@@ -194,53 +176,59 @@ class Register extends Component {
                 password: formData.password,
                 rePassword: formData.rePassword,
                 termsAgreed: formData.termsAgreed,
+                selectedService: formData.selectedService
             });
 
             setTimeout(() => {
                 if (this.mButtonRef.current) {
+                    message.success("Đăng ký thành công")
                     this.mButtonRef.current.reset();
-                    // this.props.navigate('/')
+                    this.props.navigate('/login')
                 }
             }, 2000);
 
+        } else {
+            !this.state.isCaptchaVerified && message.error("Chưa xác nhận CAPTCHA")
         }
-        this.setState(prevState => ({
-            formData: {
-                ...prevState.formData,
-                taxNumberError: this.checkTaxNumberError(formData.taxNumber),
-                companyNameError: this.checkCompanyNameError(formData.companyName),
-                addressError: this.checkAddressError(formData.address),
-                businessNumberError: this.checkBusinessNumberError(formData.businessNumber),
-                phoneNumberError: this.checkPhoneNumberError(formData.phoneNumber),
-                emailError: this.checkEmailError(formData.email),
-                passwordError: this.checkPasswordError(formData.password),
-                rePasswordError: this.checkRePasswordError(formData.rePassword),
-            }
-        }));
     };
 
     renderInputField = (item, key) => {
         return (
             <Col className="form_item gutter-row responsive-col" key={key}>
-                <Row className="item_header">
-                    <Col>{item?.title} <span className="item_require">*</span></Col>
-                    <Tooltip placement="top" title={item?.tooltip} className="item_tooltip">
-                        <InfoCircleOutlined />
-                    </Tooltip>
-                </Row>
                 <Winput
+                    title={item?.title}
+                    value={item.value}
+                    tooltip={item.tooltip}
+                    onChange={(e) => this.handleInputChange(e)}
+                    checkError={(error) => this.setState(prevState => ({
+                        formData: {
+                            ...prevState.formData,
+                            [item?.name + "Error"]: error
+                        }
+                    }))}
+                    require={item.require}
+                    inputRegex={item.inputRegex}
+                    submitRegex={item.submitRegex}
+                    minLength={item.minLength}
+
                     name={item?.name}
                     type={item?.type}
-                    className={`form_input_field ${item?.error ? 'error_item' : ''}`}
+                    className={`form_input_field`}
                     prefix={item?.inputIcon}
                     placeholder={item?.placeholder}
-                    value={item?.value}
-                    defaultValue={item?.value}
-                    onChange={(e) => this.handleInputChange(e, item?.regex)}
+                    ref={item.ref}
                 />
-                <Row className="item_bottom">{item?.error && item?.error}</Row>
             </Col>
         )
+    }
+
+    hanldeSetVisibleTermsagreeModal = (value) => {
+        this.setState(prevState => ({
+            formData: {
+                ...prevState.formData,
+            },
+            termsAgreedModal: value
+        }));
     }
 
     render() {
@@ -248,154 +236,224 @@ class Register extends Component {
 
         const checkboxDataSource = {
             span: 12,
-            label: <div><p style={{ userSelect: "none" }}>Tôi đồng ý với <span className='terms_agreed'>điều khoản thỏa thuận</span></p></div>,
+            label: <div><p style={{ userSelect: "none" }}>Tôi đồng ý với <span onClick={() => this.hanldeSetVisibleTermsagreeModal(true)} className='terms_agreed' >điều khoản thỏa thuận</span></p></div>,
             value: formData.termsAgreed,
             className: `${formData.termsAgreed && "m-checkbox_checked"}`,
         };
 
         const inputForm = [
             {
-                title: "Mã số thuế:",
-                tooltip: "Nhập mã số thuế",
+                title: "Mã số thuế",
+                value: formData.taxNumber,
+                require: true,
+
+                tooltip: "Nhập mã số thuế có khoảng 10 đến 13 số vd: 0101234567-001",
                 placeholder: "Nhập mã số thuế",
                 inputIcon: <NumberOutlined />,
                 name: "taxNumber",
                 type: "text",
-                value: formData.taxNumber,
-                error: formData.taxNumberError
+                ref: this.taxNumberRef
             },
             {
-                title: "Tên doanh nghiệp:",
-                tooltip: "Nhập tên doanh nghiệp",
+                title: "Tên doanh nghiệp",
+                value: formData.companyName,
+                require: true,
+
+                tooltip: "Nhập tên doanh nghiệp của bạn/tổ chức",
                 placeholder: "Nhập tên doanh nghiệp",
                 inputIcon: <BoldOutlined />,
                 name: "companyName",
                 type: "text",
-                value: formData.companyName,
-                error: formData.companyNameError
+                ref: this.companyNameRef
             },
             {
-                title: "Địa chỉ:",
+                title: "Địa chỉ",
+                value: formData.address,
+                require: true,
+
                 tooltip: "Nhập địa chỉ",
                 placeholder: "Nhập địa chỉ",
                 inputIcon: <EnvironmentOutlined />,
                 name: "address",
                 type: "text",
-                value: formData.address,
-                error: formData.addressError
+                ref: this.addressRef
             },
             {
-                title: "Số đăng ký kinh doanh:",
-                tooltip: "Nhập số đăng ký kinh doanh",
+                title: "Số đăng ký kinh doanh",
+                value: formData.businessNumber,
+                require: true,
+
+                tooltip: "Số đăng ký kinh doanh có khoảng 10 đến 13 số vd: 0101234567890",
                 placeholder: "Nhập số đăng ký kinh doanh",
-                inputIcon: <NumberOutlined />,
+                inputIcon: <BarcodeOutlined />,
                 name: "businessNumber",
                 type: "text",
-                value: formData.businessNumber,
-                error: formData.businessNumberError
+                ref: this.businessNumberRef
             },
             {
-                title: "Số điện thoại:",
+                title: "Số điện thoại",
+                value: formData.phoneNumber,
+                inputRegex: /^[0-9\-\+]{0,15}$/,
+                require: true,
+
                 tooltip: "Nhập số điện thoại",
                 placeholder: "Nhập số điện thoại",
                 inputIcon: <PhoneOutlined />,
                 name: "phoneNumber",
                 type: "text",
-                value: formData.phoneNumber,
-                error: formData.phoneNumberError,
-                regex: /^[0-9\-\+]{0,15}$/
+                ref: this.phoneNumberRef
             },
 
             {
-                title: "Email:",
-                tooltip: "Nhập email",
+                title: "Email",
+                value: formData.email,
+                require: true,
+                submitRegex: /^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4})$/,
+
+                tooltip: "Nhập email theo format mail@example.com",
                 placeholder: "Nhập email",
                 inputIcon: <MailOutlined />,
                 name: "email",
                 type: "text",
-                value: formData.email,
-                error: formData.emailError,
-                // regex: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/
+                ref: this.emailRef
             },
             {
-                title: "Mật khẩu:",
+                title: "Mật khẩu",
+                value: formData.password,
+                require: true,
+                minLength: 6,
+
                 tooltip: "Nhập mật khẩu",
-                placeholder: "Nhập mật khẩu",
+                placeholder: "Nhập mật khẩu phải nhiều hơn 6 ký tự",
                 inputIcon: <LockOutlined />,
                 name: "password",
                 type: "password",
-                value: formData.password,
-                error: formData.passwordError
+                ref: this.passwordRef
             },
             {
-                title: "Nhập lại mật khẩu:",
-                tooltip: "Nhập lại mật khẩu",
+                title: "Nhập lại mật khẩu",
+                value: formData.rePassword,
+                require: true,
+
+                tooltip: "Nhập lại mật khẩu phải tùng với mật khẩu đã nhập",
                 placeholder: "Nhập lại mật khẩu",
                 inputIcon: <LockOutlined />,
                 name: "rePassword",
                 type: "password",
-                value: formData.rePassword,
-                error: formData.rePasswordError
+                ref: this.rePasswordRef
             },
         ]
-        const items = ['Option 1', 'Option 2', 'Option 3'];
+        const options = [
+            { value: 'option1', label: 'Lựa chọn 1' },
+            { value: 'option2', label: 'Lựa chọn 2' },
+            { value: 'option3', label: 'Lựa chọn 3' },
+            { value: 'option4', label: 'Lựa chọn 4' },
+            { value: 'option5', label: 'Lựa chọn 5' },
+            { value: 'option6', label: 'Lựa chọn 6' },
+            { value: 'option8', label: 'Lựa chọn 7' },
+        ];
         return (
-            <Col className='register_container' >
-                <Row className="register_content">
-                    <Col
-                        name="register_form"
-                        layout="vertical"
-                        className="register_form"
-                    >
-                        <Col className="form_item form_header">
-                            <Typography.Title level={3} className="button_text">Đăng ký</Typography.Title>
-                        </Col>
-                        <Row>
-                            {inputForm.map((item, key) => this.renderInputField(item, key))}
-                            <Col className="form_item gutter-row responsive-col">
-                                <Row className="item_header">
-                                    <Col>Dịch vụ (có thể chọn nhiều dịch vụ): <span className="item_require">*</span></Col>
-                                    <Tooltip placement="top" title={"Dịch vụ"} className="item_tooltip">
-                                        <InfoCircleOutlined />
-                                    </Tooltip>
-                                </Row>
-                                {/* <Mdropdown
-                                    dataSource={{
-                                        id: 'myDropdown',
-                                        options: items
-                                    }}
-                                    id={'myDropdown'}
-                                    items={items}
-                                    onChange={this.handleChange}
-                                    ref={this.dropdownRef}
-                                >
-                                    {this.state.selectedValue || 'Select an option'}
-                                </Mdropdown> */}
-                                {/* <Row className="item_bottom">{item?.error && item?.error}</Row> */}
+            <>
+                <Col className='register_container' >
+                    <Row className="register_content">
+                        <Col
+                            name="register_form"
+                            layout="vertical"
+                            className="register_form"
+                        >
+                            <Col className="form_item form_header">
+                                <Typography.Title level={3} className="button_text">Đăng ký</Typography.Title>
+                            </Col>
+                            <Row>
+                                {inputForm.map((item, key) => this.renderInputField(item, key))}
+                                <Col className="form_item gutter-row responsive-col">
+                                    <Row className="item_header">
+                                        <Col>Dịch vụ (có thể chọn nhiều dịch vụ): <span className="item_require">*</span></Col>
+                                        <Tooltip placement="top" title={"Dịch vụ"} className="item_tooltip">
+                                            <InfoCircleOutlined />
+                                        </Tooltip>
+                                    </Row>
+                                    <Select
+                                        mode="multiple"
+                                        options={options}
+                                        placeholder="Chọn dich vụ"
+                                        onChange={this.handleSelectService}
+                                        className='form_item gutter-row responsive-col select_services'
+                                        dataSource={options}
+                                        suffixIcon={<DownOutlined />}
+                                    />
+                                    <Row className="error_text">{formData.selectedServiceError && formData.selectedServiceError}</Row>
+                                </Col>
+                                <Col className="form_item gutter-row responsive-col">
+                                    <Mcapcha
+                                        onVerify={this.handleCaptchaVerify}
+                                    />
+                                </Col>
+
+                            </Row>
+
+
+                            <Col className="form_item space_margin">
+                                <Mcheckbox dataSource={checkboxDataSource} onClick={() => this.handleCheckboxChange(!formData.termsAgreed)} />
                             </Col>
 
-                        </Row>
-
-
-                        <Col className="form_item space_margin">
-                            <Mcheckbox dataSource={checkboxDataSource} onClick={() => this.handleCheckboxChange(!formData.termsAgreed)} />
+                            <Col className="form_item">
+                                <Mbutton
+                                    className={`form_button ${!formData.termsAgreed && "disable_button"}`}
+                                    type="primary"
+                                    htmlType="submit"
+                                    block
+                                    onClick={this.handleFormSubmit}
+                                    ref={this.mButtonRef}
+                                    dataSource={{ textbutton: "Đăng ký" }}
+                                >
+                                    Đăng ký
+                                </Mbutton>
+                            </Col>
+                            <Row justify="space-between" className="form_item bottom_link">
+                                <NavLink to="/login">{"<< Đăng nhập"}</NavLink>
+                                <NavLink to="/forgot-password" ></NavLink>
+                            </Row>
                         </Col>
-
-                        <Col className="form_item">
-                            <Mbutton
-                                className={`form_button ${!formData.termsAgreed && "disable_button"}`}
-                                type="primary"
-                                htmlType="submit"
-                                block
-                                onClick={this.handleFormSubmit}
-                                ref={this.mButtonRef}
-                            >
-                                Đăng ký
-                            </Mbutton>
-                        </Col>
+                    </Row >
+                </Col >
+                <Modal
+                    title="Điều Kiện thoả thuận"
+                    open={this.state.termsAgreedModal}
+                    onClose={() => this.hanldeSetVisibleTermsagreeModal(false)}
+                    onOk={() => this.hanldeSetVisibleTermsagreeModal(false)}
+                    onCancel={() => this.hanldeSetVisibleTermsagreeModal(false)}
+                    footer={[]}
+                    centered={true}
+                    classNames={"register_terms_agree_modal"}
+                >
+                    <Col className="form_item form_header">
+                        <Typography.Title level={5} className="button_text">Điều Kiện 1</Typography.Title>
                     </Col>
-                </Row >
-            </Col >
+                    <Col>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore provident, autem illum voluptatem neque officia, labore reprehenderit quo consequuntur, quos eaque porro obcaecati? Deserunt rem libero fuga velit, omnis asperiores.</Col>
+                    <Col className="form_item form_header">
+                        <Typography.Title level={5} className="button_text">Điều Kiện 2</Typography.Title>
+                    </Col>
+                    <Col>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nostrum inventore ad odio vitae! Quisquam nesciunt repellendus a iure, saepe vero incidunt repellat ipsum non architecto minima quos facilis qui accusantium?</Col>
+                    <Col className="form_item form_header">
+                        <Typography.Title level={5} className="button_text">Điều Kiện 3</Typography.Title>
+                    </Col>
+                    <Col>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis voluptatem amet sed, hic velit, accusamus perspiciatis recusandae reprehenderit, tempora deserunt a saepe aut fuga omnis molestias repellat veniam minima ab.</Col>
+                    <Col className="form_item form_header">
+                        <Typography.Title level={5} className="button_text">Điều Kiện 4</Typography.Title>
+                    </Col>
+                    <Col>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam delectus minus quibusdam. Earum id hic et, quos cum, blanditiis sapiente, neque nisi vero obcaecati eligendi minus eveniet minima ea nemo.</Col>
+                    <Col className="form_item form_header">
+                        <Typography.Title level={5} className="button_text">Điều Kiện 5</Typography.Title>
+                    </Col>
+                    <Col>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos deserunt similique corrupti possimus, iste laborum nostrum, modi ut, distinctio animi velit eveniet debitis asperiores sequi maxime? Mollitia veritatis ad rerum?</Col>
+                    <Col className="form_item form_header">
+                        <Typography.Title level={5} className="button_text">Điều Kiện 6</Typography.Title>
+                    </Col>
+                    <Col>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laudantium ut necessitatibus pariatur sapiente, perspiciatis dolore doloremque ipsa sit architecto suscipit doloribus ducimus id autem, iusto aliquid obcaecati ea, modi corrupti!</Col>
+                </Modal>
+            </>
+
         )
     }
 }
