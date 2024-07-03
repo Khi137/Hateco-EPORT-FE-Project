@@ -279,7 +279,7 @@ class TrackingBill extends Component {
                 value: formData.pinCode,
                 require: true,
                 ref: this.pinCodeRef,
-                // error: formData.pinCodeError,
+                error: formData.pinCodeError,
             },
         ]
 

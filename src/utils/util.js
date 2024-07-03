@@ -68,7 +68,6 @@ export const handleRowsReorder = (tableData, targetRowId, rowIds) => {
 
 export const handleRowsSearch = (reactGridRows, searchValue, columnsFormat, columnIds) => {
   const indexList = getColumnIndex(columnsFormat, columnIds);
-  console.log(columnIds);
   if (!searchValue) return reactGridRows;
   const searchLower = searchValue.toLowerCase();
 

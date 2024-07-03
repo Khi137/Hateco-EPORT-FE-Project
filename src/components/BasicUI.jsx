@@ -47,6 +47,7 @@ import moment from "moment";
 import { ReactGrid } from "@silevis/reactgrid";
 import { handleColumnsReorder, handleRowsReorder, handleRowsSearch } from "../utils/util";
 import "@silevis/reactgrid/styles.css";
+import { CustomHeaderCellTemplate, CustomHeaderCell } from "./CustomHeaderCell/CustomHeaderCell.tsx";
 
 export {
   Mcollapse,
@@ -830,6 +831,7 @@ export class Winput extends React.Component {
 
   componentDidMount() {
     this.inputRef.current.value = this.state.value;
+    this.state.error = this.state.error;
   }
 
   checkError = (value) => {
@@ -1759,7 +1761,6 @@ class Mtable extends React.Component {
     };
   }
 
-  // handlle columns resize
   handleColumnResize = (ci, width) => {
     this.setState(prevState => {
       const updatedColumns = prevState.tableData.reactGridColumns.map(column => {
@@ -1778,7 +1779,6 @@ class Mtable extends React.Component {
     });
   }
 
-  // update when data change
   componentDidUpdate(prevProps) {
     if (prevProps.searchValue !== this.props.searchValue) {
       this.setState({
@@ -1787,7 +1787,6 @@ class Mtable extends React.Component {
     }
   }
 
-  // hanlde change data
   handleCellsChanged = (changes) => {
     const rows = this.state.tableData.reactGridRows.map((row) => ({
       ...row,
@@ -1811,7 +1810,6 @@ class Mtable extends React.Component {
             cell.text = change?.newCell?.text;
           }
 
-          // Find the corresponding object in the state.data array
           const dataIndex = parseInt(change.rowId, 10) - 1;
           if (updatedData[dataIndex]) {
             const columnKey =
@@ -1843,7 +1841,6 @@ class Mtable extends React.Component {
     }
   };
 
-  // handle reoder
   handleColumnResize = (ci, width) => {
     this.setState((prevState) => {
       const updatedColumns = prevState.tableData.reactGridColumns.map(
@@ -1884,7 +1881,27 @@ class Mtable extends React.Component {
     return targetRowId !== "header";
   };
 
-  // format data
+  handleSort = (columnId) => {
+    // Implement your sorting logic here
+    console.log("Sorting by column:", columnId);
+
+    // Example sorting logic (replace with your own)
+    const sortedData = [...this.state.data].sort((a, b) => {
+      // Assuming sorting by columnId
+      return a[columnId].localeCompare(b[columnId]);
+    });
+
+    this.setState({
+      data: sortedData,
+      tableData: {
+        ...this.state.tableData,
+        reactGridRows: [
+          this.generateRowsHeader(),
+          ...this.generateTableData(sortedData)
+        ]
+      }
+    });
+  };
 
   generateColumnsData = () => {
     let columnsData = [];
@@ -1897,46 +1914,49 @@ class Mtable extends React.Component {
           width: 125,
           resizable: true,
           reorderable: true,
-          header: "Tình trạng",
+          header: "Tình trạng"
         },
         {
           columnId: "ContainerNo",
           width: 150,
           resizable: true,
           reorderable: true,
-          header: "Số Container",
-        },
+          header: "Số Container"
+        }
       ]);
-    return columnsData;
+
+    return columnsData.map((column) => ({
+      ...column,
+      sortFunction: () => this.handleSort(column.columnId)
+    }));
   };
+
 
   generateRowsHeader = () => {
     if (this.props.rowsHeader) {
       return {
         rowId: "header",
-        cells: this.props.rowsHeader,
+        cells: this.props.rowsHeader
       };
     } else {
       return {
         rowId: "header",
         cells: [
-          { type: "header", text: "STT" }, // 1
-          { type: "header", text: "Tình trạng" }, // 2
-          { type: "header", text: "Số Container" }, // 3
-        ],
+          { type: "header", text: "STT" },
+          { type: "header", text: "Tình trạng" },
+          { type: "header", text: "Số Container" }
+        ]
       };
     }
   };
 
   generateRowData = (container, index) => {
     if (this.props.rowsFormat) {
-      return (
-        {
-          rowId: String(index + 1),
-          reorderable: Boolean(this.props.reoderRow),
-          cells: this.props.rowsFormat(container, index)
-        }
-      )
+      return {
+        rowId: String(index + 1),
+        reorderable: Boolean(this.props.reoderRow),
+        cells: this.props.rowsFormat(container, index)
+      };
     } else {
       return {
         rowId: String(index + 1),
@@ -1946,45 +1966,51 @@ class Mtable extends React.Component {
           {
             type: "text",
             nonEditable: true,
-            text: container?.ContainerStatusName || "",
+            text: container?.ContainerStatusName || ""
           },
           {
             type: "text",
             nonEditable: true,
-            text: container?.ContainerNo || "",
-          },
-        ],
+            text: container?.ContainerNo || ""
+          }
+        ]
       };
     }
   };
 
   generateTableData = (dataList) => {
-    const generateData = dataList?.map((container, index) =>
+    const generateData = dataList.map((container, index) =>
       this.generateRowData(container, index)
     );
     return generateData;
   };
 
   render() {
-    const { tableData, searchValue } = this.state
-    console.log(this.props);
-    return <ReactGrid
-      {...this.props}
-      rows={this.props.onSearch ?
-        handleRowsSearch(tableData.reactGridRows, searchValue || "", tableData.reactGridColumns, this.props.searchField)
-        :
-        tableData.reactGridRows
-      }
-      columns={tableData.reactGridColumns}
-      stickyTopRows={1}
-      onColumnsReordered={this.handleColumnsReorder}
-      onRowsReordered={this.handleRowsReorder}
-      canReorderRows={this.handleCanReorderRows}
-      onCellsChanged={this.handleCellsChanged}
-      onColumnResized={this.handleColumnResize}
-      enableRowSelection
-      enableColumnSelection
-    ></ReactGrid>;
+    const { tableData, searchValue } = this.state;
+    return (
+      <ReactGrid
+        {...this.props}
+        rows={
+          this.props.onSearch
+            ? handleRowsSearch(
+              tableData.reactGridRows,
+              searchValue || "",
+              tableData.reactGridColumns,
+              this.props.searchField
+            )
+            : tableData.reactGridRows
+        }
+        columns={tableData.reactGridColumns}
+        stickyTopRows={1}
+        enableRowSelection
+        enableColumnSelection
+        onCellsChanged={this.handleCellsChanged}
+        onColumnResized={this.handleColumnResize}
+      // customCellTemplates={{
+      //   header: new CustomHeaderCellTemplate()
+      // }}
+      />
+    );
   }
 }
 

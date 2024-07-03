@@ -617,7 +617,7 @@ $caption-line-height: 14px;
   }
 }
 
-//Mtable (new)
+//Mtable
 .reactgrid {
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -628,6 +628,7 @@ $caption-line-height: 14px;
   }
 
   .rg-header-cell {
+    // height: 40px !important;
     background-color: var(--color-second) !important;
     color: white !important;
   }
