@@ -298,7 +298,10 @@ class TrackingContainerList extends Component {
                             onClick={this.handleLoadData}
                             ref={this.submitButtonRef}
                             size={"12"}
-                            dataSource={{ textbutton: "Nạp dữ liệu" }}
+                            dataSource={{
+                                textbutton: `Nạp dữ liệu`,
+                                icon: "CloudDownloadOutlined"
+                            }}
                         />
                     </div>
                     <div className={`table_content ${containerList.length !== 0 && "table_exist_data"}`}>

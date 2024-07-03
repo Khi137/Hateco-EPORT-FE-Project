@@ -125,7 +125,7 @@ function generateRandomContainerNo() {
     return result;
 }
 
-for (let index = 0; index < 20; index++) {
+for (let index = 0; index < 100; index++) {
     const duplicatedData = { ...rowData[0] };
     duplicatedData.ContainerNo = generateRandomContainerNo();
     rowData.push(duplicatedData);
@@ -330,7 +330,7 @@ class TrackingBill extends Component {
         ]
 
         return (
-            <div className='tracking-bill_container'>
+            <div className='tracking-bill_container tracking_container'>
                 <div className='content'>
                     <div className="input_content">
                         <Row className='header body-md-normal'>
@@ -366,7 +366,10 @@ class TrackingBill extends Component {
                                 onClick={this.handleLoadData}
                                 ref={this.submitButtonRef}
                                 size={"12"}
-                                dataSource={{ textbutton: "Nạp dữ liệu" }}
+                                dataSource={{
+                                    textbutton: `Nạp dữ liệu`,
+                                    icon: "CloudDownloadOutlined"
+                                }}
                             />
                         </div>
                     </div>

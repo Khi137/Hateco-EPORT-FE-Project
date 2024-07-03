@@ -232,7 +232,10 @@ export class Customer extends Component {
             </div>
             <div className="customer-panel-left-button">
               <Mbutton
-                dataSource={{ textbutton: "Nạp dữ liệu" }}
+                dataSource={{
+                  textbutton: `Nạp dữ liệu`,
+                  icon: "CloudDownloadOutlined"
+                }}
                 color=""
                 className="m_button orange"
                 type="primary"

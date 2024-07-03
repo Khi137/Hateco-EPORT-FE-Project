@@ -4,8 +4,7 @@ import { Col, Row, Tooltip } from 'antd';
 import { BoldOutlined, DatabaseOutlined, InfoCircleOutlined, NumberOutlined, SearchOutlined } from '@ant-design/icons';
 import { Mbutton, Mdatepicker, Mselect, Mtable, Winput } from '../../../components/BasicUI';
 import moment from 'moment';
-import { formatDateTime, handleColumnsReorder, handleRowsReorder, handleRowsSearch } from '../../../utils/util';
-import { ReactGrid } from '@silevis/reactgrid';
+import { formatDateTime, handleRowsSearch } from '../../../utils/util';
 
 const rowData = [
     {
@@ -304,7 +303,7 @@ class TrackingHouseBill extends Component {
         ]
 
         return (
-            <Row className='tracking-house-bill_container'>
+            <Row className='tracking-house-bill_container tracking_container'>
                 <div className='content'>
                     <div className="input_content">
                         <Row className='header body-md-normal'>
@@ -377,7 +376,10 @@ class TrackingHouseBill extends Component {
                                 onClick={this.handleLoadData}
                                 ref={this.submitButtonRef}
                                 size={"12"}
-                                dataSource={{ textbutton: "Nạp dữ liệu" }}
+                                dataSource={{
+                                    textbutton: `Nạp dữ liệu`,
+                                    icon: "CloudDownloadOutlined"
+                                }}
                             />
                         </div>
                     </div>

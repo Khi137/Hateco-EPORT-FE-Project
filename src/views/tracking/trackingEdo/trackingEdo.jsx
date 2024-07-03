@@ -167,7 +167,7 @@ class TrackingEdo extends Component {
 
     handleLoadData = () => {
         const { EdoCodeError } = this.state.formData
-        
+
         if (EdoCodeError) {
             console.log("getin");
             this.EdoCodeRef.current.handleCheckError()
@@ -287,7 +287,7 @@ class TrackingEdo extends Component {
         ]
 
         return (
-            <Row className='tracking-edo_container'>
+            <Row className='tracking-edo_container tracking_container'>
                 <div className='content'>
                     <div className="input_content">
                         <Row className='header body-md-normal'>
@@ -360,7 +360,10 @@ class TrackingEdo extends Component {
                                 onClick={this.handleLoadData}
                                 ref={this.submitButtonRef}
                                 size={"12"}
-                                dataSource={{ textbutton: "Nạp dữ liệu" }}
+                                dataSource={{
+                                    textbutton: `Nạp dữ liệu`,
+                                    icon: "CloudDownloadOutlined"
+                                }}
                             />
                         </div>
                     </div>

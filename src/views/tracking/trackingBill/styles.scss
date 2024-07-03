@@ -9,6 +9,7 @@
         display: flex;
         height: 100%;
         margin: 12px;
+        flex-wrap: wrap;
         overflow: hidden;
         justify-content: space-between;
 
@@ -23,7 +24,6 @@
                 width: 100%;
                 height: fit-content;
                 overflow: hidden;
-                margin: 8px 0;
                 transition: 0.3s;
 
                 .input_item {
@@ -112,8 +112,8 @@
             // box-shadow: 0px 2px 1px 0px rgb(0, 0, 0, 0.3);
 
             .table_feature {
-                height: 10%;
-                padding: 0 24px;
+                height: fit-content;
+                padding: 12px;
                 align-items: center;
                 justify-content: space-between;
             }
@@ -122,7 +122,9 @@
                 position: relative;
                 display: flex;
                 width: 100%;
-                min-height: 92%;
+                min-height: 90%;
+                flex-grow: 1;
+                height: max-content;
                 justify-content: center;
                 align-items: center;
                 overflow: hidden;
@@ -162,6 +164,36 @@
             font-weight: 600;
             border-top-left-radius: 6px;
             border-top-right-radius: 6px;
+        }
+    }
+}
+
+@media (max-width: $breakpoint-md) {
+    .tracking_container {
+        .content {
+            flex-wrap: wrap;
+
+            .input_content {
+                width: 90% !important;
+                height: fit-content;
+                margin: 0 5%;
+                margin-bottom: 20px;
+                padding-bottom: 20px;
+            }
+
+            .container_list {
+                width: 90% !important;
+                margin: 0 5%;
+                min-height: 85vh;
+                padding-bottom: 4.8%;
+
+                .table_content {
+
+                    .react_grid_table {
+                        height: 94%;
+                    }
+                }
+            }
         }
     }
 }

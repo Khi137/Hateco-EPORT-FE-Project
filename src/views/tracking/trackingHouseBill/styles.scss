@@ -28,7 +28,7 @@
                 transition: 0.3s;
 
                 .input_item {
-                    margin: 12px;
+                    margin: 0 12px;
 
                     .form_input_field {
                         height: 40px;
@@ -51,7 +51,7 @@
                     display: flex;
                     flex-wrap: wrap;
                     justify-content: space-between;
-
+                    margin-bottom: 12px;
                     // .date_input {
                     //     margin: 0 auto;
                     // }
@@ -123,8 +123,8 @@
             // box-shadow: 0px 2px 1px 0px rgb(0, 0, 0, 0.3);
 
             .table_feature {
-                height: 10%;
-                padding: 0 24px;
+                height: fit-content;
+                padding: 12px;
                 align-items: center;
                 justify-content: space-between;
             }
@@ -133,7 +133,7 @@
                 position: relative;
                 display: flex;
                 width: 100%;
-                min-height: 92%;
+                min-height: 90%;
                 justify-content: center;
                 align-items: center;
                 overflow: hidden;

@@ -260,7 +260,7 @@ class TrackingBooking extends Component {
         ]
 
         return (
-            <Row className='tracking-booking_container'>
+            <Row className='tracking-booking_container tracking_container'>
                 <div className='content'>
                     <div className="input_content">
                         <Row className='header body-md-normal'>
@@ -300,7 +300,10 @@ class TrackingBooking extends Component {
                                 onClick={this.handleLoadData}
                                 ref={this.submitButtonRef}
                                 size={"12"}
-                                dataSource={{ textbutton: "Nạp dữ liệu" }}
+                                dataSource={{
+                                    textbutton: `Nạp dữ liệu`,
+                                    icon: "CloudDownloadOutlined"
+                                }}
                             />
                         </div>
                         <div className="information_header">

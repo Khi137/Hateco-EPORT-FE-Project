@@ -46,6 +46,7 @@ import * as LOL from "@ant-design/icons";
 import moment from "moment";
 import { ReactGrid } from "@silevis/reactgrid";
 import { handleColumnsReorder, handleRowsReorder } from "../utils/util";
+import "@silevis/reactgrid/styles.css";
 
 export {
   Mcollapse,

@@ -81,6 +81,12 @@ $main-font-weight-bold: 700;
 $heading-xl-font-size: 60px;
 $heading-xl-line-height: 78px;
 
+// brack point
+$breakpoint-xl: 1536px;
+$breakpoint-ld: 1280px;
+$breakpoint-md: 768px;
+$breakpoint-sm: 360px;
+
 .heading-xl-normal {
   font-family: $main-font;
   font-size: $heading-xl-font-size;
@@ -322,7 +328,7 @@ $caption-line-height: 14px;
 
   .Winput.error_input {
     border-color: #C92929;
-    // padding: 0 5px;
+    margin: 0;
   }
 }
 
