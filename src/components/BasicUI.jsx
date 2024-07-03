@@ -1139,7 +1139,7 @@ class Mbutton extends React.Component {
       opacity: this.props.dataSource?.opacity || "20",
       size: this.props?.size || "12",
       textbutton: this.props.dataSource?.textbutton || "Button",
-      icon: this.props.dataSource?.icon || "abc",
+      icon: this.props.dataSource?.icon || "",
     };
   }
 

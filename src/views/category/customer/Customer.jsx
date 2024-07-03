@@ -15,7 +15,7 @@ import { CloudDownloadOutlined } from "@ant-design/icons";
 import "./Customer.scss";
 import { genPlaceholderStyle } from "antd/es/input/style";
 
-const rowData = [
+let rowData = [
   {
     key: "1",
     cusNum: "",

@@ -10,9 +10,11 @@ import ShowComponent from "../ShowComponent";
 import Dashboard from "../components/Dashboard/Dashboard";
 import Customer from "../views/category/customer/Customer";
 import ShipExploitBrand from "../views/category/shipExploitBrand/ShipExploitBrand";
-// import task from "../views/category/shipExploitBrand/Task";
-
-
+import Task from "../views/category/task/Task";
+import CommoditiesType from "../views/category/commoditiesType/CommoditiesType";
+import DirectionContainer from "../views/category/directionContainer/DirectionContainer";
+import PortsList from "../views/category/portsList/PortsList";
+import StatesContainer from "../views/category/statesContainer/StatesContainer";
 class MainRoutes extends Component {
   render() {
     return (
@@ -28,7 +30,11 @@ class MainRoutes extends Component {
           <Route path="/" element={<Home />} />
           <Route path="/category-customer" element={<Customer />} />
           <Route path="/category-shipExploitBrand" element={<ShipExploitBrand />} />
-          {/* <Route path="/category-task" element={<Task />} /> */}
+          <Route path="/category-task" element={<Task />} />
+          <Route path="/category-commoditiesType" element={<CommoditiesType />} />
+          <Route path="/category-directionContainer" element={<DirectionContainer />} />
+          <Route path="/category-portsList" element={<PortsList />} />
+          <Route path="/category-statesContainer" element={<StatesContainer />} />
         </Route>
           <Route path="/dashboard" element={<Dashboard/>}/>
       </Routes>

@@ -1,0 +1,171 @@
+// Danh mục cảng
+
+import React, { Component } from "react";
+import { ReactGrid } from "@silevis/reactgrid";
+import {
+  Msearch,
+  Mbutton,
+  Mtable,
+  Mcheckbox,
+} from "../../../components/BasicUI";
+
+import "./PortsList.scss";
+import { Checkbox } from "antd";
+
+let rowData = [
+  { key: "1", nation: "", portCode: "", portName: "" },
+  { key: "2", nation: "", portCode: "", portName: "" },
+  { key: "3", nation: "", portCode: "", portName: "" },
+  { key: "4", nation: "", portCode: "", portName: "" },
+  { key: "5", nation: "", portCode: "", portName: "" },
+  { key: "6", nation: "", portCode: "", portName: "" },
+  { key: "7", nation: "", portCode: "", portName: "" },
+  { key: "8", nation: "", portCode: "", portName: "" },
+  { key: "9", nation: "", portCode: "", portName: "" },
+  { key: "10", nation: "", portCode: "", portName: "" },
+  { key: "11", nation: "", portCode: "", portName: "" },
+  { key: "12", nation: "", portCode: "", portName: "" },
+  { key: "13", nation: "", portCode: "", portName: "" },
+  { key: "14", nation: "", portCode: "", portName: "" },
+  { key: "15", nation: "", portCode: "", portName: "" },
+  { key: "16", nation: "", portCode: "", portName: "" },
+  { key: "17", nation: "", portCode: "", portName: "" },
+];
+
+export class PortsList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tableData: {
+        reactGridColumns: [
+          { columnId: "STT", width: 150, resizable: true, header: "STT" },
+          {
+            columnId: "nation",
+            width: 500,
+            resizable: true,
+            reorderable: true,
+            header: "Quốc gia",
+          },
+          {
+            columnId: "portCode",
+            width: 550,
+            resizable: true,
+            reorderable: true,
+            header: "Mã cảng",
+          },
+          {
+            columnId: "portName",
+            width: 650,
+            resizable: true,
+            reorderable: true,
+            header: "Tên cảng",
+          },
+        ],
+        reactGridRows: [
+          {
+            rowId: "header",
+            cells: [
+              { type: "header", text: "STT" },
+              { type: "header", text: "Quốc gia" },
+              { type: "header", text: "Mã cảng" },
+              { type: "header", text: "Tên cảng" },
+            ],
+          },
+          ...this.generateTableData(rowData),
+        ],
+      },
+      searchValue: "",
+    };
+  }
+
+  generateRowData = (container, index) => {
+    return {
+      rowId: String(index + 1),
+      cells: [
+        { type: "text", nonEditable: true, text: container?.key || "" },
+        {
+          type: "text",
+          nonEditable: false,
+          text: container?.nation || "",
+        },
+        {
+          type: "text",
+          nonEditable: true,
+          text: container?.portCode || "",
+        },
+        {
+          type: "text",
+          nonEditable: true,
+          text: container?.portName || "",
+        },
+      ],
+    };
+  };
+
+  generateTableData = (dataList) => {
+    const generateData = dataList.map((container, index) =>
+      this.generateRowData(container, index)
+    );
+    return generateData;
+  };
+
+  handleSearchChange = (value) => {
+    this.setState({
+      searchValue: value,
+    });
+  };
+
+  render() {
+    return (
+      <div className="portsList-container">
+        <div className="portsList-panel drop-box-shadow">
+          <div className="portsList-panel-title title-xl-normal">
+            Danh mục cảng
+          </div>
+          <div className="portsList-panel-content">
+            <div className="portsList-panel-content-navigation">
+              <div className="portsList-panel-content-navigation-search">
+                <Msearch
+                  dataSource={{
+                    id: "search1",
+                    label: "Search",
+                    value: this.state.searchValue,
+                    icon: "SearchOutlined",
+                    text: "",
+                  }}
+                  config={{
+                    onLiveSearch: (value) => console.log("Live search:", value),
+                  }}
+                  onChangeValue={(e) => this.handleSearchChange(e["search1"])}
+                />
+              </div>
+              <div className="portsList-panel-content-navigation-button">
+                <Mbutton
+                  className="m_button green drop-button-shadow"
+                  block
+                  htmlType="submit"
+                  type="primary"
+                  onClick={this.handleFormSubmit}
+                  ref={this.mButtonRef}
+                  dataSource={{
+                    textbutton: "Xuất file excel",
+                    color: "",
+                    size: "12",
+                    icon: "FileExcelOutlined",
+                  }}
+                />
+              </div>
+            </div>
+            <div className="portsList-panel-content-table">
+              <Mtable
+                rows={this.state.tableData.reactGridRows}
+                columns={this.state.tableData.reactGridColumns}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+export default PortsList;
