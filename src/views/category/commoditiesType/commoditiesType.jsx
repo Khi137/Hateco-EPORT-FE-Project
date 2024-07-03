@@ -18,7 +18,7 @@ let rowData = [
   { key: "3", taskCode: "DG", taskName: "Dangerous" },
   { key: "4", taskCode: "DR", taskName: "Reefer & Dangerous" },
   { key: "5", taskCode: "AK", taskName: "Over Dimension" },
-  { key: "6", taskCode: "BB", taskName: "Break Bulk" },
+  { key: "6", taskCode: "BB", taskName: "Break Bulk" }, 
   { key: "7", taskCode: "FR", taskName: "Fragile" },
   { key: "8", taskCode: "TK", taskName: "Tank" },
   { key: "9", taskCode: "MT", taskName: "Empty" },

@@ -8,6 +8,7 @@ import Register from "../views/register/register";
 import ForgotPassword from "../views/forgotPassword/forgotPassword";
 import ShowComponent from "../ShowComponent";
 import Dashboard from "../components/Dashboard/Dashboard";
+
 import Customer from "../views/category/customer/Customer";
 import ShipExploitBrand from "../views/category/shipExploitBrand/ShipExploitBrand";
 import Task from "../views/category/task/Task";
@@ -15,6 +16,7 @@ import CommoditiesType from "../views/category/commoditiesType/CommoditiesType";
 import DirectionContainer from "../views/category/directionContainer/DirectionContainer";
 import PortsList from "../views/category/portsList/PortsList";
 import StatesContainer from "../views/category/statesContainer/StatesContainer";
+import SizeContainer from "../views/category/sizeContainer/SizeContainer";
 class MainRoutes extends Component {
   render() {
     return (
@@ -35,6 +37,7 @@ class MainRoutes extends Component {
           <Route path="/category-directionContainer" element={<DirectionContainer />} />
           <Route path="/category-portsList" element={<PortsList />} />
           <Route path="/category-statesContainer" element={<StatesContainer />} />
+          <Route path="/category-sizeContainer" element={<SizeContainer />} />
         </Route>
           <Route path="/dashboard" element={<Dashboard/>}/>
       </Routes>
