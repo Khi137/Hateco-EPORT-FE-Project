@@ -64,7 +64,7 @@ class MainRoutes extends Component {
             <Route path="category_customer" element={<Customer />} />
             <Route
               path="category_shipExploitBrand"
-              element={<ShipExploitBrand />}
+              element={<ShipExploitBrand />} 
             />
             <Route path="category_task" element={<Task />} />
             <Route
