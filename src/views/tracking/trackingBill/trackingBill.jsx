@@ -218,7 +218,7 @@ class TrackingBill extends Component {
                     prefix={item?.inputIcon}
                     placeholder={item?.placeholder}
                     defaultValue={item?.value}
-                    error={item?.error !== undefined ? item?.error || true : false}
+                    error={typeof item?.error === "string" ? item?.error : false}
                     ref={item.ref}
                 />
             </Col>
@@ -395,7 +395,7 @@ class TrackingBill extends Component {
                                     htmlType="submit"
                                     block
                                     size={"12"}
-                                    dataSource={{ textbutton: "Xuất File Exel", color: "second", icon: "UploadOutlined" }}
+                                    dataSource={{ textbutton: "Xuất File Exel", color: "second", icon: "FileExcelOutlined" }}
                                 />
                             </Col>
                         </Row>

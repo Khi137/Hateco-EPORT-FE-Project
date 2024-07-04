@@ -413,7 +413,7 @@ class TrackingHouseBill extends Component {
                                     htmlType="submit"
                                     block
                                     size={"12"}
-                                    dataSource={{ textbutton: "Xuất File Exel", color: "second", icon: "UploadOutlined" }}
+                                    dataSource={{ textbutton: "Xuất File Exel", color: "second", icon: "FileExcelOutlined" }}
                                 />
                             </Col>
                         </Row>
