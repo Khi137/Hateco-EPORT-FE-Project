@@ -2,9 +2,9 @@ import React, { Component, createRef } from 'react';
 import './styles.scss'
 import { Col, Row, Tooltip } from 'antd';
 import { BarcodeOutlined, BoldOutlined, DatabaseOutlined, EnvironmentOutlined, InfoCircleOutlined, NumberOutlined, SearchOutlined } from '@ant-design/icons';
-import { Mbutton, Mradio, Winput } from '../../../components/BasicUI';
+import { Mbutton, Mradio, Mtable, Winput } from '../../../components/BasicUI';
 import { ReactGrid } from '@silevis/reactgrid';
-import { formatDateTime, handleColumnsReorder, handleRowsReorder } from '../../../utils/util';
+import { formatDateTime, handleColumnsReorder, handleRowsReorder, handleRowsSearch } from '../../../utils/util';
 
 const rowData = [
     {
@@ -137,7 +137,7 @@ class TrackingBill extends Component {
         this.state = {
             formData: {
                 pinCode: "",
-                pinCodeError: "",
+                pinCodeError: true,
 
                 taxCode: "",
                 billForm: "",
@@ -147,46 +147,14 @@ class TrackingBill extends Component {
                 searchData: ""
             },
             radioValue: "pincode",
-            tableData: {
-                reactGridColumns: [
-                    { columnId: 'STT', width: 50, resizable: true, header: 'STT' },
-                    { columnId: 'ContainerNumber', width: 150, resizable: true, reorderable: true, header: 'Số Container' },
-                    { columnId: 'OperationCode', width: 150, resizable: true, reorderable: true, header: 'Hãng Tàu' },
-                    { columnId: 'IsoSizetype', width: 150, resizable: true, reorderable: true, header: 'Kích cỡ' },
-                    { columnId: 'CargoTypeName', width: 150, resizable: true, reorderable: true, header: 'Full/Empty' },
-                    { columnId: 'ClassName', width: 150, resizable: true, reorderable: true, header: 'Hướng' },
-                    { columnId: 'ExpDate', width: 150, resizable: true, reorderable: true, header: 'Hạn Booking' },
-                    { columnId: 'Position', width: 150, resizable: true, reorderable: true, header: 'Vị trí bãi' },
-                    { columnId: 'DateIn', width: 150, resizable: true, reorderable: true, header: 'Ngày vào bãi' },
-                    { columnId: 'DateOut', width: 150, resizable: true, reorderable: true, header: 'Ngày ra bãi' },
-                    { columnId: 'ContainerStatusName', width: 150, resizable: true, reorderable: true, header: 'Tình trạng cont' },
-                ],
-                reactGridRows: [
-                    {
-                        rowId: "header",
-                        cells: [
-                            { type: "header", text: "STT" },
-                            { type: "header", text: "Số Container" },
-                            { type: "header", text: "Hãng Tàu" },
-                            { type: "header", text: "Kích cỡ" },
-                            { type: "header", text: "Full/Empty" },
-                            { type: "header", text: "Hướng" },
-                            { type: "header", text: "Hạn Booking" },
-                            { type: "header", text: "Vị trí bãi" },
-                            { type: "header", text: "Ngày vào bãi" },
-                            { type: "header", text: "Ngày ra bãi" },
-                            { type: "header", text: "Tình trạng cont" },
-                        ]
-                    }
-                ],
-            }
+            tableData: []
         };
         this.submitButtonRef = createRef();
+        this.pinCodeRef = createRef();
     }
 
     handleInputChange = (e) => {
         const { name, value } = e.target;
-        console.log({ name, value });
         this.setState(prevState => ({
             formData: {
                 ...prevState.formData,
@@ -202,157 +170,61 @@ class TrackingBill extends Component {
         });
     };
 
-    checkPinCodeError = (value) => {
-        switch (true) {
-            case (value === ""):
-                return "Mã tra cứu không được để trống";
-            default:
-                return false;
-        }
-    }
-
     handleLoadData = () => {
-        const pinCodeError = this.checkPinCodeError(this.state.formData.pinCode)
+        const pinCodeError = this.state.formData.pinCodeError
         if (pinCodeError) {
-            this.setState(prevState => ({
-                formData: {
-                    ...prevState.formData,
-                    pinCodeError: pinCodeError
-                }
-            }));
-        } else {
-            if (this.submitButtonRef.current) {
-                this.submitButtonRef.current.loading();
-            }
-            setTimeout(() => {
-                if (this.submitButtonRef.current) {
-                    this.submitButtonRef.current.reset();
-                    this.setState(prevState => ({
-                        generalInformation: rowData[0] ? rowData[0] : {},
-                        tableData: {
-                            ...prevState.tableData,
-                            reactGridColumns: [...this.generateColumnsData()],
-                            reactGridRows: [
-                                ...prevState.tableData.reactGridRows,
-                                ...this.generateTableData(rowData)
-                            ],
-                        },
-                        formData: {
-                            ...prevState.formData,
-                            pinCodeError: false
-                        }
-                    }));
-                }
-            }, 1000);
+            this.pinCodeRef?.current?.handleCheckError()
+            return
         }
-    }
+        if (this.submitButtonRef.current) {
+            this.submitButtonRef.current.loading();
+        }
+        setTimeout(() => {
+            if (this.submitButtonRef.current) {
+                this.submitButtonRef.current.reset();
+                this.setState(prevState => ({
+                    generalInformation: rowData[0] ? rowData[0] : {},
+                    tableData: rowData,
+                    formData: {
+                        ...prevState.formData,
+                        pinCodeError: false
+                    }
+                }));
+            }
+        }, 1000);
 
-    handleColumnsReorder = (targetColumnId, columnIds) => {
-        const { tableData } = this.state;
-        const updatedTableData = handleColumnsReorder(tableData, targetColumnId, columnIds);
-        this.setState({ tableData: updatedTableData });
     }
-
-    handleRowsReorder = (targetRowId, rowIds) => {
-        const { tableData } = this.state;
-        const updatedTableData = handleRowsReorder(tableData, targetRowId, rowIds);
-        this.setState({ tableData: updatedTableData });
-    }
-
-    handleCanReorderRows = (targetRowId, rowIds) => {
-        return targetRowId !== 'header';
-    }
-
-    handleRowsSearch = (reactGridRows, searchValue) => {
-        if (!searchValue) return reactGridRows;
-        const searchLower = searchValue.toLowerCase();
-        const filteredRows = reactGridRows.slice(1).filter(row => {
-            const containerNo = row.cells[1]?.text.toLowerCase();
-            const operationCode = row.cells[2]?.text.toLowerCase();
-            const isoSizetype = row.cells[3]?.text.toLowerCase();
-            return (
-                containerNo.includes(searchLower) ||
-                operationCode.includes(searchLower) ||
-                isoSizetype.includes(searchLower)
-            );
-        });
-        return [reactGridRows[0], ...filteredRows];
-    }
-
-    reorderArray = (arr, indexes, to) => {
-        const arrayCopy = [...arr];
-        const elements = indexes.map(index => arrayCopy[index]);
-        indexes.sort((a, b) => b - a).forEach(index => arrayCopy.splice(index, 1));
-        arrayCopy.splice(to, 0, ...elements);
-        return arrayCopy;
-    };
 
     renderInputField = (item, key) => {
         return (
             <Col className="input_item" key={key + item?.name}>
-                <Row className="item_header">
-                    <Col>{item?.title} {item.require && <span className="item_require">*</span>}</Col>
-                    <Tooltip placement="top" title={item?.tooltip} className="item_tooltip">
-                        <InfoCircleOutlined />
-                    </Tooltip>
-                </Row>
                 <Winput
+                    title={item?.title}
+                    value={item.value}
+                    tooltip={item.tooltip}
+                    onChange={(e) => this.handleInputChange(e)}
+                    checkError={(error) => this.setState(prevState => ({
+                        formData: {
+                            ...prevState.formData,
+                            [item?.name + "Error"]: error
+                        }
+                    }))}
+                    require={item.require}
+                    inputRegex={item.regex}
+                    minLength={item.minLength}
+
                     name={item?.name}
                     type={item?.type}
                     className={`form_input_field ${item?.error ? 'error_item' : ''}`}
                     prefix={item?.inputIcon}
                     placeholder={item?.placeholder}
-                    value={item?.value}
                     defaultValue={item?.value}
-                    onChange={(e) => this.handleInputChange(e, item?.regex)}
-                    errorText={item?.error !== undefined ? item?.error || true : false}
+                    error={item?.error !== undefined ? item?.error || true : false}
+                    ref={item.ref}
                 />
             </Col>
         )
     }
-
-    generateColumnsData = () => {
-        return ([
-            { columnId: 'STT', width: 50, resizable: true, header: 'STT' },
-            { columnId: 'ContainerNumber', width: 150, resizable: true, reorderable: true, header: 'Số Container' },
-            { columnId: 'OperationCode', width: 150, resizable: true, reorderable: true, header: 'Hãng Tàu' },
-            { columnId: 'IsoSizetype', width: 150, resizable: true, reorderable: true, header: 'Kích cỡ' },
-            { columnId: 'CargoTypeName', width: 150, resizable: true, reorderable: true, header: 'Full/Empty' },
-            { columnId: 'ClassName', width: 150, resizable: true, reorderable: true, header: 'Hướng' },
-            { columnId: 'ExpDate', width: 150, resizable: true, reorderable: true, header: 'Hạn Booking' },
-            { columnId: 'Position', width: 150, resizable: true, reorderable: true, header: 'Vị trí bãi' },
-            { columnId: 'DateIn', width: 150, resizable: true, reorderable: true, header: 'Ngày vào bãi' },
-            { columnId: 'DateOut', width: 150, resizable: true, reorderable: true, header: 'Ngày ra bãi' },
-            { columnId: 'ContainerStatusName', width: 150, resizable: true, reorderable: true, header: 'Tình trạng cont' }
-        ])
-    };
-
-    generateRowData = (container, index) => {
-        return (
-            {
-                rowId: String(index + 1),
-                reorderable: true,
-                cells: [
-                    { type: 'text', nonEditable: true, text: String(index + 1) },
-                    { type: 'text', nonEditable: true, text: container?.ContainerNo || "" },
-                    { type: 'text', nonEditable: true, text: container?.OperationCode || "" },
-                    { type: 'text', nonEditable: true, text: container?.IsoSizetype || "" },
-                    { type: 'text', nonEditable: true, text: container?.CargoTypeName || "" },
-                    { type: 'text', nonEditable: true, text: container?.ClassName || "" },
-                    { type: 'text', nonEditable: true, text: container?.ExpDate ? formatDateTime(container?.ExpDate) : "" },
-                    { type: 'text', nonEditable: true, text: (container?.Block || "") + "-" + (container?.Bay || "") + "-" + (container?.Row || "") + "-" + (container?.Tier || "") },
-                    { type: 'text', nonEditable: true, text: container?.DateIn ? formatDateTime(container?.DateIn) : "" },
-                    { type: 'text', nonEditable: true, text: container?.DateOut ? formatDateTime(container?.DateOut) : "" },
-                    { type: 'text', nonEditable: true, text: container?.ContainerStatusName || "" }
-                ]
-            }
-        )
-    }
-
-    generateTableData = (dataList) => {
-        const generateData = dataList.map((container, index) => this.generateRowData(container, index));
-        return generateData;
-    };
 
     render() {
         const { formData } = this.state;
@@ -406,8 +278,55 @@ class TrackingBill extends Component {
                 type: "text",
                 value: formData.pinCode,
                 require: true,
-                error: formData.pinCodeError
+                ref: this.pinCodeRef,
+                // error: formData.pinCodeError,
             },
+        ]
+
+        const columnsFormat = [
+            { columnId: 'STT', width: 50, resizable: true, header: 'STT' },
+            { columnId: 'ContainerNumber', width: 150, resizable: true, reorderable: true, header: 'Số Container' },
+            { columnId: 'OperationCode', width: 150, resizable: true, reorderable: true, header: 'Hãng Tàu' },
+            { columnId: 'IsoSizetype', width: 150, resizable: true, reorderable: true, header: 'Kích cỡ' },
+            { columnId: 'CargoTypeName', width: 150, resizable: true, reorderable: true, header: 'Full/Empty' },
+            { columnId: 'ClassName', width: 150, resizable: true, reorderable: true, header: 'Hướng' },
+            { columnId: 'ExpDate', width: 150, resizable: true, reorderable: true, header: 'Hạn Booking' },
+            { columnId: 'Position', width: 150, resizable: true, reorderable: true, header: 'Vị trí bãi' },
+            { columnId: 'DateIn', width: 150, resizable: true, reorderable: true, header: 'Ngày vào bãi' },
+            { columnId: 'DateOut', width: 150, resizable: true, reorderable: true, header: 'Ngày ra bãi' },
+            { columnId: 'ContainerStatusName', width: 150, resizable: true, reorderable: true, header: 'Tình trạng cont' },
+        ]
+
+        const rowsFormat = (container, index) => {
+            return (
+                [
+                    { type: 'text', nonEditable: true, text: String(index + 1) },
+                    { type: 'text', nonEditable: true, text: container?.ContainerNo || "" },
+                    { type: 'text', nonEditable: true, text: container?.OperationCode || "" },
+                    { type: 'text', nonEditable: true, text: container?.IsoSizetype || "" },
+                    { type: 'text', nonEditable: true, text: container?.CargoTypeName || "" },
+                    { type: 'text', nonEditable: true, text: container?.ClassName || "" },
+                    { type: 'text', nonEditable: true, text: container?.ExpDate ? formatDateTime(container?.ExpDate) : "" },
+                    { type: 'text', nonEditable: true, text: (container?.Block || "") + "-" + (container?.Bay || "") + "-" + (container?.Row || "") + "-" + (container?.Tier || "") },
+                    { type: 'text', nonEditable: true, text: container?.DateIn ? formatDateTime(container?.DateIn) : "" },
+                    { type: 'text', nonEditable: true, text: container?.DateOut ? formatDateTime(container?.DateOut) : "" },
+                    { type: 'text', nonEditable: true, text: container?.ContainerStatusName || "" }
+                ]
+            )
+        }
+
+        const rowsHeader = [
+            { type: "header", text: "STT" },
+            { type: "header", text: "Số Container" },
+            { type: "header", text: "Hãng Tàu" },
+            { type: "header", text: "Kích cỡ" },
+            { type: "header", text: "Full/Empty" },
+            { type: "header", text: "Hướng" },
+            { type: "header", text: "Hạn Booking" },
+            { type: "header", text: "Vị trí bãi" },
+            { type: "header", text: "Ngày vào bãi" },
+            { type: "header", text: "Ngày ra bãi" },
+            { type: "header", text: "Tình trạng cont" },
         ]
 
         return (
@@ -473,7 +392,6 @@ class TrackingBill extends Component {
                                     type="primary"
                                     htmlType="submit"
                                     block
-                                    onClick={this.handleLoadData}
                                     size={"12"}
                                     dataSource={{ textbutton: "Xuất File Exel", color: "second" }}
                                 />
@@ -481,23 +399,21 @@ class TrackingBill extends Component {
                         </Row>
                         <div className="table_content">
                             {
-                                !this.state.tableData.reactGridRows[1] ?
+                                !this.state.tableData[0] ?
                                     <div className="no_data">
                                         <DatabaseOutlined style={{ fontSize: '64px' }} />
                                         <p>Nhập mã tra cứu để nạp dữ liệu container...</p>
                                     </div>
                                     :
                                     <div className="react_grid_table">
-                                        <ReactGrid
-                                            rows={this.handleRowsSearch(this.state.tableData.reactGridRows, formData.searchData)}
-                                            columns={this.state.tableData.reactGridColumns}
-                                            stickyTopRows={1}
-                                            stickyLeftColumns={1}
-                                            onColumnsReordered={this.handleColumnsReorder}
-                                            onRowsReordered={this.handleRowsReorder}
-                                            canReorderRows={this.handleCanReorderRows}
-                                            enableRowSelection
-                                            enableColumnSelection
+                                        <Mtable
+                                            tableData={this.state.tableData}
+                                            columnsFormat={columnsFormat}
+                                            rowsFormat={rowsFormat}
+                                            rowsHeader={rowsHeader}
+                                            reoderRow={true}
+                                            onSearch={(tableData, searchValue) => handleRowsSearch(tableData, searchValue)}
+                                            searchValue={formData.searchData}
                                         />
                                     </div>
                             }

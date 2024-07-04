@@ -46,7 +46,6 @@ import * as LOL from "@ant-design/icons";
 import moment from "moment";
 import { ReactGrid } from "@silevis/reactgrid";
 import { handleColumnsReorder, handleRowsReorder } from "../utils/util";
-import { ReactGrid } from "@silevis/reactgrid";
 
 export {
   Mcollapse,
@@ -1196,7 +1195,6 @@ class Mbutton extends React.Component {
       size: this.props?.size || "12",
       textbutton: this.props.dataSource?.textbutton || "Button",
       icon: this.props.dataSource?.icon || "",
-      icon: this.props.dataSource?.icon || "",
     };
   }
 
@@ -1215,7 +1213,6 @@ class Mbutton extends React.Component {
       };
     }
   }
-
 
   render() {
     const { icon } = this.state;
@@ -1247,14 +1244,11 @@ class Mbutton extends React.Component {
         >
           {IconComponent}
           <text className="body-lg-normal">{this.state.textbutton}</text>
-          {IconComponent}
-          <text className="body-lg-normal">{this.state.textbutton}</text>
         </Button>
       </div>
     );
   }
 }
-
 
 class Mrangepicker extends React.Component {
   constructor(props) {
@@ -1968,7 +1962,6 @@ class Mtable extends React.Component {
         enableColumnSelection
       ></ReactGrid>
     );
-    return <ReactGrid scroll={{ x: 3500, y: 400 }} {...this.props}></ReactGrid>;
   }
 }
 
@@ -2347,7 +2340,6 @@ class Minput extends React.Component {
               maxLength={data?.maxLength || 9999}
               tabIndex={data?.tabindex || 1}
               pattern={data?.format || ""}
-              placeholder={data?.text || "Nhập dữ liệu ..."}
             ></input>
           </span>
           {this.state.blur && (
@@ -2947,7 +2939,7 @@ class Mselect extends React.Component {
             required={data?.required}
             defaultValue={data?.value || this.state.value}
             tabIndex={data?.tabindex || 1}
-            className="m-form__select body-lg-normal"
+            className="m-form__select"
           >
             <option key="" value="">
               <span>

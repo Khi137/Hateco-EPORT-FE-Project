@@ -302,7 +302,6 @@ code {
   font-size: var(--caption-font-size);
   line-height: var(--caption-line-height);
   font-weight: var(--main-font-weight-bold);
-<<<<<<< HEAD
 }
 
 /* box shadow */
@@ -312,6 +311,5 @@ code {
 
 .drop-button-shadow {
   filter: drop-shadow(0.05rem 0.05rem 0.1rem rgba(0, 0, 30, 0.5));
-=======
->>>>>>> 45ee27627e1121192a3cc12950a1d3d4f65a24ae
+
 }

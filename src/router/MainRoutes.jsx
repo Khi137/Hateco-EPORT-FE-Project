@@ -23,11 +23,11 @@ import TrackingContainerList from "../views/tracking/trackingContainerList/track
 import Customer from "../views/category/customer/Customer";
 import ShipExploitBrand from "../views/category/shipExploitBrand/ShipExploitBrand";
 import Task from "../views/category/task/Task";
-import CommoditiesType from "../views/category/commoditiesType/CommoditiesType";
+import CommoditiesType from "../views/category/commoditiesType/commoditiesType";
 import DirectionContainer from "../views/category/directionContainer/DirectionContainer";
 import PortsList from "../views/category/portsList/PortsList";
 import StatesContainer from "../views/category/statesContainer/StatesContainer";
-import SizeContainer from "../views/category/sizeContainer/SizeContainer";
+import SizeContainer from "../views/category/sizeContainer/sizeContainer";
 class MainRoutes extends Component {
   render() {
     return (

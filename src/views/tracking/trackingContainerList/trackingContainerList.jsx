@@ -1,9 +1,9 @@
 import React, { Component, createRef } from 'react';
 import './styles.scss'
 import { Col, Row, Tooltip } from 'antd';
-import { Mbutton, Winput } from '../../../components/BasicUI';
+import { Mbutton, Mtable, Winput } from '../../../components/BasicUI';
 import { DatabaseOutlined, FieldNumberOutlined, InfoCircleOutlined, SearchOutlined } from '@ant-design/icons';
-import { formatDateTime, handleColumnsReorder, handleRowsReorder } from '../../../utils/util';
+import { formatDateTime, handleColumnsReorder, handleRowsReorder, handleRowsSearch } from '../../../utils/util';
 import { ReactGrid } from '@silevis/reactgrid';
 
 const rowData = [
@@ -131,53 +131,14 @@ class TrackingContainerList extends Component {
         this.state = {
             formData: {
                 containerNumber: "",
-                containerNumberError: "",
+                containerNumberError: true,
                 searchData: ""
             },
             containerList: [],
-            tableData: {
-                reactGridColumns: [],
-                reactGridRows: [
-                    {
-                        rowId: "header",
-                        cells: [
-                            { type: "header", text: "STT" }, // 1
-                            { type: "header", text: "Tình trạng" }, // 2
-                            { type: "header", text: "Số Container" }, // 3
-                            { type: "header", text: "Thanh lý HQ" }, // 4
-                            { type: "header", text: "Hãng tàu" }, // 5
-                            { type: "header", text: "Kích cỡ" }, // 6
-                            { type: "header", text: "Full/Empty" }, // 7
-                            { type: "header", text: "Hướng" }, // 8
-                            { type: "header", text: "Vị trí bãi" }, // 9
-                            { type: "header", text: "Tàu chuyến" }, // 10
-                            { type: "header", text: "Cảng chuyển tải / Cảng đích" }, // 11
-                            { type: "header", text: "Số vận đơn" }, // 12
-                            { type: "header", text: "Số Booking" }, // 13
-                            { type: "header", text: "Trọng lượng (VGM)" }, // 14
-                            { type: "header", text: "Số niêm chì" }, // 15
-                            { type: "header", text: "Hàng Nội/Ngoại" }, // 16
-                            { type: "header", text: "Loại hàng" }, // 17
-                            { type: "header", text: "Nhiệt độ" }, // 18
-                            { type: "header", text: "Class/UNNo" }, // 19
-                            { type: "header", text: "Ngày vào bãi" }, // 20
-                            { type: "header", text: "Ngày ra bãi" }, //21
-                            { type: "header", text: "Sổ tàu" }, //22
-                        ]
-                    }
-                ],
-            }
+            tableData: []
         };
         this.submitButtonRef = createRef();
-    }
-
-    checkContainerNumberError = (value) => {
-        switch (true) {
-            case (value === ""):
-                return "Số container không được để trống";
-            default:
-                return false;
-        }
+        this.containerNumberRef = createRef();
     }
 
     handleInputChange = (e) => {
@@ -191,47 +152,38 @@ class TrackingContainerList extends Component {
     };
 
     handleLoadData = () => {
-        const containerNumberError = this.checkContainerNumberError(this.state.formData.containerNumber)
+        const containerNumberError = this.state.formData.containerNumberError
         if (containerNumberError) {
-            this.setState(prevState => ({
-                formData: {
-                    ...prevState.formData,
-                    containerNumberError: containerNumberError
-                }
-            }));
-        } else {
-            if (this.submitButtonRef.current) {
-                this.submitButtonRef.current.loading();
-            }
-            setTimeout(() => {
-                if (this.submitButtonRef.current) {
-                    this.submitButtonRef.current.reset();
-                    this.setState(prevState => ({
-                        generalInformation: rowData[0] ? rowData[0] : {},
-                        tableData: {
-                            ...prevState.tableData,
-                            reactGridColumns: [...this.generateColumnsData()],
-                            reactGridRows: [
-                                ...prevState.tableData.reactGridRows,
-                                ...this.generateTableData(rowData)
-                            ],
-                        },
-                        formData: {
-                            ...prevState.formData,
-                            containerNumberError: false
-                        }
-                    }));
-                }
-            }, 1000);
+            this.containerNumberRef.current.handleCheckError()
+            return
         }
+        if (this.submitButtonRef.current) {
+            this.submitButtonRef.current.loading();
+        }
+        setTimeout(() => {
+            if (this.submitButtonRef.current) {
+                this.submitButtonRef.current.reset();
+                this.setState(prevState => ({
+                    generalInformation: rowData[0] ? rowData[0] : {},
+                    tableData: rowData,
+                    formData: {
+                        ...prevState.formData,
+                        containerNumberError: false
+                    }
+                }));
+            }
+        }, 1000);
+
     }
 
-    generateColumnsData = () => {
-        return ([
+    render() {
+        const { formData, containerList } = this.state
+
+        const columnsFormat = [
             { columnId: 'STT', width: 50, resizable: true, header: 'STT' }, // 1
             { columnId: 'ContainerStatusName', width: 125, resizable: true, reorderable: true, header: 'Tình trạng' }, // 2
             { columnId: 'ContainerNo', width: 150, resizable: true, reorderable: true, header: 'Số Container' }, // 3
-            { columnId: 'ContainerNo', width: 150, resizable: true, reorderable: true, header: 'Thanh lý HQ' }, // 4
+            { columnId: 'ContainerNo1', width: 150, resizable: true, reorderable: true, header: 'Thanh lý HQ' }, // 4
             { columnId: 'OperationCode', width: 100, resizable: true, reorderable: true, header: 'Hãng Tàu' }, // 5
             { columnId: 'IsoSizetype', width: 100, resizable: true, reorderable: true, header: 'Kích cỡ' }, // 6
             { columnId: 'CargoTypeName', width: 110, resizable: true, reorderable: true, header: 'Full/Empty' }, // 7
@@ -243,22 +195,18 @@ class TrackingContainerList extends Component {
             { columnId: 'BookingNo', width: 150, resizable: true, reorderable: true, header: 'Số Booking' }, // 13
             { columnId: 'MCWeight', width: 200, resizable: true, reorderable: true, header: 'Trọng lượng (VGM)' }, // 14
             { columnId: 'Sealno2', width: 150, resizable: true, reorderable: true, header: 'Số niêm chì' }, // 15
-            { columnId: 'Position', width: 150, resizable: true, reorderable: true, header: 'Hàng Nội/Ngoại' }, // 16
+            { columnId: 'Position1', width: 150, resizable: true, reorderable: true, header: 'Hàng Nội/Ngoại' }, // 16
             { columnId: 'CargoTypeCode', width: 150, resizable: true, reorderable: true, header: 'Loại hàng' }, // 17
-            { columnId: 'Position', width: 150, resizable: true, reorderable: true, header: 'Nhiệt độ' }, // 18
-            { columnId: 'Position', width: 150, resizable: true, reorderable: true, header: 'Class/UNNo' }, // 19
+            { columnId: 'Position2', width: 150, resizable: true, reorderable: true, header: 'Nhiệt độ' }, // 18
+            { columnId: 'Position3', width: 150, resizable: true, reorderable: true, header: 'Class/UNNo' }, // 19
             { columnId: 'DateIn', width: 150, resizable: true, reorderable: true, header: 'Ngày vào bãi' }, // 20
             { columnId: 'DateOut', width: 150, resizable: true, reorderable: true, header: 'Ngày ra bãi' }, // 21
             { columnId: 'ExpDate', width: 150, resizable: true, reorderable: true, header: 'Sổ tàu' }, // 22
-        ])
-    };
+        ]
 
-    generateRowData = (container, index) => {
-        return (
-            {
-                rowId: String(index + 1),
-                reorderable: true,
-                cells: [
+        const rowsFormat = (container, index) => {
+            return (
+                [
                     { type: 'text', nonEditable: true, text: String(index + 1) },
                     { type: 'text', nonEditable: true, text: container?.ContainerStatusName || "" },
                     { type: 'text', nonEditable: true, text: container?.ContainerNo || "" },
@@ -282,49 +230,34 @@ class TrackingContainerList extends Component {
                     { type: 'text', nonEditable: true, text: container?.DateOut ? formatDateTime(container?.DateOut) : "" },
                     { type: 'text', nonEditable: true, text: container?.ExpDate ? formatDateTime(container?.ExpDate) : "" },
                 ]
-            }
-        )
-    }
+            )
+        }
 
-    generateTableData = (dataList) => {
-        const generateData = dataList.map((container, index) => this.generateRowData(container, index));
-        return generateData;
-    };
+        const rowsHeader = [
+            { type: "header", text: "STT" }, // 1
+            { type: "header", text: "Tình trạng" }, // 2
+            { type: "header", text: "Số Container" }, // 3
+            { type: "header", text: "Thanh lý HQ" }, // 4
+            { type: "header", text: "Hãng tàu" }, // 5
+            { type: "header", text: "Kích cỡ" }, // 6
+            { type: "header", text: "Full/Empty" }, // 7
+            { type: "header", text: "Hướng" }, // 8
+            { type: "header", text: "Vị trí bãi" }, // 9
+            { type: "header", text: "Tàu chuyến" }, // 10
+            { type: "header", text: "Cảng chuyển tải / Cảng đích" }, // 11
+            { type: "header", text: "Số vận đơn" }, // 12
+            { type: "header", text: "Số Booking" }, // 13
+            { type: "header", text: "Trọng lượng (VGM)" }, // 14
+            { type: "header", text: "Số niêm chì" }, // 15
+            { type: "header", text: "Hàng Nội/Ngoại" }, // 16
+            { type: "header", text: "Loại hàng" }, // 17
+            { type: "header", text: "Nhiệt độ" }, // 18
+            { type: "header", text: "Class/UNNo" }, // 19
+            { type: "header", text: "Ngày vào bãi" }, // 20
+            { type: "header", text: "Ngày ra bãi" }, //21
+            { type: "header", text: "Sổ tàu" }, //22
+        ]
 
-    handleColumnsReorder = (targetColumnId, columnIds) => {
-        const { tableData } = this.state;
-        const updatedTableData = handleColumnsReorder(tableData, targetColumnId, columnIds);
-        this.setState({ tableData: updatedTableData });
-    }
-
-    handleRowsReorder = (targetRowId, rowIds) => {
-        const { tableData } = this.state;
-        const updatedTableData = handleRowsReorder(tableData, targetRowId, rowIds);
-        this.setState({ tableData: updatedTableData });
-    }
-
-    handleCanReorderRows = (targetRowId, rowIds) => {
-        return targetRowId !== 'header';
-    }
-
-    handleRowsSearch = (reactGridRows, searchValue) => {
-        if (!searchValue) return reactGridRows;
-        const searchLower = searchValue.toLowerCase();
-        const filteredRows = reactGridRows.slice(1).filter(row => {
-            const containerNo = row.cells[1]?.text.toLowerCase();
-            const operationCode = row.cells[2]?.text.toLowerCase();
-            const isoSizetype = row.cells[3]?.text.toLowerCase();
-            return (
-                containerNo.includes(searchLower) ||
-                operationCode.includes(searchLower) ||
-                isoSizetype.includes(searchLower)
-            );
-        });
-        return [reactGridRows[0], ...filteredRows];
-    }
-
-    render() {
-        const { formData, containerList } = this.state
         return (
             <Row className='tracking-container-list_container'>
                 <div className='content'>
@@ -351,6 +284,7 @@ class TrackingContainerList extends Component {
                                 placeholder={"Nhập số container"}
                                 value={formData.containerNumber}
                                 errorText={formData?.containerNumberError || true}
+                                ref={this.containerNumberRef}
                             />
                         </Col>
                     </div>
@@ -369,7 +303,7 @@ class TrackingContainerList extends Component {
                     </div>
                     <div className={`table_content ${containerList.length !== 0 && "table_exist_data"}`}>
                         {
-                            !this.state.tableData?.reactGridRows[1] ?
+                            !this.state.tableData[0] ?
                                 <div className="no_data">
                                     <DatabaseOutlined style={{ fontSize: '64px' }} />
                                     <p>Nhập số container để nạp dữ liệu container...</p>
@@ -385,19 +319,19 @@ class TrackingContainerList extends Component {
                                                 placeholder={"Tìm kiếm..."}
                                                 value={formData.searchData}
                                                 onChange={(e) => this.handleInputChange(e)}
+                                                ref={this.containerNumberRef}
                                             />
                                         </Col>
                                     </Row>
                                     <div className="react_grid_table">
-                                        <ReactGrid
-                                            rows={this.handleRowsSearch(this.state.tableData.reactGridRows, formData.searchData)}
-                                            columns={this.state.tableData.reactGridColumns}
-                                            stickyTopRows={1}
-                                            onColumnsReordered={this.handleColumnsReorder}
-                                            onRowsReordered={this.handleRowsReorder}
-                                            canReorderRows={this.handleCanReorderRows}
-                                            enableRowSelection
-                                            enableColumnSelection
+                                        <Mtable
+                                            tableData={this.state.tableData}
+                                            columnsFormat={columnsFormat}
+                                            rowsFormat={rowsFormat}
+                                            rowsHeader={rowsHeader}
+                                            reoderRow={true}
+                                            onSearch={(tableData, searchValue) => handleRowsSearch(tableData, searchValue)}
+                                            searchValue={formData.searchData}
                                         />
                                     </div>
                                 </Col>
