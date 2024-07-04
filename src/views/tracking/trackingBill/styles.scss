@@ -1,0 +1,206 @@
+@import '../../../components/BasicUI.scss';
+
+.tracking-bill_container {
+    width: 100%;
+    height: 96%;
+    margin-bottom: 12px;
+
+    .content {
+        display: flex;
+        height: 100%;
+        margin: 12px;
+        flex-wrap: wrap;
+        overflow: hidden;
+        justify-content: space-between;
+
+        .input_content {
+            width: 30%;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background-color: white;
+            box-shadow: 0px 2px 1px 0px rgb(0, 0, 0, 0.3) inset;
+
+            .radio_form {
+
+                .ant-radio-group {
+                    padding: 8px;
+                }
+            }
+
+            .input_container {
+                width: 100%;
+                height: fit-content;
+                overflow: hidden;
+                transition: 0.3s;
+
+                .input_item {
+                    margin: 12px;
+
+                    .form_input_field {
+                        height: 40px;
+                    }
+                }
+
+                .item_header {
+                    margin-bottom: 8px;
+
+                    .item_tooltip {
+                        margin: 0 5px;
+                    }
+
+                    .item_require {
+                        color: red;
+                    }
+                }
+            }
+
+            .input_button {
+                // height: 7%;
+                width: 40%;
+                margin: 0 auto;
+            }
+
+            .information_header {
+                position: relative;
+                margin: 12px;
+                height: 20px;
+
+
+                .header_dash_line {
+                    position: absolute;
+                    width: 100%;
+                    height: 1px;
+                    background-color: $color-second;
+                    top: 50%;
+                }
+
+                .information_header_text {
+                    position: absolute;
+                    width: fit-content;
+                    text-align: center;
+                    margin: 0 auto;
+                    z-index: 10;
+                    left: 0;
+                    right: 0;
+
+                    p {
+                        background-color: white;
+                        padding: 0 18px;
+                    }
+                }
+            }
+
+            .general_information_content {
+                .information_content_item {
+                    margin: 12px;
+                    display: flex;
+                    justify-content: space-between;
+
+                    .item_title {
+                        min-width: fit-content;
+                        width: 30%;
+                        margin-right: 8px;
+                        color: $color-second;
+                    }
+
+                    .item_value {
+                        flex-grow: 1;
+                        border-bottom: 1px dashed black;
+                    }
+                }
+            }
+        }
+
+        .container_list {
+            width: 69%;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background-color: white;
+            // box-shadow: 0px 2px 1px 0px rgb(0, 0, 0, 0.3);
+
+            .table_feature {
+                height: fit-content;
+                padding: 12px;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .table_content {
+                position: relative;
+                display: flex;
+                width: 100%;
+                min-height: 90%;
+                flex-grow: 1;
+                height: max-content;
+                justify-content: center;
+                align-items: center;
+                overflow: hidden;
+
+                .no_data {
+                    text-align: center;
+                    line-height: 36px;
+                    font-size: 14px;
+                    transform: translateY(-36px);
+                }
+
+                .react_grid_table {
+                    position: absolute;
+                    overflow: scroll;
+                    width: 100%;
+                    height: 90%;
+                    top: 0;
+                    left: 0;
+
+                    .reactgrid {
+                        display: block;
+                        min-width: 100%;
+                    }
+                }
+            }
+        }
+
+        .header {
+            width: 100%;
+            height: 8%;
+            text-align: center;
+            background-color: $color-second;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: 600;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+    }
+}
+
+@media (max-width: $breakpoint-md) {
+    .tracking_container {
+        .content {
+            flex-wrap: wrap;
+
+            .input_content {
+                width: 90% !important;
+                height: fit-content;
+                margin: 0 5%;
+                margin-bottom: 20px;
+                padding-bottom: 20px;
+            }
+
+            .container_list {
+                width: 90% !important;
+                margin: 0 5%;
+                min-height: 85vh;
+                padding-bottom: 4.8%;
+
+                .table_content {
+
+                    .react_grid_table {
+                        height: 94%;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -236,18 +236,18 @@ const initialState = [
   {
     text: "Quản trị hệ thống",
     icon: "BorderOutlined",
-    url: "/quản-trị-hệ-thống",
+    url: "/system_manager",
     subMenu: [
       {
         id: "qtht-01",
-        text: "Lịch sử người dùng",
-        url: "/lịch-sử-người-dùng",
+        text: "Quản lý tải khoản",
+        url: "/SystemManageUser",
         icon: "WalletOutlined",
       },
       {
         id: "qtht-02",
-        text: "Lịch sử gửi API-TOS",
-        url: "/lịch-sử-gửi-api-tos",
+        text: "Quản lý nhóm tài khoản",
+        url: "/SystemManageGroup",
         icon: "TableOutlined",
       },
       {
@@ -258,8 +258,8 @@ const initialState = [
       },
       {
         id: "qtht-04",
-        text: "Quản lý phiên bản yêu cầu",
-        url: "/quản-lý-phiên-bản-yêu-cầu",
+        text: "Quản lý phân quyền",
+        url: "/SystemManagerGroupPermission",
         icon: "SwitcherOutlined",
       },
     ],
@@ -359,18 +359,18 @@ const initialState = [
   {
     text: "Tra cứu",
     icon: "FileSearchOutlined",
-    url: "/tra-cứu",
+    url: "/tracking",
     subMenu: [
       {
         id: "tracuu-01",
         text: "Tra cứu thông tin container",
-        url: "/tra-cứu-thông-tin-container",
+        url: "/tracking_container",
         icon: "RadiusBottomleftOutlined",
       },
       {
         id: "tracuu-02",
         text: "Tra cứu danh sách container",
-        url: "/tra-cứu-danh-sách-container",
+        url: "/tracking_container_list",
         icon: "FileSearchOutlined",
       },
       {
@@ -382,19 +382,19 @@ const initialState = [
       {
         id: "tracuu-04",
         text: "Tra cứu vận đơn (BillNo)",
-        url: "/tra-cứu-vận-đơn",
+        url: "/tracking_bill",
         icon: "FileSearchOutlined",
       },
       {
         id: "tracuu-05",
         text: "Tra cứu booking",
-        url: "/tra-cứu-booking",
+        url: "/tracking_booking",
         icon: "FileSearchOutlined",
       },
       {
         id: "tracuu-06",
         text: "Tra cứu thông tin số HouseBill",
-        url: "/tra-cứu-thông-tin-số-housebill",
+        url: "/tracking_housebill",
         icon: "LaptopOutlined",
       },
       {
@@ -413,6 +413,12 @@ const initialState = [
         id: "tracuu-09",
         text: "Tra cứu thời gian thực hiện",
         url: "/tra-cứu-thời-gian-thực-hiện",
+        icon: "CarryOutOutlined",
+      },
+      {
+        id: "tracuu-10",
+        text: "Tra cứu Edo",
+        url: "/tracking_edo",
         icon: "CarryOutOutlined",
       },
     ],

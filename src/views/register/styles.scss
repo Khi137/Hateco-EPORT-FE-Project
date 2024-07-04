@@ -1,7 +1,4 @@
-$breakpoint-xl: 1536px;
-$breakpoint-ld: 1280px;
-$breakpoint-md: 768px;
-$breakpoint-sm: 360px;
+@import '../../components/BasicUI.scss';
 $login-background-image: url('../../assets/backgroundImage/LoginBackground.jpg');
 
 .register_container {

@@ -15,6 +15,7 @@ import * as AntdIcons from "@ant-design/icons";
 class Header extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       toggle: false,
     };
@@ -27,6 +28,7 @@ class Header extends Component {
   };
 
   handleClick = (menuText) => {
+    this.setState({ currentFolder: menuText, currentSubFolder: "" });
     this.props.toggleSubMenu({ text: menuText });
   };
 
@@ -43,6 +45,25 @@ class Header extends Component {
     return null;
   };
 
+  getParentAndSubUrls = (subId) => {
+    const { navigations } = this.props;
+    let parentUrl = "";
+    let subUrl = "";
+
+    for (let item of navigations) {
+      if (item.subMenu) {
+        const subItem = item.subMenu.find((sub) => sub.id === subId);
+        if (subItem) {
+          parentUrl = item.url;
+          subUrl = subItem.url;
+          break;
+        }
+      }
+    }
+
+    return { parentUrl, subUrl };
+  };
+
   handleAddExtendsion = (subId) => {
     const subItem = this.findSubItemById(subId);
     if (subItem) {
@@ -50,21 +71,56 @@ class Header extends Component {
         (ext) => ext.id === subItem.id
       );
       if (!existingExtension) {
-        this.props.addIconExtendsion(subItem);
+        const { parentUrl, subUrl } = this.getParentAndSubUrls(subId);
+
+        const newExtension = {
+          id: subItem.id,
+          text: subItem.text,
+          url: `${parentUrl}${subUrl}`,
+          parentUrl,
+          icon: subItem.icon,
+        };
+        this.props.addIconExtendsion(newExtension);
+        message.success("Thêm tiện ích thành công");
       } else {
         message.warning("Bạn đã thêm tiện ích này rồi");
       }
     } else {
-      console.error("không tìm thấy subItem");
+      console.error("Không tìm thấy subItem");
     }
   };
 
-  handleNavigateSubMenu = (url) => {
-    this.props.navigate(url);
+  handleNavigateSubMenu = (parentUrl, subUrl) => {
+    const fullPath = `${parentUrl}${subUrl}`;
+    this.props.navigate(fullPath);
+  };
+
+  getBreadcrumbs = () => {
+    const { location, navigations } = this.props;
+    const currentPath = location.pathname;
+    const pathSegments = currentPath.split("/").filter(Boolean);
+    let breadcrumbs = [];
+    console.log(pathSegments);
+    navigations.forEach((navItem) => {
+      if (pathSegments.includes(navItem.url.replace("/", ""))) {
+        breadcrumbs.push(navItem.text);
+
+        if (navItem.subMenu) {
+          navItem.subMenu.forEach((subItem) => {
+            if (pathSegments.includes(subItem.url.replace("/", ""))) {
+              breadcrumbs.push(subItem.text);
+            }
+          });
+        }
+      }
+    });
+
+    return breadcrumbs;
   };
 
   render() {
     const { navigations } = this.props;
+    const breadcrumbs = this.getBreadcrumbs();
     return (
       <div className="header-container">
         {this.state.toggle && (
@@ -90,16 +146,6 @@ class Header extends Component {
           <div className="navigate">
             <div className="toggle">
               <AlignLeftOutlined
-                // style={{
-                //   fontSize: "24px",
-                //   borderRight: "1px solid white",
-                //   paddingRight: "12px",
-                //   cursor: "pointer",
-                //   backgroundColor: "white",
-                //   color: "#D03438",
-                //   padding: "4px 12px",
-                //   borderRadius: "4px",
-                // }}
                 className="icon-menu"
                 onClick={this.handleToggle}
               />
@@ -109,28 +155,16 @@ class Header extends Component {
               onClick={() => this.handleClick("Tổng quan")}
             >
               <HomeOutlined />
-              <span>Tổng quan</span>
+              <span> {breadcrumbs[0]}</span>
             </div>
             <div className="des">
-              <Breadcrumb
-                items={[
-                  {
-                    title: (
-                      <a className="breadcrum" href="">
-                        Danh mục chức năng
-                      </a>
-                    ),
-                  },
-                  {
-                    title: (
-                      <a className="breadcrum" href="">
-                        Danh mục hãng tàu
-                      </a>
-                    ),
-                  },
-                ]}
-                // style={{ border: "1px solid white" }}
-              />
+              <Breadcrumb>
+                {breadcrumbs.map((crumb, index) => (
+                  <Breadcrumb.Item key={index}>
+                    <span style={{ color: "white" }}>{crumb}</span>
+                  </Breadcrumb.Item>
+                ))}
+              </Breadcrumb>
             </div>
             <Extension />
           </div>
@@ -174,7 +208,11 @@ class Header extends Component {
                                   this.handleAddExtendsion(subItem.id)
                                 }
                                 onConfirm={() =>
-                                  this.handleNavigateSubMenu(subItem.url)
+                                  this.handleNavigateSubMenu(
+                                    item.url,
+                                    subItem.url,
+                                    subItem.text
+                                  )
                                 }
                               >
                                 <Button className="button-custom">

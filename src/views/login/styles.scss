@@ -1,7 +1,4 @@
-$breakpoint-xl: 1536px;
-$breakpoint-ld: 1280px;
-$breakpoint-md: 768px;
-$breakpoint-sm: 360px;
+@import '../../components/BasicUI.scss';
 $register-background-image: url('../../assets/backgroundImage/LoginBackground.jpg');
 
 .login_container {
@@ -30,18 +27,6 @@ $register-background-image: url('../../assets/backgroundImage/LoginBackground.jp
 
             .form_item {
                 margin-bottom: 4px;
-
-                .item_header {
-                    margin-bottom: 12px;
-
-                    .item_tooltip {
-                        margin: 0 5px;
-                    }
-
-                    .item_require {
-                        color: red;
-                    }
-                }
 
                 .error_item {
                     border-color: red;

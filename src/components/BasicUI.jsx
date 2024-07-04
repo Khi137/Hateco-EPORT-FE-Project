@@ -31,9 +31,9 @@ import {
   Select,
   Progress,
 } from "antd";
-import "./BasicUI.scss"
+import "./BasicUI.scss";
 
-import defaultCaptcha from "../assets/captchadefault.png"
+import defaultCaptcha from "../assets/captchadefault.png";
 
 import {
   BrowserView,
@@ -44,6 +44,10 @@ import {
 
 import * as LOL from "@ant-design/icons";
 import moment from "moment";
+import { ReactGrid } from "@silevis/reactgrid";
+import { handleColumnsReorder, handleRowsReorder, handleRowsSearch } from "../utils/util";
+import "@silevis/reactgrid/styles.css";
+import { CustomHeaderCellTemplate, CustomHeaderCell } from "./CustomHeaderCell/CustomHeaderCell.tsx";
 
 export {
   Mcollapse,
@@ -821,39 +825,86 @@ export class Winput extends React.Component {
     this.inputRef = React.createRef();
     this.state = {
       value: this.props.value || "",
+      error: this.props.error || ""
     };
   }
 
   componentDidMount() {
     this.inputRef.current.value = this.state.value;
+    this.state.error = this.state.error;
   }
 
-  handleChange = (event) => {
+  checkError = (value) => {
+    if (this.props.require && value === "")
+      return `${this.props.title} không được để trống`;
+    if (value.length < (this.props.minLength || 0))
+      return `${this.props.title} phải có ít nhất ${this.props.minLength} ký tự`;
+    if (this.props.submitRegex && !this.props.submitRegex.test(value))
+      return `${this.props.title} không đúng định dạng`;
+    return false;
+  };
+
+  handleCheckError = () => {
+    const error = this.checkError(this.state.value);
+    this.setState({ error });
+    if (this.props.checkError) {
+      this.props.checkError(error);
+    }
+  };
+
+  handleSetError = (error) => {
+    this.setState({ error });
+    if (this.props.checkError) {
+      this.props.checkError(error);
+    }
+  };
+
+  handleChange = (event, regex) => {
     const { value } = event.target;
-    this.setState({ value });
-    if (this.props.onChange) {
-      this.props.onChange(event);
+
+    if (regex && !regex.test(value)) {
+      return;
+    } else {
+      this.setState({ value });
+      if (this.props.onChange) {
+        this.props.onChange(event);
+      }
     }
   };
 
   render() {
-    const { className, errorText, ...otherProps } = this.props;
+    const {
+      className,
+      regex,
+      minLength,
+      require,
+      tooltip,
+      title,
+      ...otherProps
+    } = this.props;
+    const { value, error } = this.state;
     return (
-      <>
+      <Col className="winput">
+        {(title || tooltip) && (
+          <Row className="winput_header">
+            {title && <Col>{title} {require && <span className="winput_require">*</span>}</Col>}
+            {tooltip && <Tooltip placement="top" title={tooltip} className="winput_tooltip">
+              <LOL.InfoCircleOutlined />
+            </Tooltip>}
+          </Row>
+        )}
         <Input
-          ref={this.inputRef} // Attach Ref to the input element
+          ref={this.inputRef}
           {...otherProps}
-          value={this.state.value}
-          onChange={(dt) => {
-            typeof this.props.onChange == "function"
-              ? (this.props.onChange(dt) || dt.target.value === "") &&
-              this.handleChange(dt)
-              : this.handleChange(dt);
-          }}
-          className={"Winput " + (className || "")}
+          value={value}
+          className={`Winput ${error ? "error_input " : ""} ${className || ""}`}
+          onChange={(e) => this.handleChange(e, this.props.inputRegex)}
+          onBlur={this.handleCheckError}
         />
-        <Row className="Winput_error_text">{errorText && errorText}</Row>
-      </>
+        {(require || regex || minLength) && (
+          <Row className="Winput_error_text">{error}</Row>
+        )}
+      </Col>
     );
   }
 }
@@ -998,11 +1049,7 @@ class Mcapcha extends React.Component {
         <img
           height="32px"
           id="CaptchaImg"
-          src={
-            this.state.captchaImg
-              ? this.state.captchaImg
-              : defaultCaptcha
-          }
+          src={this.state.captchaImg ? this.state.captchaImg : defaultCaptcha}
           alt="CAPTCHA"
         />
         <Button onClick={this.handleRefresh}>Làm mới</Button>
@@ -1140,6 +1187,7 @@ class Mbutton extends React.Component {
       opacity: this.props.dataSource?.opacity || "20",
       size: this.props?.size || "12",
       textbutton: this.props.dataSource?.textbutton || "Button",
+      icon: this.props.dataSource?.icon || "",
     };
   }
 
@@ -1158,7 +1206,21 @@ class Mbutton extends React.Component {
       };
     }
   }
+
   render() {
+    const { icon } = this.state;
+    let IconComponent = null;
+
+    if (icon && LOL[icon]) {
+      IconComponent = React.createElement(LOL[icon], {
+        className: "m-form__icon",
+      });
+    } else {
+      IconComponent = React.createElement(LOL["BarsOutlined"], {
+        className: "m-form__icon",
+      });
+    }
+
     return (
       <div>
         <Button
@@ -1173,12 +1235,14 @@ class Mbutton extends React.Component {
           {...this.props}
           style={this.style()}
         >
-          <text className="body-lg-bold">{this.state.textbutton}</text>
+          {IconComponent}
+          <text className="body-lg-normal">{this.state.textbutton}</text>
         </Button>
       </div>
     );
   }
 }
+
 
 class Mrangepicker extends React.Component {
   constructor(props) {
@@ -1309,20 +1373,21 @@ class Msearch extends React.Component {
         style={{ display: data?.isHide === true ? "none" : "block" }}
       >
         <div className="m-form__input">
-          <label className="m-form__label">
-            {data?.label || "sample text..."}
-          </label>
-          <Input.Search
+          <Input
+            classNames={"m-form__search"}
             ref={this.searchRef}
             value={this.state.value}
             onChange={this.handleChange}
             onBlur={this.handleBlur}
             onFocus={this.handleFocus}
+            placeholder={dataSource?.text ? dataSource?.text : "Tìm kiếm ..."}
             className={`inputUppercase ${data?.className || ""}`}
             {...(data?.safeString ? { onKeyPress: this.handleKeyPress } : {})}
             {...config}
           />
-          {icon}
+          <span className="ant__search-icon">
+            <LOL.SearchOutlined />
+          </span>
         </div>
       </Col>
     );
@@ -1684,10 +1749,272 @@ class Mselectsearch extends React.Component {
 class Mtable extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      data: this.props.tableData,
+      tableData: {
+        reactGridColumns: [...this.generateColumnsData()],
+        reactGridRows: [
+          this.generateRowsHeader(),
+          ...this.generateTableData(this.props.tableData || []),
+        ],
+      },
+    };
   }
 
+  handleColumnResize = (ci, width) => {
+    this.setState(prevState => {
+      const updatedColumns = prevState.tableData.reactGridColumns.map(column => {
+        if (column.columnId === ci) {
+          return { ...column, width };
+        }
+        return column;
+      });
+
+      return {
+        tableData: {
+          ...prevState.tableData,
+          reactGridColumns: updatedColumns
+        }
+      };
+    });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.searchValue !== this.props.searchValue) {
+      this.setState({
+        searchValue: this.props.searchValue,
+      });
+    }
+  }
+
+  handleCellsChanged = (changes) => {
+    const rows = this.state.tableData.reactGridRows.map((row) => ({
+      ...row,
+      cells: row.cells?.map((cell) => ({ ...cell })),
+    }));
+
+    let updatedData = [...this.state.data];
+    let changedObjects = [];
+
+    changes.forEach((change) => {
+      const row = rows?.find((r) => r.rowId === change.rowId);
+      if (row) {
+        const columnIndex = this.state.tableData.reactGridColumns.findIndex(
+          (col) => col.columnId === change.columnId
+        );
+        if (columnIndex >= 0) {
+          const cell = row.cells[columnIndex];
+          if (change?.newCell?.type === "checkbox") {
+            cell.checked = change?.newCell?.checked;
+          } else {
+            cell.text = change?.newCell?.text;
+          }
+
+          const dataIndex = parseInt(change.rowId, 10) - 1;
+          if (updatedData[dataIndex]) {
+            const columnKey =
+              this.state.tableData.reactGridColumns[columnIndex].columnId;
+            updatedData[dataIndex] = {
+              ...updatedData[dataIndex],
+              [columnKey]:
+                change?.newCell?.type === "checkbox"
+                  ? change?.newCell?.checked
+                  : change?.newCell?.text,
+            };
+
+            changedObjects.push(updatedData[dataIndex]);
+          }
+        }
+      }
+    });
+
+    this.setState((prevState) => ({
+      tableData: {
+        ...prevState.tableData,
+        reactGridRows: rows,
+      },
+      data: updatedData,
+    }));
+
+    if (this.props.hanldeChangeTableData) {
+      this.props.hanldeChangeTableData(changedObjects)
+    }
+  };
+
+  handleColumnResize = (ci, width) => {
+    this.setState((prevState) => {
+      const updatedColumns = prevState.tableData.reactGridColumns.map(
+        (column) => {
+          if (column.columnId === ci) {
+            return { ...column, width };
+          }
+          return column;
+        }
+      );
+
+      return {
+        tableData: {
+          ...prevState.tableData,
+          reactGridColumns: updatedColumns,
+        },
+      };
+    });
+  };
+
+  handleColumnsReorder = (targetColumnId, columnIds) => {
+    const { tableData } = this.state;
+    const updatedTableData = handleColumnsReorder(
+      tableData,
+      targetColumnId,
+      columnIds
+    );
+    this.setState({ tableData: updatedTableData });
+  };
+
+  handleRowsReorder = (targetRowId, rowIds) => {
+    const { tableData } = this.state;
+    const updatedTableData = handleRowsReorder(tableData, targetRowId, rowIds);
+    this.setState({ tableData: updatedTableData });
+  };
+
+  handleCanReorderRows = (targetRowId, rowIds) => {
+    return targetRowId !== "header";
+  };
+
+  handleSort = (columnId) => {
+    // Implement your sorting logic here
+    console.log("Sorting by column:", columnId);
+
+    // Example sorting logic (replace with your own)
+    const sortedData = [...this.state.data].sort((a, b) => {
+      // Assuming sorting by columnId
+      return a[columnId].localeCompare(b[columnId]);
+    });
+
+    this.setState({
+      data: sortedData,
+      tableData: {
+        ...this.state.tableData,
+        reactGridRows: [
+          this.generateRowsHeader(),
+          ...this.generateTableData(sortedData)
+        ]
+      }
+    });
+  };
+
+  generateColumnsData = () => {
+    let columnsData = [];
+    this.props.columnsFormat
+      ? (columnsData = this.props.columnsFormat)
+      : (columnsData = [
+        { columnId: "STT", width: 50, resizable: true, header: "STT" },
+        {
+          columnId: "ContainerStatusName",
+          width: 125,
+          resizable: true,
+          reorderable: true,
+          header: "Tình trạng"
+        },
+        {
+          columnId: "ContainerNo",
+          width: 150,
+          resizable: true,
+          reorderable: true,
+          header: "Số Container"
+        }
+      ]);
+
+    return columnsData.map((column) => ({
+      ...column,
+      sortFunction: () => this.handleSort(column.columnId)
+    }));
+  };
+
+
+  generateRowsHeader = () => {
+    if (this.props.rowsHeader) {
+      return {
+        rowId: "header",
+        cells: this.props.rowsHeader
+      };
+    } else {
+      return {
+        rowId: "header",
+        cells: [
+          { type: "header", text: "STT" },
+          { type: "header", text: "Tình trạng" },
+          { type: "header", text: "Số Container" }
+        ]
+      };
+    }
+  };
+
+  generateRowData = (container, index) => {
+    if (this.props.rowsFormat) {
+      return {
+        rowId: String(index + 1),
+        reorderable: Boolean(this.props.reoderRow),
+        cells: this.props.rowsFormat(container, index)
+      };
+    } else {
+      return {
+        rowId: String(index + 1),
+        reorderable: this.props.reoderRow,
+        cells: [
+          { type: "text", nonEditable: true, text: String(index + 1) },
+          {
+            type: "text",
+            nonEditable: true,
+            text: container?.ContainerStatusName || ""
+          },
+          {
+            type: "text",
+            nonEditable: true,
+            text: container?.ContainerNo || ""
+          }
+        ]
+      };
+    }
+  };
+
+  generateTableData = (dataList) => {
+    const generateData = dataList.map((container, index) =>
+      this.generateRowData(container, index)
+    );
+    return generateData;
+  };
+
   render() {
-    return <Table {...this.props}></Table>;
+    const { tableData, searchValue } = this.state;
+    return (
+      <ReactGrid
+        {...this.props}
+        rows={
+          this.props.searchValue
+            ? handleRowsSearch(
+              tableData.reactGridRows,
+              searchValue || "",
+              tableData.reactGridColumns,
+              this.props.searchField
+            )
+            : tableData.reactGridRows
+        }
+        columns={tableData.reactGridColumns}
+        stickyTopRows={1}
+        enableRowSelection
+        enableColumnSelection
+        onColumnsReordered={this.handleColumnsReorder}
+        onRowsReordered={this.handleRowsReorder}
+        canReorderRows={this.handleCanReorderRows}
+        onCellsChanged={this.handleCellsChanged}
+        onColumnResized={this.handleColumnResize}
+
+      // customCellTemplates={{
+      //   header: new CustomHeaderCellTemplate()
+      // }}
+      />
+    );
   }
 }
 
@@ -2039,8 +2366,8 @@ class Minput extends React.Component {
                 ? ""
                 : this.state.value + ""
               ).length > 0
-                ? "m-form__label m-form__label--focus"
-                : "m-form__label"
+                ? "m-form__label m-form__label--focus body-lg-normal"
+                : "m-form__label body-lg-normal"
             }
           >
             {data?.label || ""}
@@ -2066,6 +2393,7 @@ class Minput extends React.Component {
               maxLength={data?.maxLength || 9999}
               tabIndex={data?.tabindex || 1}
               pattern={data?.format || ""}
+              placeholder={data?.text || "Nhập dữ liệu ..."}
             ></input>
           </span>
           {this.state.blur && (
@@ -2300,41 +2628,9 @@ class Mdatepicker extends React.Component {
           />
         </div>
       </Col>
-
-      // !isMobile ?
-
-      //     :
-      //     <Col offset={data.offset ? data.offset : 0} span={span} key={data.ref} className={"m-form__box " + data.className}>
-      //         <div className="m-form__input">
-      //             <label className={this.state.value ? "m-form__label m-form__label--focus" : "m-form__label"}>{data.label}</label>
-      //             <input type="datetime-local" style={{ padding: 0 }} placeholder="" bordered={false} required-text={data.required} required={data.required ? true : false}
-      //                 ref={data.ref} id={data.ref} key={data.ref || ""}
-      //                 showTime={true} value={this.state.value ? moment(this.state.value).format('YYYY-MM-DDTHH:mm') : ""} title={this.state.value ? moment(this.state.value).format('YYYY-MM-DD HH:mm:ss') : ""}
-      //                 onChange={(date, dateString) => { this.setState({ value: moment(date.target.value).format('YYYY-MM-DD HH:mm:ss') }) }}
-      //                 onBlur={this.checkBlur.bind(this)}
-      //                 onClick={data.onClick}
-      //                 inputReadOnly={this.state.readonly ? true : false}
-      //                 onFocus={this.checkFocus.bind(this)} />
-      //         </div>
-      //     </Col>
     );
   }
 }
-
-// - import data with datatype as array Objects
-// - Object name is "dataSource" with sample data
-// = [
-//     {
-//         label: ""(optional) --
-//         span: ""(optional) -- grid system default 24
-//         ref: ""(require) -- component id, ref, key must be unquie
-//         name: ""(require) -- name of group radio button
-//         defaultValue: ""(optional) -- ref of radio item
-//         options: ""(require) -- Object array, list of radio group
-//     }
-
-// if input property have "config" , it will be a object with base props of ant design Radio.Group component
-// ]
 
 class Mradio extends React.Component {
   constructor(props) {
@@ -2499,7 +2795,10 @@ class Mcheckbox extends React.Component {
         md={span.md || span}
         lg={span.lg || span}
         style={data.style}
-        className={"m-form__Mcheckbox " + (this.props.dataSource.value ? "m-checkbox_checked" : "")}
+        className={
+          "m-form__Mcheckbox " +
+          (this.props.dataSource.value ? "m-checkbox_checked" : "")
+        }
       >
         <span className="m-form__Checkbox">
           <Checkbox
@@ -2532,7 +2831,6 @@ class Mselect extends React.Component {
 
   handleChange(e) {
     const { value } = e.target;
-
     this.setState({ value });
 
     const returnvalue = {
@@ -2551,12 +2849,13 @@ class Mselect extends React.Component {
       this.props.config.returnValue(value);
     }
   }
-
   checkBlur(e) {
-    if (!e.target?.value || e.target?.value === "default") {
-      e.target.parentElement
-        .getElementsByTagName("label")[0]
-        .classList.remove("m-form__label--focus");
+    const parentElement = e.target?.parentElement;
+    if (parentElement) {
+      const labelElement = parentElement.getElementsByTagName("label")[0];
+      if (labelElement && (!e.target?.value || e.target?.value === "default")) {
+        labelElement.classList.remove("m-form__label--focus");
+      }
     }
 
     if (typeof (this.props.dataSource || {}).onBlur == "function") {
@@ -2565,9 +2864,13 @@ class Mselect extends React.Component {
   }
 
   checkFocus(e) {
-    e.target.parentElement
-      .getElementsByTagName("label")[0]
-      .classList.add("m-form__label--focus");
+    const parentElement = e.target?.parentElement;
+    if (parentElement) {
+      const labelElement = parentElement.getElementsByTagName("label")[0];
+      if (labelElement) {
+        labelElement.classList.add("m-form__label--focus");
+      }
+    }
   }
 
   renderOptions(value) {
@@ -2636,7 +2939,7 @@ class Mselect extends React.Component {
             (readonly ? "readonly" : "")
           }
         >
-          <label
+          {/* <label
             className={
               data?.value || this.state.value
                 ? "m-form__label m-form__label--focus"
@@ -2644,7 +2947,7 @@ class Mselect extends React.Component {
             }
           >
             {data?.label}
-          </label>
+          </label> */}
           <select
             ref={this.selectRef}
             id={data?.ref}
@@ -2657,11 +2960,17 @@ class Mselect extends React.Component {
             required={data?.required}
             defaultValue={data?.value || this.state.value}
             tabIndex={data?.tabindex || 1}
+            className="m-form__select body-lg-normal"
           >
-            <option key="" value=""></option>
+            <option key="" value="">
+              <span>
+                <LOL.UnorderedListOutlined />
+              </span>{" "}
+              {data?.label}
+            </option>
             {this.renderOptions(data?.value || this.state.value)}
           </select>
-          {icon}
+          {/* {icon} */}
         </div>
       </Col>
     );
