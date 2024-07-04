@@ -45,7 +45,9 @@ import {
 import * as LOL from "@ant-design/icons";
 import moment from "moment";
 import { ReactGrid } from "@silevis/reactgrid";
-import { handleColumnsReorder, handleRowsReorder } from "../utils/util";
+import { handleColumnsReorder, handleRowsReorder, handleRowsSearch } from "../utils/util";
+import "@silevis/reactgrid/styles.css";
+import { CustomHeaderCellTemplate, CustomHeaderCell } from "./CustomHeaderCell/CustomHeaderCell.tsx";
 
 export {
   Mcollapse,
@@ -94,13 +96,13 @@ var checkPrSps = new RegExp("[~|`|!|@|#|$|%|^|&|*|(|)|/]", "g");
 var removespc = function (text, exp = "") {
   let checksps = new RegExp(
     "[^a-zA-Z0-9àảãáạăằẳẵắặâầẩẫấậÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬđĐèẻẽéẹêềểễếệÈẺẼÉẸÊỀỂỄẾỆìỉĩíịÌỈĨÍỊòỏõóọôồổỗốộơờởỡớợÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢùủũúụưừửữứựÙỦŨÚỤƯỪỬỮỨỰỳỷỹýỵỲỶỸÝỴ" +
-      exp +
-      "_\\\\/\\(\\)-]",
+    exp +
+    "_\\\\/\\(\\)-]",
     "g"
   );
   return (text + "").normalize().replace(checksps, "");
 };
-var jjjg = setTimeout(() => {}, 0);
+var jjjg = setTimeout(() => { }, 0);
 var setvalthat = (val, that, time = 0) => {
   clearTimeout(jjjg);
   jjjg = setTimeout(() => {
@@ -320,9 +322,9 @@ class MeditSelect extends React.Component {
     if (!window.component) window.component = {};
     window.component[
       this.props.id ||
-        this.props.ref ||
-        this.props.dataSource.id ||
-        this.props.dataSource.ref
+      this.props.ref ||
+      this.props.dataSource.id ||
+      this.props.dataSource.ref
     ] = this;
   }
 
@@ -544,7 +546,7 @@ class Mupload extends React.Component {
     this.mes = {};
   }
 
-  create_Rowguid = () => {};
+  create_Rowguid = () => { };
 
   componentDidMount() {
     this.tmp_patch = this.create_Rowguid();
@@ -602,7 +604,7 @@ class Mupload extends React.Component {
     this.setState({ fileList: nFL });
   };
 
-  handleupload = (file, fileList) => {};
+  handleupload = (file, fileList) => { };
 
   handleRemove = (file) => {
     let formData = new FormData();
@@ -651,7 +653,7 @@ class Mupload extends React.Component {
           <Upload
             ref={this.uploadInputRef}
             style={{ textAlign: "center", margin: "auto" }}
-            action={() => {}}
+            action={() => { }}
             listType="picture"
             beforeUpload={this.handleupload}
             multiple={true}
@@ -823,12 +825,13 @@ export class Winput extends React.Component {
     this.inputRef = React.createRef();
     this.state = {
       value: this.props.value || "",
-      error: "",
+      error: this.props.error || ""
     };
   }
 
   componentDidMount() {
     this.inputRef.current.value = this.state.value;
+    this.state.error = this.state.error;
   }
 
   checkError = (value) => {
@@ -884,20 +887,10 @@ export class Winput extends React.Component {
       <Col className="winput">
         {(title || tooltip) && (
           <Row className="winput_header">
-            {title && (
-              <Col>
-                {title} <span className="winput_require">*</span>
-              </Col>
-            )}
-            {tooltip && (
-              <Tooltip
-                placement="top"
-                title={tooltip}
-                className="winput_tooltip"
-              >
-                <LOL.InfoCircleOutlined />
-              </Tooltip>
-            )}
+            {title && <Col>{title} {require && <span className="winput_require">*</span>}</Col>}
+            {tooltip && <Tooltip placement="top" title={tooltip} className="winput_tooltip">
+              <LOL.InfoCircleOutlined />
+            </Tooltip>}
           </Row>
         )}
         <Input
@@ -1233,8 +1226,8 @@ class Mbutton extends React.Component {
             this.state.color === ""
               ? `ant-btn-${this.state.color} opacity-${this.state.opacity}`
               : this.state.color === "blue"
-              ? `ant-btn-${this.state.color} opacity-${this.state.opacity}`
-              : `ant-btn-${this.state.color} opacity-${this.state.opacity}`
+                ? `ant-btn-${this.state.color} opacity-${this.state.opacity}`
+                : `ant-btn-${this.state.color} opacity-${this.state.opacity}`
           }
           loading={this.state.loading}
           {...this.props}
@@ -1247,6 +1240,7 @@ class Mbutton extends React.Component {
     );
   }
 }
+
 
 class Mrangepicker extends React.Component {
   constructor(props) {
@@ -1308,8 +1302,8 @@ class Msearch extends React.Component {
       dataSource && dataSource.uppercase
         ? value.toUpperCase()
         : dataSource && dataSource.safeString
-        ? removespc(value)
-        : value;
+          ? removespc(value)
+          : value;
     this.setState({ value: newValue });
     if (config && config.onLiveSearch) {
       config.onLiveSearch(newValue);
@@ -1356,15 +1350,13 @@ class Msearch extends React.Component {
     const data = config && config?.icon ? config : dataSource;
     const icon = data?.icon ? (
       <i
-        className={`m-form__icon ${
-          LOL[data?.icon] ? "" : "material-" + data?.icon
-        }`}
+        className={`m-form__icon ${LOL[data?.icon] ? "" : "material-" + data?.icon
+          }`}
       />
     ) : (
       <i
-        className={`m-form__icon ${
-          LOL["AlignLeftOutlined"] ? "" : "material-" + data?.icon
-        }`}
+        className={`m-form__icon ${LOL["AlignLeftOutlined"] ? "" : "material-" + data?.icon
+          }`}
       />
     );
     const span = (data && data.span) || 24;
@@ -1491,8 +1483,8 @@ class Mautocomplete extends React.Component {
       this.state.placeholder === undefined
         ? data.placeholder
         : this.state.placeholder
-        ? this.state.placeholder
-        : "";
+          ? this.state.placeholder
+          : "";
     return (
       <Col
         xs={span.xs || span}
@@ -1655,8 +1647,8 @@ class Mselectsearch extends React.Component {
       this.state.placeholder === undefined
         ? data.placeholder
         : this.state.placeholder
-        ? this.state.placeholder
-        : "";
+          ? this.state.placeholder
+          : "";
 
     var that = this;
     var value = data.value || this.state.value;
@@ -1767,7 +1759,32 @@ class Mtable extends React.Component {
     };
   }
 
-  // hanlde change data
+  handleColumnResize = (ci, width) => {
+    this.setState(prevState => {
+      const updatedColumns = prevState.tableData.reactGridColumns.map(column => {
+        if (column.columnId === ci) {
+          return { ...column, width };
+        }
+        return column;
+      });
+
+      return {
+        tableData: {
+          ...prevState.tableData,
+          reactGridColumns: updatedColumns
+        }
+      };
+    });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.searchValue !== this.props.searchValue) {
+      this.setState({
+        searchValue: this.props.searchValue,
+      });
+    }
+  }
+
   handleCellsChanged = (changes) => {
     const rows = this.state.tableData.reactGridRows.map((row) => ({
       ...row,
@@ -1791,7 +1808,6 @@ class Mtable extends React.Component {
             cell.text = change?.newCell?.text;
           }
 
-          // Find the corresponding object in the state.data array
           const dataIndex = parseInt(change.rowId, 10) - 1;
           if (updatedData[dataIndex]) {
             const columnKey =
@@ -1818,12 +1834,11 @@ class Mtable extends React.Component {
       data: updatedData,
     }));
 
-    // if (this.props.hanldeChangeTableData) {
-    //   hanldeChangeTableData(changedObjects);
-    // }
+    if (this.props.hanldeChangeTableData) {
+      this.props.hanldeChangeTableData(changedObjects)
+    }
   };
 
-  // handle reoder
   handleColumnResize = (ci, width) => {
     this.setState((prevState) => {
       const updatedColumns = prevState.tableData.reactGridColumns.map(
@@ -1864,46 +1879,71 @@ class Mtable extends React.Component {
     return targetRowId !== "header";
   };
 
-  // format data
+  handleSort = (columnId) => {
+    // Implement your sorting logic here
+    console.log("Sorting by column:", columnId);
+
+    // Example sorting logic (replace with your own)
+    const sortedData = [...this.state.data].sort((a, b) => {
+      // Assuming sorting by columnId
+      return a[columnId].localeCompare(b[columnId]);
+    });
+
+    this.setState({
+      data: sortedData,
+      tableData: {
+        ...this.state.tableData,
+        reactGridRows: [
+          this.generateRowsHeader(),
+          ...this.generateTableData(sortedData)
+        ]
+      }
+    });
+  };
 
   generateColumnsData = () => {
     let columnsData = [];
     this.props.columnsFormat
       ? (columnsData = this.props.columnsFormat)
       : (columnsData = [
-          { columnId: "STT", width: 50, resizable: true, header: "STT" },
-          {
-            columnId: "ContainerStatusName",
-            width: 125,
-            resizable: true,
-            reorderable: true,
-            header: "Tình trạng",
-          },
-          {
-            columnId: "ContainerNo",
-            width: 150,
-            resizable: true,
-            reorderable: true,
-            header: "Số Container",
-          },
-        ]);
-    return columnsData;
+        { columnId: "STT", width: 50, resizable: true, header: "STT" },
+        {
+          columnId: "ContainerStatusName",
+          width: 125,
+          resizable: true,
+          reorderable: true,
+          header: "Tình trạng"
+        },
+        {
+          columnId: "ContainerNo",
+          width: 150,
+          resizable: true,
+          reorderable: true,
+          header: "Số Container"
+        }
+      ]);
+
+    return columnsData.map((column) => ({
+      ...column,
+      sortFunction: () => this.handleSort(column.columnId)
+    }));
   };
+
 
   generateRowsHeader = () => {
     if (this.props.rowsHeader) {
       return {
         rowId: "header",
-        cells: this.props.rowsHeader,
+        cells: this.props.rowsHeader
       };
     } else {
       return {
         rowId: "header",
         cells: [
-          { type: "header", text: "STT" }, // 1
-          { type: "header", text: "Tình trạng" }, // 2
-          { type: "header", text: "Số Container" }, // 3
-        ],
+          { type: "header", text: "STT" },
+          { type: "header", text: "Tình trạng" },
+          { type: "header", text: "Số Container" }
+        ]
       };
     }
   };
@@ -1912,8 +1952,8 @@ class Mtable extends React.Component {
     if (this.props.rowsFormat) {
       return {
         rowId: String(index + 1),
-        reorderable: Boolean(this.props.reorderable),
-        cells: this.props.rowsFormat(container, index),
+        reorderable: Boolean(this.props.reoderRow),
+        cells: this.props.rowsFormat(container, index)
       };
     } else {
       return {
@@ -1924,41 +1964,54 @@ class Mtable extends React.Component {
           {
             type: "text",
             nonEditable: true,
-            text: container?.ContainerStatusName || "",
+            text: container?.ContainerStatusName || ""
           },
           {
             type: "text",
             nonEditable: true,
-            text: container?.ContainerNo || "",
-          },
-        ],
+            text: container?.ContainerNo || ""
+          }
+        ]
       };
     }
   };
 
   generateTableData = (dataList) => {
-    const generateData = dataList?.map((container, index) =>
+    const generateData = dataList.map((container, index) =>
       this.generateRowData(container, index)
     );
     return generateData;
   };
 
   render() {
-    const { tableData } = this.state;
+    const { tableData, searchValue } = this.state;
     return (
       <ReactGrid
         {...this.props}
-        rows={tableData.reactGridRows}
+        rows={
+          this.props.searchValue
+            ? handleRowsSearch(
+              tableData.reactGridRows,
+              searchValue || "",
+              tableData.reactGridColumns,
+              this.props.searchField
+            )
+            : tableData.reactGridRows
+        }
         columns={tableData.reactGridColumns}
         stickyTopRows={1}
+        enableRowSelection
+        enableColumnSelection
         onColumnsReordered={this.handleColumnsReorder}
         onRowsReordered={this.handleRowsReorder}
         canReorderRows={this.handleCanReorderRows}
         onCellsChanged={this.handleCellsChanged}
         onColumnResized={this.handleColumnResize}
-        enableRowSelection
-        enableColumnSelection
-      ></ReactGrid>
+
+      // customCellTemplates={{
+      //   header: new CustomHeaderCellTemplate()
+      // }}
+      />
     );
   }
 }
@@ -2307,7 +2360,7 @@ class Minput extends React.Component {
           <label
             className={
               (typeof this.state.value === "undefined" ||
-              this.state.value === null
+                this.state.value === null
                 ? ""
                 : this.state.value + ""
               ).length > 0
@@ -2446,10 +2499,10 @@ class Mdatepicker extends React.Component {
     let value = this.state.value
       ? moment(this.state.value, data.format || "YYYY-MM-DD HH:mm:ss")
       : data.value
-      ? moment(data.value, data.format || "YYYY-MM-DD HH:mm:ss")
-      : data.defaultValue
-      ? moment(data.defaultValue, data.format || "YYYY-MM-DD HH:mm:ss")
-      : null;
+        ? moment(data.value, data.format || "YYYY-MM-DD HH:mm:ss")
+        : data.defaultValue
+          ? moment(data.defaultValue, data.format || "YYYY-MM-DD HH:mm:ss")
+          : null;
 
     if (data.value === "") value = null;
     if (this.state.value === "") value = null;
@@ -2510,9 +2563,8 @@ class Mdatepicker extends React.Component {
         lg={span.lg || span}
         xl={span.xl || span}
         key={data.ref}
-        className={`m-form__box ${data.className || ""} ${
-          readonly ? "readonly" : ""
-        }`}
+        className={`m-form__box ${data.className || ""} ${readonly ? "readonly" : ""
+          }`}
       >
         <div className={`m-form__input ${readonly ? "readonly" : ""}`}>
           <label
@@ -2535,17 +2587,17 @@ class Mdatepicker extends React.Component {
             defaultValue={
               data.defaultValue
                 ? moment(
-                    data.defaultValue,
-                    data.format || "YYYY-MM-DD HH:mm:ss"
-                  )
+                  data.defaultValue,
+                  data.format || "YYYY-MM-DD HH:mm:ss"
+                )
                 : ""
             }
             defaultPickerValue={
               data.defaultPickerValue
                 ? moment(
-                    data.defaultPickerValue,
-                    data.format || "YYYY-MM-DD HH:mm:ss"
-                  )
+                  data.defaultPickerValue,
+                  data.format || "YYYY-MM-DD HH:mm:ss"
+                )
                 : undefined
             }
             value={value}
@@ -3110,9 +3162,9 @@ class MoneFieldInput extends React.Component {
     window.component = window.component || {};
     window.component[
       this.props.id ||
-        this.props.ref ||
-        this.props.dataSource.id ||
-        this.props.dataSource.ref
+      this.props.ref ||
+      this.props.dataSource.id ||
+      this.props.dataSource.ref
     ] = this;
   }
 

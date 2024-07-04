@@ -82,6 +82,13 @@ $main-font-weight-bold: 700;
 //heading-xl
 $heading-xl-font-size: 60px;
 $heading-xl-line-height: 78px;
+
+// brack point
+$breakpoint-xl: 1536px;
+$breakpoint-ld: 1280px;
+$breakpoint-md: 768px;
+$breakpoint-sm: 360px;
+
 .heading-xl-normal {
   font-family: $main-font;
   font-size: $heading-xl-font-size;
@@ -279,6 +286,45 @@ $caption-line-height: 14px;
     transform: scale(0.8) !important;
     background-color: $color-third !important;
   }
+}
+
+// Winput
+
+.winput {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  .winput_header {
+    margin-bottom: 4px;
+
+    .winput_tooltip {
+      margin: 0 5px;
+    }
+
+    .winput_require {
+      color: red;
+    }
+  }
+
+  .ant-input {
+    width: 100%;
+    height: 100% !important;
+    margin: auto 0;
+  }
+
+  .Winput.error_input {
+    border-color: #C92929;
+    margin: 0;
+  }
+}
+
+.Winput_error_text {
+  width: 100%;
+  height: 16px;
+  margin-top: 4px;
+  font-size: 12px;
+  color: red;
 }
 
 //Minput
@@ -495,6 +541,31 @@ $caption-line-height: 14px;
         background-color: #00b1cc !important;
       }
     }
+  }
+}
+
+//Mtable
+.reactgrid {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+
+  .reactgrid-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rg-header-cell {
+    // height: 40px !important;
+    background-color: var(--color-second) !important;
+    color: white !important;
+  }
+
+  .rg-row {
+    border-bottom: 1px solid #ddd;
+  }
+
+  .selected-row {
+    background-color: #6f6f6f;
   }
 }
 

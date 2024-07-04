@@ -9,7 +9,7 @@ import {
   Mcheckbox,
 } from "../../../components/BasicUI";
 
-import "./Task.scss";
+import "./task.scss";
 import CheckboxCellTemplate from "./CellTemplate";
 import { Checkbox } from "antd";
 

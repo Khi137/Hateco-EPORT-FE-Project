@@ -9,7 +9,7 @@ import {
   Mcheckbox,
 } from "../../../components/BasicUI";
 
-import "./StatesContainer.scss";
+import "./statesContainer.scss";
 import { Checkbox } from "antd";
 
 let rowData = [

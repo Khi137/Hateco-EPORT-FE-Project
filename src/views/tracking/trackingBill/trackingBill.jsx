@@ -1,10 +1,9 @@
 import React, { Component, createRef } from 'react';
 import './styles.scss'
-import { Col, Row, Tooltip } from 'antd';
-import { BarcodeOutlined, BoldOutlined, DatabaseOutlined, EnvironmentOutlined, InfoCircleOutlined, NumberOutlined, SearchOutlined } from '@ant-design/icons';
+import { Col, Row } from 'antd';
+import { BarcodeOutlined, BoldOutlined, DatabaseOutlined, EnvironmentOutlined, NumberOutlined, SearchOutlined } from '@ant-design/icons';
 import { Mbutton, Mradio, Mtable, Winput } from '../../../components/BasicUI';
-import { ReactGrid } from '@silevis/reactgrid';
-import { formatDateTime, handleColumnsReorder, handleRowsReorder, handleRowsSearch } from '../../../utils/util';
+import { formatDateTime, handleRowsSearch } from '../../../utils/util';
 
 const rowData = [
     {
@@ -125,7 +124,7 @@ function generateRandomContainerNo() {
     return result;
 }
 
-for (let index = 0; index < 20; index++) {
+for (let index = 0; index < 100; index++) {
     const duplicatedData = { ...rowData[0] };
     duplicatedData.ContainerNo = generateRandomContainerNo();
     rowData.push(duplicatedData);
@@ -219,7 +218,7 @@ class TrackingBill extends Component {
                     prefix={item?.inputIcon}
                     placeholder={item?.placeholder}
                     defaultValue={item?.value}
-                    error={item?.error !== undefined ? item?.error || true : false}
+                    error={typeof item?.error === "string" ? item?.error : false}
                     ref={item.ref}
                 />
             </Col>
@@ -279,7 +278,7 @@ class TrackingBill extends Component {
                 value: formData.pinCode,
                 require: true,
                 ref: this.pinCodeRef,
-                // error: formData.pinCodeError,
+                error: formData.pinCodeError,
             },
         ]
 
@@ -330,7 +329,7 @@ class TrackingBill extends Component {
         ]
 
         return (
-            <div className='tracking-bill_container'>
+            <div className='tracking-bill_container tracking_container'>
                 <div className='content'>
                     <div className="input_content">
                         <Row className='header body-md-normal'>
@@ -366,7 +365,10 @@ class TrackingBill extends Component {
                                 onClick={this.handleLoadData}
                                 ref={this.submitButtonRef}
                                 size={"12"}
-                                dataSource={{ textbutton: "Nạp dữ liệu" }}
+                                dataSource={{
+                                    textbutton: `Nạp dữ liệu`,
+                                    icon: "CloudDownloadOutlined"
+                                }}
                             />
                         </div>
                     </div>
@@ -393,7 +395,7 @@ class TrackingBill extends Component {
                                     htmlType="submit"
                                     block
                                     size={"12"}
-                                    dataSource={{ textbutton: "Xuất File Exel", color: "second" }}
+                                    dataSource={{ textbutton: "Xuất File Exel", color: "second", icon: "FileExcelOutlined" }}
                                 />
                             </Col>
                         </Row>
@@ -412,8 +414,8 @@ class TrackingBill extends Component {
                                             rowsFormat={rowsFormat}
                                             rowsHeader={rowsHeader}
                                             reoderRow={true}
-                                            onSearch={(tableData, searchValue) => handleRowsSearch(tableData, searchValue)}
                                             searchValue={formData.searchData}
+                                            searchField={["ContainerNumber", "OperationCode", "IsoSizetype"]}
                                         />
                                     </div>
                             }

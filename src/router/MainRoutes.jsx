@@ -21,6 +21,7 @@ import TrackingHouseBill from "../views/tracking/trackingHouseBill/trackingHouse
 import TrackingContainerList from "../views/tracking/trackingContainerList/trackingContainerList";
 
 import Customer from "../views/category/customer/Customer";
+import Customer from "../views/category/customer/Customer";
 import ShipExploitBrand from "../views/category/shipExploitBrand/ShipExploitBrand";
 import Task from "../views/category/task/Task";
 import CommoditiesType from "../views/category/commoditiesType/commoditiesType";
@@ -39,6 +40,8 @@ class MainRoutes extends Component {
         </Route>
         <Route element={<AuthLayout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/category-customer" element={<Customer />} />
+<<<<<<<<< Temporary merge branch 1
 
           <Route path="/tracking">
             <Route path="tracking_container" element={<TrackingContainer />} />

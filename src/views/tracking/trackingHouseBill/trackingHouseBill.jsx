@@ -4,8 +4,7 @@ import { Col, Row, Tooltip } from 'antd';
 import { BoldOutlined, DatabaseOutlined, InfoCircleOutlined, NumberOutlined, SearchOutlined } from '@ant-design/icons';
 import { Mbutton, Mdatepicker, Mselect, Mtable, Winput } from '../../../components/BasicUI';
 import moment from 'moment';
-import { formatDateTime, handleColumnsReorder, handleRowsReorder, handleRowsSearch } from '../../../utils/util';
-import { ReactGrid } from '@silevis/reactgrid';
+import { formatDateTime, handleRowsSearch } from '../../../utils/util';
 
 const rowData = [
     {
@@ -118,13 +117,13 @@ const rowData = [
 ]
 
 function generateRandomContainerNo() {
-  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  let result = "";
-  const charactersLength = characters.length;
-  for (let i = 0; i < 10; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let result = "";
+    const charactersLength = characters.length;
+    for (let i = 0; i < 10; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
 }
 
 for (let index = 0; index < 100; index++) {
@@ -140,10 +139,8 @@ class TrackingHouseBill extends Component {
             formData: {
                 houseBillNumber: "",
                 DOCode: "",
-                // fromDate: moment('2024-06-27').startOf('day').toDate(),
-                // toDate: moment('2024-06-27').endOf('day').toDate(),
-                fromDate: new Date('2024-06-27T00:00:00'),
-                toDate: new Date('2024-06-27T23:59:59'),
+                fromDate: moment(new Date()).startOf('day').toDate(),
+                toDate: moment(new Date()).endOf('day').toDate(),
                 houseBillNumberError: true,
                 DOCodeError: true,
             },
@@ -155,20 +152,20 @@ class TrackingHouseBill extends Component {
         this.DOCodeRef = createRef();
     }
 
-  handleInputChange = (e, dataForm) => {
-    const { name, value } = e.target;
-    this.setState((prevState) => ({
-      [dataForm]: {
-        ...prevState[dataForm],
-        [name]: value,
-      },
-    }));
-    return value;
-  };
+    handleInputChange = (e, dataForm) => {
+        const { name, value } = e.target;
+        this.setState((prevState) => ({
+            [dataForm]: {
+                ...prevState[dataForm],
+                [name]: value,
+            },
+        }));
+        return value;
+    };
 
-  handleSelect = (e) => {
-    console.log(e);
-  };
+    handleSelect = (e) => {
+        console.log(e);
+    };
 
     handleLoadData = () => {
         const { houseBillNumberError, DOCodeError } = this.state.formData
@@ -304,7 +301,7 @@ class TrackingHouseBill extends Component {
         ]
 
         return (
-            <Row className='tracking-house-bill_container'>
+            <Row className='tracking-house-bill_container tracking_container'>
                 <div className='content'>
                     <div className="input_content">
                         <Row className='header body-md-normal'>
@@ -313,31 +310,40 @@ class TrackingHouseBill extends Component {
                         <div className="input_container">
                             <Row className="input_item date_input_container">
                                 <Col className="date_input">
-                                    <Row className="body-lg-normal">
+                                    <Row className="body-md-normal">
                                         Từ ngày
                                     </Row>
                                     <Mdatepicker
                                         dataSource={{
-                                            id: "fromDate",
                                             value: formData.fromDate,
+                                            format: 'YYYY-MM-DD HH:mm:ss',
                                             defaultValue: formData.fromDate,
-                                            className: "date_input"
+                                            id: 'my-datepicker',
+                                            // label: 'Select Date',
+                                            // span: { xs: 24, sm: 12, md: 8 },
+                                            required: true,
+                                            lockbefore: true,
+                                            propReadonly: false,
                                         }}
                                     />
                                 </Col>
                                 <Col className="date_input">
-                                    <Row className="body-lg-normal">
+                                    <Row className="body-md-normal">
                                         Đến ngày
                                     </Row>
                                     <Mdatepicker
                                         dataSource={{
-                                            id: "toDate",
                                             value: formData.toDate,
+                                            format: 'YYYY-MM-DD HH:mm:ss',
                                             defaultValue: formData.toDate,
+                                            id: 'my-datepicker',
+                                            // label: 'Select Date',
+                                            // span: { xs: 24, sm: 12, md: 8 },
+                                            required: true,
+                                            lockbefore: true,
+                                            propReadonly: false,
                                             className: "date_input"
                                         }}
-                                        value={formData.toDate}
-                                        defaultValue={formData.toDate}
                                     />
                                 </Col>
                             </Row>
@@ -377,7 +383,10 @@ class TrackingHouseBill extends Component {
                                 onClick={this.handleLoadData}
                                 ref={this.submitButtonRef}
                                 size={"12"}
-                                dataSource={{ textbutton: "Nạp dữ liệu" }}
+                                dataSource={{
+                                    textbutton: `Nạp dữ liệu`,
+                                    icon: "CloudDownloadOutlined"
+                                }}
                             />
                         </div>
                     </div>
@@ -404,7 +413,7 @@ class TrackingHouseBill extends Component {
                                     htmlType="submit"
                                     block
                                     size={"12"}
-                                    dataSource={{ textbutton: "Xuất File Exel", color: "second" }}
+                                    dataSource={{ textbutton: "Xuất File Exel", color: "second", icon: "FileExcelOutlined" }}
                                 />
                             </Col>
                         </Row>
@@ -423,8 +432,8 @@ class TrackingHouseBill extends Component {
                                             rowsFormat={rowsFormat}
                                             rowsHeader={rowsHeader}
                                             reoderRow={true}
-                                            onSearch={(tableData, searchValue) => handleRowsSearch(tableData, searchValue)}
                                             searchValue={formData.searchData}
+                                            searchField={["ContainerNumber", "OperationCode", "IsoSizetype"]}
                                         />
                                     </div>
                             }

@@ -66,21 +66,24 @@ export const handleRowsReorder = (tableData, targetRowId, rowIds) => {
   };
 };
 
-export const handleRowsSearch = (reactGridRows, searchValue) => {
+export const handleRowsSearch = (reactGridRows, searchValue, columnsFormat, columnIds) => {
+  const indexList = getColumnIndex(columnsFormat, columnIds);
   if (!searchValue) return reactGridRows;
   const searchLower = searchValue.toLowerCase();
+
   const filteredRows = reactGridRows.slice(1).filter((row) => {
-    const containerNo = row.cells[1]?.text.toLowerCase();
-    const operationCode = row.cells[2]?.text.toLowerCase();
-    const isoSizetype = row.cells[3]?.text.toLowerCase();
-    return (
-      containerNo.includes(searchLower) ||
-      operationCode.includes(searchLower) ||
-      isoSizetype.includes(searchLower)
-    );
+    return indexList?.some(index => row.cells[index]?.text.toLowerCase().includes(searchLower));
   });
+
   return [reactGridRows[0], ...filteredRows];
 };
 
-
-
+export function getColumnIndex(columnsFormat, columnIds) {
+  return columnIds?.reduce((acc, id) => {
+    const index = columnsFormat.findIndex(column => column.columnId === id);
+    if (index !== -1) {
+      acc.push(index);
+    }
+    return acc;
+  }, []);
+}

@@ -1,10 +1,9 @@
 import React, { Component, createRef } from 'react';
 import './styles.scss'
-import { Col, Row, Tooltip } from 'antd';
+import { Col, Row } from 'antd';
 import { Mbutton, Mtable, Winput } from '../../../components/BasicUI';
-import { DatabaseOutlined, FieldNumberOutlined, InfoCircleOutlined, SearchOutlined } from '@ant-design/icons';
-import { formatDateTime, handleColumnsReorder, handleRowsReorder, handleRowsSearch } from '../../../utils/util';
-import { ReactGrid } from '@silevis/reactgrid';
+import { DatabaseOutlined, FieldNumberOutlined, SearchOutlined } from '@ant-design/icons';
+import { formatDateTime, handleRowsSearch } from '../../../utils/util';
 
 const rowData = [
     {
@@ -273,7 +272,10 @@ class TrackingContainerList extends Component {
                             onClick={this.handleLoadData}
                             ref={this.submitButtonRef}
                             size={"12"}
-                            dataSource={{ textbutton: "Nạp dữ liệu" }}
+                            dataSource={{
+                                textbutton: `Nạp dữ liệu`,
+                                icon: "CloudDownloadOutlined"
+                            }}
                         />
                     </div>
                     <div className={`table_content ${containerList.length !== 0 && "table_exist_data"}`}>
@@ -305,8 +307,8 @@ class TrackingContainerList extends Component {
                                             rowsFormat={rowsFormat}
                                             rowsHeader={rowsHeader}
                                             reoderRow={true}
-                                            onSearch={(tableData, searchValue) => handleRowsSearch(tableData, searchValue)}
                                             searchValue={formData.searchData}
+                                            searchField={["ContainerNo", "OperationCode", "IsoSizetype"]}
                                         />
                                     </div>
                                 </Col>
