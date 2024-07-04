@@ -432,7 +432,6 @@ class TrackingHouseBill extends Component {
                                             rowsFormat={rowsFormat}
                                             rowsHeader={rowsHeader}
                                             reoderRow={true}
-                                            onSearch={(tableData, searchValue) => handleRowsSearch(tableData, searchValue)}
                                             searchValue={formData.searchData}
                                             searchField={["ContainerNumber", "OperationCode", "IsoSizetype"]}
                                         />

@@ -1,10 +1,9 @@
 import React, { Component, createRef } from 'react';
 import './styles.scss'
-import { Col, Row, Tooltip } from 'antd';
-import { BarcodeOutlined, BoldOutlined, DatabaseOutlined, EnvironmentOutlined, InfoCircleOutlined, NumberOutlined, SearchOutlined } from '@ant-design/icons';
+import { Col, Row } from 'antd';
+import { BarcodeOutlined, BoldOutlined, DatabaseOutlined, EnvironmentOutlined, NumberOutlined, SearchOutlined } from '@ant-design/icons';
 import { Mbutton, Mradio, Mtable, Winput } from '../../../components/BasicUI';
-import { ReactGrid } from '@silevis/reactgrid';
-import { formatDateTime, handleColumnsReorder, handleRowsReorder, handleRowsSearch } from '../../../utils/util';
+import { formatDateTime, handleRowsSearch } from '../../../utils/util';
 
 const rowData = [
     {
@@ -415,7 +414,6 @@ class TrackingBill extends Component {
                                             rowsFormat={rowsFormat}
                                             rowsHeader={rowsHeader}
                                             reoderRow={true}
-                                            onSearch={(tableData, searchValue) => handleRowsSearch(tableData, searchValue)}
                                             searchValue={formData.searchData}
                                             searchField={["ContainerNumber", "OperationCode", "IsoSizetype"]}
                                         />

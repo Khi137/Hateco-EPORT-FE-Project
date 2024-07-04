@@ -1991,7 +1991,7 @@ class Mtable extends React.Component {
       <ReactGrid
         {...this.props}
         rows={
-          this.props.onSearch
+          this.props.searchValue
             ? handleRowsSearch(
               tableData.reactGridRows,
               searchValue || "",
@@ -2004,8 +2004,12 @@ class Mtable extends React.Component {
         stickyTopRows={1}
         enableRowSelection
         enableColumnSelection
+        onColumnsReordered={this.handleColumnsReorder}
+        onRowsReordered={this.handleRowsReorder}
+        canReorderRows={this.handleCanReorderRows}
         onCellsChanged={this.handleCellsChanged}
         onColumnResized={this.handleColumnResize}
+
       // customCellTemplates={{
       //   header: new CustomHeaderCellTemplate()
       // }}

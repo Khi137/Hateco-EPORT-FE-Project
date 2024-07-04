@@ -417,7 +417,6 @@ class TrackingEdo extends Component {
                                             rowsFormat={rowsFormat}
                                             rowsHeader={rowsHeader}
                                             reoderRow={true}
-                                            onSearch={true}
                                             searchValue={formData.searchData}
                                             searchField={["ContainerNumber", "OperationCode", "IsoSizetype"]}
                                         />
