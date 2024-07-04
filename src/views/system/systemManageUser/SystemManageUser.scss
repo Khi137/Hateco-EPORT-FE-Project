@@ -17,6 +17,7 @@
         border-radius: 4px 4px 0 0;
         text-align: center;
         font-size: 20px;
+        font-weight: bold;
         box-shadow: 1px 1px 1px 1px var(--second-color);
       }
   
@@ -137,3 +138,28 @@
     }
   }
   
+  @media (max-width: 768px) {
+    .systemManageUser-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+  
+    .panel-left, .panel-right {
+      width: 100%;
+    }
+    .action-right {
+      .header-action{
+        display: flex;
+        flex-direction: column;
+    
+        .lists-action {
+          margin-top: -88px;
+          display: flex !important;
+          flex-direction: column !important;
+          gap: 10px;
+        }
+      }
+    }
+  
+  }

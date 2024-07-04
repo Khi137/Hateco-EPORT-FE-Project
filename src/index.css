@@ -1,7 +1,6 @@
 body {
   margin: 0;
   font-family: var(--main-font);
-  background-color: rgb(236, 236, 236);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #eaedf0;
@@ -33,7 +32,7 @@ code {
   --color-surface-800: #33383d;
   --color-surface-900: #202327;
   --color-primary: #1c1c54;
-  --color-second: #0065a1;
+  --color-second: #0065A1;
   --color-third: #00b1cc;
   --color-fourth: #5ffbd6;
 
@@ -302,14 +301,4 @@ code {
   font-size: var(--caption-font-size);
   line-height: var(--caption-line-height);
   font-weight: var(--main-font-weight-bold);
-}
-
-/* box shadow */
-.drop-box-shadow {
-  filter: drop-shadow(0.1rem 0.1rem 0.15rem rgba(0, 0, 30, 0.5));
-}
-
-.drop-button-shadow {
-  filter: drop-shadow(0.05rem 0.05rem 0.1rem rgba(0, 0, 30, 0.5));
-
 }

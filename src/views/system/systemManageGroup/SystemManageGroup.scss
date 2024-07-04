@@ -49,3 +49,14 @@
     }
    
 }
+
+
+@media (max-width: 768px) {
+.system-group-container{
+    .system-group-actions{
+        display: flex;
+        flex-direction: column;
+    }
+}
+  
+  }
