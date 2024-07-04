@@ -304,16 +304,6 @@ export class SystemManageUser extends Component {
             <button className="button-load-data" onClick={this.handleLoadData}>
               <CloudDownloadOutlined /> Nạp dữ liệu
             </button>
-            {/* <Mbutton
-              color=""
-              className="m_button third"
-              type="primary"
-              htmlType="submit"
-              block
-              onClick={this.handleLoadData}
-              size={"12"}
-              dataSource={{ textbutton: "Nạp dữ liệu" }}
-            /> */}
           </div>
           <div style={{ padding: "0 12px" }}>
             <Mradio
