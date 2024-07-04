@@ -134,66 +134,57 @@ export class Task extends Component {
     super(props);
     this.checkboxCellTemplate = new CheckboxCellTemplate();
     this.state = {
-      tableData: {
-        reactGridColumns: [
-          { columnId: "STT", width: 50, resizable: true, header: "STT" },
-          {
-            columnId: "taskCode",
-            width: 320,
-            resizable: true,
-            reorderable: true,
-            header: "Mã công việc",
-          },
-          {
-            columnId: "taskName",
-            width: 1000,
-            resizable: true,
-            reorderable: true,
-            header: "Tên công việc",
-          },
-          {
-            columnId: "workCrane",
-            width: 200,
-            resizable: true,
-            header: <Checkbox />,
-          },
-          {
-            columnId: "workYard",
-            width: 200,
-            resizable: true,
-            header: <Checkbox />,
-          },
-          {
-            columnId: "workGate",
-            width: 200,
-            resizable: true,
-            header: <Checkbox />,
-          },
-        ],
-        reactGridRows: [
-          {
-            rowId: "header",
-            cells: [
-              { type: "header", text: "STT" },
-              { type: "header", text: "Mã công việc" },
-              { type: "header", text: "Tên công việc" },
-              { type: "header", text: "Công việc cầu tàu" },
-              { type: "header", text: "Công việc bãi" },
-              { type: "header", text: "Công việc cổng" },
-            ],
-          },
-          ...this.generateTableData(rowData),
-        ],
+      formData: {
+        shipBrandNumber: "",
+        shipBrandName: "",
+        searchData: "",
       },
-      searchValue: "",
+      containerList: [],
+      tableData: [],
     };
   }
 
-  generateRowData = (container, index) => {
-    return {
-      rowId: String(index + 1),
-      cells: [
-        { type: "text", nonEditable: true, text: container?.key || "" },
+
+  render() {
+    const columnsFormat = [
+      { columnId: "STT", width: 50, resizable: true, header: "STT" },
+      {
+        columnId: "taskCode",
+        width: 200,
+        resizable: true,
+        reorderable: true,
+        header: "Mã công việc",
+      },
+      {
+        columnId: "taskName",
+        width: 850,
+        resizable: true,
+        reorderable: true,
+        header: "Tên công việc",
+      },
+      {
+        columnId: "workCrane",
+        width: 200,
+        resizable: true,
+        header: <Checkbox />,
+      },
+      {
+        columnId: "workYard",
+        width: 200,
+        resizable: true,
+        header: <Checkbox />,
+      },
+      {
+        columnId: "workGate",
+        width: 200,
+        resizable: true,
+        header: <Checkbox />,
+      },
+    ];
+
+    const rowsFormat = (container, index) => {
+      return [
+        { type: "text", nonEditable: true, text: String(index + 1) },
         {
           type: "text",
           nonEditable: false,
@@ -205,44 +196,32 @@ export class Task extends Component {
           text: container?.taskName || "",
         },
         {
-          type: "custom",
-          value: {
-            checked: container.workCrane,
-            rowId: container.key,
-          },
+          type: "checkbox",
+          nonEditable: true,
+          checked: Boolean(container?.workCrane) || false,
         },
         {
-          type: "custom",
-          value: {
-            checked: container.workYard,
-            rowId: container.key,
-          },
+          type: "checkbox",
+          nonEditable: true,
+          checked: Boolean(container?.workYard) || false,
         },
         {
-          type: "custom",
-          value: {
-            checked: container.workGate,
-            rowId: container.key,
-          },
+          type: "checkbox",
+          nonEditable: true,
+          checked: Boolean(container?.workGate) || false,
         },
-      ],
+      ];
     };
-  };
 
-  generateTableData = (dataList) => {
-    const generateData = dataList.map((container, index) =>
-      this.generateRowData(container, index)
-    );
-    return generateData;
-  };
+    const rowsHeader = [
+      { type: "header", text: "STT" },
+      { type: "header", text: "Mã công việc" },
+      { type: "header", text: "Tên công việc" },
+      { type: "header", text: "Công việc cầu tàu" },
+      { type: "header", text: "Công việc bãi" },
+      { type: "header", text: "Công việc cổng" },
+    ];
 
-  handleSearchChange = (value) => {
-    this.setState({
-      searchValue: value,
-    });
-  };
-
-  render() {
     return (
       <div className="task-container">
         <div className="task-panel drop-box-shadow">
@@ -285,9 +264,13 @@ export class Task extends Component {
             </div>
             <div className="task-panel-content-table">
               <Mtable
-                rows={this.state.tableData.reactGridRows}
-                columns={this.state.tableData.reactGridColumns}
-                customCellTemplates={{ custom: this.checkboxCellTemplate }}
+                tableData={rowData}
+                columnsFormat={columnsFormat}
+                rowsFormat={rowsFormat}
+                rowsHeader={rowsHeader}
+                reoderRow={true}
+                // searchValue={formData.searchData}
+                // searchField={["ContainerNumber", "OperationCode", "IsoSizetype"]}
               />
             </div>
           </div>

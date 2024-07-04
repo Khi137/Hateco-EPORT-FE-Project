@@ -1223,9 +1223,7 @@ class Mbutton extends React.Component {
         className: "m-form__icon",
       });
     } else {
-      IconComponent = React.createElement(LOL["BarsOutlined"], {
-        className: "m-form__icon",
-      });
+      IconComponent = null
     }
 
     return (

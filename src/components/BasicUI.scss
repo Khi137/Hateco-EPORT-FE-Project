@@ -498,30 +498,6 @@ $caption-line-height: 14px;
   }
 }
 
-//Mtable (new)
-.reactgrid {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-
-  .reactgrid-content {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .rg-header-cell {
-    background-color: var(--color-second) !important;
-    color: white !important;
-  }
-
-  .rg-row {
-    border-bottom: 1px solid #ddd;
-  }
-
-  .selected-row {
-    background-color: #6f6f6f;
-  }
-}
-
 //SCSS of ShowComponent.jsx
 .component-bodylayout {
   padding: 100px 25% 100px 25%;
@@ -574,5 +550,30 @@ $caption-line-height: 14px;
   .component-mbutton-2 {
     padding: 50px;
     background-color: $color-dark-50;
+  }
+}
+
+// Mtable
+.reactgrid {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+
+  .rg-row {
+    border-bottom: 1px solid #ddd;
+  }
+
+  .rg-header-cell {
+    background-color: var(--second-color) !important;
+    color: white !important;
+    align-items: center !important;
+    justify-content: center !important;
+    display: flex !important;
+    font-weight: bold !important;
+  }
+
+  .rg-text-cell {
+    align-items: center !important;
+    justify-content: left !important;
+    display: flex !important;
   }
 }

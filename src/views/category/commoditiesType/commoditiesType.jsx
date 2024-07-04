@@ -18,7 +18,7 @@ let rowData = [
   { key: "3", taskCode: "DG", taskName: "Dangerous" },
   { key: "4", taskCode: "DR", taskName: "Reefer & Dangerous" },
   { key: "5", taskCode: "AK", taskName: "Over Dimension" },
-  { key: "6", taskCode: "BB", taskName: "Break Bulk" }, 
+  { key: "6", taskCode: "BB", taskName: "Break Bulk" },
   { key: "7", taskCode: "FR", taskName: "Fragile" },
   { key: "8", taskCode: "TK", taskName: "Tank" },
   { key: "9", taskCode: "MT", taskName: "Empty" },
@@ -39,45 +39,38 @@ export class CommoditiesType extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tableData: {
-        reactGridColumns: [
-          { columnId: "STT", width: 150, resizable: true, header: "STT" },
-          {
-            columnId: "taskCode",
-            width: 500,
-            resizable: true,
-            reorderable: true,
-            header: "Mã loại hàng",
-          },
-          {
-            columnId: "taskName",
-            width: 1400,
-            resizable: true,
-            reorderable: true,
-            header: "Tên loại hàng",
-          },
-        ],
-        reactGridRows: [
-          {
-            rowId: "header",
-            cells: [
-              { type: "header", text: "STT" },
-              { type: "header", text: "Mã loại hàng" },
-              { type: "header", text: "Tên loại hàng" },
-            ],
-          },
-          ...this.generateTableData(rowData),
-        ],
+      formData: {
+        shipBrandNumber: "",
+        shipBrandName: "",
+        searchData: "",
       },
-      searchValue: "",
+      containerList: [],
+      tableData: [],
     };
   }
 
-  generateRowData = (container, index) => {
-    return {
-      rowId: String(index + 1),
-      cells: [
-        { type: "text", nonEditable: true, text: container?.key || "" },
+  render() {
+    const columnsFormat = [
+      { columnId: "STT", width: 150, resizable: true, header: "STT" },
+      {
+        columnId: "taskCode",
+        width: 400,
+        resizable: true,
+        reorderable: true,
+        header: "Mã loại hàng",
+      },
+      {
+        columnId: "taskName",
+        width: 1200,
+        resizable: true,
+        reorderable: true,
+        header: "Tên loại hàng",
+      },
+    ];
+
+    const rowsFormat = (container, index) => {
+      return [
+        { type: "text", nonEditable: true, text: String(index + 1) },
         {
           type: "text",
           nonEditable: false,
@@ -88,24 +81,15 @@ export class CommoditiesType extends Component {
           nonEditable: true,
           text: container?.taskName || "",
         },
-      ],
+      ];
     };
-  };
 
-  generateTableData = (dataList) => {
-    const generateData = dataList.map((container, index) =>
-      this.generateRowData(container, index)
-    );
-    return generateData;
-  };
+    const rowsHeader = [
+      { type: "header", text: "STT" },
+      { type: "header", text: "Mã loại hàng" },
+      { type: "header", text: "Tên loại hàng" },
+    ];
 
-  handleSearchChange = (value) => {
-    this.setState({
-      searchValue: value,
-    });
-  };
-
-  render() {
     return (
       <div className="commoditiesType-container">
         <div className="commoditiesType-panel drop-box-shadow">
@@ -148,8 +132,13 @@ export class CommoditiesType extends Component {
             </div>
             <div className="commoditiesType-panel-content-table">
               <Mtable
-                rows={this.state.tableData.reactGridRows}
-                columns={this.state.tableData.reactGridColumns}
+                tableData={rowData}
+                columnsFormat={columnsFormat}
+                rowsFormat={rowsFormat}
+                rowsHeader={rowsHeader}
+                reoderRow={true}
+                // searchValue={formData.searchData}
+                // searchField={["ContainerNumber", "OperationCode", "IsoSizetype"]}
               />
             </div>
           </div>

@@ -151,31 +151,6 @@ class TrackingContainerList extends Component {
         }));
     };
 
-    handleLoadData = () => {
-        const containerNumberError = this.state.formData.containerNumberError
-        if (containerNumberError) {
-            this.containerNumberRef.current.handleCheckError()
-            return
-        }
-        if (this.submitButtonRef.current) {
-            this.submitButtonRef.current.loading();
-        }
-        setTimeout(() => {
-            if (this.submitButtonRef.current) {
-                this.submitButtonRef.current.reset();
-                this.setState(prevState => ({
-                    generalInformation: rowData[0] ? rowData[0] : {},
-                    tableData: rowData,
-                    formData: {
-                        ...prevState.formData,
-                        containerNumberError: false
-                    }
-                }));
-            }
-        }, 1000);
-
-    }
-
     render() {
         const { formData, containerList } = this.state
 

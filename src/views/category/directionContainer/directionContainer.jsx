@@ -22,45 +22,38 @@ export class DirectionContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tableData: {
-        reactGridColumns: [
-          { columnId: "STT", width: 150, resizable: true, header: "STT" },
-          {
-            columnId: "directCode",
-            width: 500,
-            resizable: true,
-            reorderable: true,
-            header: "Mã hướng",
-          },
-          {
-            columnId: "directName",
-            width: 1400,
-            resizable: true,
-            reorderable: true,
-            header: "Tên hướng",
-          },
-        ],
-        reactGridRows: [
-          {
-            rowId: "header",
-            cells: [
-              { type: "header", text: "STT" },
-              { type: "header", text: "Mã hướng" },
-              { type: "header", text: "Tên hướng" },
-            ],
-          },
-          ...this.generateTableData(rowData),
-        ],
+      formData: {
+        shipBrandNumber: "",
+        shipBrandName: "",
+        searchData: "",
       },
-      searchValue: "",
+      containerList: [],
+      tableData: [],
     };
   }
 
-  generateRowData = (container, index) => {
-    return {
-      rowId: String(index + 1),
-      cells: [
-        { type: "text", nonEditable: true, text: container?.key || "" },
+  render() {
+    const columnsFormat = [
+      { columnId: "STT", width: 150, resizable: true, header: "STT" },
+      {
+        columnId: "directCode",
+        width: 400,
+        resizable: true,
+        reorderable: true,
+        header: "Mã hướng",
+      },
+      {
+        columnId: "directName",
+        width: 800,
+        resizable: true,
+        reorderable: true,
+        header: "Tên hướng",
+      },
+    ];
+
+    const rowsFormat = (container, index) => {
+      return [
+        { type: "text", nonEditable: true, text: String(index + 1) },
         {
           type: "text",
           nonEditable: false,
@@ -71,24 +64,15 @@ export class DirectionContainer extends Component {
           nonEditable: true,
           text: container?.directName || "",
         },
-      ],
+      ];
     };
-  };
 
-  generateTableData = (dataList) => {
-    const generateData = dataList.map((container, index) =>
-      this.generateRowData(container, index)
-    );
-    return generateData;
-  };
+    const rowsHeader = [
+      { type: "header", text: "STT" },
+      { type: "header", text: "Mã hướng" },
+      { type: "header", text: "Tên hướng" },
+    ];
 
-  handleSearchChange = (value) => {
-    this.setState({
-      searchValue: value,
-    });
-  };
-
-  render() {
     return (
       <div className="directionContainer-container">
         <div className="directionContainer-panel drop-box-shadow">
@@ -131,8 +115,13 @@ export class DirectionContainer extends Component {
             </div>
             <div className="directionContainer-panel-content-table">
               <Mtable
-                rows={this.state.tableData.reactGridRows}
-                columns={this.state.tableData.reactGridColumns}
+                tableData={rowData}
+                columnsFormat={columnsFormat}
+                rowsFormat={rowsFormat}
+                rowsHeader={rowsHeader}
+                reoderRow={true}
+                // searchValue={formData.searchData}
+                // searchField={["ContainerNumber", "OperationCode", "IsoSizetype"]}
               />
             </div>
           </div>

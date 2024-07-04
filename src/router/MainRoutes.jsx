@@ -39,7 +39,6 @@ class MainRoutes extends Component {
         </Route>
         <Route element={<AuthLayout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/category_customer" element={<Customer />} />
 
           <Route path="/tracking">
             <Route path="tracking_container" element={<TrackingContainer />} />
@@ -61,13 +60,28 @@ class MainRoutes extends Component {
             />
           </Route>
           {/* <Route path="/system" element={<System />} /> */}
-          <Route path="/category_shipExploitBrand" element={<ShipExploitBrand />} />
-          <Route path="/category_task" element={<Task />} />
-          <Route path="/category_commoditiesType" element={<CommoditiesType />} />
-          <Route path="/category_directionContainer" element={<DirectionContainer />} />
-          <Route path="/category_portsList" element={<PortsList />} />
-          <Route path="/category_statesContainer" element={<StatesContainer />} />
-          <Route path="/category_sizeContainer" element={<SizeContainer />} />
+          <Route path="/category">
+            <Route path="category_customer" element={<Customer />} />
+            <Route
+              path="category_shipExploitBrand"
+              element={<ShipExploitBrand />}
+            />
+            <Route path="category_task" element={<Task />} />
+            <Route
+              path="category_commoditiesType"
+              element={<CommoditiesType />}
+            />
+            <Route
+              path="category_directionContainer"
+              element={<DirectionContainer />}
+            />
+            <Route path="category_portsList" element={<PortsList />} />
+            <Route
+              path="category_statesContainer"
+              element={<StatesContainer />}
+            />
+            <Route path="category_sizeContainer" element={<SizeContainer />} />
+          </Route>
         </Route>
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
