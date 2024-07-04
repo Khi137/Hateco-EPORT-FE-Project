@@ -21,13 +21,13 @@ import TrackingHouseBill from "../views/tracking/trackingHouseBill/trackingHouse
 import TrackingContainerList from "../views/tracking/trackingContainerList/trackingContainerList";
 
 import Customer from "../views/category/customer/Customer";
-import Customer from "../views/category/customer/Customer";
+
 import ShipExploitBrand from "../views/category/shipExploitBrand/ShipExploitBrand";
-import Task from "../views/category/task/Task";
+import Task from "../views/category/task/task";
 import CommoditiesType from "../views/category/commoditiesType/commoditiesType";
-import DirectionContainer from "../views/category/directionContainer/DirectionContainer";
-import PortsList from "../views/category/portsList/PortsList";
-import StatesContainer from "../views/category/statesContainer/StatesContainer";
+import DirectionContainer from "../views/category/directionContainer/directionContainer";
+import PortsList from "../views/category/portsList/portsList";
+import StatesContainer from "../views/category/statesContainer/statesContainer";
 import SizeContainer from "../views/category/sizeContainer/sizeContainer";
 class MainRoutes extends Component {
   render() {
@@ -41,7 +41,7 @@ class MainRoutes extends Component {
         <Route element={<AuthLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/category-customer" element={<Customer />} />
-<<<<<<<<< Temporary merge branch 1
+
 
           <Route path="/tracking">
             <Route path="tracking_container" element={<TrackingContainer />} />
