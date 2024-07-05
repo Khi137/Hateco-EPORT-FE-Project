@@ -61,49 +61,19 @@
             margin: 0 auto;
         }
 
-        .table_content {
-            display: flex;
+        .table_container {
             width: 100%;
-            height: 73%;
-            min-height: 44.9vh;
-            justify-content: center;
-            align-items: center;
+            height: 44.5vh;
 
-            .no_data {
-                text-align: center;
-                line-height: 36px;
+            .table_feature_container {
+                width: 88%;
+                margin: 12px auto;
             }
 
-            .have_data {
-                position: relative;
+            .table_content {
                 width: 90%;
-                margin: 0 5%;
-                height: 65vh;
-                margin-bottom: 12px;
-
-                .table_feature {
-                    height: 10%;
-                    align-items: center;
-                    justify-content: space-between;
-                }
-
-                .react_grid_table {
-                    overflow: scroll;
-                    width: 100%;
-                    height: 100%;
-                    max-height: 90%;
-                    border: 1px solid rgba(0, 0, 0, 0.1);
-
-                    .reactgrid {
-                        display: block;
-                        min-width: 100%;
-                    }
-                }
-            }
-
-            .table_exist_data {
-                align-items: flex-start;
-                margin-top: 12px;
+                height: 96%;
+                margin: 0 auto;
             }
         }
     }

@@ -48,42 +48,10 @@ import { ReactGrid } from "@silevis/reactgrid";
 import { handleColumnsReorder, handleRowsReorder, handleRowsSearch } from "../utils/util";
 import "@silevis/reactgrid/styles.css";
 import { CustomHeaderCellTemplate, CustomHeaderCell } from "./CustomHeaderCell/CustomHeaderCell.tsx";
-
-export {
-  Mcollapse,
-  Mdrawer,
-  Mcapcha,
-  Mtab,
-  Mrangepicker,
-  Msearch,
-  Minput,
-  Mbutton,
-  Mcard,
-  Mtable,
-  Mdatepicker,
-  Mradio,
-  Mform,
-  Mcheckbox,
-  Mselect,
-  Mswitch,
-  Mdivider,
-  Mdropdown,
-  MoneFieldInput,
-  Mstep,
-  MnonEditInput,
-  Mcarousel,
-  Mupload,
-  Mpagination,
-  Mimage,
-  Mlist,
-  Mautocomplete,
-  Mselectsearch,
-  MMobileTabs,
-  MeditInput,
-  MeditSelect,
-  Mprogress,
-  Mmultiswitch,
-};
+import {
+  setData, updateRow, addRow, deleteRows, reorderColumns, reorderRows, handleColumnResize, handleCellsChanged, handleSort,
+} from '../reducers/tableReducer.js';
+import { connect } from "react-redux";
 
 const { Option } = Select;
 const { TabPane } = Tabs;
@@ -1747,273 +1715,164 @@ class Mselectsearch extends React.Component {
 }
 
 class Mtable extends React.Component {
+
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      data: this.props.tableData,
-      tableData: {
-        reactGridColumns: [...this.generateColumnsData()],
-        reactGridRows: [
-          this.generateRowsHeader(),
-          ...this.generateTableData(this.props.tableData || []),
-        ],
-      },
-    };
-  }
-
-  handleColumnResize = (ci, width) => {
-    this.setState(prevState => {
-      const updatedColumns = prevState.tableData.reactGridColumns.map(column => {
-        if (column.columnId === ci) {
-          return { ...column, width };
-        }
-        return column;
-      });
-
-      return {
-        tableData: {
-          ...prevState.tableData,
-          reactGridColumns: updatedColumns
-        }
-      };
-    });
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.searchValue !== this.props.searchValue) {
-      this.setState({
-        searchValue: this.props.searchValue,
-      });
+      searchValue: ""
     }
   }
 
-  handleCellsChanged = (changes) => {
-    const rows = this.state.tableData.reactGridRows.map((row) => ({
-      ...row,
-      cells: row.cells?.map((cell) => ({ ...cell })),
-    }));
+  handleInputChange = (e) => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  };
 
-    let updatedData = [...this.state.data];
-    let changedObjects = [];
+  componentDidMount() {
+    const { defaultData, columnsFormat, rowsHeader, rowsFormat, tableName, reorderRow } = this.props.config;
+    this.props.setData({ defaultData, columnsFormat, rowsHeader, rowsFormat, tableName, reorderRow });
+  }
 
-    changes.forEach((change) => {
-      const row = rows?.find((r) => r.rowId === change.rowId);
-      if (row) {
-        const columnIndex = this.state.tableData.reactGridColumns.findIndex(
-          (col) => col.columnId === change.columnId
-        );
-        if (columnIndex >= 0) {
-          const cell = row.cells[columnIndex];
-          if (change?.newCell?.type === "checkbox") {
-            cell.checked = change?.newCell?.checked;
-          } else {
-            cell.text = change?.newCell?.text;
-          }
-
-          const dataIndex = parseInt(change.rowId, 10) - 1;
-          if (updatedData[dataIndex]) {
-            const columnKey =
-              this.state.tableData.reactGridColumns[columnIndex].columnId;
-            updatedData[dataIndex] = {
-              ...updatedData[dataIndex],
-              [columnKey]:
-                change?.newCell?.type === "checkbox"
-                  ? change?.newCell?.checked
-                  : change?.newCell?.text,
-            };
-
-            changedObjects.push(updatedData[dataIndex]);
-          }
-        }
-      }
-    });
-
-    this.setState((prevState) => ({
-      tableData: {
-        ...prevState.tableData,
-        reactGridRows: rows,
-      },
-      data: updatedData,
-    }));
-
-    if (this.props.hanldeChangeTableData) {
-      this.props.hanldeChangeTableData(changedObjects)
+  newRow = () => {
+    const { reorderRow } = this.props.config;
+    const newRow = {
+      newRow: null,
+      index: this.props.tableData?.reactGridRows?.length - 1,
+      reorderRow: reorderRow
     }
-  };
-
-  handleColumnResize = (ci, width) => {
-    this.setState((prevState) => {
-      const updatedColumns = prevState.tableData.reactGridColumns.map(
-        (column) => {
-          if (column.columnId === ci) {
-            return { ...column, width };
-          }
-          return column;
-        }
-      );
-
-      return {
-        tableData: {
-          ...prevState.tableData,
-          reactGridColumns: updatedColumns,
-        },
-      };
-    });
-  };
-
-  handleColumnsReorder = (targetColumnId, columnIds) => {
-    const { tableData } = this.state;
-    const updatedTableData = handleColumnsReorder(
-      tableData,
-      targetColumnId,
-      columnIds
-    );
-    this.setState({ tableData: updatedTableData });
-  };
-
-  handleRowsReorder = (targetRowId, rowIds) => {
-    const { tableData } = this.state;
-    const updatedTableData = handleRowsReorder(tableData, targetRowId, rowIds);
-    this.setState({ tableData: updatedTableData });
-  };
-
-  handleCanReorderRows = (targetRowId, rowIds) => {
-    return targetRowId !== "header";
-  };
-
-  handleSort = (columnId) => {
-    // Implement your sorting logic here
-    console.log("Sorting by column:", columnId);
-
-    // Example sorting logic (replace with your own)
-    const sortedData = [...this.state.data].sort((a, b) => {
-      // Assuming sorting by columnId
-      return a[columnId].localeCompare(b[columnId]);
-    });
-
-    this.setState({
-      data: sortedData,
-      tableData: {
-        ...this.state.tableData,
-        reactGridRows: [
-          this.generateRowsHeader(),
-          ...this.generateTableData(sortedData)
-        ]
-      }
-    });
-  };
-
-  generateColumnsData = () => {
-    let columnsData = [];
-    this.props.columnsFormat
-      ? (columnsData = this.props.columnsFormat)
-      : (columnsData = [
-        { columnId: "STT", width: 50, resizable: true, header: "STT" },
-        {
-          columnId: "ContainerStatusName",
-          width: 125,
-          resizable: true,
-          reorderable: true,
-          header: "Tình trạng"
-        },
-        {
-          columnId: "ContainerNo",
-          width: 150,
-          resizable: true,
-          reorderable: true,
-          header: "Số Container"
-        }
-      ]);
-
-    return columnsData.map((column) => ({
-      ...column,
-      sortFunction: () => this.handleSort(column.columnId)
-    }));
-  };
-
-
-  generateRowsHeader = () => {
-    if (this.props.rowsHeader) {
-      return {
-        rowId: "header",
-        cells: this.props.rowsHeader
-      };
-    } else {
-      return {
-        rowId: "header",
-        cells: [
-          { type: "header", text: "STT" },
-          { type: "header", text: "Tình trạng" },
-          { type: "header", text: "Số Container" }
-        ]
-      };
+    if (this.props.functionRequire?.newdata) {
+      newRow.newRow = this.props.functionRequire?.newdata
     }
-  };
+    this.props.addRow({ newRow });
+  }
 
-  generateRowData = (container, index) => {
-    if (this.props.rowsFormat) {
-      return {
-        rowId: String(index + 1),
-        reorderable: Boolean(this.props.reoderRow),
-        cells: this.props.rowsFormat(container, index)
-      };
-    } else {
-      return {
-        rowId: String(index + 1),
-        reorderable: this.props.reoderRow,
-        cells: [
-          { type: "text", nonEditable: true, text: String(index + 1) },
-          {
-            type: "text",
-            nonEditable: true,
-            text: container?.ContainerStatusName || ""
-          },
-          {
-            type: "text",
-            nonEditable: true,
-            text: container?.ContainerNo || ""
-          }
-        ]
-      };
-    }
-  };
+  deleteRows = (selectedRows) => {
+    if (!selectedRows) return
+    if (!selectedRows.columns[1]) return
+    this.props.deleteRows({ rows: selectedRows.rows })
+  }
 
-  generateTableData = (dataList) => {
-    const generateData = dataList.map((container, index) =>
-      this.generateRowData(container, index)
-    );
-    return generateData;
+  handleSaveData = () => {
+    console.log(this.props.tableData);
+  }
+
+  handleExportExel = () => {
+    console.log(this.props.tableData);
+  }
+
+  handleRowsSelection = (selectedRows) => {
+    this.setState({ selectedRows: selectedRows[0] });
   };
 
   render() {
-    const { tableData, searchValue } = this.state;
-    return (
-      <ReactGrid
-        {...this.props}
-        rows={
-          this.props.searchValue
-            ? handleRowsSearch(
-              tableData.reactGridRows,
-              searchValue || "",
-              tableData.reactGridColumns,
-              this.props.searchField
-            )
-            : tableData.reactGridRows
-        }
-        columns={tableData.reactGridColumns}
-        stickyTopRows={1}
-        enableRowSelection
-        enableColumnSelection
-        onColumnsReordered={this.handleColumnsReorder}
-        onRowsReordered={this.handleRowsReorder}
-        canReorderRows={this.handleCanReorderRows}
-        onCellsChanged={this.handleCellsChanged}
-        onColumnResized={this.handleColumnResize}
+    const { tableData } = this.props;
+    const { searchValue } = this.state;
+    const { addcolumn, deleteColumn, exportExel, searchField, saveData } = this.props.functionRequire;
 
-      // customCellTemplates={{
-      //   header: new CustomHeaderCellTemplate()
-      // }}
-      />
+    return (
+      <>
+        <Row className='table_feature_container'>
+          {searchField[0] && (
+            <Col className="search_bar">
+              <Winput
+                name={"searchValue"}
+                className={`form_input_field`}
+                prefix={<LOL.SearchOutlined />}
+                placeholder={"Tìm kiếm..."}
+                value={searchValue}
+                onChange={(e) => this.handleInputChange(e)}
+              />
+            </Col>
+          )}
+          <Row className='table_feature'>
+            {addcolumn && (
+              <Col className="exel_export">
+                <Mbutton
+                  color=""
+                  className="m_button third"
+                  type="primary"
+                  htmlType="submit"
+                  block
+                  size={"12"}
+                  dataSource={{ textbutton: "Thêm dòng", color: "second", icon: "PlusCircleOutlined" }}
+                  onClick={this.newRow}
+                />
+              </Col>
+            )}
+            {deleteColumn && (
+              <Col className="exel_export">
+                <Mbutton
+                  color=""
+                  className="m_button red"
+                  type="primary"
+                  htmlType="submit"
+                  block
+                  size={"12"}
+                  dataSource={{ textbutton: "Xoá dòng", color: "second", icon: "DeleteOutlined" }}
+                  onClick={() => this.deleteRows(this.state.selectedRows)}
+                />
+              </Col>
+            )}
+            {saveData && (
+              <Col className="exel_export">
+                <Mbutton
+                  color=""
+                  className="m_button green"
+                  type="primary"
+                  htmlType="submit"
+                  block
+                  size={"12"}
+                  dataSource={{ textbutton: "Lưu", color: "second", icon: "SaveOutlined" }}
+                  onClick={this.handleSaveData}
+                />
+              </Col>
+            )}
+            {exportExel && (
+              <Col className="exel_export">
+                <Mbutton
+                  color=""
+                  className="m_button third_border"
+                  type="primary"
+                  htmlType="submit"
+                  block
+                  size={"12"}
+                  dataSource={{ textbutton: "Xuất File Exel", color: "second", icon: "FileExcelOutlined" }}
+                  onClick={this.handleExportExel}
+                />
+              </Col>
+            )}
+          </Row>
+        </Row>
+        <div className="table_content">
+          <div className="react_grid_table">
+            <ReactGrid
+              {...this.props.config}
+              rows={
+                searchValue
+                  ? handleRowsSearch(
+                    tableData.reactGridRows,
+                    searchValue || "",
+                    tableData.reactGridColumns,
+                    this.props.functionRequire?.searchField
+                  )
+                  : tableData.reactGridRows
+              }
+              columns={tableData.reactGridColumns}
+              stickyTopRows={1}
+              enableRowSelection
+              enableColumnSelection
+              onColumnsReordered={(targetColumnId, columnIds) => this.props.reorderColumns({ targetColumnId, columnIds })}
+              onRowsReordered={(targetRowId, rowIds) => this.props.reorderRows({ targetRowId, rowIds })}
+              canReorderRows={(targetRowId) => targetRowId !== "header"}
+              onCellsChanged={(changes) => this.props.handleCellsChanged({ changes })}
+              onColumnResized={(columnId, width) => this.props.handleColumnResize({ columnId, width })}
+              onColumnSort={(columnId) => this.props.handleSort({ columnId })}
+              onSelectionChanged={this.handleRowsSelection}
+            // onFocusLocationChanged={(e) => console.log(e)}
+            />
+          </div>
+        </div>
+      </>
     );
   }
 }
@@ -3311,3 +3170,57 @@ class MoneFieldInput extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  tableData: state.table.tableData,
+});
+
+const mapDispatchToProps = {
+  setData,
+  updateRow,
+  addRow,
+  deleteRows,
+  reorderColumns,
+  reorderRows,
+  handleColumnResize,
+  handleCellsChanged,
+  handleSort,
+};
+
+const ConnectedMtable = connect(mapStateToProps, mapDispatchToProps)(Mtable);
+
+export {
+  Mcollapse,
+  Mdrawer,
+  Mcapcha,
+  Mtab,
+  Mrangepicker,
+  Msearch,
+  Minput,
+  Mbutton,
+  Mcard,
+  ConnectedMtable as Mtable,
+  Mdatepicker,
+  Mradio,
+  Mform,
+  Mcheckbox,
+  Mselect,
+  Mswitch,
+  Mdivider,
+  Mdropdown,
+  MoneFieldInput,
+  Mstep,
+  MnonEditInput,
+  Mcarousel,
+  Mupload,
+  Mpagination,
+  Mimage,
+  Mlist,
+  Mautocomplete,
+  Mselectsearch,
+  MMobileTabs,
+  MeditInput,
+  MeditSelect,
+  Mprogress,
+  Mmultiswitch,
+};

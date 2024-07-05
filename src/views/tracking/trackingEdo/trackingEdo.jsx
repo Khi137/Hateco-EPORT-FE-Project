@@ -1,9 +1,10 @@
 import React, { Component, createRef } from 'react';
+import '../tracking.scss'
 import './styles.scss'
 import { Col, Row, Tooltip } from 'antd';
-import { BarcodeOutlined, BoldOutlined, DatabaseOutlined, EnvironmentOutlined, InfoCircleOutlined, NumberOutlined, SearchOutlined } from '@ant-design/icons';
-import { Mbutton, Mdatepicker, Mradio, Mselect, Mtable, Winput } from '../../../components/BasicUI';
-import { formatDateTime, handleRowsSearch } from '../../../utils/util';
+import { DatabaseOutlined, InfoCircleOutlined, NumberOutlined } from '@ant-design/icons';
+import { Mbutton, Mdatepicker, Mselect, Mtable, Winput } from '../../../components/BasicUI';
+import { formatDateTime } from '../../../utils/util';
 import moment from 'moment';
 
 const rowData = [
@@ -285,7 +286,7 @@ class TrackingEdo extends Component {
         ]
 
         return (
-            <Row className='tracking-edo_container tracking_container'>
+            <div className='tracking-edo_container tracking_container'>
                 <div className='content'>
                     <div className="input_content">
                         <Row className='header body-md-normal'>
@@ -378,54 +379,35 @@ class TrackingEdo extends Component {
                         <Row className='header body-md-normal'>
                             Danh sách container
                         </Row>
-                        <Row className='table_feature'>
-                            <Col className="search_bar">
-                                <Winput
-                                    name={"searchData"}
-                                    className={`form_input_field`}
-                                    prefix={<SearchOutlined />}
-                                    placeholder={"Tìm kiếm..."}
-                                    value={formData.searchData}
-                                    onChange={(e) => this.handleInputChange(e, 'formData')}
-                                />
-                            </Col>
-                            <Col className="exel_export">
-                                <Mbutton
-                                    name="exelExport"
-                                    color=""
-                                    className="m_button third"
-                                    type="primary"
-                                    htmlType="submit"
-                                    block
-                                    size={"12"}
-                                    dataSource={{ textbutton: "Xuất File Exel", color: "second", icon: "FileExcelOutlined" }}
-                                />
-                            </Col>
-                        </Row>
-                        <div className="table_content">
-                            {
-                                !this.state.tableData[0] ?
-                                    <div className="no_data">
+                        {
+                            !this.state.tableData[0] ?
+                                <div className="no_data">
+                                    <div>
                                         <DatabaseOutlined style={{ fontSize: '64px' }} />
-                                        <p>Nhập thông tin để nạp dữ liệu container...</p>
+                                        <p>Nhập thông tin HouseBill để nạp dữ liệu container...</p>
                                     </div>
-                                    :
-                                    <div className="react_grid_table">
-                                        <Mtable
-                                            tableData={this.state.tableData}
-                                            columnsFormat={columnsFormat}
-                                            rowsFormat={rowsFormat}
-                                            rowsHeader={rowsHeader}
-                                            reoderRow={true}
-                                            searchValue={formData.searchData}
-                                            searchField={["ContainerNumber", "OperationCode", "IsoSizetype"]}
-                                        />
-                                    </div>
-                            }
-                        </div>
+                                </div>
+                                :
+                                <Mtable
+                                    config={{
+                                        defaultData: this.state.tableData,
+                                        columnsFormat: columnsFormat,
+                                        rowsFormat: rowsFormat,
+                                        rowsHeader: rowsHeader,
+                                        reoderRow: true,
+                                    }}
+                                    functionRequire={{
+                                        addcolumn: true,
+                                        deleteColumn: true,
+                                        exportExel: true,
+                                        // saveData: () => { this.saveData() },
+                                        searchField: ["ContainerNumber", "OperationCode", "IsoSizetype"],
+                                    }}
+                                />
+                        }
                     </div>
                 </div>
-            </Row>
+            </div>
         )
     }
 }

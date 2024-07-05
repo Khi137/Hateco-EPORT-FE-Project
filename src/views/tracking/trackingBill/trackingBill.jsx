@@ -1,9 +1,10 @@
 import React, { Component, createRef } from 'react';
+import '../tracking.scss'
 import './styles.scss'
 import { Col, Row } from 'antd';
 import { BarcodeOutlined, BoldOutlined, DatabaseOutlined, EnvironmentOutlined, NumberOutlined, SearchOutlined } from '@ant-design/icons';
 import { Mbutton, Mradio, Mtable, Winput } from '../../../components/BasicUI';
-import { formatDateTime, handleRowsSearch } from '../../../utils/util';
+import { formatDateTime } from '../../../utils/util';
 
 const rowData = [
     {
@@ -376,50 +377,32 @@ class TrackingBill extends Component {
                         <Row className='header body-md-normal'>
                             Danh sách container
                         </Row>
-                        <Row className='table_feature'>
-                            <Col className="search_bar">
-                                <Winput
-                                    name={"searchData"}
-                                    className={`form_input_field`}
-                                    prefix={<SearchOutlined />}
-                                    placeholder={"Tìm kiếm..."}
-                                    value={formData.searchData}
-                                    onChange={(e) => this.handleInputChange(e, 'formData')}
-                                />
-                            </Col>
-                            <Col className="exel_export">
-                                <Mbutton
-                                    color=""
-                                    className="m_button third"
-                                    type="primary"
-                                    htmlType="submit"
-                                    block
-                                    size={"12"}
-                                    dataSource={{ textbutton: "Xuất File Exel", color: "second", icon: "FileExcelOutlined" }}
-                                />
-                            </Col>
-                        </Row>
-                        <div className="table_content">
-                            {
-                                !this.state.tableData[0] ?
-                                    <div className="no_data">
+                        {
+                            !this.state.tableData[0] ?
+                                <div className="no_data">
+                                    <div>
                                         <DatabaseOutlined style={{ fontSize: '64px' }} />
-                                        <p>Nhập mã tra cứu để nạp dữ liệu container...</p>
+                                        <p>Nhập thông tin HouseBill để nạp dữ liệu container...</p>
                                     </div>
-                                    :
-                                    <div className="react_grid_table">
-                                        <Mtable
-                                            tableData={this.state.tableData}
-                                            columnsFormat={columnsFormat}
-                                            rowsFormat={rowsFormat}
-                                            rowsHeader={rowsHeader}
-                                            reoderRow={true}
-                                            searchValue={formData.searchData}
-                                            searchField={["ContainerNumber", "OperationCode", "IsoSizetype"]}
-                                        />
-                                    </div>
-                            }
-                        </div>
+                                </div>
+                                :
+                                <Mtable
+                                    config={{
+                                        defaultData: this.state.tableData,
+                                        columnsFormat: columnsFormat,
+                                        rowsFormat: rowsFormat,
+                                        rowsHeader: rowsHeader,
+                                        reoderRow: true,
+                                    }}
+                                    functionRequire={{
+                                        addcolumn: true,
+                                        deleteColumn: true,
+                                        exportExel: true,
+                                        // saveData: () => { this.saveData() },
+                                        searchField: ["ContainerNumber", "OperationCode", "IsoSizetype"],
+                                    }}
+                                />
+                        }
                     </div>
                 </div>
             </div>

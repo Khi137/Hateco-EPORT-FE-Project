@@ -1,10 +1,10 @@
 import React, { Component, createRef } from 'react';
+import '../tracking.scss'
 import './styles.scss'
-import { Col, Row, Tooltip } from 'antd';
-import { DatabaseOutlined, InfoCircleOutlined, SearchOutlined } from '@ant-design/icons';
+import { Col, Row } from 'antd';
+import { DatabaseOutlined } from '@ant-design/icons';
 import { Mbutton, Mtable, Winput } from '../../../components/BasicUI';
-import { ReactGrid } from '@silevis/reactgrid';
-import { formatDateTime, handleColumnsReorder, handleRowsReorder, handleRowsSearch } from '../../../utils/util';
+import { formatDateTime } from '../../../utils/util';
 
 const rowData = [
     {
@@ -231,16 +231,16 @@ class TrackingBooking extends Component {
             return (
                 [
                     { type: 'text', nonEditable: true, text: String(index + 1) },
-                    { type: 'text', nonEditable: true, text: container?.ContainerNo || "" },
-                    { type: 'text', nonEditable: true, text: container?.OperationCode || "" },
-                    { type: 'text', nonEditable: true, text: container?.IsoSizetype || "" },
-                    { type: 'text', nonEditable: true, text: container?.CargoTypeName || "" },
-                    { type: 'text', nonEditable: true, text: container?.ClassName || "" },
-                    { type: 'text', nonEditable: true, text: container?.ExpDate ? formatDateTime(container?.ExpDate) : "" },
-                    { type: 'text', nonEditable: true, text: (container?.Block || "") + "-" + (container?.Bay || "") + "-" + (container?.Row || "") + "-" + (container?.Tier || "") },
-                    { type: 'text', nonEditable: true, text: container?.DateIn ? formatDateTime(container?.DateIn) : "" },
-                    { type: 'text', nonEditable: true, text: container?.DateOut ? formatDateTime(container?.DateOut) : "" },
-                    { type: 'text', nonEditable: true, text: container?.ContainerStatusName || "" }
+                    { type: 'text', nonEditable: false, text: container?.ContainerNo || "" },
+                    { type: 'text', nonEditable: false, text: container?.OperationCode || "" },
+                    { type: 'text', nonEditable: false, text: container?.IsoSizetype || "" },
+                    { type: 'text', nonEditable: false, text: container?.CargoTypeName || "" },
+                    { type: 'text', nonEditable: false, text: container?.ClassName || "" },
+                    { type: 'text', nonEditable: false, text: container?.ExpDate ? formatDateTime(container?.ExpDate) : "" },
+                    { type: 'text', nonEditable: false, text: (container?.Block || "") + "-" + (container?.Bay || "") + "-" + (container?.Row || "") + "-" + (container?.Tier || "") },
+                    { type: 'text', nonEditable: false, text: container?.DateIn ? formatDateTime(container?.DateIn) : "" },
+                    { type: 'text', nonEditable: false, text: container?.DateOut ? formatDateTime(container?.DateOut) : "" },
+                    { type: 'text', nonEditable: false, text: container?.ContainerStatusName || "" }
                 ]
             )
         }
@@ -260,7 +260,7 @@ class TrackingBooking extends Component {
         ]
 
         return (
-            <Row className='tracking-booking_container tracking_container'>
+            <div className='tracking-booking_container tracking_container'>
                 <div className='content'>
                     <div className="input_content">
                         <Row className='header body-md-normal'>
@@ -329,44 +329,34 @@ class TrackingBooking extends Component {
                             Danh sách container
                         </Row>
                         {
-                            this.state.tableData[0] &&
-                            <Row className='table_feature'>
-                                <Col className="search_bar">
-                                    <Winput
-                                        name={"searchData"}
-                                        className={`form_input_field`}
-                                        prefix={<SearchOutlined />}
-                                        placeholder={"Tìm kiếm..."}
-                                        value={formData.searchData}
-                                        onChange={(e) => this.handleInputChange(e, 'formData')}
-                                    />
-                                </Col>
-                            </Row>
-                        }
-                        <div className="table_content">
-                            {
-                                !this.state.tableData[0] ?
-                                    <div className="no_data">
+                            !this.state.tableData[0] ?
+                                <div className="no_data">
+                                    <div>
                                         <DatabaseOutlined style={{ fontSize: '64px' }} />
-                                        <p>Nhập số booking để nạp dữ liệu container...</p>
+                                        <p>Nhập thông tin HouseBill để nạp dữ liệu container...</p>
                                     </div>
-                                    :
-                                    <div className="react_grid_table">
-                                        <Mtable
-                                            tableData={this.state.tableData}
-                                            columnsFormat={columnsFormat}
-                                            rowsFormat={rowsFormat}
-                                            rowsHeader={rowsHeader}
-                                            reoderRow={true}
-                                            searchValue={formData.searchData}
-                                            searchField={["ContainerNumber", "OperationCode", "IsoSizetype"]}
-                                        />
-                                    </div>
-                            }
-                        </div>
+                                </div>
+                                :
+                                <Mtable
+                                    config={{
+                                        defaultData: this.state.tableData,
+                                        columnsFormat: columnsFormat,
+                                        rowsFormat: rowsFormat,
+                                        rowsHeader: rowsHeader,
+                                        reoderRow: true,
+                                    }}
+                                    functionRequire={{
+                                        addcolumn: true,
+                                        deleteColumn: true,
+                                        exportExel: true,
+                                        // saveData: () => { this.saveData() },
+                                        searchField: ["ContainerNumber", "OperationCode", "IsoSizetype"],
+                                    }}
+                                />
+                        }
                     </div>
                 </div>
-            </Row>
+            </div>
         )
     }
 }

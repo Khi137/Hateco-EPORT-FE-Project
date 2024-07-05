@@ -1,10 +1,11 @@
 import React, { Component, createRef } from 'react';
+import '../tracking.scss'
 import './styles.scss'
 import { Col, Row, Tooltip } from 'antd';
-import { BoldOutlined, DatabaseOutlined, InfoCircleOutlined, NumberOutlined, SearchOutlined } from '@ant-design/icons';
+import { BoldOutlined, DatabaseOutlined, InfoCircleOutlined, NumberOutlined } from '@ant-design/icons';
 import { Mbutton, Mdatepicker, Mselect, Mtable, Winput } from '../../../components/BasicUI';
 import moment from 'moment';
-import { formatDateTime, handleRowsSearch } from '../../../utils/util';
+import { formatDateTime } from '../../../utils/util';
 
 const rowData = [
     {
@@ -223,6 +224,10 @@ class TrackingHouseBill extends Component {
         )
     }
 
+    saveData = () => {
+        console.log("save Data success");
+    }
+
     render() {
 
         const { formData } = this.state
@@ -270,17 +275,17 @@ class TrackingHouseBill extends Component {
             return (
                 [
                     { type: 'text', nonEditable: true, text: String(index + 1) },
-                    { type: 'text', nonEditable: false, text: container?.ContainerNo || "" },
-                    { type: 'text', nonEditable: false, text: container?.OperationCode || "" },
-                    { type: 'text', nonEditable: false, text: container?.IsoSizetype || "" },
-                    { type: 'text', nonEditable: false, text: container?.CargoTypeName || "" },
-                    { type: 'text', nonEditable: false, text: container?.ClassName || "" },
-                    { type: 'text', nonEditable: false, text: container?.ExpDate ? formatDateTime(container?.ExpDate) : "" },
-                    { type: 'text', nonEditable: false, text: (container?.Block || "") + "-" + (container?.Bay || "") + "-" + (container?.Row || "") + "-" + (container?.Tier || "") },
-                    { type: 'text', nonEditable: false, text: container?.DateIn ? formatDateTime(container?.DateIn) : "" },
-                    { type: 'text', nonEditable: false, text: container?.DateOut ? formatDateTime(container?.DateOut) : "" },
-                    { type: 'text', nonEditable: false, text: container?.ContainerStatusName || "" },
-                    { type: 'checkbox', nonEditable: false, checked: container?.status }
+                    { type: 'text', nonEditable: true, text: container?.ContainerNo || "" },
+                    { type: 'text', nonEditable: true, text: container?.OperationCode || "" },
+                    { type: 'text', nonEditable: true, text: container?.IsoSizetype || "" },
+                    { type: 'text', nonEditable: true, text: container?.CargoTypeName || "" },
+                    { type: 'text', nonEditable: true, text: container?.ClassName || "" },
+                    { type: 'text', nonEditable: true, text: container?.ExpDate ? formatDateTime(container?.ExpDate) : "" },
+                    { type: 'text', nonEditable: true, text: (container?.Block || "") + "-" + (container?.Bay || "") + "-" + (container?.Row || "") + "-" + (container?.Tier || "") },
+                    { type: 'text', nonEditable: true, text: container?.DateIn ? formatDateTime(container?.DateIn) : "" },
+                    { type: 'text', nonEditable: true, text: container?.DateOut ? formatDateTime(container?.DateOut) : "" },
+                    { type: 'text', nonEditable: true, text: container?.ContainerStatusName || "" },
+                    { type: 'checkbox', nonEditable: true, checked: container?.status }
                 ]
             )
         }
@@ -301,7 +306,7 @@ class TrackingHouseBill extends Component {
         ]
 
         return (
-            <Row className='tracking-house-bill_container tracking_container'>
+            <div className='tracking-house-bill_container tracking_container'>
                 <div className='content'>
                     <div className="input_content">
                         <Row className='header body-md-normal'>
@@ -394,53 +399,35 @@ class TrackingHouseBill extends Component {
                         <Row className='header body-md-normal'>
                             Danh sách container
                         </Row>
-                        <Row className='table_feature'>
-                            <Col className="search_bar">
-                                <Winput
-                                    name={"searchData"}
-                                    className={`form_input_field`}
-                                    prefix={<SearchOutlined />}
-                                    placeholder={"Tìm kiếm..."}
-                                    value={formData.searchData}
-                                    onChange={(e) => this.handleInputChange(e, 'formData')}
-                                />
-                            </Col>
-                            <Col className="exel_export">
-                                <Mbutton
-                                    color=""
-                                    className="m_button third"
-                                    type="primary"
-                                    htmlType="submit"
-                                    block
-                                    size={"12"}
-                                    dataSource={{ textbutton: "Xuất File Exel", color: "second", icon: "FileExcelOutlined" }}
-                                />
-                            </Col>
-                        </Row>
-                        <div className="table_content">
-                            {
-                                !this.state.tableData[0] ?
-                                    <div className="no_data">
+                        {
+                            !this.state.tableData[0] ?
+                                <div className="no_data">
+                                    <div>
                                         <DatabaseOutlined style={{ fontSize: '64px' }} />
                                         <p>Nhập thông tin HouseBill để nạp dữ liệu container...</p>
                                     </div>
-                                    :
-                                    <div className="react_grid_table">
-                                        <Mtable
-                                            tableData={this.state.tableData}
-                                            columnsFormat={columnsFormat}
-                                            rowsFormat={rowsFormat}
-                                            rowsHeader={rowsHeader}
-                                            reoderRow={true}
-                                            searchValue={formData.searchData}
-                                            searchField={["ContainerNumber", "OperationCode", "IsoSizetype"]}
-                                        />
-                                    </div>
-                            }
-                        </div>
+                                </div>
+                                :
+                                <Mtable
+                                    config={{
+                                        tableData: this.state.tableData,
+                                        columnsFormat: columnsFormat,
+                                        rowsFormat: rowsFormat,
+                                        rowsHeader: rowsHeader,
+                                        reoderRow: true,
+                                    }}
+                                    functionRequire={{
+                                        addcolumn: true,
+                                        deleteColumn: true,
+                                        exportExel: true,
+                                        saveData: () => { this.saveData() },
+                                        searchField: ["ContainerNumber", "OperationCode", "IsoSizetype"],
+                                    }}
+                                />
+                        }
                     </div>
                 </div>
-            </Row>
+            </div>
         )
     }
 }

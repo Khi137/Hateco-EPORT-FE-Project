@@ -2,8 +2,8 @@ import React, { Component, createRef } from 'react';
 import './styles.scss'
 import { Col, Row } from 'antd';
 import { Mbutton, Mtable, Winput } from '../../../components/BasicUI';
-import { DatabaseOutlined, FieldNumberOutlined, SearchOutlined } from '@ant-design/icons';
-import { formatDateTime, handleRowsSearch } from '../../../utils/util';
+import { DatabaseOutlined, FieldNumberOutlined } from '@ant-design/icons';
+import { formatDateTime } from '../../../utils/util';
 
 const rowData = [
     {
@@ -303,40 +303,32 @@ class TrackingContainerList extends Component {
                             }}
                         />
                     </div>
-                    <div className={`table_content ${containerList.length !== 0 && "table_exist_data"}`}>
+                    <div className="table_container">
                         {
                             !this.state.tableData[0] ?
                                 <div className="no_data">
-                                    <DatabaseOutlined style={{ fontSize: '64px' }} />
-                                    <p>Nhập số container để nạp dữ liệu container...</p>
+                                    <div>
+                                        <DatabaseOutlined style={{ fontSize: '64px' }} />
+                                        <p>Nhập thông tin HouseBill để nạp dữ liệu container...</p>
+                                    </div>
                                 </div>
                                 :
-                                <Col className="have_data">
-                                    <Row className='table_feature'>
-                                        <Col className="search_bar">
-                                            <Winput
-                                                name={"searchData"}
-                                                className={`form_input_field`}
-                                                prefix={<SearchOutlined />}
-                                                placeholder={"Tìm kiếm..."}
-                                                value={formData.searchData}
-                                                onChange={(e) => this.handleInputChange(e)}
-                                                ref={this.containerNumberRef}
-                                            />
-                                        </Col>
-                                    </Row>
-                                    <div className="react_grid_table">
-                                        <Mtable
-                                            tableData={this.state.tableData}
-                                            columnsFormat={columnsFormat}
-                                            rowsFormat={rowsFormat}
-                                            rowsHeader={rowsHeader}
-                                            reoderRow={true}
-                                            searchValue={formData.searchData}
-                                            searchField={["ContainerNo", "OperationCode", "IsoSizetype"]}
-                                        />
-                                    </div>
-                                </Col>
+                                <Mtable
+                                    config={{
+                                        tableData: this.state.tableData,
+                                        columnsFormat: columnsFormat,
+                                        rowsFormat: rowsFormat,
+                                        rowsHeader: rowsHeader,
+                                        reoderRow: true,
+                                    }}
+                                    functionRequire={{
+                                        addcolumn: true,
+                                        deleteColumn: true,
+                                        exportExel: true,
+                                        // saveData: () => { this.saveData() },
+                                        searchField: ["ContainerNumber", "OperationCode", "IsoSizetype"],
+                                    }}
+                                />
                         }
                     </div>
                 </div>
