@@ -29,60 +29,57 @@ let rowData = [
   { key: "14", nation: "", portCode: "", portName: "" },
   { key: "15", nation: "", portCode: "", portName: "" },
   { key: "16", nation: "", portCode: "", portName: "" },
-  { key: "17", nation: "", portCode: "", portName: "" },
+  { key: "18", nation: "", portCode: "", portName: "" },
+  { key: "19", nation: "", portCode: "", portName: "" },
+  { key: "20", nation: "", portCode: "", portName: "" },
+  { key: "21", nation: "", portCode: "", portName: "" },
+  { key: "22", nation: "", portCode: "", portName: "" },
+
 ];
 
 export class PortsList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tableData: {
-        reactGridColumns: [
-          { columnId: "STT", width: 150, resizable: true, header: "STT" },
-          {
-            columnId: "nation",
-            width: 500,
-            resizable: true,
-            reorderable: true,
-            header: "Quốc gia",
-          },
-          {
-            columnId: "portCode",
-            width: 550,
-            resizable: true,
-            reorderable: true,
-            header: "Mã cảng",
-          },
-          {
-            columnId: "portName",
-            width: 650,
-            resizable: true,
-            reorderable: true,
-            header: "Tên cảng",
-          },
-        ],
-        reactGridRows: [
-          {
-            rowId: "header",
-            cells: [
-              { type: "header", text: "STT" },
-              { type: "header", text: "Quốc gia" },
-              { type: "header", text: "Mã cảng" },
-              { type: "header", text: "Tên cảng" },
-            ],
-          },
-          ...this.generateTableData(rowData),
-        ],
+      formData: {
+        shipBrandNumber: "",
+        shipBrandName: "",
+        searchData: "",
       },
-      searchValue: "",
+      containerList: [],
+      tableData: [],
     };
   }
 
-  generateRowData = (container, index) => {
-    return {
-      rowId: String(index + 1),
-      cells: [
-        { type: "text", nonEditable: true, text: container?.key || "" },
+  render() {
+    const columnsFormat = [
+      { columnId: "STT", width: 150, resizable: true, header: "STT" },
+      {
+        columnId: "nation",
+        width: 500,
+        resizable: true,
+        reorderable: true,
+        header: "Quốc gia",
+      },
+      {
+        columnId: "portCode",
+        width: 550,
+        resizable: true,
+        reorderable: true,
+        header: "Mã cảng",
+      },
+      {
+        columnId: "portName",
+        width: 650,
+        resizable: true,
+        reorderable: true,
+        header: "Tên cảng",
+      },
+    ];
+
+    const rowsFormat = (container, index) => {
+      return [
+        { type: "text", nonEditable: true, text: String(index + 1) },
         {
           type: "text",
           nonEditable: false,
@@ -98,24 +95,16 @@ export class PortsList extends Component {
           nonEditable: true,
           text: container?.portName || "",
         },
-      ],
+      ];
     };
-  };
 
-  generateTableData = (dataList) => {
-    const generateData = dataList.map((container, index) =>
-      this.generateRowData(container, index)
-    );
-    return generateData;
-  };
+    const rowsHeader = [
+      { type: "header", text: "STT" },
+      { type: "header", text: "Quốc gia" },
+      { type: "header", text: "Mã cảng" },
+      { type: "header", text: "Tên cảng" },
+    ];
 
-  handleSearchChange = (value) => {
-    this.setState({
-      searchValue: value,
-    });
-  };
-
-  render() {
     return (
       <div className="portsList-container">
         <div className="portsList-panel drop-box-shadow">
@@ -158,8 +147,13 @@ export class PortsList extends Component {
             </div>
             <div className="portsList-panel-content-table">
               <Mtable
-                rows={this.state.tableData.reactGridRows}
-                columns={this.state.tableData.reactGridColumns}
+                tableData={rowData}
+                columnsFormat={columnsFormat}
+                rowsFormat={rowsFormat}
+                rowsHeader={rowsHeader}
+                reoderRow={true}
+                // searchValue={formData.searchData}
+                // searchField={["ContainerNumber", "OperationCode", "IsoSizetype"]}
               />
             </div>
           </div>

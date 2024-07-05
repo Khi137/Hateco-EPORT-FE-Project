@@ -1216,9 +1216,7 @@ class Mbutton extends React.Component {
         className: "m-form__icon",
       });
     } else {
-      IconComponent = React.createElement(LOL["BarsOutlined"], {
-        className: "m-form__icon",
-      });
+      IconComponent = null
     }
 
     return (
@@ -2393,7 +2391,6 @@ class Minput extends React.Component {
               maxLength={data?.maxLength || 9999}
               tabIndex={data?.tabindex || 1}
               pattern={data?.format || ""}
-              placeholder={data?.text || "Nhập dữ liệu ..."}
             ></input>
           </span>
           {this.state.blur && (
@@ -2628,9 +2625,41 @@ class Mdatepicker extends React.Component {
           />
         </div>
       </Col>
+
+      // !isMobile ?
+
+      //     :
+      //     <Col offset={data.offset ? data.offset : 0} span={span} key={data.ref} className={"m-form__box " + data.className}>
+      //         <div className="m-form__input">
+      //             <label className={this.state.value ? "m-form__label m-form__label--focus" : "m-form__label"}>{data.label}</label>
+      //             <input type="datetime-local" style={{ padding: 0 }} placeholder="" bordered={false} required-text={data.required} required={data.required ? true : false}
+      //                 ref={data.ref} id={data.ref} key={data.ref || ""}
+      //                 showTime={true} value={this.state.value ? moment(this.state.value).format('YYYY-MM-DDTHH:mm') : ""} title={this.state.value ? moment(this.state.value).format('YYYY-MM-DD HH:mm:ss') : ""}
+      //                 onChange={(date, dateString) => { this.setState({ value: moment(date.target.value).format('YYYY-MM-DD HH:mm:ss') }) }}
+      //                 onBlur={this.checkBlur.bind(this)}
+      //                 onClick={data.onClick}
+      //                 inputReadOnly={this.state.readonly ? true : false}
+      //                 onFocus={this.checkFocus.bind(this)} />
+      //         </div>
+      //     </Col>
     );
   }
 }
+
+// - import data with datatype as array Objects
+// - Object name is "dataSource" with sample data
+// = [
+//     {
+//         label: ""(optional) --
+//         span: ""(optional) -- grid system default 24
+//         ref: ""(require) -- component id, ref, key must be unquie
+//         name: ""(require) -- name of group radio button
+//         defaultValue: ""(optional) -- ref of radio item
+//         options: ""(require) -- Object array, list of radio group
+//     }
+
+// if input property have "config" , it will be a object with base props of ant design Radio.Group component
+// ]
 
 class Mradio extends React.Component {
   constructor(props) {
@@ -2960,7 +2989,7 @@ class Mselect extends React.Component {
             required={data?.required}
             defaultValue={data?.value || this.state.value}
             tabIndex={data?.tabindex || 1}
-            className="m-form__select body-lg-normal"
+            className="m-form__select"
           >
             <option key="" value="">
               <span>

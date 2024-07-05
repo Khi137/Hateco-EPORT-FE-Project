@@ -21,12 +21,14 @@ import TrackingHouseBill from "../views/tracking/trackingHouseBill/trackingHouse
 import TrackingContainerList from "../views/tracking/trackingContainerList/trackingContainerList";
 
 import Customer from "../views/category/customer/Customer";
+
 import ShipExploitBrand from "../views/category/shipExploitBrand/ShipExploitBrand";
 import Task from "../views/category/task/task";
 import CommoditiesType from "../views/category/commoditiesType/commoditiesType";
 import DirectionContainer from "../views/category/directionContainer/directionContainer";
 import PortsList from "../views/category/portsList/portsList";
 import StatesContainer from "../views/category/statesContainer/statesContainer";
+import SizeContainer from "../views/category/sizeContainer/sizeContainer";
 class MainRoutes extends Component {
   render() {
     return (
@@ -39,6 +41,7 @@ class MainRoutes extends Component {
         <Route element={<AuthLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/category-customer" element={<Customer />} />
+
 
           <Route path="/tracking">
             <Route path="tracking_container" element={<TrackingContainer />} />
@@ -60,12 +63,28 @@ class MainRoutes extends Component {
             />
           </Route>
           {/* <Route path="/system" element={<System />} /> */}
-          <Route path="/category-shipExploitBrand" element={<ShipExploitBrand />} />
-          <Route path="/category-task" element={<Task />} />
-          <Route path="/category-commoditiesType" element={<CommoditiesType />} />
-          <Route path="/category-directionContainer" element={<DirectionContainer />} />
-          <Route path="/category-portsList" element={<PortsList />} />
-          <Route path="/category-statesContainer" element={<StatesContainer />} />
+          <Route path="/category">
+            <Route path="category_customer" element={<Customer />} />
+            <Route
+              path="category_shipExploitBrand"
+              element={<ShipExploitBrand />} 
+            />
+            <Route path="category_task" element={<Task />} />
+            <Route
+              path="category_commoditiesType"
+              element={<CommoditiesType />}
+            />
+            <Route
+              path="category_directionContainer"
+              element={<DirectionContainer />}
+            />
+            <Route path="category_portsList" element={<PortsList />} />
+            <Route
+              path="category_statesContainer"
+              element={<StatesContainer />}
+            />
+            <Route path="category_sizeContainer" element={<SizeContainer />} />
+          </Route>
         </Route>
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
