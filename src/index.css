@@ -1,7 +1,6 @@
 body {
   margin: 0;
   font-family: var(--main-font);
-  background-color: rgb(236, 236, 236);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #eaedf0;
@@ -73,30 +72,42 @@ code {
   --color-warning-400: #a6620d;
 
   /* Opacity */
-  --color-opacity-primary: rgba(red(#7d49f8),
-      green(#7d49f8),
-      blue(#7d49f8),
-      0.15);
-  --color-opacity-secondary: rgba(red(#1c6fe3),
-      green(#1c6fe3),
-      blue(#1c6fe3),
-      0.15);
-  --color-opacity-danger: rgba(red(#c92929),
-      green(#c92929),
-      blue(#c92929),
-      0.15);
-  --color-opacity-success: rgba(red(#12825f),
-      green(#12825f),
-      blue(#12825f),
-      0.15);
-  --color-opacity-warning: rgba(red(#f2ab53),
-      green(#f2ab53),
-      blue(#f2ab53),
-      0.15);
-  --color-background-modal: rgba(red(#121212),
-      green(#121212),
-      blue(#121212),
-      92%);
+  --color-opacity-primary: rgba(
+    red(#7d49f8),
+    green(#7d49f8),
+    blue(#7d49f8),
+    0.15
+  );
+  --color-opacity-secondary: rgba(
+    red(#1c6fe3),
+    green(#1c6fe3),
+    blue(#1c6fe3),
+    0.15
+  );
+  --color-opacity-danger: rgba(
+    red(#c92929),
+    green(#c92929),
+    blue(#c92929),
+    0.15
+  );
+  --color-opacity-success: rgba(
+    red(#12825f),
+    green(#12825f),
+    blue(#12825f),
+    0.15
+  );
+  --color-opacity-warning: rgba(
+    red(#f2ab53),
+    green(#f2ab53),
+    blue(#f2ab53),
+    0.15
+  );
+  --color-background-modal: rgba(
+    red(#121212),
+    green(#121212),
+    blue(#121212),
+    92%
+  );
 
   /* Dark */
   --color-dark-50: #121212;

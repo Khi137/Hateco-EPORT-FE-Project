@@ -12,10 +12,8 @@ import {
   SaveOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import { ReactGrid } from "@silevis/reactgrid";
-import { Checkbox } from "antd";
 import CheckboxCellTemplate from "../systemManageUser/CellTemplate";
-let rowData = [
+let tableData = [
   {
     key: "1",
     category: "Lệnh đóng hàng container",
@@ -53,205 +51,32 @@ let rowData = [
     delete: true,
   },
 ];
+
+function generateRandomContainerNo() {
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let result = "";
+  const charactersLength = characters.length;
+  for (let i = 0; i < 10; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
+for (let index = 0; index < 10; index++) {
+  const duplicatedData = { ...tableData[0] };
+  duplicatedData.ContainerNo = generateRandomContainerNo();
+  tableData.push(duplicatedData);
+}
 export class SystemManagerGroupPermission extends Component {
   constructor(props) {
     super(props);
     this.checkboxCellTemplate = new CheckboxCellTemplate();
     this.state = {
-      tableData: {
-        reactGridColumns: [
-          { columnId: "STT", width: 50, resizable: true, header: "STT" },
-          {
-            columnId: "Category",
-            width: 350,
-            resizable: true,
-            reorderable: true,
-            header: "Tên danh mục",
-          },
-          {
-            columnId: "ParentCode",
-            width: 200,
-            resizable: true,
-            reorderable: true,
-            header: "ParentCode",
-          },
-          {
-            columnId: "View",
-            width: 100,
-            resizable: true,
-            header: <Checkbox />,
-            header: "Xem",
-          },
-          {
-            columnId: "Add",
-            width: 100,
-            resizable: true,
-            header: <Checkbox />,
-            header: "Thêm",
-          },
-          {
-            columnId: "Edit",
-            width: 100,
-            resizable: true,
-            header: <Checkbox />,
-            header: "Sửa",
-          },
-          {
-            columnId: "Delete",
-            width: 100,
-            resizable: true,
-            header: <Checkbox />,
-            header: "Xóa",
-          },
-        ],
-        reactGridRows: [
-          {
-            rowId: "header",
-            cells: [
-              { type: "header", text: "STT" },
-              { type: "header", text: "Tên danh mục" },
-              { type: "header", text: "ParentCode" },
-              { type: "header", text: "Xem" },
-              { type: "header", text: "Thêm" },
-              { type: "header", text: "Sửa" },
-              { type: "header", text: "Xóa" },
-            ],
-          },
-          ...this.generateTableData(rowData),
-        ],
-      },
+      tableData: tableData,
       loadData: false,
       selectedRowKeys: [],
     };
   }
-
-  getColumns = () => [
-    { columnId: "STT", width: 50, resizable: true, header: "STT" },
-    {
-      columnId: "Category",
-      width: 200,
-      resizable: true,
-      reorderable: true,
-      header: "Tên danh mục",
-    },
-    {
-      columnId: "ParentCode",
-      width: 50,
-      resizable: true,
-      reorderable: true,
-      header: "ParentCode",
-    },
-    {
-      columnId: "View",
-      width: 50,
-      resizable: true,
-      reorderable: true,
-      header: "Xem",
-    },
-    {
-      columnId: "Add",
-      width: 50,
-      resizable: true,
-      reorderable: true,
-      header: "Thêm",
-    },
-    {
-      columnId: "Edit",
-      width: 50,
-      resizable: true,
-      reorderable: true,
-      header: "Sửa",
-    },
-    {
-      columnId: "Delete",
-      width: 50,
-      resizable: true,
-      reorderable: true,
-      header: "Xóa",
-    },
-  ];
-
-  generateRowData = (container, index) => {
-    return {
-      rowId: String(index + 1),
-      cells: [
-        { type: "text", nonEditable: true, text: container?.key || "" },
-        { type: "text", nonEditable: false, text: container?.category || "" },
-        {
-          type: "text",
-          nonEditable: true,
-          text: container?.parentCode || "",
-        },
-        {
-          type: "custom",
-          value: {
-            checked: container.view,
-            rowId: container.key,
-          },
-        },
-        {
-          type: "custom",
-          value: {
-            checked: container.add,
-            rowId: container.key,
-          },
-        },
-        {
-          type: "custom",
-          value: {
-            checked: container.edit,
-            rowId: container.key,
-          },
-        },
-        {
-          type: "custom",
-          value: {
-            checked: container.delete,
-            rowId: container.key,
-          },
-        },
-      ],
-    };
-  };
-
-  generateTableData = (dataList) => {
-    const generateData = dataList.map((container, index) =>
-      this.generateRowData(container, index)
-    );
-    return generateData;
-  };
-
-  handleRowSelect = (e) => {
-    const target = e[0].first.row;
-    this.setState((prevState) => {
-      const alreadySelected = prevState.selectedRowKeys.includes(target);
-      const selectedRowKeys = alreadySelected
-        ? prevState.selectedRowKeys.filter((key) => key !== target)
-        : [...prevState.selectedRowKeys, target];
-
-      return { selectedRowKeys };
-    });
-  };
-
-  handleSelectAll = () => {
-    const updatedRows = rowData.map((row) => ({ ...row, selected: true }));
-    this.setState({
-      tableData: {
-        ...this.state.tableData,
-        reactGridRows: this.generateTableData(updatedRows),
-      },
-    });
-  };
-
-  handleDeleteSelected = () => {
-    const filteredRows = rowData.filter((row) => !row.selected);
-    this.setState({
-      tableData: {
-        ...this.state.tableData,
-        reactGridRows: this.generateTableData(filteredRows),
-      },
-    });
-  };
 
   handleLoadData = () => {
     this.setState((prev) => ({
@@ -259,40 +84,94 @@ export class SystemManagerGroupPermission extends Component {
     }));
   };
 
-  handleAddRow = () => {
-    const newKey = (rowData.length + 1).toString();
-    const newRow = {
-      key: newKey,
-      group: "",
-      portCode: "",
-      username: "",
-      password: null,
-      name: "",
-      cardId: null,
-      address: "",
-      phone: "",
-      email: "",
-      support: null,
-      status: false,
-    };
-    rowData = [...rowData, newRow];
-    const updatedTableData = {
-      reactGridColumns: this.state.tableData.reactGridColumns,
-      reactGridRows: [
-        ...this.state.tableData.reactGridRows,
-        this.generateRowData(newRow, rowData.length - 1),
-      ],
-    };
-
-    this.setState({
-      tableData: updatedTableData,
-    });
-  };
-
-  onSelectChange = (selectedRowKeys) => {
-    this.setState({ selectedRowKeys });
-  };
   render() {
+    const columnsFormat = [
+      { columnId: "STT", width: 50, resizable: true, header: "STT" },
+      {
+        columnId: "Category",
+        width: 400,
+        resizable: true,
+        reorderable: true,
+        header: "Tên danh mục",
+      },
+      {
+        columnId: "parentCode",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "Parent Code",
+      },
+      {
+        columnId: "view",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "Xem",
+      },
+      {
+        columnId: "add",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "Thêm",
+      },
+      {
+        columnId: "edit",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "Sửa",
+      },
+      {
+        columnId: "delete",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "xóa",
+      },
+    ];
+
+    const rowsFormat = (container, index) => {
+      return [
+        { type: "text", nonEditable: true, text: String(index + 1) },
+        { type: "text", nonEditable: true, text: container?.category || "" },
+        {
+          type: "text",
+          nonEditable: true,
+          text: container?.parentCode || "",
+        },
+        {
+          type: "checkbox",
+          nonEditable: true,
+          checked: Boolean(container?.view) || false,
+        },
+        {
+          type: "checkbox",
+          nonEditable: true,
+          checked: Boolean(container?.add) || false,
+        },
+        {
+          type: "checkbox",
+          nonEditable: true,
+          checked: Boolean(container?.edit) || false,
+        },
+        {
+          type: "checkbox",
+          nonEditable: true,
+          checked: Boolean(container?.delete) || false,
+        },
+      ];
+    };
+
+    const rowsHeader = [
+      { type: "header", text: "STT" },
+      { type: "header", text: "Tên danh mục" },
+      { type: "header", text: "Parent Code" },
+      { type: "header", text: "Xem" },
+      { type: "header", text: "Thêm" },
+      { type: "header", text: "Sửa" },
+      { type: "header", text: "Xóa" },
+    ];
     return (
       <div className="system-permission-container">
         <div className="panel-manage-permission">
@@ -302,7 +181,6 @@ export class SystemManagerGroupPermission extends Component {
               dataSource={{
                 id: "select1",
                 label: "Quản lý người dùng",
-                // value: this.state.selectValue,
                 options: [
                   { label: "QUANTRI: Quản trị hệ thống", value: "QTHT" },
                   { label: "Dev: Developer", value: "DEV" },
@@ -357,10 +235,12 @@ export class SystemManagerGroupPermission extends Component {
             </div>
           </div>
           <div className="table-data-user">
-            <ReactGrid
-              rows={this.state.tableData.reactGridRows}
-              columns={this.state.tableData.reactGridColumns}
-              customCellTemplates={{ custom: this.checkboxCellTemplate }}
+            <Mtable
+              tableData={this.state.tableData}
+              columnsFormat={columnsFormat}
+              rowsFormat={rowsFormat}
+              rowsHeader={rowsHeader}
+              reoderRow={true}
             />
           </div>
         </div>
