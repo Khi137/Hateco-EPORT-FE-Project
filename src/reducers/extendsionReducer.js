@@ -30,15 +30,10 @@ const extendsionSlice = createSlice({
   initialState,
   reducers: {
     addIconExtendsion: (state, action) => {
-      // const newState = [...state, action.payload];
-      // saveToCookies(newState);
-      // return newState;
 
       const { id, text, url, parentUrl, icon } = action.payload; // Lấy thông tin từ action payload
-      // Kiểm tra xem extension đã tồn tại trong state chưa
       const existingExtension = state.find((ext) => ext.id === id);
       if (!existingExtension) {
-        // Nếu chưa tồn tại thì thêm vào state và lưu vào cookies
         state.push({ id, text, url, parentUrl, icon });
         saveToCookies(state);
       }
