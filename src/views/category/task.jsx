@@ -2,15 +2,8 @@
 
 import React, { Component } from "react";
 import { ReactGrid } from "@silevis/reactgrid";
-import {
-  Msearch,
-  Mbutton,
-  Mtable,
-  Mcheckbox,
-} from "../../../components/BasicUI";
+import { Msearch, Mbutton, Mtable, Mcheckbox } from "../../components/BasicUI";
 
-import "./task.scss";
-import CheckboxCellTemplate from "./CellTemplate";
 import { Checkbox } from "antd";
 
 let rowData = [
@@ -132,7 +125,6 @@ let rowData = [
 export class Task extends Component {
   constructor(props) {
     super(props);
-    this.checkboxCellTemplate = new CheckboxCellTemplate();
     this.state = {
       formData: {
         shipBrandNumber: "",
@@ -143,7 +135,6 @@ export class Task extends Component {
       tableData: [],
     };
   }
-
 
   render() {
     const columnsFormat = [
@@ -223,14 +214,12 @@ export class Task extends Component {
     ];
 
     return (
-      <div className="task-container">
-        <div className="task-panel drop-box-shadow">
-          <div className="task-panel-title title-xl-normal">
-            Danh mục công việc
-          </div>
-          <div className="task-panel-content">
-            <div className="task-panel-content-navigation">
-              <div className="task-panel-content-navigation-search">
+      <div>
+        <div>
+          <div>Danh mục công việc</div>
+          <div>
+            <div>
+              <div>
                 <Msearch
                   dataSource={{
                     id: "search1",
@@ -245,7 +234,7 @@ export class Task extends Component {
                   onChangeValue={(e) => this.handleSearchChange(e["search1"])}
                 />
               </div>
-              <div className="task-panel-content-navigation-button">
+              <div>
                 <Mbutton
                   className="m_button green drop-button-shadow"
                   block
@@ -262,7 +251,7 @@ export class Task extends Component {
                 />
               </div>
             </div>
-            <div className="task-panel-content-table">
+            <div>
               <Mtable
                 tableData={rowData}
                 columnsFormat={columnsFormat}

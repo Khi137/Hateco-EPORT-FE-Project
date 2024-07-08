@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./SystemManageUser.scss";
 import {
   Mbutton,
   Mradio,
@@ -7,7 +6,7 @@ import {
   Mselect,
   Mtable,
   Winput,
-} from "../../../components/BasicUI";
+} from "../../components/BasicUI.jsx";
 import {
   CloseCircleOutlined,
   CloudDownloadOutlined,
@@ -21,8 +20,8 @@ import {
   handleColumnsReorder,
   handleRowsReorder,
   handleRowsSearch,
-} from "../../../utils/util.js";
-import Empty from "../Empty.jsx";
+} from "../../utils/util.js";
+import Empty from "./Empty.jsx";
 const tableData = [
   {
     selected: false,
@@ -271,8 +270,8 @@ export class SystemManageUser extends Component {
     ];
 
     return (
-      <div className="systemManageUser-container">
-        <div className="panel-left">
+      <div>
+        <div>
           <header>Quản lý người dùng</header>
           <div className="select-group">
             <Mselect
@@ -319,10 +318,10 @@ export class SystemManageUser extends Component {
             />
           </div>
         </div>
-        <div className="panel-right">
-          <div className="action-right">
-            <div className="header-action">
-              <div className="search">
+        <div>
+          <div>
+            <div>
+              <div>
                 <Winput
                   name={"searchData"}
                   className={`form_input_field`}
@@ -330,7 +329,7 @@ export class SystemManageUser extends Component {
                   placeholder={"Tìm kiếm..."}
                 />
               </div>
-              <div className="lists-action">
+              <div>
                 <Mbutton
                   className="m_button green drop-button-shadow"
                   block
@@ -390,16 +389,18 @@ export class SystemManageUser extends Component {
               </div>
             </div>
 
-            <div className="line">Danh sách người dùng</div>
-            <div className="table-data-user">
+            <div>Danh sách người dùng</div>
+            <div>
               {this.state.loadData ? (
-                <Mtable
+                {
+                  /* <Mtable
                   tableData={this.state.tableData}
                   columnsFormat={columnsFormat}
                   rowsFormat={rowsFormat}
                   rowsHeader={rowsHeader}
                   reoderRow={true}
-                />
+                /> */
+                }
               ) : (
                 <Empty
                   text={

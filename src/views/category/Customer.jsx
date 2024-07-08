@@ -9,14 +9,13 @@ import {
   Mbutton,
   Mtable,
   Msearch,
-} from "../../../components/BasicUI";
+} from "../../components/BasicUI";
 import {
   formatDateTime,
   handleColumnsReorder,
   handleRowsReorder,
   handleRowsSearch,
-} from "../../../utils/util";
-import "./Customer.scss";
+} from "../../utils/util";
 
 let rowData = [
   {
@@ -228,9 +227,8 @@ export class Customer extends Component {
   };
 
   renderSelect = (option, index) => {
-    console.log(index);
     return (
-      <div className={`customer-panel-left-select_${index + 1}`}>
+      <div>
         <p className="body-lg-normal">{option?.title || ""}</p>
         <Mselect
           dataSource={{
@@ -396,18 +394,16 @@ export class Customer extends Component {
     ];
 
     return (
-      <div className="customer-container">
-        <div className="customer-panel-left drop-box-shadow">
-          <header className="customer-panel-left-title title-xl-normal">
-            Danh mục khách hàng
-          </header>
-          <div className="customer-panel-left-content">
-            <div className="customer-panel-left-select">
+      <div>
+        <div>
+          <header>Danh mục khách hàng</header>
+          <div>
+            <div>
               {options.map((option, index) => {
                 return this.renderSelect(option, index);
               })}
             </div>
-            <div className="customer-panel-left-input">
+            <div>
               <Minput
                 dataSource={{
                   label: "Mã số thuế:",
@@ -424,7 +420,7 @@ export class Customer extends Component {
               />
             </div>
 
-            <div className="customer-panel-left-radio">
+            <div>
               <div className="line body-xl-normal">Hình thức thanh toán</div>
               <Mradio
                 dataSource={{
@@ -437,7 +433,7 @@ export class Customer extends Component {
                 }}
               />
             </div>
-            <div className="customer-panel-left-radio">
+            <div>
               <div className="line body-xl-normal">Trạng thái hoạt động</div>
               <Mradio
                 dataSource={{
@@ -450,7 +446,7 @@ export class Customer extends Component {
                 }}
               />
             </div>
-            <div className="customer-panel-left-button">
+            <div>
               <Mbutton
                 className="m_button third drop-button-shadow"
                 block
@@ -468,7 +464,7 @@ export class Customer extends Component {
             </div>
           </div>
         </div>
-        <div className="customer-panel-right drop-box-shadow">
+        <div>
           <Mtable
             config={{
               defaultData: this.state.tableData,

@@ -2,13 +2,7 @@
 
 import React, { Component } from "react";
 import { ReactGrid } from "@silevis/reactgrid";
-import {
-  Msearch,
-  Mbutton,
-  Mtable,
-  Mcheckbox,
-} from "../../../components/BasicUI";
-import "./commoditiesType.scss";
+import { Msearch, Mbutton, Mtable, Mcheckbox } from "../../components/BasicUI";
 
 const rowData = [
   { key: "1", taskCode: "GP", taskName: "General" },
@@ -64,8 +58,8 @@ const rowsHeader = [
 ];
 
 const Navigation = ({ searchValue, handleSearchChange, handleFormSubmit }) => (
-  <div className="commoditiesType-panel-content-navigation">
-    <div className="commoditiesType-panel-content-navigation-search">
+  <div>
+    <div>
       <Msearch
         dataSource={{
           id: "search1",
@@ -80,7 +74,7 @@ const Navigation = ({ searchValue, handleSearchChange, handleFormSubmit }) => (
         onChangeValue={(e) => handleSearchChange(e["search1"])}
       />
     </div>
-    <div className="commoditiesType-panel-content-navigation-button">
+    <div>
       <Mbutton
         className="m_button green drop-button-shadow"
         block
@@ -99,7 +93,7 @@ const Navigation = ({ searchValue, handleSearchChange, handleFormSubmit }) => (
 );
 
 const Table = ({ rowData, columnsFormat, rowsFormat, rowsHeader }) => (
-  <div className="commoditiesType-panel-content-table">
+  <div>
     <Mtable
       tableData={rowData}
       columnsFormat={columnsFormat}
@@ -131,12 +125,10 @@ class CommoditiesType extends Component {
 
   render() {
     return (
-      <div className="commoditiesType-container">
-        <div className="commoditiesType-panel drop-box-shadow">
-          <div className="commoditiesType-panel-title title-xl-normal">
-            Danh mục loại hàng hóa
-          </div>
-          <div className="commoditiesType-panel-content">
+      <div>
+        <div>
+          <div>Danh mục loại hàng hóa</div>
+          <div>
             <Navigation
               searchValue={this.state.searchValue}
               handleSearchChange={this.handleSearchChange}
