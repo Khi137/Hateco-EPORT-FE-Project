@@ -2,8 +2,8 @@ import React, { Component, createRef } from 'react';
 import './styles.scss'
 import { Col, Row } from 'antd';
 import { Mbutton, Mtable, Winput } from '../../../components/BasicUI';
-import { DatabaseOutlined, FieldNumberOutlined, SearchOutlined } from '@ant-design/icons';
-import { formatDateTime, handleRowsSearch } from '../../../utils/util';
+import { DatabaseOutlined, FieldNumberOutlined, LoadingOutlined } from '@ant-design/icons';
+import { formatDateTime } from '../../../utils/util';
 
 const rowData = [
     {
@@ -150,6 +150,33 @@ class TrackingContainerList extends Component {
         }));
     };
 
+    handleLoadData = () => {
+        this.setState({ isLoading: true })
+        const containerNumberError = this.state.formData.containerNumberError
+        if (containerNumberError) {
+            this.containerNumberRef.current.handleCheckError()
+            return
+        }
+        if (this.submitButtonRef.current) {
+            this.submitButtonRef.current.loading();
+        }
+        setTimeout(() => {
+            if (this.submitButtonRef.current) {
+                this.submitButtonRef.current.reset();
+                this.setState(prevState => ({
+                    generalInformation: rowData[0] ? rowData[0] : {},
+                    tableData: rowData,
+                    formData: {
+                        ...prevState.formData,
+                        containerNumberError: false
+                    },
+                    isLoading: false
+                }));
+            }
+        }, 1000);
+
+    }
+
     render() {
         const { formData, containerList } = this.state
 
@@ -278,40 +305,37 @@ class TrackingContainerList extends Component {
                             }}
                         />
                     </div>
-                    <div className={`table_content ${containerList.length !== 0 && "table_exist_data"}`}>
+                    <div className="table_container">
                         {
-                            !this.state.tableData[0] ?
-                                <div className="no_data">
-                                    <DatabaseOutlined style={{ fontSize: '64px' }} />
-                                    <p>Nhập số container để nạp dữ liệu container...</p>
-                                </div>
-                                :
-                                <Col className="have_data">
-                                    <Row className='table_feature'>
-                                        <Col className="search_bar">
-                                            <Winput
-                                                name={"searchData"}
-                                                className={`form_input_field`}
-                                                prefix={<SearchOutlined />}
-                                                placeholder={"Tìm kiếm..."}
-                                                value={formData.searchData}
-                                                onChange={(e) => this.handleInputChange(e)}
-                                                ref={this.containerNumberRef}
-                                            />
-                                        </Col>
-                                    </Row>
-                                    <div className="react_grid_table">
-                                        <Mtable
-                                            tableData={this.state.tableData}
-                                            columnsFormat={columnsFormat}
-                                            rowsFormat={rowsFormat}
-                                            rowsHeader={rowsHeader}
-                                            reoderRow={true}
-                                            searchValue={formData.searchData}
-                                            searchField={["ContainerNo", "OperationCode", "IsoSizetype"]}
-                                        />
+                            !this.state.isLoading ?
+                                !this.state.tableData[0] ?
+                                    <div className="no_data">
+                                        <div>
+                                            <DatabaseOutlined style={{ fontSize: '64px' }} />
+                                            <p>Nhập thông tin HouseBill để nạp dữ liệu container...</p>
+                                        </div>
                                     </div>
-                                </Col>
+                                    :
+                                    <Mtable
+                                        config={{
+                                            defaultData: this.state.tableData,
+                                            columnsFormat: columnsFormat,
+                                            rowsFormat: rowsFormat,
+                                            rowsHeader: rowsHeader,
+                                            reoderRow: true,
+                                        }}
+                                        functionRequire={{
+                                            addcolumn: true,
+                                            deleteColumn: true,
+                                            exportExel: true,
+                                            // saveData: () => { this.saveData() },
+                                            searchField: ["ContainerNumber", "OperationCode", "IsoSizetype"],
+                                        }}
+                                    />
+                                :
+                                <div className="loading_container">
+                                    <LoadingOutlined style={{ fontSize: '64px' }} />
+                                </div>
                         }
                     </div>
                 </div>

@@ -1,8 +1,8 @@
 import React, { Component, createRef } from 'react';
 import './styles.scss'
-import { Col, Row, Tooltip } from 'antd';
+import { Col, Row } from 'antd';
 import { Mbutton, Winput } from '../../../components/BasicUI';
-import { DatabaseOutlined, FieldNumberOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { DatabaseOutlined, FieldNumberOutlined } from '@ant-design/icons';
 import { formatDateTime } from '../../../utils/util';
 
 const defaultData = [
@@ -659,8 +659,10 @@ class TrackingContainer extends Component {
                         {
                             containerList.length === 0 ?
                                 <div className="no_data">
-                                    <DatabaseOutlined style={{ fontSize: '64px' }} />
-                                    <p>Nhập số container để nạp dữ liệu container...</p>
+                                    <div>
+                                        <DatabaseOutlined style={{ fontSize: '64px' }} />
+                                        <p>Nhập thông tin HouseBill để nạp dữ liệu container...</p>
+                                    </div>
                                 </div>
                                 :
                                 <Col className="have_data">
