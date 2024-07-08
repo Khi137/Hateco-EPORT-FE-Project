@@ -165,15 +165,13 @@ class TrackingEdo extends Component {
     };
 
     handleLoadData = () => {
-        this.setState({ isLoading: true })
+    
         const { EdoCodeError } = this.state.formData
-
         if (EdoCodeError) {
-            console.log("getin");
             this.EdoCodeRef.current.handleCheckError()
             return
         }
-
+        this.setState({ isLoading: true })
         if (this.submitButtonRef.current) {
             this.submitButtonRef.current.loading();
         }

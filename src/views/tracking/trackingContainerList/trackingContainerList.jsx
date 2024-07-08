@@ -151,12 +151,12 @@ class TrackingContainerList extends Component {
     };
 
     handleLoadData = () => {
-        this.setState({ isLoading: true })
         const containerNumberError = this.state.formData.containerNumberError
         if (containerNumberError) {
             this.containerNumberRef.current.handleCheckError()
             return
         }
+        this.setState({ isLoading: true })
         if (this.submitButtonRef.current) {
             this.submitButtonRef.current.loading();
         }

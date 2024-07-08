@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import navigationReducer from "../reducers/navigationReducer";
-import rootReducer from "../reducers";
+import rootReducer from "../redux/reducers";
 
 const store = configureStore({
   reducer: rootReducer,
