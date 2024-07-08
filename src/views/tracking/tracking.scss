@@ -116,6 +116,8 @@
             border-radius: 6px;
             border: 1px solid rgba(0, 0, 0, 0.1);
             background-color: white;
+            display: flex;
+            flex-direction: column;
 
             .loading_container {
                 display: flex;

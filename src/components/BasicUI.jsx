@@ -1729,7 +1729,6 @@ class Mtable extends React.Component {
     super(props)
     this.state = {
       searchValue: "",
-      callback: false
     }
   }
 
@@ -1770,13 +1769,14 @@ class Mtable extends React.Component {
   }
 
   handleSaveData = () => {
-    console.log(this.props.tableData);
+    console.log(this.props.defaultData);
+    if (this.props.config.saveData) {
+      this.props.config.saveData(this.props.defaultData)
+    }
   }
 
   handleExportExel = () => {
-    console.log(this.props.tableData);
-    const data = this.props.getDeFaultData()
-    console.log(data)
+    console.log(this.props.defaultData);
   }
 
   handleRowsSelection = (selectedRows) => {
@@ -1797,29 +1797,13 @@ class Mtable extends React.Component {
     );
   };
 
-  deepEqual = (a, b) => {
-    if (a === b) return true;
-
-    if (a == null || b == null) return false;
-
-    if (a.length !== b.length) return false;
-    for (let i = 0; i < a.length; ++i) {
-      if (typeof a[i] === 'object' && typeof b[i] === 'object') {
-        if (!this.deepEqual(a[i], b[i])) return false;
-      } else {
-        if (a[i] !== b[i]) return false;
-      }
-    }
-    return true;
-  };
-
   render() {
     const { tableData } = this.props;
     const { searchValue } = this.state;
     const { addcolumn, deleteColumn, exportExel, searchField, saveData } = this.props.functionRequire;
 
     return (
-      <>
+      <div className="table_container">
         <Row className='table_feature_container'>
           {searchField[0] && (
             <Col className="search_bar">
@@ -1921,7 +1905,7 @@ class Mtable extends React.Component {
             />
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }
@@ -3222,10 +3206,10 @@ class MoneFieldInput extends React.Component {
 
 const mapStateToProps = (state) => ({
   tableData: state.table.tableData,
+  defaultData: state.table.defaultData
 });
 
 const mapDispatchToProps = {
-  getDeFaultData,
   setData,
   updateRow,
   addRow,
