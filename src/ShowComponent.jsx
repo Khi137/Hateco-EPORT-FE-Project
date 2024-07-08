@@ -20,6 +20,18 @@ import "./ShowComponent.scss";
 import * as LOL from "@ant-design/icons";
 import { ReactGrid, Column, Row, CellChange } from "@silevis/reactgrid";
 import "@silevis/reactgrid/styles.css";
+import {
+  HexagonList,
+  HexagonTiles,
+  MCarouselWithMenu,
+  MchangeAvatar,
+  Mcontact,
+  MrequireForm,
+  MslideTab,
+  MslideThumbnail,
+  Mtracking,
+  MuserGuide,
+} from "./components/Mrender";
 
 const tableData = [
   {
@@ -145,6 +157,108 @@ for (let index = 0; index < 20; index++) {
   duplicatedData.ContainerNo = generateRandomContainerNo();
   tableData.push(duplicatedData);
 }
+const dataSource = [
+  {
+    type: "input",
+    ref: "input1",
+    config: { placeholder: "Nhập dữ liệu" },
+    label: "Input Label",
+  },
+  {
+    type: "noneditinput",
+    ref: "noneditinput1",
+    value: "Dữ liệu không chỉnh sửa",
+  },
+  {
+    type: "search",
+    ref: "search1",
+    config: { placeholder: "Tìm kiếm" },
+    label: "Search Label",
+  },
+  {
+    type: "select",
+    ref: "select1",
+    config: {
+      options: [
+        { value: "1", label: "Option 1" },
+        { value: "2", label: "Option 2" },
+      ],
+    },
+    label: "Select Label",
+  },
+  {
+    type: "selectsearch",
+    ref: "selectsearch1",
+    config: {
+      options: [
+        { value: "1", label: "Option 1" },
+        { value: "2", label: "Option 2" },
+      ],
+    },
+    label: "Select Search Label",
+  },
+  {
+    type: "datepicker",
+    ref: "datepicker1",
+    config: {},
+    label: "Datepicker Label",
+  },
+  {
+    type: "radio",
+    ref: "radio",
+    config: {
+      options: [
+        { value: "1", label: "Radio 1" },
+        { value: "2", label: "Radio 2" },
+      ],
+    },
+    label: "Radio Label",
+  },
+
+  {
+    type: "divider",
+    label: "Divider",
+  },
+  {
+    type: "capcha",
+    label: "Capcha Label",
+  },
+  {
+    type: "switch",
+    ref: "switch1",
+    label: "Switch Label",
+  },
+  {
+    type: "checkbox",
+    ref: "checkbox1",
+    label: "Select an option",
+    config: {
+      options: [
+        { value: "1", label: "Checkbox 1" },
+        { value: "2", label: "Checkbox 2" },
+      ],
+    },
+    label: "Checkbox Label",
+  },
+
+  {
+    type: "autocomplete",
+    ref: "autocomplete1",
+    config: {
+      options: [
+        { value: "1", label: "Option 1" },
+        { value: "2", label: "Option 2" },
+      ],
+    },
+
+    label: "Autocomplete Label",
+  },
+];
+
+const dataSource1 = {
+  title: "Example Carousel",
+  data: [{ title: "Slide 1" }, { title: "Slide 2" }, { title: "Slide 3" }],
+};
 
 class ShowComponent extends Component {
   constructor(props) {
@@ -1223,6 +1337,83 @@ class ShowComponent extends Component {
               onChangeValue={(e) => this.handleSearchChange(e["search1"])}
             />
           </div>
+          <div
+            style={{
+              padding: "40px",
+            }}
+          >
+            <MrequireForm
+              dataSource={dataSource}
+              submitBtn={(data) => console.log(data)}
+              submitBtnLabel="Submit"
+            />
+          </div>
+          {/* <div>
+            <MchangeAvatar />
+          </div>
+          <div>
+            <MCarouselWithMenu
+              dataSource={dataSource1}
+              config={{ autoplay: true, dots: true }}
+            />
+          </div>
+          <div>
+            <Mtracking />
+          </div>
+          <div>
+            <MslideTab />
+          </div>
+          <div>
+            <Mcontact />
+          </div>
+          <div>
+            <MuserGuide />
+          </div>
+          <div>
+            <HexagonList
+              dataSource={["Item A", "Item B", "Item C", "Item D", "Item E"]}
+            />
+          </div>
+          <div>
+            <HexagonTiles
+              dataSource={[
+                {
+                  frontImg: "front-img1.jpg",
+                  frontContent: "Front Content 1",
+                  backImg: "back-img1.jpg",
+                  backContent: "Back Content 1",
+                },
+                {
+                  frontImg: "front-img2.jpg",
+                  frontContent: "Front Content 2",
+                  backImg: "back-img2.jpg",
+                  backContent: "Back Content 2",
+                },
+              ]}
+            />
+          </div>
+          <div>
+            <MslideThumbnail
+              dataSource={[
+                {
+                  img: "image1.jpg",
+                  label: "Label 1",
+                },
+                {
+                  img: "image2.jpg",
+                  label: "Label 2",
+                },
+                {
+                  img: "image3.jpg",
+                  label: "Label 3",
+                },
+                {
+                  img: "image4.jpg",
+                  label: "Label 4",
+                },
+              ]}
+            />
+          </div> */}
         </div>
       </>
     );

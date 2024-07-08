@@ -5,7 +5,7 @@ import { isMobileOnly, isMobile } from "react-device-detect";
 import { Mcard, Mselect } from "./components/BasicUI";
 import Header from "./components/Header";
 import MainRoutes from "./router/MainRoutes";
-import "./App.css"
+import "./App.css";
 
 class App extends React.Component {
   constructor(props) {
@@ -36,18 +36,7 @@ class App extends React.Component {
         }
       }
     }
-
   }
-
-  // render() {
-  //   let test = process.env.REACT_APP_API_HOST;
-  //   return (
-  //     <>
-  //       <h1>{test}</h1>
-  //       <Mselect/>
-  //     </>
-  //   );
-  // }
   render() {
     let test = process.env.REACT_APP_API_HOST;
     return (
@@ -58,5 +47,3 @@ class App extends React.Component {
   }
 }
 export default App;
-
-
