@@ -9,26 +9,23 @@ import ForgotPassword from "../views/forgotPassword/forgotPassword";
 import ShowComponent from "../ShowComponent";
 import Dashboard from "../components/Dashboard/Dashboard";
 import Header from "../components/Header";
-import SystemManageUser from "../views/system/systemManageUser/SystemManageUser";
-import SystemManageGroup from "../views/system/systemManageGroup/SystemManageGroup";
-import SystemManagerGroupPermission from "../views/system/systemManagerGroupPermission/SystemManagerGroupPermission";
-import System from "../views/system/system";
-import TrackingContainer from "../views/tracking/trackingContainer/trackingContainer";
-import TrackingBill from "../views/tracking/trackingBill/trackingBill";
-import TrackingBooking from "../views/tracking/trackingBooking/trackingBooking";
-import TrackingEdo from "../views/tracking/trackingEdo/trackingEdo";
-import TrackingHouseBill from "../views/tracking/trackingHouseBill/trackingHouseBill";
-import TrackingContainerList from "../views/tracking/trackingContainerList/trackingContainerList";
-
-import Customer from "../views/category/customer/Customer";
-
-import ShipExploitBrand from "../views/category/shipExploitBrand/ShipExploitBrand";
-import Task from "../views/category/task/task";
-import CommoditiesType from "../views/category/commoditiesType/commoditiesType";
-import DirectionContainer from "../views/category/directionContainer/directionContainer";
-import PortsList from "../views/category/portsList/portsList";
-import StatesContainer from "../views/category/statesContainer/statesContainer";
-import SizeContainer from "../views/category/sizeContainer/sizeContainer";
+import SystemManageUser from "../views/system/SystemManageUser";
+import SystemManageGroup from "../views/system/SystemManageGroup";
+import SystemManagerGroupPermission from "../views/system/SystemManagerGroupPermission";
+import TrackingContainer from "../views/tracking/trackingContainer";
+import TrackingContainerList from "../views/tracking/trackingContainerList";
+import TrackingBill from "../views/tracking/trackingBill";
+import TrackingBooking from "../views/tracking/trackingBooking";
+import TrackingEdo from "../views/tracking/trackingEdo";
+import TrackingHouseBill from "../views/tracking/trackingHouseBill";
+import Customer from "../views/category/Customer";
+import Task from "../views/category/task";
+import ShipExploitBrand from "../views/category/ShipExploitBrand";
+import CommoditiesType from "../views/category/commoditiesType";
+import DirectionContainer from "../views/category/directionContainer";
+import PortsList from "../views/category/portsList";
+import StatesContainer from "../views/category/statesContainer";
+import SizeContainer from "../views/category/sizeContainer";
 class MainRoutes extends Component {
   render() {
     return (
@@ -41,7 +38,6 @@ class MainRoutes extends Component {
         <Route element={<AuthLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/category-customer" element={<Customer />} />
-
 
           <Route path="/tracking">
             <Route path="tracking_container" element={<TrackingContainer />} />
@@ -67,7 +63,7 @@ class MainRoutes extends Component {
             <Route path="category_customer" element={<Customer />} />
             <Route
               path="category_shipExploitBrand"
-              element={<ShipExploitBrand />} 
+              element={<ShipExploitBrand />}
             />
             <Route path="category_task" element={<Task />} />
             <Route

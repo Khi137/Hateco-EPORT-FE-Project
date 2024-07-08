@@ -2,14 +2,7 @@
 
 import React, { Component } from "react";
 import { ReactGrid } from "@silevis/reactgrid";
-import {
-  Msearch,
-  Mbutton,
-  Mtable,
-  Mcheckbox,
-} from "../../../components/BasicUI";
-
-import "./portsList.scss";
+import { Msearch, Mbutton, Mtable, Mcheckbox } from "../../components/BasicUI";
 import { Checkbox } from "antd";
 
 let rowData = [
@@ -34,7 +27,6 @@ let rowData = [
   { key: "20", nation: "", portCode: "", portName: "" },
   { key: "21", nation: "", portCode: "", portName: "" },
   { key: "22", nation: "", portCode: "", portName: "" },
-
 ];
 
 export class PortsList extends Component {
@@ -106,14 +98,12 @@ export class PortsList extends Component {
     ];
 
     return (
-      <div className="portsList-container">
-        <div className="portsList-panel drop-box-shadow">
-          <div className="portsList-panel-title title-xl-normal">
-            Danh mục cảng
-          </div>
-          <div className="portsList-panel-content">
-            <div className="portsList-panel-content-navigation">
-              <div className="portsList-panel-content-navigation-search">
+      <div>
+        <div>
+          <div>Danh mục cảng</div>
+          <div>
+            <div>
+              <div>
                 <Msearch
                   dataSource={{
                     id: "search1",
@@ -128,7 +118,7 @@ export class PortsList extends Component {
                   onChangeValue={(e) => this.handleSearchChange(e["search1"])}
                 />
               </div>
-              <div className="portsList-panel-content-navigation-button">
+              <div>
                 <Mbutton
                   className="m_button green drop-button-shadow"
                   block
@@ -145,7 +135,7 @@ export class PortsList extends Component {
                 />
               </div>
             </div>
-            <div className="portsList-panel-content-table">
+            <div>
               <Mtable
                 tableData={rowData}
                 columnsFormat={columnsFormat}

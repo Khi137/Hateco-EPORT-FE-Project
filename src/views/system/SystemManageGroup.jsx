@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import "./SystemManageGroup.scss";
-import { Mbutton, Msearch, Mtable, Winput } from "../../../components/BasicUI";
+import { Mbutton, Msearch, Mtable, Winput } from "../../components/BasicUI";
 import {
   CloseCircleOutlined,
   PlusCircleOutlined,
@@ -9,7 +8,6 @@ import {
 } from "@ant-design/icons";
 import { ReactGrid } from "@silevis/reactgrid";
 import { Checkbox } from "antd";
-import CheckboxCellTemplate from "../systemManageUser/CellTemplate";
 
 let rowData = [
   {
@@ -44,7 +42,7 @@ let rowData = [
 export class SystemManageGroup extends Component {
   constructor(props) {
     super(props);
-    this.checkboxCellTemplate = new CheckboxCellTemplate();
+
     this.state = {
       tableData: {
         reactGridColumns: [
@@ -183,11 +181,11 @@ export class SystemManageGroup extends Component {
   };
   render() {
     return (
-      <div className="system-group-container">
-        <div className="panel-system-group">
+      <div>
+        <div>
           <header>Danh sách nhóm người dùng</header>
-          <div className="system-group-actions">
-            <div className="action-search">
+          <div>
+            <div>
               <Winput
                 name={"searchData"}
                 className={`form_input_field`}
@@ -195,7 +193,7 @@ export class SystemManageGroup extends Component {
                 placeholder={"Tìm kiếm..."}
               />
             </div>
-            <div className="action-list">
+            <div>
               <Mbutton
                 className="m_button green drop-button-shadow"
                 block
@@ -240,7 +238,7 @@ export class SystemManageGroup extends Component {
               />
             </div>
           </div>
-          <div className="table-data-user">
+          <div>
             <ReactGrid
               rows={this.state.tableData.reactGridRows}
               columns={this.state.tableData.reactGridColumns}

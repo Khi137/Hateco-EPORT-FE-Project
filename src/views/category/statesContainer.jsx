@@ -1,24 +1,17 @@
-// Danh mục hướng
+// Danh mục trạng thái Container
 
 import React, { Component } from "react";
 import { ReactGrid } from "@silevis/reactgrid";
-import {
-  Msearch,
-  Mbutton,
-  Mtable,
-  Mcheckbox,
-} from "../../../components/BasicUI";
+import { Msearch, Mbutton, Mtable, Mcheckbox } from "../../components/BasicUI";
 
-import "./directionContainer.scss";
 import { Checkbox } from "antd";
 
 let rowData = [
-  { key: "1", directCode: "1", directName: "Import" },
-  { key: "2", directCode: "2", directName: "Storage Empty" },
-  { key: "3", directCode: "3", directName: "Export" },
+  { key: "1", statesCode: "D", statesName: "Delivered" },
+  { key: "2", statesCode: "S", statesName: "Stacking" },
 ];
 
-export class DirectionContainer extends Component {
+export class StatesContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,18 +29,18 @@ export class DirectionContainer extends Component {
     const columnsFormat = [
       { columnId: "STT", width: 150, resizable: true, header: "STT" },
       {
-        columnId: "directCode",
+        columnId: "statesCode",
         width: 400,
         resizable: true,
         reorderable: true,
-        header: "Mã hướng",
+        header: "Mã trạng thái",
       },
       {
-        columnId: "directName",
-        width: 800,
+        columnId: "statesName",
+        width: 1200,
         resizable: true,
         reorderable: true,
-        header: "Tên hướng",
+        header: "Tên trạng thái",
       },
     ];
 
@@ -57,31 +50,29 @@ export class DirectionContainer extends Component {
         {
           type: "text",
           nonEditable: false,
-          text: container?.directCode || "",
+          text: container?.statesCode || "",
         },
         {
           type: "text",
           nonEditable: true,
-          text: container?.directName || "",
+          text: container?.statesName || "",
         },
       ];
     };
 
     const rowsHeader = [
       { type: "header", text: "STT" },
-      { type: "header", text: "Mã hướng" },
-      { type: "header", text: "Tên hướng" },
+      { type: "header", text: "Mã trạng thái" },
+      { type: "header", text: "Tên trạng thái" },
     ];
 
     return (
-      <div className="directionContainer-container">
-        <div className="directionContainer-panel drop-box-shadow">
-          <div className="directionContainer-panel-title title-xl-normal">
-            Danh mục hướng
-          </div>
-          <div className="directionContainer-panel-content">
-            <div className="directionContainer-panel-content-navigation">
-              <div className="directionContainer-panel-content-navigation-search">
+      <div>
+        <div>
+          <div>Danh mục trạng thái Container</div>
+          <div>
+            <div>
+              <div>
                 <Msearch
                   dataSource={{
                     id: "search1",
@@ -96,7 +87,7 @@ export class DirectionContainer extends Component {
                   onChangeValue={(e) => this.handleSearchChange(e["search1"])}
                 />
               </div>
-              <div className="directionContainer-panel-content-navigation-button">
+              <div>
                 <Mbutton
                   className="m_button green drop-button-shadow"
                   block
@@ -113,7 +104,7 @@ export class DirectionContainer extends Component {
                 />
               </div>
             </div>
-            <div className="directionContainer-panel-content-table">
+            <div>
               <Mtable
                 tableData={rowData}
                 columnsFormat={columnsFormat}
@@ -130,4 +121,4 @@ export class DirectionContainer extends Component {
     );
   }
 }
-export default DirectionContainer;
+export default StatesContainer;
