@@ -51,7 +51,7 @@
         background-color: white;
         box-shadow: 1px 0px 0px 1px lightgray;
         border-radius: 4px;
-       
+       width: 100%;
         padding: 12px;
         .header-action{
             display: flex;
@@ -68,8 +68,7 @@
         .table-data-user{
             max-width: 1000px;
             margin-top: 12px;
-
-
+            overflow: auto;
                     .reactgrid {
                         display: block;
                         .rg-header-cell{

@@ -2287,7 +2287,7 @@ class Minput extends React.Component {
           </span>
           {this.state.blur && (
             <p className="m-form__label__warning">
-              {this.props.dataSource.test}
+              {/* {this.props.dataSource.test} */}
             </p>
           )}
         </div>

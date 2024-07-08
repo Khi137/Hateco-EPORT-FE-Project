@@ -230,6 +230,10 @@ $body-sm-line-height: 18px;
   font-weight: $main-font-weight-bold;
 }
 
+.m-form__box {
+  max-height: 40px;
+}
+
 //caption
 $caption-font-size: 10px;
 $caption-line-height: 14px;
