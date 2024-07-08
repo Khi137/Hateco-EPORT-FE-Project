@@ -159,12 +159,12 @@ class TrackingBooking extends Component {
     };
 
     handleLoadData = () => {
-        this.setState({ isLoading: true })
         const bookingNumberError = this.state.formData.bookingNumberError
         if (bookingNumberError) {
             this.bookingNumberRef.current.handleCheckError()
             return
         }
+        this.setState({ isLoading: true })
         if (this.submitButtonRef.current) {
             this.submitButtonRef.current.loading();
         }

@@ -172,12 +172,12 @@ class TrackingBill extends Component {
     };
 
     handleLoadData = () => {
-        this.setState({ isLoading: true })
         const pinCodeError = this.state.formData.pinCodeError
         if (pinCodeError) {
             this.pinCodeRef?.current?.handleCheckError()
             return
         }
+        this.setState({ isLoading: true })
         if (this.submitButtonRef.current) {
             this.submitButtonRef.current.loading();
         }
@@ -398,10 +398,10 @@ class TrackingBill extends Component {
                                             reoderRow: true,
                                         }}
                                         functionRequire={{
-                                            addcolumn: true,
+                                            addcolumn: false,
                                             deleteColumn: true,
                                             exportExel: true,
-                                            saveData: () => { console.log("saveData"); },
+                                            saveData: (data) => { console.log(data); },
                                             searchField: ["ContainerNumber", "OperationCode", "IsoSizetype"],
                                         }}
                                     />
