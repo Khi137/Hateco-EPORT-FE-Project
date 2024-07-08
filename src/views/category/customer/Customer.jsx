@@ -469,50 +469,24 @@ export class Customer extends Component {
           </div>
         </div>
         <div className="customer-panel-right drop-box-shadow">
-          <div className="customer-panel-right-title">
-            <div className="customer-panel-right-title-search">
-              <Msearch
-                dataSource={{
-                  id: "search1",
-                  label: "Search",
-                  value: this.state.searchValue,
-                  icon: "SearchOutlined",
-                  text: "",
-                }}
-                config={{
-                  onLiveSearch: (value) => console.log("Live search:", value),
-                }}
-                onChangeValue={(e) => this.handleSearchChange(e["search1"])}
-              />
-            </div>
-            <div>
-              <Mbutton
-                className="m_button green drop-button-shadow"
-                block
-                htmlType="submit"
-                type="primary"
-                onClick={this.handleFormSubmit}
-                ref={this.mButtonRef}
-                dataSource={{
-                  textbutton: "Xuất file excel",
-                  color: "",
-                  size: "12",
-                  icon: "FileExcelOutlined",
-                }}
-              />
-            </div>
-          </div>
-          <div className="customer-panel-right-table">
-            <Mtable
-              tableData={rowData}
-              columnsFormat={columnsFormat}
-              rowsFormat={rowsFormat}
-              rowsHeader={rowsHeader}
-              reoderRow={true}
-              // searchValue={formData.searchData}
-              // searchField={["ContainerNumber", "OperationCode", "IsoSizetype"]}
-            />
-          </div>
+          <Mtable
+            config={{
+              defaultData: this.state.tableData,
+              columnsFormat: columnsFormat,
+              rowsFormat: rowsFormat,
+              rowsHeader: rowsHeader,
+              reoderRow: true,
+            }}
+            functionRequire={{
+              addcolumn: false,
+              deleteColumn: true,
+              exportExel: true,
+              saveData: (data) => {
+                console.log(data);
+              },
+              searchField: ["ContainerNumber", "OperationCode", "IsoSizetype"],
+            }}
+          />
         </div>
       </div>
     );

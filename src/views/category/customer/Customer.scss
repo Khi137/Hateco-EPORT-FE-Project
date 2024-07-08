@@ -91,18 +91,6 @@
     padding: 12px;
     flex: 8;
     max-width: 1300px;
-    .customer-panel-right-title {
-      display: flex;
-      justify-content: space-between;
-      flex-direction: row;
-      gap: 12px;
-
-      .customer-panel-right-title-search {
-        flex: 0.35;
-      }
-    }
-    .customer-panel-right-table {
-      overflow: auto;
-    }
+    max-height: fit-content !important;
   }
 }
