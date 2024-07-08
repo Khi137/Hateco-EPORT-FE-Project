@@ -49,7 +49,16 @@ import { handleColumnsReorder, handleRowsReorder, handleRowsSearch } from "../ut
 import "@silevis/reactgrid/styles.css";
 import { CustomHeaderCellTemplate, CustomHeaderCell } from "./CustomHeaderCell/CustomHeaderCell.tsx";
 import {
-  setData, updateRow, addRow, deleteRows, reorderColumns, reorderRows, handleColumnResize, handleCellsChanged, handleSort,
+  getDeFaultData,
+  setData,
+  updateRow,
+  addRow,
+  deleteRows,
+  reorderColumns,
+  reorderRows,
+  handleColumnResize,
+  handleCellsChanged,
+  handleSort,
 } from '../reducers/tableReducer.js';
 import { connect } from "react-redux";
 
@@ -1719,7 +1728,8 @@ class Mtable extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      searchValue: ""
+      searchValue: "",
+      callback: false
     }
   }
 
@@ -1732,6 +1742,13 @@ class Mtable extends React.Component {
     const { defaultData, columnsFormat, rowsHeader, rowsFormat, tableName, reorderRow } = this.props.config;
     this.props.setData({ defaultData, columnsFormat, rowsHeader, rowsFormat, tableName, reorderRow });
   }
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   if(prevProps.defaultData !== this.props.config.defaultData)
+  //     this.props.config.defaultData
+  //   this.handleDataChange();
+  // }
+
 
   newRow = () => {
     const { reorderRow } = this.props.config;
@@ -1758,10 +1775,42 @@ class Mtable extends React.Component {
 
   handleExportExel = () => {
     console.log(this.props.tableData);
+    const data = this.props.getDeFaultData()
+    console.log(data)
   }
 
   handleRowsSelection = (selectedRows) => {
     this.setState({ selectedRows: selectedRows[0] });
+  };
+
+  generateRowData = (container, index, rowsFormat, reorderRow) => {
+    return {
+      rowId: String(index + 1),
+      reorderable: Boolean(reorderRow),
+      cells: rowsFormat(container, index),
+    };
+  };
+
+  generateTableData = (dataList, rowsFormat, reorderRow) => {
+    return dataList?.map((container, index) =>
+      this.generateRowData(container, index, rowsFormat, reorderRow)
+    );
+  };
+
+  deepEqual = (a, b) => {
+    if (a === b) return true;
+
+    if (a == null || b == null) return false;
+
+    if (a.length !== b.length) return false;
+    for (let i = 0; i < a.length; ++i) {
+      if (typeof a[i] === 'object' && typeof b[i] === 'object') {
+        if (!this.deepEqual(a[i], b[i])) return false;
+      } else {
+        if (a[i] !== b[i]) return false;
+      }
+    }
+    return true;
   };
 
   render() {
@@ -3176,6 +3225,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
+  getDeFaultData,
   setData,
   updateRow,
   addRow,

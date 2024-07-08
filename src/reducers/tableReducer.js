@@ -1,11 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { handleColumnsReorder, handleRowsReorder } from "../utils/util";
 
-// Utility functions for generating data
 const generateColumnsData = (columnsFormat) => {
     return columnsFormat?.map((column) => ({
         ...column,
-        sortFunction: () => handleSort(column.columnId)
+        // sortFunction: () => handleSort(column.columnId)
     }));
 };
 
@@ -46,22 +45,32 @@ const tableSlice = createSlice({
     name: "table",
     initialState,
     reducers: {
+        getDeFaultData: (state, action) => {
+            const updatedRows = state.defaultData.map(proxyObject => {
+                const plainObject = {};
+                for (let key in proxyObject) {
+                    plainObject[key] = proxyObject[key];
+                }
+                return plainObject;
+            });
+            console.log(updatedRows);
+            // return updatedRows
+        },
         setData: (state, action) => {
             const { defaultData, columnsFormat, rowsHeader, rowsFormat, tableName, reorderRow } = action.payload;
             const tableData = {
-                reactGridColumns: generateColumnsData(columnsFormat),
+                reactGridColumns: generateColumnsData(columnsFormat ? columnsFormat : state.columnsFormat),
                 reactGridRows: [
-                    generateRowsHeader(rowsHeader),
-                    ...generateTableData(defaultData || [], rowsFormat, reorderRow),
+                    generateRowsHeader(rowsHeader ? rowsHeader : state.rowsHeader),
+                    ...generateTableData(defaultData || [], rowsFormat ? rowsFormat : state.rowsFormat, reorderRow),
                 ],
             };
-            console.log(defaultData);
-            state.tableName = tableName;
-            state.defaultData = defaultData;
-            state.columnsFormat = columnsFormat;
-            state.rowsFormat = rowsFormat;
-            state.rowsHeader = rowsHeader;
-            state.tableData = tableData;
+            state.tableName = tableName ? tableName : state.tableName;
+            state.defaultData = defaultData ? defaultData : state.defaultData;
+            state.columnsFormat = columnsFormat ? columnsFormat : state.columnsFormat;
+            state.rowsFormat = rowsFormat ? rowsFormat : state.rowsFormat;
+            state.rowsHeader = rowsHeader ? rowsHeader : state.rowsHeader;
+            state.tableData = tableData ? tableData : state.tableData;
         },
         addRow: (state, action) => {
             const { newRow } = action.payload;
@@ -72,8 +81,6 @@ const tableSlice = createSlice({
                 }
                 return plainObject;
             });
-            console.log(newRow);
-            console.log(newRow.index);
             updatedRows.push(generateRowData(newRow.newRow, Number(newRow.index), state.rowsFormat, newRow.reorderRow));
             state.tableData.reactGridRows = updatedRows;
         },
@@ -92,6 +99,7 @@ const tableSlice = createSlice({
             state.tableData.reactGridRows = filteredRows;
         },
         reorderColumns: (state, action) => {
+            console.log("get in");
             const { targetColumnId, columnIds } = action.payload;
             const { tableData } = state;
             const updatedTableData = handleColumnsReorder(
@@ -160,6 +168,17 @@ const tableSlice = createSlice({
     },
 });
 
-export const { setData, updateRow, addRow, deleteRows, reorderColumns, reorderRows, handleColumnResize, handleCellsChanged, handleSort } = tableSlice.actions;
+export const {
+    getDeFaultData,
+    setData,
+    updateRow,
+    addRow,
+    deleteRows,
+    reorderColumns,
+    reorderRows,
+    handleColumnResize,
+    handleCellsChanged,
+    handleSort
+} = tableSlice.actions;
 
 export default tableSlice.reducer;

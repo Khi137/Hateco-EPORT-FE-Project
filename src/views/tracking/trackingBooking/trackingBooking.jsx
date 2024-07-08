@@ -2,7 +2,7 @@ import React, { Component, createRef } from 'react';
 import '../tracking.scss'
 import './styles.scss'
 import { Col, Row } from 'antd';
-import { DatabaseOutlined } from '@ant-design/icons';
+import { DatabaseOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Mbutton, Mtable, Winput } from '../../../components/BasicUI';
 import { formatDateTime } from '../../../utils/util';
 
@@ -159,6 +159,7 @@ class TrackingBooking extends Component {
     };
 
     handleLoadData = () => {
+        this.setState({ isLoading: true })
         const bookingNumberError = this.state.formData.bookingNumberError
         if (bookingNumberError) {
             this.bookingNumberRef.current.handleCheckError()
@@ -176,7 +177,8 @@ class TrackingBooking extends Component {
                     formData: {
                         ...prevState.formData,
                         bookingNumberError: false
-                    }
+                    },
+                    isLoading: false
                 }));
             }
         }, 1000);
@@ -329,30 +331,35 @@ class TrackingBooking extends Component {
                             Danh sách container
                         </Row>
                         {
-                            !this.state.tableData[0] ?
-                                <div className="no_data">
-                                    <div>
-                                        <DatabaseOutlined style={{ fontSize: '64px' }} />
-                                        <p>Nhập thông tin HouseBill để nạp dữ liệu container...</p>
+                            !this.state.isLoading ?
+                                !this.state.tableData[0] ?
+                                    <div className="no_data">
+                                        <div>
+                                            <DatabaseOutlined style={{ fontSize: '64px' }} />
+                                            <p>Nhập thông tin HouseBill để nạp dữ liệu container...</p>
+                                        </div>
                                     </div>
-                                </div>
+                                    :
+                                    <Mtable
+                                        config={{
+                                            defaultData: this.state.tableData,
+                                            columnsFormat: columnsFormat,
+                                            rowsFormat: rowsFormat,
+                                            rowsHeader: rowsHeader,
+                                            reoderRow: true,
+                                        }}
+                                        functionRequire={{
+                                            addcolumn: true,
+                                            deleteColumn: true,
+                                            exportExel: true,
+                                            // saveData: () => { this.saveData() },
+                                            searchField: ["ContainerNumber", "OperationCode", "IsoSizetype"],
+                                        }}
+                                    />
                                 :
-                                <Mtable
-                                    config={{
-                                        defaultData: this.state.tableData,
-                                        columnsFormat: columnsFormat,
-                                        rowsFormat: rowsFormat,
-                                        rowsHeader: rowsHeader,
-                                        reoderRow: true,
-                                    }}
-                                    functionRequire={{
-                                        addcolumn: true,
-                                        deleteColumn: true,
-                                        exportExel: true,
-                                        // saveData: () => { this.saveData() },
-                                        searchField: ["ContainerNumber", "OperationCode", "IsoSizetype"],
-                                    }}
-                                />
+                                <div className="loading_container">
+                                    <LoadingOutlined style={{ fontSize: '64px' }} />
+                                </div>
                         }
                     </div>
                 </div>

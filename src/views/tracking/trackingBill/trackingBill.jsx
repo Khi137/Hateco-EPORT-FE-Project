@@ -2,7 +2,7 @@ import React, { Component, createRef } from 'react';
 import '../tracking.scss'
 import './styles.scss'
 import { Col, Row } from 'antd';
-import { BarcodeOutlined, BoldOutlined, DatabaseOutlined, EnvironmentOutlined, NumberOutlined, SearchOutlined } from '@ant-design/icons';
+import { BarcodeOutlined, BoldOutlined, DatabaseOutlined, EnvironmentOutlined, LoadingOutlined, NumberOutlined, SearchOutlined } from '@ant-design/icons';
 import { Mbutton, Mradio, Mtable, Winput } from '../../../components/BasicUI';
 import { formatDateTime } from '../../../utils/util';
 
@@ -147,7 +147,8 @@ class TrackingBill extends Component {
                 searchData: ""
             },
             radioValue: "pincode",
-            tableData: []
+            tableData: [],
+            isLoading: false,
         };
         this.submitButtonRef = createRef();
         this.pinCodeRef = createRef();
@@ -171,6 +172,7 @@ class TrackingBill extends Component {
     };
 
     handleLoadData = () => {
+        this.setState({ isLoading: true })
         const pinCodeError = this.state.formData.pinCodeError
         if (pinCodeError) {
             this.pinCodeRef?.current?.handleCheckError()
@@ -183,12 +185,12 @@ class TrackingBill extends Component {
             if (this.submitButtonRef.current) {
                 this.submitButtonRef.current.reset();
                 this.setState(prevState => ({
-                    generalInformation: rowData[0] ? rowData[0] : {},
                     tableData: rowData,
                     formData: {
                         ...prevState.formData,
                         pinCodeError: false
-                    }
+                    },
+                    isLoading: false
                 }));
             }
         }, 1000);
@@ -301,16 +303,16 @@ class TrackingBill extends Component {
             return (
                 [
                     { type: 'text', nonEditable: true, text: String(index + 1) },
-                    { type: 'text', nonEditable: true, text: container?.ContainerNo || "" },
-                    { type: 'text', nonEditable: true, text: container?.OperationCode || "" },
-                    { type: 'text', nonEditable: true, text: container?.IsoSizetype || "" },
-                    { type: 'text', nonEditable: true, text: container?.CargoTypeName || "" },
-                    { type: 'text', nonEditable: true, text: container?.ClassName || "" },
-                    { type: 'text', nonEditable: true, text: container?.ExpDate ? formatDateTime(container?.ExpDate) : "" },
-                    { type: 'text', nonEditable: true, text: (container?.Block || "") + "-" + (container?.Bay || "") + "-" + (container?.Row || "") + "-" + (container?.Tier || "") },
-                    { type: 'text', nonEditable: true, text: container?.DateIn ? formatDateTime(container?.DateIn) : "" },
-                    { type: 'text', nonEditable: true, text: container?.DateOut ? formatDateTime(container?.DateOut) : "" },
-                    { type: 'text', nonEditable: true, text: container?.ContainerStatusName || "" }
+                    { type: 'text', nonEditable: false, text: container?.ContainerNo || "" },
+                    { type: 'text', nonEditable: false, text: container?.OperationCode || "" },
+                    { type: 'text', nonEditable: false, text: container?.IsoSizetype || "" },
+                    { type: 'text', nonEditable: false, text: container?.CargoTypeName || "" },
+                    { type: 'text', nonEditable: false, text: container?.ClassName || "" },
+                    { type: 'text', nonEditable: false, text: container?.ExpDate ? formatDateTime(container?.ExpDate) : "" },
+                    { type: 'text', nonEditable: false, text: (container?.Block || "") + "-" + (container?.Bay || "") + "-" + (container?.Row || "") + "-" + (container?.Tier || "") },
+                    { type: 'text', nonEditable: false, text: container?.DateIn ? formatDateTime(container?.DateIn) : "" },
+                    { type: 'text', nonEditable: false, text: container?.DateOut ? formatDateTime(container?.DateOut) : "" },
+                    { type: 'text', nonEditable: false, text: container?.ContainerStatusName || "" }
                 ]
             )
         }
@@ -378,30 +380,35 @@ class TrackingBill extends Component {
                             Danh sách container
                         </Row>
                         {
-                            !this.state.tableData[0] ?
-                                <div className="no_data">
-                                    <div>
-                                        <DatabaseOutlined style={{ fontSize: '64px' }} />
-                                        <p>Nhập thông tin HouseBill để nạp dữ liệu container...</p>
+                            !this.state.isLoading ?
+                                !this.state.tableData[0] ?
+                                    <div className="no_data">
+                                        <div>
+                                            <DatabaseOutlined style={{ fontSize: '64px' }} />
+                                            <p>Nhập thông tin HouseBill để nạp dữ liệu container...</p>
+                                        </div>
                                     </div>
-                                </div>
+                                    :
+                                    <Mtable
+                                        config={{
+                                            defaultData: this.state.tableData,
+                                            columnsFormat: columnsFormat,
+                                            rowsFormat: rowsFormat,
+                                            rowsHeader: rowsHeader,
+                                            reoderRow: true,
+                                        }}
+                                        functionRequire={{
+                                            addcolumn: true,
+                                            deleteColumn: true,
+                                            exportExel: true,
+                                            // saveData: () => { this.saveData() },
+                                            searchField: ["ContainerNumber", "OperationCode", "IsoSizetype"],
+                                        }}
+                                    />
                                 :
-                                <Mtable
-                                    config={{
-                                        defaultData: this.state.tableData,
-                                        columnsFormat: columnsFormat,
-                                        rowsFormat: rowsFormat,
-                                        rowsHeader: rowsHeader,
-                                        reoderRow: true,
-                                    }}
-                                    functionRequire={{
-                                        addcolumn: true,
-                                        deleteColumn: true,
-                                        exportExel: true,
-                                        // saveData: () => { this.saveData() },
-                                        searchField: ["ContainerNumber", "OperationCode", "IsoSizetype"],
-                                    }}
-                                />
+                                <div className="loading_container">
+                                    <LoadingOutlined style={{ fontSize: '64px' }} />
+                                </div>
                         }
                     </div>
                 </div>
