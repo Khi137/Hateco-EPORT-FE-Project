@@ -18,7 +18,7 @@ import {
 } from "../../../utils/util";
 import "./Customer.scss";
 
-const rowData = [
+let rowData = [
   {
     key: "1",
     cusCode: "YKH0006894",

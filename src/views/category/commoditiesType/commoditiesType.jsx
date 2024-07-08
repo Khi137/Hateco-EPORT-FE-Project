@@ -8,11 +8,9 @@ import {
   Mtable,
   Mcheckbox,
 } from "../../../components/BasicUI";
-
 import "./commoditiesType.scss";
-import { Checkbox } from "antd";
 
-let rowData = [
+const rowData = [
   { key: "1", taskCode: "GP", taskName: "General" },
   { key: "2", taskCode: "RF", taskName: "Reefer" },
   { key: "3", taskCode: "DG", taskName: "Dangerous" },
@@ -35,7 +33,84 @@ let rowData = [
   { key: "20", taskCode: "ET", taskName: "Empty Tank" },
 ];
 
-export class CommoditiesType extends Component {
+const columnsFormat = [
+  { columnId: "STT", width: 150, resizable: true, header: "STT" },
+  {
+    columnId: "taskCode",
+    width: 400,
+    resizable: true,
+    reorderable: true,
+    header: "Mã loại hàng",
+  },
+  {
+    columnId: "taskName",
+    width: 1200,
+    resizable: true,
+    reorderable: true,
+    header: "Tên loại hàng",
+  },
+];
+
+const rowsFormat = (container, index) => [
+  { type: "text", nonEditable: true, text: String(index + 1) },
+  { type: "text", nonEditable: false, text: container?.taskCode || "" },
+  { type: "text", nonEditable: true, text: container?.taskName || "" },
+];
+
+const rowsHeader = [
+  { type: "header", text: "STT" },
+  { type: "header", text: "Mã loại hàng" },
+  { type: "header", text: "Tên loại hàng" },
+];
+
+const Navigation = ({ searchValue, handleSearchChange, handleFormSubmit }) => (
+  <div className="commoditiesType-panel-content-navigation">
+    <div className="commoditiesType-panel-content-navigation-search">
+      <Msearch
+        dataSource={{
+          id: "search1",
+          label: "Search",
+          value: searchValue,
+          icon: "SearchOutlined",
+          text: "",
+        }}
+        config={{
+          onLiveSearch: (value) => console.log("Live search:", value),
+        }}
+        onChangeValue={(e) => handleSearchChange(e["search1"])}
+      />
+    </div>
+    <div className="commoditiesType-panel-content-navigation-button">
+      <Mbutton
+        className="m_button green drop-button-shadow"
+        block
+        htmlType="submit"
+        type="primary"
+        onClick={handleFormSubmit}
+        dataSource={{
+          textbutton: "Xuất file excel",
+          color: "",
+          size: "12",
+          icon: "FileExcelOutlined",
+        }}
+      />
+    </div>
+  </div>
+);
+
+const Table = ({ rowData, columnsFormat, rowsFormat, rowsHeader }) => (
+  <div className="commoditiesType-panel-content-table">
+    <Mtable
+      tableData={rowData}
+      columnsFormat={columnsFormat}
+      rowsFormat={rowsFormat}
+      rowsHeader={rowsHeader}
+      reoderRow={true}
+    />
+  </div>
+);
+
+class CommoditiesType extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -46,50 +121,15 @@ export class CommoditiesType extends Component {
       },
       containerList: [],
       tableData: [],
+      searchValue: "",
     };
   }
 
+  handleSearchChange = (value) => {
+    this.setState({ searchValue: value });
+  };
+
   render() {
-    const columnsFormat = [
-      { columnId: "STT", width: 150, resizable: true, header: "STT" },
-      {
-        columnId: "taskCode",
-        width: 400,
-        resizable: true,
-        reorderable: true,
-        header: "Mã loại hàng",
-      },
-      {
-        columnId: "taskName",
-        width: 1200,
-        resizable: true,
-        reorderable: true,
-        header: "Tên loại hàng",
-      },
-    ];
-
-    const rowsFormat = (container, index) => {
-      return [
-        { type: "text", nonEditable: true, text: String(index + 1) },
-        {
-          type: "text",
-          nonEditable: false,
-          text: container?.taskCode || "",
-        },
-        {
-          type: "text",
-          nonEditable: true,
-          text: container?.taskName || "",
-        },
-      ];
-    };
-
-    const rowsHeader = [
-      { type: "header", text: "STT" },
-      { type: "header", text: "Mã loại hàng" },
-      { type: "header", text: "Tên loại hàng" },
-    ];
-
     return (
       <div className="commoditiesType-container">
         <div className="commoditiesType-panel drop-box-shadow">
@@ -97,54 +137,22 @@ export class CommoditiesType extends Component {
             Danh mục loại hàng hóa
           </div>
           <div className="commoditiesType-panel-content">
-            <div className="commoditiesType-panel-content-navigation">
-              <div className="commoditiesType-panel-content-navigation-search">
-                <Msearch
-                  dataSource={{
-                    id: "search1",
-                    label: "Search",
-                    value: this.state.searchValue,
-                    icon: "SearchOutlined",
-                    text: "",
-                  }}
-                  config={{
-                    onLiveSearch: (value) => console.log("Live search:", value),
-                  }}
-                  onChangeValue={(e) => this.handleSearchChange(e["search1"])}
-                />
-              </div>
-              <div className="commoditiesType-panel-content-navigation-button">
-                <Mbutton
-                  className="m_button green drop-button-shadow"
-                  block
-                  htmlType="submit"
-                  type="primary"
-                  onClick={this.handleFormSubmit}
-                  ref={this.mButtonRef}
-                  dataSource={{
-                    textbutton: "Xuất file excel",
-                    color: "",
-                    size: "12",
-                    icon: "FileExcelOutlined",
-                  }}
-                />
-              </div>
-            </div>
-            <div className="commoditiesType-panel-content-table">
-              <Mtable
-                tableData={rowData}
-                columnsFormat={columnsFormat}
-                rowsFormat={rowsFormat}
-                rowsHeader={rowsHeader}
-                reoderRow={true}
-                // searchValue={formData.searchData}
-                // searchField={["ContainerNumber", "OperationCode", "IsoSizetype"]}
-              />
-            </div>
+            <Navigation
+              searchValue={this.state.searchValue}
+              handleSearchChange={this.handleSearchChange}
+              handleFormSubmit={this.handleFormSubmit}
+            />
+            <Table
+              rowData={rowData}
+              columnsFormat={columnsFormat}
+              rowsFormat={rowsFormat}
+              rowsHeader={rowsHeader}
+            />
           </div>
         </div>
       </div>
     );
   }
 }
+
 export default CommoditiesType;
