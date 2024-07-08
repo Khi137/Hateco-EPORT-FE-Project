@@ -1,23 +1,54 @@
-// Danh mục trạng thái Container
+// Danh mục kích cỡ
 
 import React, { Component } from "react";
 import { ReactGrid } from "@silevis/reactgrid";
-import {
-  Msearch,
-  Mbutton,
-  Mtable,
-  Mcheckbox,
-} from "../../../components/BasicUI";
-
-import "./statesContainer.scss";
+import { Msearch, Mbutton, Mtable, Mcheckbox } from "../../components/BasicUI";
 import { Checkbox } from "antd";
 
 let rowData = [
-  { key: "1", statesCode: "D", statesName: "Delivered" },
-  { key: "2", statesCode: "S", statesName: "Stacking" },
+  {
+    key: "1",
+    typeC: "Container 20 feet",
+    lenghtC: "5.898",
+    widthC: "2.352",
+    heightC: "2.395",
+    volumeC: "33.2",
+  },
+  {
+    key: "2",
+    typeC: "Container 20 feet lạnh",
+    lenghtC: "5.485",
+    widthC: "2.286",
+    heightC: "2.265",
+    volumeC: "28.4",
+  },
+  {
+    key: "3",
+    typeC: "Container 40 feet thường",
+    lenghtC: "12.032",
+    widthC: "2.35",
+    heightC: "2.392",
+    volumeC: "67.6",
+  },
+  {
+    key: "4",
+    typeC: "Container 40 feet cao",
+    lenghtC: "12.023",
+    widthC: "2.352",
+    heightC: "2.698",
+    volumeC: "76.3",
+  },
+  {
+    key: "5",
+    typeC: "Container 40 feet lạnh",
+    lenghtC: "11.572",
+    widthC: "2.296",
+    heightC: "2.521",
+    volumeC: "67.0",
+  },
 ];
 
-export class StatesContainer extends Component {
+export class SizeContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -35,18 +66,39 @@ export class StatesContainer extends Component {
     const columnsFormat = [
       { columnId: "STT", width: 150, resizable: true, header: "STT" },
       {
-        columnId: "statesCode",
-        width: 400,
+        columnId: "typeC",
+        width: 550,
         resizable: true,
         reorderable: true,
-        header: "Mã trạng thái",
+        header: "Loại Container",
       },
       {
-        columnId: "statesName",
-        width: 1200,
+        columnId: "lenghtC",
+        width: 300,
         resizable: true,
         reorderable: true,
-        header: "Tên trạng thái",
+        header: "Chiều dài (m)",
+      },
+      {
+        columnId: "widthC",
+        width: 300,
+        resizable: true,
+        reorderable: true,
+        header: "Chiều rộng (m)",
+      },
+      {
+        columnId: "heightC",
+        width: 300,
+        resizable: true,
+        reorderable: true,
+        header: "Chiều cao (m)",
+      },
+      {
+        columnId: "volumeC",
+        width: 300,
+        resizable: true,
+        reorderable: true,
+        header: "Thể tích (m3)",
       },
     ];
 
@@ -56,31 +108,47 @@ export class StatesContainer extends Component {
         {
           type: "text",
           nonEditable: false,
-          text: container?.statesCode || "",
+          text: container?.typeC || "",
         },
         {
           type: "text",
           nonEditable: true,
-          text: container?.statesName || "",
+          text: container?.lenghtC || "",
+        },
+        {
+          type: "text",
+          nonEditable: true,
+          text: container?.widthC || "",
+        },
+        {
+          type: "text",
+          nonEditable: true,
+          text: container?.heightC || "",
+        },
+        {
+          type: "text",
+          nonEditable: true,
+          text: container?.volumeC || "",
         },
       ];
     };
 
     const rowsHeader = [
       { type: "header", text: "STT" },
-      { type: "header", text: "Mã trạng thái" },
-      { type: "header", text: "Tên trạng thái" },
+      { type: "header", text: "Loại Container" },
+      { type: "header", text: "Chiều dài (m)" },
+      { type: "header", text: "Chiều rộng (m)" },
+      { type: "header", text: "Chiều cao (m)" },
+      { type: "header", text: "Thể tích (m3)" },
     ];
 
     return (
-      <div className="statesContainer-container">
-        <div className="statesContainer-panel drop-box-shadow">
-          <div className="statesContainer-panel-title title-xl-normal">
-            Danh mục trạng thái Container
-          </div>
-          <div className="statesContainer-panel-content">
-            <div className="statesContainer-panel-content-navigation">
-              <div className="statesContainer-panel-content-navigation-search">
+      <div>
+        <div>
+          <div>Danh mục kích cỡ</div>
+          <div>
+            <div>
+              <div>
                 <Msearch
                   dataSource={{
                     id: "search1",
@@ -95,7 +163,7 @@ export class StatesContainer extends Component {
                   onChangeValue={(e) => this.handleSearchChange(e["search1"])}
                 />
               </div>
-              <div className="statesContainer-panel-content-navigation-button">
+              <div>
                 <Mbutton
                   className="m_button green drop-button-shadow"
                   block
@@ -112,7 +180,7 @@ export class StatesContainer extends Component {
                 />
               </div>
             </div>
-            <div className="statesContainer-panel-content-table">
+            <div>
               <Mtable
                 tableData={rowData}
                 columnsFormat={columnsFormat}
@@ -129,4 +197,4 @@ export class StatesContainer extends Component {
     );
   }
 }
-export default StatesContainer;
+export default SizeContainer;

@@ -4,7 +4,7 @@ import * as AntdIcons from "@ant-design/icons";
 import "./Extendsion.scss";
 import { withRouter } from "../../utils/withRouter";
 import { Button, Popover, message } from "antd";
-import { removeIconExtendison } from "../../reducers/extendsionReducer";
+import { removeIconExtendison } from "../../redux/reducers/extendsionReducer";
 
 export class Extension extends Component {
   handleNavigate = (url) => {

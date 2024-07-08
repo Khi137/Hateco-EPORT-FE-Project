@@ -1,18 +1,16 @@
 import React, { Component } from "react";
-import "./SystemManagerGroupPermission.scss";
 import {
   Mbutton,
   Msearch,
   Mselect,
   Mtable,
   Winput,
-} from "../../../components/BasicUI";
+} from "../../components/BasicUI";
 import {
   CloudDownloadOutlined,
   SaveOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import CheckboxCellTemplate from "../systemManageUser/CellTemplate";
 let tableData = [
   {
     key: "1",
@@ -70,7 +68,6 @@ for (let index = 0; index < 10; index++) {
 export class SystemManagerGroupPermission extends Component {
   constructor(props) {
     super(props);
-    this.checkboxCellTemplate = new CheckboxCellTemplate();
     this.state = {
       tableData: tableData,
       loadData: false,
@@ -173,10 +170,10 @@ export class SystemManagerGroupPermission extends Component {
       { type: "header", text: "Xóa" },
     ];
     return (
-      <div className="system-permission-container">
-        <div className="panel-manage-permission">
+      <div>
+        <div>
           <header>Quản lý phân quyền </header>
-          <div className="list-select">
+          <div>
             <Mselect
               dataSource={{
                 id: "select1",
@@ -200,16 +197,16 @@ export class SystemManagerGroupPermission extends Component {
               }}
             />
           </div>
-          <div className="button">
-            <button className="button-load-data">
+          <div>
+            <button>
               {" "}
               <CloudDownloadOutlined /> Nạp dữ liệu
             </button>
           </div>
         </div>
-        <div className="panel-table">
-          <div className="header-action">
-            <div className="search">
+        <div>
+          <div>
+            <div>
               <Winput
                 name={"searchData"}
                 className={`form_input_field`}
@@ -217,7 +214,7 @@ export class SystemManagerGroupPermission extends Component {
                 placeholder={"Tìm kiếm..."}
               />
             </div>
-            <div className="save">
+            <div>
               <Mbutton
                 className="m_button red drop-button-shadow"
                 block
@@ -234,14 +231,14 @@ export class SystemManagerGroupPermission extends Component {
               />
             </div>
           </div>
-          <div className="table-data-user">
-            <Mtable
+          <div>
+            {/* <Mtable
               tableData={this.state.tableData}
               columnsFormat={columnsFormat}
               rowsFormat={rowsFormat}
               rowsHeader={rowsHeader}
               reoderRow={true}
-            />
+            /> */}
           </div>
         </div>
       </div>
