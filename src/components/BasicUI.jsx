@@ -59,7 +59,7 @@ import {
   handleColumnResize,
   handleCellsChanged,
   handleSort,
-} from '../reducers/tableReducer.js';
+} from '../redux/reducers/tableReducer.js';
 import { connect } from "react-redux";
 
 const { Option } = Select;

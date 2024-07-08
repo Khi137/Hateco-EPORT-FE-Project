@@ -169,13 +169,13 @@ class TrackingHouseBill extends Component {
     };
 
     handleLoadData = () => {
-        this.setState({ isLoading: true })
         const { houseBillNumberError, DOCodeError } = this.state.formData
         if (houseBillNumberError || DOCodeError) {
             this.houseBillNumberRef.current.handleCheckError()
             this.DOCodeRef.current.handleCheckError()
             return
         }
+        this.setState({ isLoading: true })
         if (this.submitButtonRef.current) {
             this.submitButtonRef.current.loading();
         }

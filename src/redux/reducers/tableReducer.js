@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { handleColumnsReorder, handleRowsReorder } from "../utils/util";
+import { handleColumnsReorder, handleRowsReorder } from "../../utils/util";
 
 const generateColumnsData = (columnsFormat) => {
     return columnsFormat?.map((column) => ({
