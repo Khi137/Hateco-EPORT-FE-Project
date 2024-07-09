@@ -235,7 +235,7 @@ class TrackingEdo extends Component {
 
   render() {
     const { formData } = this.state;
-    
+
     const inputForm = [
       {
         title: "Mã số Edo",
@@ -267,16 +267,16 @@ class TrackingEdo extends Component {
     const rowsFormat = (container, index) => {
       return [
         { type: "text", nonEditable: true, text: String(index + 1) },
-        { type: "text", nonEditable: true, text: container?.ContainerNo || "" },
-        { type: "text", nonEditable: true, text: container?.OperationCode || "" },
-        { type: "text", nonEditable: true, text: container?.IsoSizetype || "" },
-        { type: "text", nonEditable: true, text: container?.CargoTypeName || "" },
-        { type: "text", nonEditable: true, text: container?.ClassName || "" },
-        { type: "text", nonEditable: true, text: container?.ExpDate ? formatDateTime(container?.ExpDate) : "" },
-        { type: "text", nonEditable: true, text: (container?.Block || "") + "-" + (container?.Bay || "") + "-" + (container?.Row || "") + "-" + (container?.Tier || "") },
-        { type: "text", nonEditable: true, text: container?.DateIn ? formatDateTime(container?.DateIn) : "" },
-        { type: "text", nonEditable: true, text: container?.DateOut ? formatDateTime(container?.DateOut) : "" },
-        { type: "text", nonEditable: true, text: container?.ContainerStatusName || "" }
+        { type: "text", nonEditable: false, text: container?.ContainerNo || "" },
+        { type: "text", nonEditable: false, text: container?.OperationCode || "" },
+        { type: "text", nonEditable: false, text: container?.IsoSizetype || "" },
+        { type: "text", nonEditable: false, text: container?.CargoTypeName || "" },
+        { type: "text", nonEditable: false, text: container?.ClassName || "" },
+        { type: "text", nonEditable: false, text: container?.ExpDate ? formatDateTime(container?.ExpDate) : "" },
+        { type: "text", nonEditable: false, text: (container?.Block || "") + "-" + (container?.Bay || "") + "-" + (container?.Row || "") + "-" + (container?.Tier || "") },
+        { type: "text", nonEditable: false, text: container?.DateIn ? formatDateTime(container?.DateIn) : "" },
+        { type: "text", nonEditable: false, text: container?.DateOut ? formatDateTime(container?.DateOut) : "" },
+        { type: "text", nonEditable: false, text: container?.ContainerStatusName || "" }
       ]
     };
 
@@ -408,8 +408,8 @@ class TrackingEdo extends Component {
                       reorderRow: true,
                     }}
                     functionRequire={{
-                      addcolumn: true,
-                      deleteColumn: true,
+                      // addcolumn: true,
+                      // deleteColumn: true,
                       exportExel: true,
                       // saveData: () => { this.saveData() },
                       searchField: [

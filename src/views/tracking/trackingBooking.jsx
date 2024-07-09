@@ -331,7 +331,7 @@ class TrackingBooking extends Component {
                     <Row justify={"center"}>
                       <DatabaseOutlined className="no_data_icon" />
                     </Row>
-                    <Row justify={"center"}>Nhập thông tin HouseBill để nạp dữ liệu container...</Row>
+                    <Row justify={"center"}>Nhập số booking để nạp dữ liệu container...</Row>
                   </Col>
                 ) : (
                   <Mtable
@@ -343,10 +343,10 @@ class TrackingBooking extends Component {
                       reorderRow: true,
                     }}
                     functionRequire={{
-                      addcolumn: true,
-                      deleteColumn: true,
+                      // addcolumn: true,
+                      // deleteColumn: true,
                       exportExel: true,
-                      saveData: () => { this.saveData() },
+                      // saveData: () => { this.saveData() },
                       searchField: [
                         "ContainerNo",
                         "OperationCode",

@@ -403,12 +403,12 @@ class TrackingBill extends Component {
                       reorderRow: true,
                     }}
                     functionRequire={{
-                      addcolumn: false,
-                      deleteColumn: true,
+                      // addcolumn: false,
+                      // deleteColumn: true,
                       exportExel: true,
-                      saveData: (data) => {
-                        console.log(data);
-                      },
+                      // saveData: (data) => {
+                      //   console.log(data);
+                      // },
                       searchField: [
                         "ContainerNo",
                         "OperationCode",

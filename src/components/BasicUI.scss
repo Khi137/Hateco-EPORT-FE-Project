@@ -352,8 +352,11 @@ $caption-line-height: 14px;
   .Winput.error_input {
     border-color: #C92929;
     margin: 0;
-  }
 
+    span {
+      color: #C92929;
+    }
+  }
 
 }
 
@@ -468,10 +471,10 @@ $caption-line-height: 14px;
   &:hover {
     background-color: $color-third !important;
     color: #ffffff !important;
+  }
 
-    &:active {
-      background-color: $color-third !important;
-    }
+  &:active {
+    background-color: $color-third !important;
   }
 }
 
@@ -484,10 +487,10 @@ $caption-line-height: 14px;
     background-color: white !important;
     color: #1d99d6 !important;
     border-color: #1d99d6;
+  }
 
-    &:active {
-      border: 2px solid #1d99d6;
-    }
+  &:active {
+    border: 2px solid #1d99d6;
   }
 }
 
@@ -500,10 +503,10 @@ $caption-line-height: 14px;
     background-color: transparent !important;
     color: #cbcfd2 !important;
     border: 2px solid #cbcfd2;
+  }
 
-    &:active {
-      border: 2px solid #cbcfd2;
-    }
+  &:active {
+    border: 2px solid #cbcfd2;
   }
 }
 
@@ -514,10 +517,10 @@ $caption-line-height: 14px;
   &:hover {
     background-color: #a92323;
     color: white;
+  }
 
-    &:active {
-      background-color: #a92323 !important;
-    }
+  &:active {
+    background-color: #a92323 !important;
   }
 }
 
@@ -527,10 +530,10 @@ $caption-line-height: 14px;
 
   &:hover {
     background-color: #0e674b !important;
+  }
 
-    &:active {
-      background-color: #12825f;
-    }
+  &:active {
+    background-color: #12825f;
   }
 }
 
@@ -541,10 +544,10 @@ $caption-line-height: 14px;
   &:hover {
     background-color: #ee9322 !important;
     color: #202327 !important;
+  }
 
-    &:active {
-      background-color: #f2ab53;
-    }
+  &:active {
+    background-color: #f2ab53;
   }
 }
 
@@ -691,7 +694,7 @@ $caption-line-height: 14px;
 
 // Mtable
 .table_container {
-  height: 62vh;
+  height: 60vh;
   display: flex;
   flex-direction: column;
 
@@ -740,17 +743,19 @@ $caption-line-height: 14px;
 // Mcard
 .flex_layout-8-16_container {
   padding: 12px;
+  padding-bottom: 0;
   height: 95%;
 }
 
 .one_page_layout_container {
   padding: 12px;
+  padding-bottom: 0;
   height: 95%;
 }
 
 .m-custom-card {
   height: fit-content;
-  min-height: 70vh;
+  min-height: 67.8vh;
 
   .ant-card-body {
     height: 90%;
@@ -765,7 +770,8 @@ $caption-line-height: 14px;
     }
 
     .no_data {
-      margin-top: 20vh;
+      margin-top: 25vh;
+      line-height: 36px;
 
       .no_data_icon {
         font-size: 64px;

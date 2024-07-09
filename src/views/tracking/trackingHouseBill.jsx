@@ -283,23 +283,23 @@ class TrackingHouseBill extends Component {
       { columnId: "DateIn", width: 150, resizable: true, reorderable: true, header: "Ngày vào bãi" },
       { columnId: "DateOut", width: 150, resizable: true, reorderable: true, header: "Ngày ra bãi" },
       { columnId: "ContainerStatusName", width: 150, resizable: true, reorderable: true, header: "Tình trạng cont" },
-      { columnId: "Status", width: 150, resizable: true, reorderable: true, header: "Trạng thái" }
+      // { columnId: "Status", width: 150, resizable: true, reorderable: true, header: "Trạng thái" }
     ]
 
     const rowsFormat = (container, index) => {
       return [
         { type: "text", nonEditable: true, text: String(index + 1) },
-        { type: "text", nonEditable: true, text: container?.ContainerNo || "" },
-        { type: "text", nonEditable: true, text: container?.OperationCode || "" },
-        { type: "text", nonEditable: true, text: container?.IsoSizetype || "" },
-        { type: "text", nonEditable: true, text: container?.CargoTypeName || "" },
-        { type: "text", nonEditable: true, text: container?.ClassName || "" },
-        { type: "text", nonEditable: true, text: container?.ExpDate ? formatDateTime(container?.ExpDate) : "" },
-        { type: "text", nonEditable: true, text: (container?.Block || "") + "-" + (container?.Bay || "") + "-" + (container?.Row || "") + "-" + (container?.Tier || "") },
-        { type: "text", nonEditable: true, text: container?.DateIn ? formatDateTime(container?.DateIn) : "" },
-        { type: "text", nonEditable: true, text: container?.DateOut ? formatDateTime(container?.DateOut) : "" },
-        { type: "text", nonEditable: true, text: container?.ContainerStatusName || "" },
-        { type: "checkbox", nonEditable: true, checked: container?.status }
+        { type: "text", nonEditable: false, text: container?.ContainerNo || "" },
+        { type: "text", nonEditable: false, text: container?.OperationCode || "" },
+        { type: "text", nonEditable: false, text: container?.IsoSizetype || "" },
+        { type: "text", nonEditable: false, text: container?.CargoTypeName || "" },
+        { type: "text", nonEditable: false, text: container?.ClassName || "" },
+        { type: "text", nonEditable: false, text: container?.ExpDate ? formatDateTime(container?.ExpDate) : "" },
+        { type: "text", nonEditable: false, text: (container?.Block || "") + "-" + (container?.Bay || "") + "-" + (container?.Row || "") + "-" + (container?.Tier || "") },
+        { type: "text", nonEditable: false, text: container?.DateIn ? formatDateTime(container?.DateIn) : "" },
+        { type: "text", nonEditable: false, text: container?.DateOut ? formatDateTime(container?.DateOut) : "" },
+        { type: "text", nonEditable: false, text: container?.ContainerStatusName || "" },
+        // { type: "checkbox", nonEditable: false, checked: container?.status }
       ]
     };
 
@@ -315,7 +315,7 @@ class TrackingHouseBill extends Component {
       { type: "header", text: "Ngày vào bãi" },
       { type: "header", text: "Ngày ra bãi" },
       { type: "header", text: "Tình trạng cont" },
-      { type: "header", text: "Trạng Tình" },
+      // { type: "header", text: "Trạng Tình" },
     ];
 
     return (
@@ -435,12 +435,12 @@ class TrackingHouseBill extends Component {
                       reorderRow: true,
                     }}
                     functionRequire={{
-                      addcolumn: true,
-                      deleteColumn: true,
+                      // addcolumn: true,
+                      // deleteColumn: true,
                       exportExel: true,
-                      saveData: () => {
-                        this.saveData();
-                      },
+                      // saveData: () => {
+                      //   this.saveData();
+                      // },
                       searchField: [
                         "ContainerNo",
                         "OperationCode",
