@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {
   Mbutton,
+  Mcard,
   Mradio,
   Msearch,
   Mselect,
@@ -22,6 +23,7 @@ import {
   handleRowsSearch,
 } from "../../utils/util.js";
 import Empty from "./Empty.jsx";
+import { Col, Row } from "antd";
 const tableData = [
   {
     selected: false,
@@ -120,6 +122,25 @@ for (let index = 0; index < 10; index++) {
   tableData.push(duplicatedData);
 }
 
+const valueSelect = [
+  {
+    label: "Quản lý người dùng",
+    option: [
+      { label: "QUANTRI: Quản trị hệ thống", value: "QTHT" },
+      { label: "Dev: Developer", value: "DEV" },
+      { label: "BOD: BOD Tập đoàn", value: "BOD" },
+    ],
+  },
+  {
+    label: "Chọn cảng",
+    option: [
+      { label: "NDV", value: "NDV" },
+      { label: "Cát lái", value: "Catlai" },
+      { label: "Hải phòng", value: "HP" },
+    ],
+  },
+];
+
 export class SystemManageUser extends Component {
   constructor(props) {
     super(props);
@@ -134,6 +155,18 @@ export class SystemManageUser extends Component {
     this.setState((prev) => ({
       loadData: !prev.loadData,
     }));
+  };
+
+  renderSelect = (value, index) => {
+    return (
+      <Mselect
+        dataSource={{
+          id: `select${index + 1}`,
+          label: value.label,
+          options: value.option,
+        }}
+      />
+    );
   };
 
   render() {
@@ -270,147 +303,169 @@ export class SystemManageUser extends Component {
     ];
 
     return (
-      <div>
-        <div>
-          <header>Quản lý người dùng</header>
-          <div className="select-group">
-            <Mselect
-              dataSource={{
-                id: "select1",
-                label: "Quản lý người dùng",
-                // value: this.state.selectValue,
-                options: [
-                  { label: "QUANTRI: Quản trị hệ thống", value: "QTHT" },
-                  { label: "Dev: Developer", value: "DEV" },
-                  { label: "BOD: BOD Tập đoàn", value: "BOD" },
-                ],
-              }}
-            />
-            <Mselect
-              dataSource={{
-                id: "select1",
-                label: "Chọn cảng",
-                // value: this.state.selectValue,
-                options: [
-                  { label: "NDV", value: "NDV" },
-                  { label: "Cát lái", value: "Catlai" },
-                  { label: "Hải phòng", value: "HP" },
-                ],
-              }}
-            />
-          </div>
-          <div className="button">
-            <button className="button-load-data" onClick={this.handleLoadData}>
-              <CloudDownloadOutlined /> Nạp dữ liệu
-            </button>
-          </div>
-          <div style={{ padding: "0 12px" }}>
-            <Mradio
-              dataSource={{
-                label: "Select an option",
-                options: [
-                  { label: "Tất cả", value: "option1" },
-                  { label: "Đã kích hoạt", value: "option2" },
-                  { label: "Chưa kích hoạt", value: "option3" },
-                ],
-                radioStyle: { gap: "50px", padding: "12px 0" },
-              }}
-            />
-          </div>
-        </div>
-        <div>
-          <div>
-            <div>
-              <div>
-                <Winput
-                  name={"searchData"}
-                  className={`form_input_field`}
-                  prefix={<SearchOutlined />}
-                  placeholder={"Tìm kiếm..."}
-                />
-              </div>
-              <div>
-                <Mbutton
-                  className="m_button green drop-button-shadow"
-                  block
-                  htmlType="submit"
-                  type="primary"
-                  onClick={this.handleFormSubmit}
-                  ref={this.mButtonRef}
-                  dataSource={{
-                    textbutton: "Thêm dòng",
-                    color: "",
-                    size: "12",
-                    icon: "PlusCircleOutlined",
-                  }}
-                />
-                <Mbutton
-                  className="m_button orange drop-button-shadow"
-                  block
-                  htmlType="submit"
-                  type="primary"
-                  onClick={this.handleFormSubmit}
-                  ref={this.mButtonRef}
-                  dataSource={{
-                    textbutton: "Xóa dòng",
-                    color: "",
-                    size: "12",
-                    icon: "MinusCircleOutlined",
-                  }}
-                />
-                <Mbutton
-                  className="m_button red drop-button-shadow"
-                  block
-                  htmlType="submit"
-                  type="primary"
-                  onClick={this.handleFormSubmit}
-                  ref={this.mButtonRef}
-                  dataSource={{
-                    textbutton: "Lưu",
-                    color: "",
-                    size: "12",
-                    icon: "SaveOutlined",
-                  }}
-                />
-                <Mbutton
-                  className="m_button third_border drop-button-shadow"
-                  block
-                  htmlType="submit"
-                  type="primary"
-                  onClick={this.handleFormSubmit}
-                  ref={this.mButtonRef}
-                  dataSource={{
-                    textbutton: "Xuất file excel",
-                    color: "",
-                    size: "12",
-                    icon: "FileExcelOutlined",
-                  }}
-                />
-              </div>
-            </div>
+      // <div>
+      //   <div>
+      //     <header>Quản lý người dùng</header>
+      //     <div className="select-group">
+      //       <Mselect
+      //         dataSource={{
+      //           id: "select1",
+      //           label: "Quản lý người dùng",
+      //           // value: this.state.selectValue,
+      //           options: [
+      //             { label: "QUANTRI: Quản trị hệ thống", value: "QTHT" },
+      //             { label: "Dev: Developer", value: "DEV" },
+      //             { label: "BOD: BOD Tập đoàn", value: "BOD" },
+      //           ],
+      //         }}
+      //       />
+      //       <Mselect
+      //         dataSource={{
+      //           id: "select1",
+      //           label: "Chọn cảng",
+      //           // value: this.state.selectValue,
+      //           options: [
+      //             { label: "NDV", value: "NDV" },
+      //             { label: "Cát lái", value: "Catlai" },
+      //             { label: "Hải phòng", value: "HP" },
+      //           ],
+      //         }}
+      //       />
+      //     </div>
+      //     <div className="button">
+      //       <button className="button-load-data" onClick={this.handleLoadData}>
+      //         <CloudDownloadOutlined /> Nạp dữ liệu
+      //       </button>
+      //     </div>
+      //     <div style={{ padding: "0 12px" }}>
+      //       <Mradio
+      //         dataSource={{
+      //           label: "Select an option",
+      //           options: [
+      //             { label: "Tất cả", value: "option1" },
+      //             { label: "Đã kích hoạt", value: "option2" },
+      //             { label: "Chưa kích hoạt", value: "option3" },
+      //           ],
+      //           radioStyle: { gap: "50px", padding: "12px 0" },
+      //         }}
+      //       />
+      //     </div>
+      //   </div>
+      //   <div>
+      //     <div>
+      //       <div>
+      //         <div>
+      //           <Winput
+      //             name={"searchData"}
+      //             className={`form_input_field`}
+      //             prefix={<SearchOutlined />}
+      //             placeholder={"Tìm kiếm..."}
+      //           />
+      //         </div>
+      //         <div>
+      //           <Mbutton
+      //             className="m_button green drop-button-shadow"
+      //             block
+      //             htmlType="submit"
+      //             type="primary"
+      //             onClick={this.handleFormSubmit}
+      //             ref={this.mButtonRef}
+      //             dataSource={{
+      //               textbutton: "Thêm dòng",
+      //               color: "",
+      //               size: "12",
+      //               icon: "PlusCircleOutlined",
+      //             }}
+      //           />
+      //           <Mbutton
+      //             className="m_button orange drop-button-shadow"
+      //             block
+      //             htmlType="submit"
+      //             type="primary"
+      //             onClick={this.handleFormSubmit}
+      //             ref={this.mButtonRef}
+      //             dataSource={{
+      //               textbutton: "Xóa dòng",
+      //               color: "",
+      //               size: "12",
+      //               icon: "MinusCircleOutlined",
+      //             }}
+      //           />
+      //           <Mbutton
+      //             className="m_button red drop-button-shadow"
+      //             block
+      //             htmlType="submit"
+      //             type="primary"
+      //             onClick={this.handleFormSubmit}
+      //             ref={this.mButtonRef}
+      //             dataSource={{
+      //               textbutton: "Lưu",
+      //               color: "",
+      //               size: "12",
+      //               icon: "SaveOutlined",
+      //             }}
+      //           />
+      //           <Mbutton
+      //             className="m_button third_border drop-button-shadow"
+      //             block
+      //             htmlType="submit"
+      //             type="primary"
+      //             onClick={this.handleFormSubmit}
+      //             ref={this.mButtonRef}
+      //             dataSource={{
+      //               textbutton: "Xuất file excel",
+      //               color: "",
+      //               size: "12",
+      //               icon: "FileExcelOutlined",
+      //             }}
+      //           />
+      //         </div>
+      //       </div>
 
-            <div>Danh sách người dùng</div>
-            <div>
-              {this.state.loadData ? (
-                {
-                  /* <Mtable
-                  tableData={this.state.tableData}
-                  columnsFormat={columnsFormat}
-                  rowsFormat={rowsFormat}
-                  rowsHeader={rowsHeader}
-                  reoderRow={true}
-                /> */
-                }
-              ) : (
-                <Empty
-                  text={
-                    "Dữ liệu đang trống vui lòng chọn thông tin và nạp dữ liệu..."
-                  }
-                />
-              )}
-            </div>
-          </div>
-        </div>
+      //       <div>Danh sách người dùng</div>
+      //       <div>
+      //         {this.state.loadData ? (
+      //           {
+      //             /* <Mtable
+      //             tableData={this.state.tableData}
+      //             columnsFormat={columnsFormat}
+      //             rowsFormat={rowsFormat}
+      //             rowsHeader={rowsHeader}
+      //             reoderRow={true}
+      //           /> */
+      //           }
+      //         ) : (
+      //           <Empty
+      //             text={
+      //               "Dữ liệu đang trống vui lòng chọn thông tin và nạp dữ liệu..."
+      //             }
+      //           />
+      //         )}
+      //       </div>
+      //     </div>
+      //   </div>
+      // </div>
+      <div style={{ padding: "12px" }}>
+        <Row gutter={[16, 16]}>
+          <Col span={6}>
+            <Mcard
+              title={
+                <>
+                  <span style={{ color: "black" }}>Quản lý người dùng</span>
+                </>
+              }
+            >
+              {valueSelect.map((value, index) => {
+                return this.renderSelect(value, index);
+              })}
+            </Mcard>
+            <Mbutton />
+          </Col>
+          <Col span={18}>
+            {" "}
+            <Mcard></Mcard>
+          </Col>
+        </Row>
       </div>
     );
   }
