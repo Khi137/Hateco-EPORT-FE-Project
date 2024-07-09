@@ -43,17 +43,7 @@ class App extends React.Component {
   render() {
     let test = process.env.REACT_APP_API_HOST;
     return (
-      <ConfigProvider
-        theme={{
-          components: {
-            Card: {
-              headerBg: "#0065a1",
-            },
-          },
-        }}
-      >
-        <MainRoutes />
-      </ConfigProvider>
+      <MainRoutes />
     );
   }
 }

@@ -245,7 +245,7 @@ class TrackingHouseBill extends Component {
 
   render() {
     const { formData } = this.state;
-    
+
     const inputForm = [
       {
         title: "Mã lệnh (D/O)",
@@ -340,6 +340,7 @@ class TrackingHouseBill extends Component {
                         required: true,
                         lockbefore: true,
                         propReadonly: false,
+                        className: "ant-picker-borderless"
                       }}
                     />
                   </Col>

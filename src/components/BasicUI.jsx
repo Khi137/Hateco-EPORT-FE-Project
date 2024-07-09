@@ -32,6 +32,7 @@ import {
   Progress,
 } from "antd";
 import "./BasicUI.scss";
+import "./main.scss"
 
 import defaultCaptcha from "../assets/captchadefault.png";
 
