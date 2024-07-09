@@ -1308,11 +1308,11 @@ $invalid: #dd2c00;
             height: 32px !important;
             width: 100%;
             color: $brand-title-light !important;
-            padding: 9px 10px 1px 26px !important;
+            padding: 0px 0px 1px 0px !important;
             font-size: 1rem !important;
             border-bottom: 1px solid $font-color !important;
             font-family: $primary-font;
-            border-radius: 0 !important;
+            // border-radius: 0 !important;
 
             &:focus {
                 outline: none !important;
@@ -1326,6 +1326,10 @@ $invalid: #dd2c00;
             &:-webkit-autofill {
                 background-color: transparent !important;
             }
+        }
+
+        select {
+            border-radius: 6px !important;
         }
 
         .ant-checkbox-inner {
@@ -1386,25 +1390,25 @@ $invalid: #dd2c00;
         }
     }
 
-    &__icon {
-        position: absolute;
-        top: 10px;
-        left: 0px;
-        font-size: 1.125rem;
-        color: $font-color;
+    // &__icon {
+    //     position: absolute;
+    //     top: 10px;
+    //     left: 0px;
+    //     font-size: 1.125rem;
+    //     color: $font-color;
 
-        &--error {
-            position: absolute;
-            top: 56px;
-            left: 16px;
-            font-size: 1.125rem;
-            color: $invalid;
-        }
+    //     &--error {
+    //         position: absolute;
+    //         top: 56px;
+    //         left: 16px;
+    //         font-size: 1.125rem;
+    //         color: $invalid;
+    //     }
 
-        svg {
-            color: $font-color;
-        }
-    }
+    //     svg {
+    //         color: $font-color;
+    //     }
+    // }
 
     &__eye {
         position: absolute;

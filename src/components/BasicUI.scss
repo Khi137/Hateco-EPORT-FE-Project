@@ -344,10 +344,17 @@ $caption-line-height: 14px;
     margin: auto 0;
   }
 
+  .form_input_field {
+    border: 1px solid #0075bb;
+    color: #0075bb;
+  }
+
   .Winput.error_input {
     border-color: #C92929;
     margin: 0;
   }
+
+
 }
 
 .Winput_error_text {
@@ -891,7 +898,12 @@ $caption-line-height: 14px;
   .form_input_field {
     padding: 6px 4px;
     border-radius: 6px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid #0075bb !important;
+
+    .ant-input-outlined {
+      border: 1px solid #0075bb !important;
+
+    }
   }
 
   .table_index_input {
