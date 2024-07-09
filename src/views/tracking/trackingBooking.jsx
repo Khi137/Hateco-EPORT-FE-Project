@@ -215,7 +215,7 @@ class TrackingBooking extends Component {
 
     const columnsFormat = [
       { columnId: "STT", width: 50, resizable: true, header: "STT" },
-      { columnId: "ContainerNumber", width: 150, resizable: true, reorderable: true, header: "Số Container" },
+      { columnId: "ContainerNo", width: 150, resizable: true, reorderable: true, header: "Số Container" },
       { columnId: "OperationCode", width: 150, resizable: true, reorderable: true, header: "Hãng Tàu" },
       { columnId: "IsoSizetype", width: 150, resizable: true, reorderable: true, header: "Kích cỡ" },
       { columnId: "CargoTypeName", width: 150, resizable: true, reorderable: true, header: "Full/Empty" },
@@ -258,7 +258,7 @@ class TrackingBooking extends Component {
     ];
 
     return (
-      <Content className="layout_container tracking_layout">
+      <Content className="flex_layout-8-16_container tracking_layout">
         <Row gutter={[12, 12]}>
           <Col lg={{ span: 8 }} sm={{ span: 24 }}>
             <Mcard
@@ -346,9 +346,9 @@ class TrackingBooking extends Component {
                       addcolumn: true,
                       deleteColumn: true,
                       exportExel: true,
-                      // saveData: () => { this.saveData() },
+                      saveData: () => { this.saveData() },
                       searchField: [
-                        "ContainerNumber",
+                        "ContainerNo",
                         "OperationCode",
                         "IsoSizetype",
                       ],

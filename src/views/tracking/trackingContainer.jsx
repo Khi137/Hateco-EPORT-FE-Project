@@ -538,7 +538,7 @@ class TrackingContainer extends Component {
   render() {
     const { containerList } = this.state;
     return (
-      <Content className="layout_container">
+      <Content className="one_page_layout_container">
         <Row gutter={[12, 12]}>
           <Col span={24} >
             <Mcard

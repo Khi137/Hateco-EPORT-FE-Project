@@ -45,11 +45,10 @@ import {
 import * as LOL from "@ant-design/icons";
 import moment from "moment";
 import { ReactGrid } from "@silevis/reactgrid";
-import { handleColumnsReorder, handleRowsReorder, handleRowsSearch } from "../utils/util";
+import { handleRowsSearch } from "../utils/util";
 import "@silevis/reactgrid/styles.css";
 import { CustomHeaderCellTemplate, CustomHeaderCell } from "./CustomHeaderCell/CustomHeaderCell.tsx";
 import {
-  getDeFaultData,
   setData,
   updateRow,
   addRow,
@@ -886,42 +885,6 @@ export class Winput extends React.Component {
   }
 }
 
-// export class Winput extends React.Component {
-//   constructor(props) {
-//     // super(props);
-//     // this.state = {
-//     //     value: (this.props.value || '')
-//     // }
-//     // if (this.props.ref || this.props.id) {
-//     //     if (!window.Winput) window.Winput = {};
-//     //     window.Winput[this.props.ref || this.props.id || 'Winput_'] = this;
-//     // }
-//     // $("#" + (this.props.ref || this.props.id || 'Winput_')).data({ value: this.props.value });
-//   }
-//   componentDidMount() {
-//     // $("#" + (this.props.ref || this.props.id || 'Winput_')).data({ value: (this.props.value || '') });
-//   }
-//   handleChange(dt) {
-//     this.setState({
-//       value: dt.target.value,
-//     });
-//   }
-//   render() {
-//     // $("#" + (this.props.ref || this.props.id || 'Winput_')).data(this.state);
-//     return (
-//       <Input
-//         {...this.props}
-//         defaultValue={this.state.value || ""}
-//         value={this.state.value || ""}
-//         onChange={(dt) => {
-//           this.handleChange(dt);
-//           if (typeof this.props.onChange == "function") this.props.onChange(dt);
-//         }}
-//         className={"Winput " + (this.props.className || "")}
-//       ></Input>
-//     );
-//   }
-// }
 class Mcollapse extends React.Component {
   constructor(props) {
     super(props);
@@ -1046,31 +1009,6 @@ class Mcapcha extends React.Component {
     );
   }
 }
-
-//   constructor(props) {
-//     super(props);
-//   }
-
-//   UNSAFE_componentWillMount() {
-//     this.data = this.props.dataSource;
-//   }
-
-//   render() {
-//     return (
-//       <Col flex="auto">
-//         <img
-//           height="32px"
-//           id="CapchaImg"
-//           src={
-//             this.props.dataSource?.img
-//               ? this.props.dataSource?.img
-//               : "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-//           }
-//         />
-//       </Col>
-//     );
-//   }
-// }
 
 class Mtab extends React.Component {
   constructor(props) {
@@ -1630,27 +1568,6 @@ class Mselectsearch extends React.Component {
     var that = this;
     var value = data.value || this.state.value;
 
-    // setTimeout(() => {
-    //   if (this.inputRef.current) {
-    //     this.inputRef.current.value = this.state.value || "";
-    //   }
-    //   if (this.selectRef.current) {
-    //     const labelElement = this.selectRef.current
-    //       .closest(".m-form__input")
-    //       .querySelector(".m-form__label");
-    //     if (labelElement) {
-    //       if (value) {
-    //         labelElement.classList.add(
-    //           "m-form__label--focus",
-    //           value,
-    //           this.props.dataSource.value || this.state.value
-    //         );
-    //       } else {
-    //         labelElement.classList.remove("m-form__label--focus");
-    //       }
-    //     }
-    //   }
-    // }, 10);
     return (
       <Col
         xs={span.xs || span}
@@ -1739,13 +1656,6 @@ class Mtable extends React.Component {
     const { defaultData, columnsFormat, rowsHeader, rowsFormat, tableName, reorderRow } = this.props.config;
     this.props.setData({ defaultData, columnsFormat, rowsHeader, rowsFormat, tableName, reorderRow });
   }
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   if(prevProps.defaultData !== this.props.config.defaultData)
-  //     this.props.config.defaultData
-  //   this.handleDataChange();
-  // }
-
 
   newRow = () => {
     const { reorderRow } = this.props.config;
@@ -1899,7 +1809,6 @@ class Mtable extends React.Component {
               onColumnResized={(columnId, width) => this.props.handleColumnResize({ columnId, width })}
               onColumnSort={(columnId) => this.props.handleSort({ columnId })}
               onSelectionChanged={this.handleRowsSelection}
-            // onFocusLocationChanged={(e) => console.log(e)}
             />
           </div>
         </div>
@@ -1907,20 +1816,6 @@ class Mtable extends React.Component {
     );
   }
 }
-
-// Sample input data : -----------------------------------------
-// object type declare in component as an array of objects +++++++++
-// {
-//      label: "Chủ hàng *",
-//      type: "input",
-//      ref: "ShipperName",
-//      span: 24,
-//      icon: "IdcardOutlined",
-//      config: {
-//          onChangeValue: (value) => this.parentcomponent(value), -------"value" is return value of input after blur
-//          validateValue: (bool) => this.parentcomponent(bool), -------"bool" as a boolean type data return after blur. // add new in 28/09/2020 by manes!!!
-//      }
-// }
 
 class Minput extends React.Component {
   constructor(props) {
@@ -2517,41 +2412,9 @@ class Mdatepicker extends React.Component {
           />
         </div>
       </Col>
-
-      // !isMobile ?
-
-      //     :
-      //     <Col offset={data.offset ? data.offset : 0} span={span} key={data.ref} className={"m-form__box " + data.className}>
-      //         <div className="m-form__input">
-      //             <label className={this.state.value ? "m-form__label m-form__label--focus" : "m-form__label"}>{data.label}</label>
-      //             <input type="datetime-local" style={{ padding: 0 }} placeholder="" bordered={false} required-text={data.required} required={data.required ? true : false}
-      //                 ref={data.ref} id={data.ref} key={data.ref || ""}
-      //                 showTime={true} value={this.state.value ? moment(this.state.value).format('YYYY-MM-DDTHH:mm') : ""} title={this.state.value ? moment(this.state.value).format('YYYY-MM-DD HH:mm:ss') : ""}
-      //                 onChange={(date, dateString) => { this.setState({ value: moment(date.target.value).format('YYYY-MM-DD HH:mm:ss') }) }}
-      //                 onBlur={this.checkBlur.bind(this)}
-      //                 onClick={data.onClick}
-      //                 inputReadOnly={this.state.readonly ? true : false}
-      //                 onFocus={this.checkFocus.bind(this)} />
-      //         </div>
-      //     </Col>
     );
   }
 }
-
-// - import data with datatype as array Objects
-// - Object name is "dataSource" with sample data
-// = [
-//     {
-//         label: ""(optional) --
-//         span: ""(optional) -- grid system default 24
-//         ref: ""(require) -- component id, ref, key must be unquie
-//         name: ""(require) -- name of group radio button
-//         defaultValue: ""(optional) -- ref of radio item
-//         options: ""(require) -- Object array, list of radio group
-//     }
-
-// if input property have "config" , it will be a object with base props of ant design Radio.Group component
-// ]
 
 class Mradio extends React.Component {
   constructor(props) {

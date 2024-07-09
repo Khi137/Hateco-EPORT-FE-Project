@@ -273,7 +273,7 @@ class TrackingHouseBill extends Component {
 
     const columnsFormat = [
       { columnId: "STT", width: 50, resizable: true, header: "STT" },
-      { columnId: "ContainerNumber", width: 150, resizable: true, reorderable: true, header: "Số Container" },
+      { columnId: "ContainerNo", width: 150, resizable: true, reorderable: true, header: "Số Container" },
       { columnId: "OperationCode", width: 150, resizable: true, reorderable: true, header: "Hãng Tàu" },
       { columnId: "IsoSizetype", width: 150, resizable: true, reorderable: true, header: "Kích cỡ" },
       { columnId: "CargoTypeName", width: 150, resizable: true, reorderable: true, header: "Full/Empty" },
@@ -319,7 +319,7 @@ class TrackingHouseBill extends Component {
     ];
 
     return (
-      <Content className="layout_container">
+      <Content className="flex_layout-8-16_container">
         <Row gutter={[12, 12]}>
           <Col lg={{ span: 8 }} sm={{ span: 24 }}>
             <Mcard
@@ -441,7 +441,7 @@ class TrackingHouseBill extends Component {
                         this.saveData();
                       },
                       searchField: [
-                        "ContainerNumber",
+                        "ContainerNo",
                         "OperationCode",
                         "IsoSizetype",
                       ],

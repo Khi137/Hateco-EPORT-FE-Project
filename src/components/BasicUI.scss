@@ -731,6 +731,15 @@ $caption-line-height: 14px;
 
 
 // Mcard
+.flex_layout-8-16_container {
+  padding: 12px;
+  height: 95%;
+}
+
+.one_page_layout_container {
+  padding: 12px;
+  height: 95%;
+}
 
 .m-custom-card {
   height: fit-content;
@@ -761,12 +770,11 @@ $caption-line-height: 14px;
     padding: 10px 0;
   }
 
-
-}
-
-.layout_container {
-  padding: 12px;
-  height: 95%;
+  .tracking_bill_input {
+    button {
+      margin-top: 12px;
+    }
+  }
 }
 
 // tracking_layout
@@ -873,6 +881,7 @@ $caption-line-height: 14px;
   }
 }
 
+// tracking container
 .table_index_container {
   width: 100%;
   max-width: max-content;
