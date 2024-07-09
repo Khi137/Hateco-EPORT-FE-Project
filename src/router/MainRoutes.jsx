@@ -35,50 +35,35 @@ class MainRoutes extends Component {
           <Route path="/register" element={<Register />} />
           <Route path="/show-component" element={<ShowComponent />} />
         </Route>
+
         <Route element={<AuthLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/category-customer" element={<Customer />} />
 
           <Route path="/tracking">
             <Route path="tracking_container" element={<TrackingContainer />} />
-            <Route
-              path="tracking_container_list"
-              element={<TrackingContainerList />}
-            />
+            <Route path="tracking_container_list" element={<TrackingContainerList />} />
             <Route path="tracking_bill" element={<TrackingBill />} />
             <Route path="tracking_booking" element={<TrackingBooking />} />
             <Route path="tracking_edo" element={<TrackingEdo />} />
             <Route path="tracking_housebill" element={<TrackingHouseBill />} />
           </Route>
+
           <Route path="/system_manager">
             <Route path="SystemManageUser" element={<SystemManageUser />} />
             <Route path="SystemManageGroup" element={<SystemManageGroup />} />
-            <Route
-              path="SystemManagerGroupPermission"
-              element={<SystemManagerGroupPermission />}
-            />
+            <Route path="SystemManagerGroupPermission" element={<SystemManagerGroupPermission />} />
           </Route>
+
           {/* <Route path="/system" element={<System />} /> */}
           <Route path="/category">
             <Route path="category_customer" element={<Customer />} />
-            <Route
-              path="category_shipExploitBrand"
-              element={<ShipExploitBrand />}
-            />
+            <Route path="category_shipExploitBrand" element={<ShipExploitBrand />} />
             <Route path="category_task" element={<Task />} />
-            <Route
-              path="category_commoditiesType"
-              element={<CommoditiesType />}
-            />
-            <Route
-              path="category_directionContainer"
-              element={<DirectionContainer />}
-            />
+            <Route path="category_commoditiesType" element={<CommoditiesType />} />
+            <Route path="category_directionContainer" element={<DirectionContainer />} />
             <Route path="category_portsList" element={<PortsList />} />
-            <Route
-              path="category_statesContainer"
-              element={<StatesContainer />}
-            />
+            <Route path="category_statesContainer" element={<StatesContainer />} />
             <Route path="category_sizeContainer" element={<SizeContainer />} />
           </Route>
         </Route>

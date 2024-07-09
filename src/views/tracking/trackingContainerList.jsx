@@ -1,12 +1,13 @@
 import React, { Component, createRef } from "react";
 import { Col, Row } from "antd";
-import { Mbutton, Mtable, Winput } from "../../components/BasicUI";
+import { Mbutton, Mcard, Mtable, Winput } from "../../components/BasicUI";
 import {
   DatabaseOutlined,
   FieldNumberOutlined,
   LoadingOutlined,
 } from "@ant-design/icons";
 import { formatDateTime } from "../../utils/util";
+import { Content } from "antd/es/layout/layout";
 
 const rowData = [
   {
@@ -136,7 +137,6 @@ class TrackingContainerList extends Component {
         containerNumberError: true,
         searchData: "",
       },
-      containerList: [],
       tableData: [],
     };
     this.submitButtonRef = createRef();
@@ -180,227 +180,58 @@ class TrackingContainerList extends Component {
   };
 
   render() {
-    const { formData, containerList } = this.state;
+    const { formData } = this.state;
 
     const columnsFormat = [
-      { columnId: "STT", width: 50, resizable: true, header: "STT" }, // 1
-      {
-        columnId: "ContainerStatusName",
-        width: 125,
-        resizable: true,
-        reorderable: true,
-        header: "Tình trạng",
-      }, // 2
-      {
-        columnId: "ContainerNo",
-        width: 150,
-        resizable: true,
-        reorderable: true,
-        header: "Số Container",
-      }, // 3
-      {
-        columnId: "ContainerNo1",
-        width: 150,
-        resizable: true,
-        reorderable: true,
-        header: "Thanh lý HQ",
-      }, // 4
-      {
-        columnId: "OperationCode",
-        width: 100,
-        resizable: true,
-        reorderable: true,
-        header: "Hãng Tàu",
-      }, // 5
-      {
-        columnId: "IsoSizetype",
-        width: 100,
-        resizable: true,
-        reorderable: true,
-        header: "Kích cỡ",
-      }, // 6
-      {
-        columnId: "CargoTypeName",
-        width: 110,
-        resizable: true,
-        reorderable: true,
-        header: "Full/Empty",
-      }, // 7
-      {
-        columnId: "ClassName",
-        width: 110,
-        resizable: true,
-        reorderable: true,
-        header: "Hướng",
-      }, // 8
-      {
-        columnId: "Position",
-        width: 150,
-        resizable: true,
-        reorderable: true,
-        header: "Vị trí bãi",
-      }, // 9
-      {
-        columnId: "VesselName",
-        width: 150,
-        resizable: true,
-        reorderable: true,
-        header: "Tàu chuyến",
-      }, // 10
-      {
-        columnId: "POL",
-        width: 200,
-        resizable: true,
-        reorderable: true,
-        header: "Cảng chuyển tải/ Cảng đích",
-      }, // 11
-      {
-        columnId: "BLNo",
-        width: 150,
-        resizable: true,
-        reorderable: true,
-        header: "Số vận đơn",
-      }, // 12
-      {
-        columnId: "BookingNo",
-        width: 150,
-        resizable: true,
-        reorderable: true,
-        header: "Số Booking",
-      }, // 13
-      {
-        columnId: "MCWeight",
-        width: 200,
-        resizable: true,
-        reorderable: true,
-        header: "Trọng lượng (VGM)",
-      }, // 14
-      {
-        columnId: "Sealno2",
-        width: 150,
-        resizable: true,
-        reorderable: true,
-        header: "Số niêm chì",
-      }, // 15
-      {
-        columnId: "Position1",
-        width: 150,
-        resizable: true,
-        reorderable: true,
-        header: "Hàng Nội/Ngoại",
-      }, // 16
-      {
-        columnId: "CargoTypeCode",
-        width: 150,
-        resizable: true,
-        reorderable: true,
-        header: "Loại hàng",
-      }, // 17
-      {
-        columnId: "Position2",
-        width: 150,
-        resizable: true,
-        reorderable: true,
-        header: "Nhiệt độ",
-      }, // 18
-      {
-        columnId: "Position3",
-        width: 150,
-        resizable: true,
-        reorderable: true,
-        header: "Class/UNNo",
-      }, // 19
-      {
-        columnId: "DateIn",
-        width: 150,
-        resizable: true,
-        reorderable: true,
-        header: "Ngày vào bãi",
-      }, // 20
-      {
-        columnId: "DateOut",
-        width: 150,
-        resizable: true,
-        reorderable: true,
-        header: "Ngày ra bãi",
-      }, // 21
-      {
-        columnId: "ExpDate",
-        width: 150,
-        resizable: true,
-        reorderable: true,
-        header: "Sổ tàu",
-      }, // 22
-    ];
+      { columnId: "STT", width: 50, resizable: true, header: "STT" },
+      { columnId: "ContainerStatusName", width: 125, resizable: true, reorderable: true, header: "Tình trạng" },
+      { columnId: "ContainerNo", width: 150, resizable: true, reorderable: true, header: "Số Container" },
+      { columnId: "ContainerNo1", width: 150, resizable: true, reorderable: true, header: "Thanh lý HQ" },
+      { columnId: "OperationCode", width: 100, resizable: true, reorderable: true, header: "Hãng Tàu" },
+      { columnId: "IsoSizetype", width: 100, resizable: true, reorderable: true, header: "Kích cỡ" },
+      { columnId: "CargoTypeName", width: 110, resizable: true, reorderable: true, header: "Full/Empty" },
+      { columnId: "ClassName", width: 110, resizable: true, reorderable: true, header: "Hướng" },
+      { columnId: "Position", width: 150, resizable: true, reorderable: true, header: "Vị trí bãi" },
+      { columnId: "VesselName", width: 150, resizable: true, reorderable: true, header: "Tàu chuyến" },
+      { columnId: "POL", width: 200, resizable: true, reorderable: true, header: "Cảng chuyển tải/ Cảng đích" },
+      { columnId: "BLNo", width: 150, resizable: true, reorderable: true, header: "Số vận đơn" },
+      { columnId: "BookingNo", width: 150, resizable: true, reorderable: true, header: "Số Booking" },
+      { columnId: "MCWeight", width: 200, resizable: true, reorderable: true, header: "Trọng lượng (VGM)" },
+      { columnId: "Sealno2", width: 150, resizable: true, reorderable: true, header: "Số niêm chì" },
+      { columnId: "Position1", width: 150, resizable: true, reorderable: true, header: "Hàng Nội/Ngoại" },
+      { columnId: "CargoTypeCode", width: 150, resizable: true, reorderable: true, header: "Loại hàng" },
+      { columnId: "Position2", width: 150, resizable: true, reorderable: true, header: "Nhiệt độ" },
+      { columnId: "Position3", width: 150, resizable: true, reorderable: true, header: "Class/UNNo" },
+      { columnId: "DateIn", width: 150, resizable: true, reorderable: true, header: "Ngày vào bãi" },
+      { columnId: "DateOut", width: 150, resizable: true, reorderable: true, header: "Ngày ra bãi" },
+      { columnId: "ExpDate", width: 150, resizable: true, reorderable: true, header: "Sổ tàu" }
+    ]
 
     const rowsFormat = (container, index) => {
       return [
         { type: "text", nonEditable: true, text: String(index + 1) },
-        {
-          type: "text",
-          nonEditable: true,
-          text: container?.ContainerStatusName || "",
-        },
+        { type: "text", nonEditable: true, text: container?.ContainerStatusName || "" },
         { type: "text", nonEditable: true, text: container?.ContainerNo || "" },
         { type: "text", nonEditable: true, text: container?.Nodata || "" },
-        {
-          type: "text",
-          nonEditable: true,
-          text: container?.OperationCode || "",
-        },
+        { type: "text", nonEditable: true, text: container?.OperationCode || "" },
         { type: "text", nonEditable: true, text: container?.IsoSizetype || "" },
-        {
-          type: "text",
-          nonEditable: true,
-          text: container?.CargoTypeName || "",
-        },
+        { type: "text", nonEditable: true, text: container?.CargoTypeName || "" },
         { type: "text", nonEditable: true, text: container?.ClassName || "" },
-        {
-          type: "text",
-          nonEditable: true,
-          text:
-            (container?.Block || "") +
-            "-" +
-            (container?.Bay || "") +
-            "-" +
-            (container?.Row || "") +
-            "-" +
-            (container?.Tier || ""),
-        },
+        { type: "text", nonEditable: true, text: (container?.Block || "") + "-" + (container?.Bay || "") + "-" + (container?.Row || "") + "-" + (container?.Tier || "") },
         { type: "text", nonEditable: true, text: container?.VesselName || "" },
         { type: "text", nonEditable: true, text: container?.POL || "" },
         { type: "text", nonEditable: true, text: container?.BLNo || "" },
         { type: "text", nonEditable: true, text: container?.BookingNo || "" },
-        {
-          type: "text",
-          nonEditable: true,
-          text: String(container?.MCWeight) || "",
-        },
+        { type: "text", nonEditable: true, text: String(container?.MCWeight) || "" },
         { type: "text", nonEditable: true, text: container?.Sealno2 || "" },
         { type: "text", nonEditable: true, text: container?.Nodata || "" },
-        {
-          type: "text",
-          nonEditable: true,
-          text: container?.CargoTypeCode || "",
-        },
+        { type: "text", nonEditable: true, text: container?.CargoTypeCode || "" },
         { type: "text", nonEditable: true, text: container?.Nodata || "" },
         { type: "text", nonEditable: true, text: container?.Nodata || "/" },
-        {
-          type: "text",
-          nonEditable: true,
-          text: container?.DateIn ? formatDateTime(container?.DateIn) : "",
-        },
-        {
-          type: "text",
-          nonEditable: true,
-          text: container?.DateOut ? formatDateTime(container?.DateOut) : "",
-        },
-        {
-          type: "text",
-          nonEditable: true,
-          text: container?.ExpDate ? formatDateTime(container?.ExpDate) : "",
-        },
-      ];
+        { type: "text", nonEditable: true, text: container?.DateIn ? formatDateTime(container?.DateIn) : "" },
+        { type: "text", nonEditable: true, text: container?.DateOut ? formatDateTime(container?.DateOut) : "" },
+        { type: "text", nonEditable: true, text: container?.ExpDate ? formatDateTime(container?.ExpDate) : "" }
+      ]
     };
 
     const rowsHeader = [
@@ -429,89 +260,90 @@ class TrackingContainerList extends Component {
     ];
 
     return (
-      <Row>
-        <div>
-          <Row>Tra cứu danh sách container</Row>
-          <div>
-            <Col>
-              <Winput
-                title={"Danh sách số container"}
-                tooltip={"Nhập số container ngăn cách nhau bằng dấu cách."}
-                onChange={(e) => this.handleInputChange(e)}
-                checkError={(error) =>
-                  this.setState((prevState) => ({
-                    formData: {
-                      ...prevState.formData,
-                      containerNumberError: error,
-                    },
-                  }))
-                }
-                require={true}
-                name={"containerNumber"}
-                className={`form_input_field`}
-                prefix={<FieldNumberOutlined />}
-                placeholder={"Nhập số container"}
-                value={formData.containerNumber}
-                errorText={formData?.containerNumberError || true}
-                ref={this.containerNumberRef}
-              />
-            </Col>
-          </div>
-          <div>
-            <Mbutton
-              color=""
-              className="m_button third"
-              type="primary"
-              htmlType="submit"
-              block
-              onClick={this.handleLoadData}
-              ref={this.submitButtonRef}
-              size={"12"}
-              dataSource={{
-                textbutton: `Nạp dữ liệu`,
-                icon: "CloudDownloadOutlined",
-              }}
-            />
-          </div>
-          <div>
-            {!this.state.isLoading ? (
-              !this.state.tableData[0] ? (
-                <div className="no_data">
-                  <div>
-                    <DatabaseOutlined style={{ fontSize: "64px" }} />
-                    <p>Nhập thông tin HouseBill để nạp dữ liệu container...</p>
-                  </div>
-                </div>
-              ) : (
-                <Mtable
-                  config={{
-                    defaultData: this.state.tableData,
-                    columnsFormat: columnsFormat,
-                    rowsFormat: rowsFormat,
-                    rowsHeader: rowsHeader,
-                    reoderRow: true,
-                  }}
-                  functionRequire={{
-                    addcolumn: true,
-                    deleteColumn: true,
-                    exportExel: true,
-                    // saveData: () => { this.saveData() },
-                    searchField: [
-                      "ContainerNumber",
-                      "OperationCode",
-                      "IsoSizetype",
-                    ],
-                  }}
+      <Content className="layout_container">
+        <Row gutter={[12, 12]}>
+          <Col span={24} >
+            <Mcard
+              title={<span style={{ color: 'white' }}>Tra cứu danh sách container</span>}
+            >
+              <Row className="input_container hafl">
+                <Winput
+                  title={"Danh sách số container"}
+                  tooltip={"Nhập số container ngăn cách nhau bằng dấu cách."}
+                  onChange={(e) => this.handleInputChange(e)}
+                  checkError={(error) =>
+                    this.setState((prevState) => ({
+                      formData: {
+                        ...prevState.formData,
+                        containerNumberError: error,
+                      },
+                    }))
+                  }
+                  require={true}
+                  name={"containerNumber"}
+                  className={`form_input_field`}
+                  prefix={<FieldNumberOutlined />}
+                  placeholder={"Nhập số container"}
+                  value={formData.containerNumber}
+                  errorText={formData?.containerNumberError || true}
+                  ref={this.containerNumberRef}
                 />
-              )
-            ) : (
+              </Row>
+              <Mbutton
+                color=""
+                className="m_button third hafl"
+                type="primary"
+                htmlType="submit"
+                block
+                onClick={this.handleLoadData}
+                ref={this.submitButtonRef}
+                size={"12"}
+                dataSource={{
+                  textbutton: `Nạp dữ liệu`,
+                  icon: "CloudDownloadOutlined",
+                }}
+              />
               <div>
-                <LoadingOutlined style={{ fontSize: "64px" }} />
+                {!this.state.isLoading ? (
+                  !this.state.tableData[0] ? (
+                    <Col className="no_data">
+                      <Row justify={"center"}>
+                        <DatabaseOutlined className="no_data_icon" />
+                      </Row>
+                      <Row justify={"center"}>Nhập số container để nạp dữ liệu container...</Row>
+                    </Col>
+                  ) : (
+                    <Mtable
+                      config={{
+                        defaultData: this.state.tableData,
+                        columnsFormat: columnsFormat,
+                        rowsFormat: rowsFormat,
+                        rowsHeader: rowsHeader,
+                        reorderRow: true,
+                      }}
+                      functionRequire={{
+                        // addcolumn: true,
+                        // deleteColumn: true,
+                        exportExel: true,
+                        // saveData: () => { this.saveData() },
+                        searchField: [
+                          "ContainerNo",
+                          "OperationCode",
+                          "IsoSizetype",
+                        ],
+                      }}
+                    />
+                  )
+                ) : (
+                  <Row className="no_data" justify={"center"} align={"middle"}>
+                    <LoadingOutlined className="no_data_icon" />
+                  </Row>
+                )}
               </div>
-            )}
-          </div>
-        </div>
-      </Row>
+            </Mcard>
+          </Col>
+        </Row>
+      </Content>
     );
   }
 }

@@ -861,7 +861,7 @@ export class Winput extends React.Component {
     } = this.props;
     const { value, error } = this.state;
     return (
-      <Col className="winput">
+      <Row className="winput">
         {(title || tooltip) && (
           <Row className="winput_header">
             {title && <Col>{title} {require && <span className="winput_require">*</span>}</Col>}
@@ -881,7 +881,7 @@ export class Winput extends React.Component {
         {(require || regex || minLength) && (
           <Row className="Winput_error_text">{error}</Row>
         )}
-      </Col>
+      </Row>
     );
   }
 }

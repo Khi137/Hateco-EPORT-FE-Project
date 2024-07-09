@@ -316,9 +316,11 @@ $caption-line-height: 14px;
 // Winput
 
 .winput {
+  width: 100%;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  margin: 4px 0;
 
   .winput_header {
     margin-bottom: 4px;
@@ -330,6 +332,10 @@ $caption-line-height: 14px;
     .winput_require {
       color: red;
     }
+  }
+
+  .ant-col {
+    padding: 0 !important;
   }
 
   .ant-input {
@@ -678,7 +684,7 @@ $caption-line-height: 14px;
 
 // Mtable
 .table_container {
-  height: 92%;
+  height: 62vh;
   display: flex;
   flex-direction: column;
 
@@ -698,19 +704,13 @@ $caption-line-height: 14px;
     position: relative;
     display: flex;
     width: 100%;
-    // height: 90%;
+    height: 90%;
+    min-height: 20vh;
     justify-content: center;
     align-items: center;
     overflow: hidden;
     flex-grow: 1;
     flex: 1 1 auto;
-
-    .no_data {
-      text-align: center;
-      line-height: 36px;
-      font-size: 14px;
-      transform: translateY(-36px);
-    }
 
     .react_grid_table {
       position: absolute;
@@ -728,22 +728,172 @@ $caption-line-height: 14px;
   }
 }
 
-.no_data {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
-  div {
-    text-align: center;
 
-    p {
-      font-size: 14px;
-      line-height: 48px;
+// Mcard
+
+.m-custom-card {
+  height: fit-content;
+  min-height: 70vh;
+
+  .ant-card-body {
+    height: 90%;
+    padding-top: 0;
+    padding-bottom: 0;
+
+    .hafl {
+      width: 50% !important;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    .no_data {
+      margin-top: 20vh;
+
+      .no_data_icon {
+        font-size: 64px;
+      }
+    }
+  }
+
+  .input_layout {
+    padding: 10px 0;
+  }
+
+
+}
+
+.layout_container {
+  padding: 12px;
+  height: 95%;
+}
+
+// tracking_layout
+.tracking_layout {
+  .information_header {
+    position: relative;
+    margin: 12px;
+    height: 20px;
+
+
+    .header_dash_line {
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      background-color: $color-second;
+      top: 50%;
+    }
+
+    .information_header_text {
+      position: absolute;
+      width: fit-content;
+      text-align: center;
+      margin: 0 auto;
+      z-index: 10;
+      left: 0;
+      right: 0;
+
+      p {
+        background-color: white;
+        color: $color-third;
+        padding: 0 18px;
+      }
+    }
+  }
+
+
+  .general_information_content {
+    .information_content_item {
+      height: 24px;
+      margin: 12px;
+
+      .item_title {
+        min-width: fit-content;
+        width: 30%;
+        margin-right: 8px;
+        color: $color-second;
+      }
+
+      .item_value {
+        flex-grow: 1;
+        border-bottom: 1px dashed black;
+      }
     }
   }
 }
 
-// Mcard
+// onepage table
+.data_table {
+  display: flex;
+  width: 90%;
+  margin: 12px 5%;
+  flex-wrap: wrap;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 
+  .data_table_column {
+    flex: 1 1 50%;
+    height: 100%;
+    min-width: fit-content;
+
+    .data_table_row {
+      width: 100%;
+      flex-wrap: nowrap;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-bottom-width: 0;
+      border-right-width: 0;
+
+      .data_table_row_column {
+        width: 60%;
+        padding: 8px 12px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-top-width: 0;
+        border-left-width: 0;
+      }
+
+      .liquidation {
+        color: #04B900;
+        text-transform: capitalize;
+        font-weight: 600;
+      }
+
+      .location {
+        color: #C92929;
+        text-transform: capitalize;
+        font-weight: 600;
+      }
+
+      .left_column {
+        background-color: #ECEDEE;
+        width: 40%;
+      }
+    }
+  }
+}
+
+.table_index_container {
+  width: 100%;
+  max-width: max-content;
+  margin: 12px 5%;
+  align-items: center;
+
+  .form_input_field {
+    padding: 6px 4px;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .table_index_input {
+    height: 100%;
+    width: 75px;
+    text-align: center;
+    margin: 0 5px;
+    padding: auto 2px;
+  }
+
+  .next_index_button {
+    margin-left: 5px;
+  }
+}
