@@ -1711,6 +1711,15 @@ class Mtable extends React.Component {
     const { searchValue } = this.state;
     const { addcolumn, deleteColumn, exportExel, searchField, saveData } = this.props.functionRequire;
 
+    const rows = searchValue
+      ? handleRowsSearch(
+        tableData.reactGridRows,
+        searchValue || "",
+        tableData.reactGridColumns,
+        this.props.functionRequire?.searchField
+      )
+      : tableData.reactGridRows;
+
     return (
       <div className="table_container">
         <Row className='table_feature_container'>
@@ -1789,16 +1798,7 @@ class Mtable extends React.Component {
           <div className="react_grid_table">
             <ReactGrid
               {...this.props.config}
-              rows={
-                searchValue
-                  ? handleRowsSearch(
-                    tableData.reactGridRows,
-                    searchValue || "",
-                    tableData.reactGridColumns,
-                    this.props.functionRequire?.searchField
-                  )
-                  : tableData.reactGridRows
-              }
+              rows={rows}
               columns={tableData.reactGridColumns}
               stickyTopRows={1}
               enableRowSelection
@@ -1813,7 +1813,7 @@ class Mtable extends React.Component {
             />
           </div>
         </div>
-      </div>
+      </div >
     );
   }
 }
