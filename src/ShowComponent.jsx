@@ -1168,7 +1168,7 @@ class ShowComponent extends Component {
           </div>
 
           <h2 className="h2-tile-component">Mtable</h2>
-          <Mtable
+          {/* <Mtable
             tableData={tableData}
             columnsFormat={[
               { columnId: "STT", width: 50, resizable: true, header: "STT" },
@@ -1210,7 +1210,7 @@ class ShowComponent extends Component {
               { type: "header", text: "Trạng thái" },
             ]}
             reoderRow={true}
-          />
+          /> */}
 
           <h2 className="heading-md-normal">Mbutton</h2>
           <div className="component-mbutton" style={{ width: "100%" }}>

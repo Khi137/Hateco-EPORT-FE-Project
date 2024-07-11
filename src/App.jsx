@@ -5,9 +5,10 @@ import { isMobileOnly, isMobile } from "react-device-detect";
 import { Mcard, Mselect } from "./components/BasicUI";
 import Header from "./components/Header";
 import MainRoutes from "./router/MainRoutes";
-import "./App.css"
-import "../src/components/BasicUI.scss"
+import "./App.css";
+import "../src/components/BasicUI.scss";
 import "@silevis/reactgrid/styles.css";
+import { ConfigProvider } from "antd";
 
 class App extends React.Component {
   constructor(props) {
@@ -42,9 +43,7 @@ class App extends React.Component {
   render() {
     let test = process.env.REACT_APP_API_HOST;
     return (
-      <>
-        <MainRoutes />
-      </>
+      <MainRoutes />
     );
   }
 }

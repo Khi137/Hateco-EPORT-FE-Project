@@ -9,6 +9,7 @@ import {
 } from "@ant-design/icons";
 import {
   Mbutton,
+  Mcard,
   Mdatepicker,
   Mselect,
   Mtable,
@@ -16,6 +17,7 @@ import {
 } from "../../components/BasicUI";
 import moment from "moment";
 import { formatDateTime } from "../../utils/util";
+import { Content } from "antd/es/layout/layout";
 
 const rowData = [
   {
@@ -207,7 +209,7 @@ class TrackingHouseBill extends Component {
 
   renderInputField = (item, key) => {
     return (
-      <Col key={key + item?.name}>
+      <Row key={key + item?.name}>
         <Winput
           title={item?.title}
           value={item.value}
@@ -233,7 +235,7 @@ class TrackingHouseBill extends Component {
           errorText={item?.error && item?.error}
           ref={item.ref}
         />
-      </Col>
+      </Row>
     );
   };
 
@@ -243,6 +245,7 @@ class TrackingHouseBill extends Component {
 
   render() {
     const { formData } = this.state;
+
     const inputForm = [
       {
         title: "Mã lệnh (D/O)",
@@ -270,135 +273,34 @@ class TrackingHouseBill extends Component {
 
     const columnsFormat = [
       { columnId: "STT", width: 50, resizable: true, header: "STT" },
-      {
-        columnId: "ContainerNumber",
-        width: 150,
-        resizable: true,
-        reorderable: true,
-        header: "Số Container",
-      },
-      {
-        columnId: "OperationCode",
-        width: 150,
-        resizable: true,
-        reorderable: true,
-        header: "Hãng Tàu",
-      },
-      {
-        columnId: "IsoSizetype",
-        width: 150,
-        resizable: true,
-        reorderable: true,
-        header: "Kích cỡ",
-      },
-      {
-        columnId: "CargoTypeName",
-        width: 150,
-        resizable: true,
-        reorderable: true,
-        header: "Full/Empty",
-      },
-      {
-        columnId: "ClassName",
-        width: 150,
-        resizable: true,
-        reorderable: true,
-        header: "Hướng",
-      },
-      {
-        columnId: "ExpDate",
-        width: 150,
-        resizable: true,
-        reorderable: true,
-        header: "Hạn Booking",
-      },
-      {
-        columnId: "Position",
-        width: 150,
-        resizable: true,
-        reorderable: true,
-        header: "Vị trí bãi",
-      },
-      {
-        columnId: "DateIn",
-        width: 150,
-        resizable: true,
-        reorderable: true,
-        header: "Ngày vào bãi",
-      },
-      {
-        columnId: "DateOut",
-        width: 150,
-        resizable: true,
-        reorderable: true,
-        header: "Ngày ra bãi",
-      },
-      {
-        columnId: "ContainerStatusName",
-        width: 150,
-        resizable: true,
-        reorderable: true,
-        header: "Tình trạng cont",
-      },
-      {
-        columnId: "Status",
-        width: 150,
-        resizable: true,
-        reorderable: true,
-        header: "Trạng thái",
-      },
-    ];
+      { columnId: "ContainerNo", width: 150, resizable: true, reorderable: true, header: "Số Container" },
+      { columnId: "OperationCode", width: 150, resizable: true, reorderable: true, header: "Hãng Tàu" },
+      { columnId: "IsoSizetype", width: 150, resizable: true, reorderable: true, header: "Kích cỡ" },
+      { columnId: "CargoTypeName", width: 150, resizable: true, reorderable: true, header: "Full/Empty" },
+      { columnId: "ClassName", width: 150, resizable: true, reorderable: true, header: "Hướng" },
+      { columnId: "ExpDate", width: 150, resizable: true, reorderable: true, header: "Hạn Booking" },
+      { columnId: "Position", width: 150, resizable: true, reorderable: true, header: "Vị trí bãi" },
+      { columnId: "DateIn", width: 150, resizable: true, reorderable: true, header: "Ngày vào bãi" },
+      { columnId: "DateOut", width: 150, resizable: true, reorderable: true, header: "Ngày ra bãi" },
+      { columnId: "ContainerStatusName", width: 150, resizable: true, reorderable: true, header: "Tình trạng cont" },
+      // { columnId: "Status", width: 150, resizable: true, reorderable: true, header: "Trạng thái" }
+    ]
 
     const rowsFormat = (container, index) => {
       return [
         { type: "text", nonEditable: true, text: String(index + 1) },
-        { type: "text", nonEditable: true, text: container?.ContainerNo || "" },
-        {
-          type: "text",
-          nonEditable: true,
-          text: container?.OperationCode || "",
-        },
-        { type: "text", nonEditable: true, text: container?.IsoSizetype || "" },
-        {
-          type: "text",
-          nonEditable: true,
-          text: container?.CargoTypeName || "",
-        },
-        { type: "text", nonEditable: true, text: container?.ClassName || "" },
-        {
-          type: "text",
-          nonEditable: true,
-          text: container?.ExpDate ? formatDateTime(container?.ExpDate) : "",
-        },
-        {
-          type: "text",
-          nonEditable: true,
-          text:
-            (container?.Block || "") +
-            "-" +
-            (container?.Bay || "") +
-            "-" +
-            (container?.Row || "") +
-            "-" +
-            (container?.Tier || ""),
-        },
-        {
-          type: "text",
-          nonEditable: true,
-          text: container?.DateIn ? formatDateTime(container?.DateIn) : "",
-        },
-        {
-          type: "text",
-          nonEditable: true,
-          text: container?.DateOut ? formatDateTime(container?.DateOut) : "",
-        },
-        {
-          type: "text",
-          nonEditable: true,
-          text: container?.ContainerStatusName || "",
-        },
-        { type: "checkbox", nonEditable: true, checked: container?.status },
-      ];
+        { type: "text", nonEditable: false, text: container?.ContainerNo || "" },
+        { type: "text", nonEditable: false, text: container?.OperationCode || "" },
+        { type: "text", nonEditable: false, text: container?.IsoSizetype || "" },
+        { type: "text", nonEditable: false, text: container?.CargoTypeName || "" },
+        { type: "text", nonEditable: false, text: container?.ClassName || "" },
+        { type: "text", nonEditable: false, text: container?.ExpDate ? formatDateTime(container?.ExpDate) : "" },
+        { type: "text", nonEditable: false, text: (container?.Block || "") + "-" + (container?.Bay || "") + "-" + (container?.Row || "") + "-" + (container?.Tier || "") },
+        { type: "text", nonEditable: false, text: container?.DateIn ? formatDateTime(container?.DateIn) : "" },
+        { type: "text", nonEditable: false, text: container?.DateOut ? formatDateTime(container?.DateOut) : "" },
+        { type: "text", nonEditable: false, text: container?.ContainerStatusName || "" },
+        // { type: "checkbox", nonEditable: false, checked: container?.status }
+      ]
     };
 
     const rowsHeader = [
@@ -413,143 +315,149 @@ class TrackingHouseBill extends Component {
       { type: "header", text: "Ngày vào bãi" },
       { type: "header", text: "Ngày ra bãi" },
       { type: "header", text: "Tình trạng cont" },
-      { type: "header", text: "Trạng Tình" },
+      // { type: "header", text: "Trạng Tình" },
     ];
 
     return (
-      <div>
-        <div>
-          <div>
-            <Row>Tra cứu thông tin HouseBill</Row>
-            <div>
-              <Row>
-                <Col>
-                  <Row>Từ ngày</Row>
-                  <Mdatepicker
-                    dataSource={{
-                      value: formData.fromDate,
-                      format: "YYYY-MM-DD HH:mm:ss",
-                      defaultValue: formData.fromDate,
-                      id: "my-datepicker",
-                      // label: 'Select Date',
-                      // span: { xs: 24, sm: 12, md: 8 },
-                      required: true,
-                      lockbefore: true,
-                      propReadonly: false,
-                    }}
-                  />
-                </Col>
-                <Col>
-                  <Row>Đến ngày</Row>
-                  <Mdatepicker
-                    dataSource={{
-                      value: formData.toDate,
-                      format: "YYYY-MM-DD HH:mm:ss",
-                      defaultValue: formData.toDate,
-                      id: "my-datepicker",
-                      // label: 'Select Date',
-                      // span: { xs: 24, sm: 12, md: 8 },
-                      required: true,
-                      lockbefore: true,
-                      propReadonly: false,
-                      className: "date_input",
-                    }}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Row>
+      <Content className="flex_layout-8-16_container">
+        <Row gutter={[12, 12]}>
+          <Col lg={{ span: 8 }} sm={{ span: 24 }}>
+            <Mcard
+              title={<span style={{ color: 'white' }}>Tra cứu thông tin HouseBill</span>}
+            >
+              <Col className="input_layout">
+                <Row justify={"space-between"}>
                   <Col>
-                    Chọn hãng khai thác <span className="item_require">*</span>
+                    <Row>Từ ngày</Row>
+                    <Mdatepicker
+                      dataSource={{
+                        value: formData.fromDate,
+                        format: "YYYY-MM-DD HH:mm:ss",
+                        defaultValue: formData.fromDate,
+                        id: "my-datepicker",
+                        // label: 'Select Date',
+                        // span: { xs: 24, sm: 12, md: 8 },
+                        required: true,
+                        lockbefore: true,
+                        propReadonly: false,
+                        className: "ant-picker-borderless"
+                      }}
+                    />
                   </Col>
-                  <Tooltip
-                    placement="top"
-                    title={"Chọn hãng khai thác"}
-                    className="item_tooltip"
-                  >
-                    <InfoCircleOutlined />
-                  </Tooltip>
+                  <Col>
+                    <Row>Đến ngày</Row>
+                    <Mdatepicker
+                      dataSource={{
+                        value: formData.toDate,
+                        format: "YYYY-MM-DD HH:mm:ss",
+                        defaultValue: formData.toDate,
+                        id: "my-datepicker",
+                        // label: 'Select Date',
+                        // span: { xs: 24, sm: 12, md: 8 },
+                        required: true,
+                        lockbefore: true,
+                        propReadonly: false,
+                        className: "date_input",
+                      }}
+                    />
+                  </Col>
                 </Row>
-                <Mselect
+                <Row>
+                  <Row>
+                    <Col>
+                      Chọn hãng khai thác <span className="item_require">*</span>
+                    </Col>
+                    <Tooltip
+                      placement="top"
+                      title={"Chọn hãng khai thác"}
+                      className="item_tooltip"
+                    >
+                      <InfoCircleOutlined />
+                    </Tooltip>
+                  </Row>
+                  <Mselect
+                    dataSource={{
+                      id: "miningCompany",
+                      ref: "miningCompany",
+                      name: "miningCompany",
+                      label: "Chọn Hãng Khai Thác",
+                      value: this.state.formData.miningCompany,
+                      options: [
+                        { label: "Option 1", value: "option1" },
+                        { label: "Option 2", value: "option2" },
+                        { label: "Option 3", value: "option3" },
+                      ],
+                    }}
+                    onChangeValue={(e) => this.handleSelect(e)}
+                  />
+                  <Row className="Winput_error_text">
+                    {this.miningCompanyError}
+                  </Row>
+                </Row>
+                {inputForm.map((item, key) => this.renderInputField(item, key))}
+                <Mbutton
+                  color=""
+                  className="m_button third"
+                  type="primary"
+                  htmlType="submit"
+                  block
+                  onClick={this.handleLoadData}
+                  ref={this.submitButtonRef}
+                  size={"12"}
                   dataSource={{
-                    id: "miningCompany",
-                    ref: "miningCompany",
-                    name: "miningCompany",
-                    label: "Chọn Hãng Khai Thác",
-                    value: this.state.formData.miningCompany,
-                    options: [
-                      { label: "Option 1", value: "option1" },
-                      { label: "Option 2", value: "option2" },
-                      { label: "Option 3", value: "option3" },
-                    ],
+                    textbutton: `Nạp dữ liệu`,
+                    icon: "CloudDownloadOutlined",
                   }}
-                  onChangeValue={(e) => this.handleSelect(e)}
                 />
-                <Row className="Winput_error_text">
-                  {this.miningCompanyError}
-                </Row>
-              </Row>
-              {inputForm.map((item, key) => this.renderInputField(item, key))}
-            </div>
-            <div className="input_button">
-              <Mbutton
-                color=""
-                className="m_button third"
-                type="primary"
-                htmlType="submit"
-                block
-                onClick={this.handleLoadData}
-                ref={this.submitButtonRef}
-                size={"12"}
-                dataSource={{
-                  textbutton: `Nạp dữ liệu`,
-                  icon: "CloudDownloadOutlined",
-                }}
-              />
-            </div>
-          </div>
-          <div>
-            <Row>Danh sách container</Row>
-            {!this.state.isLoading ? (
-              !this.state.tableData[0] ? (
-                <div className="no_data">
-                  <div>
-                    <DatabaseOutlined style={{ fontSize: "64px" }} />
-                    <p>Nhập thông tin HouseBill để nạp dữ liệu container...</p>
-                  </div>
-                </div>
+              </Col>
+            </Mcard>
+          </Col>
+          <Col lg={{ span: 16 }} sm={{ span: 24 }}>
+            <Mcard
+              title={<span style={{ color: 'white' }}>Danh sách container</span>}
+              className="container_list"
+            >
+              {!this.state.isLoading ? (
+                !this.state.tableData[0] ? (
+                  <Col className="no_data">
+                    <Row justify={"center"}>
+                      <DatabaseOutlined className="no_data_icon" />
+                    </Row>
+                    <Row justify={"center"}>Nhập thông tin HouseBill để nạp dữ liệu container...</Row>
+                  </Col>
+                ) : (
+                  <Mtable
+                    config={{
+                      defaultData: this.state.tableData,
+                      columnsFormat: columnsFormat,
+                      rowsFormat: rowsFormat,
+                      rowsHeader: rowsHeader,
+                      reorderRow: true,
+                    }}
+                    functionRequire={{
+                      // addcolumn: true,
+                      // deleteColumn: true,
+                      exportExel: true,
+                      // saveData: () => {
+                      //   this.saveData();
+                      // },
+                      searchField: [
+                        "ContainerNo",
+                        "OperationCode",
+                        "IsoSizetype",
+                      ],
+                    }}
+                  />
+                )
               ) : (
-                <Mtable
-                  config={{
-                    defaultData: this.state.tableData,
-                    columnsFormat: columnsFormat,
-                    rowsFormat: rowsFormat,
-                    rowsHeader: rowsHeader,
-                    reoderRow: true,
-                  }}
-                  functionRequire={{
-                    addcolumn: true,
-                    deleteColumn: true,
-                    exportExel: true,
-                    saveData: () => {
-                      this.saveData();
-                    },
-                    searchField: [
-                      "ContainerNumber",
-                      "OperationCode",
-                      "IsoSizetype",
-                    ],
-                  }}
-                />
-              )
-            ) : (
-              <div>
-                <LoadingOutlined style={{ fontSize: "64px" }} />
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+                <Row className="no_data" justify={"center"} align={"middle"}>
+                  <LoadingOutlined className="no_data_icon" />
+                </Row>
+              )}
+            </Mcard>
+          </Col>
+        </Row>
+      </Content>
     );
   }
 }

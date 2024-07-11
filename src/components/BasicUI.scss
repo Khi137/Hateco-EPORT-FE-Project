@@ -55,12 +55,10 @@ $color-warning-400: #a6620d;
 
 //Opacity
 $color-opacity-primary: rgba(red(#7d49f8), green(#7d49f8), blue(#7d49f8), 0.15);
-$color-opacity-secondary: rgba(
-  red(#1c6fe3),
-  green(#1c6fe3),
-  blue(#1c6fe3),
-  0.15
-);
+$color-opacity-secondary: rgba(red(#1c6fe3),
+    green(#1c6fe3),
+    blue(#1c6fe3),
+    0.15);
 $color-opacity-danger: rgba(red(#c92929), green(#c92929), blue(#c92929), 0.15);
 $color-opacity-success: rgba(red(#12825f), green(#12825f), blue(#12825f), 0.15);
 $color-opacity-warning: rgba(red(#f2ab53), green(#f2ab53), blue(#f2ab53), 0.15);
@@ -95,6 +93,7 @@ $breakpoint-sm: 360px;
   line-height: $heading-xl-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .heading-xl-bold {
   font-family: $main-font;
   font-size: $heading-xl-font-size;
@@ -105,12 +104,14 @@ $breakpoint-sm: 360px;
 //heading-lg
 $heading-lg-font-size: 48px;
 $heading-lg-line-height: 64px;
+
 .heading-lg-normal {
   font-family: $main-font;
   font-size: $heading-lg-font-size;
   line-height: $heading-lg-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .heading-lg-bold {
   font-family: $main-font;
   font-size: $heading-lg-font-size;
@@ -121,12 +122,14 @@ $heading-lg-line-height: 64px;
 //heading-md
 $heading-md-font-size: 34px;
 $heading-md-line-height: 48px;
+
 .heading-md-normal {
   font-family: $main-font;
   font-size: $heading-md-font-size;
   line-height: $heading-md-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .heading-md-bold {
   font-family: $main-font;
   font-size: $heading-md-font-size;
@@ -137,12 +140,14 @@ $heading-md-line-height: 48px;
 //title-xl
 $title-xl-font-size: 24px;
 $title-xl-line-height: 34px;
+
 .title-xl-normal {
   font-family: $main-font;
   font-size: $title-xl-font-size;
   line-height: $title-xl-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .title-xl-bold {
   font-family: $main-font;
   font-size: $title-xl-font-size;
@@ -153,12 +158,14 @@ $title-xl-line-height: 34px;
 //title-lg
 $title-lg-font-size: 20px;
 $title-lg-line-height: 30px;
+
 .title-lg-normal {
   font-family: $main-font;
   font-size: $title-lg-font-size;
   line-height: $title-lg-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .title-lg-bold {
   font-family: $main-font;
   font-size: $title-lg-font-size;
@@ -169,12 +176,14 @@ $title-lg-line-height: 30px;
 //body-xl
 $body-xl-font-size: 18px;
 $body-xl-line-height: 28px;
+
 .body-xl-normal {
   font-family: $main-font;
   font-size: $body-xl-font-size;
   line-height: $body-xl-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .body-xl-bold {
   font-family: $main-font;
   font-size: $body-xl-font-size;
@@ -185,12 +194,14 @@ $body-xl-line-height: 28px;
 //body-lg
 $body-lg-font-size: 16px;
 $body-lg-line-height: 24px;
+
 .body-lg-normal {
   font-family: $main-font;
   font-size: $body-lg-font-size;
   line-height: $body-lg-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .body-lg-bold {
   font-family: $main-font;
   font-size: $body-lg-font-size;
@@ -201,12 +212,14 @@ $body-lg-line-height: 24px;
 //body-md
 $body-md-font-size: 14px;
 $body-md-line-height: 20px;
+
 .body-md-normal {
   font-family: $main-font;
   font-size: $body-md-font-size;
   line-height: $body-md-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .body-md-bold {
   font-family: $main-font;
   font-size: $body-md-font-size;
@@ -217,12 +230,14 @@ $body-md-line-height: 20px;
 //body-sm
 $body-sm-font-size: 12px;
 $body-sm-line-height: 18px;
+
 .body-sm-normal {
   font-family: $main-font;
   font-size: $body-sm-font-size;
   line-height: $body-sm-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .body-sm-bold {
   font-family: $main-font;
   font-size: $body-sm-font-size;
@@ -237,12 +252,14 @@ $body-sm-line-height: 18px;
 //caption
 $caption-font-size: 10px;
 $caption-line-height: 14px;
+
 .caption-normal {
   font-family: $main-font;
   font-size: $caption-font-size;
   line-height: $caption-line-height;
   font-weight: $main-font-weight-normal;
 }
+
 .caption-bold {
   font-family: $main-font;
   font-size: $caption-font-size;
@@ -265,15 +282,18 @@ $caption-line-height: 14px;
   display: flex;
   justify-content: space-between;
 }
+
 .ant-radio-wrapper {
   margin: 0 0 0 8px !important;
   font-family: $main-font !important;
   font-size: 16px !important;
   color: #4f575e !important;
 }
+
 .ant-radio-wrapper:hover {
   background-color: #f8f5ff;
 }
+
 .ant-radio-inner {
   top: 0;
   right: 0;
@@ -285,6 +305,7 @@ $caption-line-height: 14px;
   background-color: initial !important;
   border-width: 2px !important;
   border-color: #4f575e !important;
+
   &::after {
     border-color: $color-third !important;
     transform: scale(0.8) !important;
@@ -295,9 +316,11 @@ $caption-line-height: 14px;
 // Winput
 
 .winput {
+  width: 100%;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  margin: 4px 0;
 
   .winput_header {
     margin-bottom: 4px;
@@ -311,16 +334,30 @@ $caption-line-height: 14px;
     }
   }
 
+  .ant-col {
+    padding: 0 !important;
+  }
+
   .ant-input {
     width: 100%;
     height: 100% !important;
     margin: auto 0;
   }
 
+  .form_input_field {
+    border: 1px solid #0075bb;
+    color: #0075bb;
+  }
+
   .Winput.error_input {
     border-color: #C92929;
     margin: 0;
+
+    span {
+      color: #C92929;
+    }
   }
+
 }
 
 .Winput_error_text {
@@ -365,6 +402,7 @@ $caption-line-height: 14px;
     border: 2px solid #cbcfd2;
     border-radius: 4px;
     transition: border-color 0.3s;
+
     &:hover {
       border-color: $color-third;
     }
@@ -388,6 +426,7 @@ $caption-line-height: 14px;
     height: 100%;
     border: 2px solid lightgray;
     padding: 8px 8px 8px 48px;
+
     &:hover {
       border-color: $color-third;
     }
@@ -397,6 +436,7 @@ $caption-line-height: 14px;
       border-color: $color-third;
     }
   }
+
   .ant__search-icon {
     position: absolute;
     font-size: 20px;
@@ -427,12 +467,14 @@ $caption-line-height: 14px;
 .m_button.third {
   background-color: $color-third;
   color: #ffffff;
+
   &:hover {
     background-color: $color-third !important;
     color: #ffffff !important;
-    &:active {
-      background-color: $color-third !important;
-    }
+  }
+
+  &:active {
+    background-color: $color-third !important;
   }
 }
 
@@ -440,13 +482,15 @@ $caption-line-height: 14px;
   background-color: white;
   color: $color-third;
   border: 2px solid $color-third;
+
   &:hover {
     background-color: white !important;
     color: #1d99d6 !important;
     border-color: #1d99d6;
-    &:active {
-      border: 2px solid #1d99d6;
-    }
+  }
+
+  &:active {
+    border: 2px solid #1d99d6;
   }
 }
 
@@ -454,48 +498,56 @@ $caption-line-height: 14px;
   background-color: transparent;
   color: #ffffff;
   border: 2px solid #ffffff;
+
   &:hover {
     background-color: transparent !important;
     color: #cbcfd2 !important;
     border: 2px solid #cbcfd2;
-    &:active {
-      border: 2px solid #cbcfd2;
-    }
+  }
+
+  &:active {
+    border: 2px solid #cbcfd2;
   }
 }
 
 .m_button.red {
   background-color: #c92929 !important;
   color: white;
+
   &:hover {
     background-color: #a92323;
     color: white;
-    &:active {
-      background-color: #a92323 !important;
-    }
+  }
+
+  &:active {
+    background-color: #a92323 !important;
   }
 }
 
 .m_button.green {
   background-color: #12825f;
   color: white;
+
   &:hover {
     background-color: #0e674b !important;
-    &:active {
-      background-color: #12825f;
-    }
+  }
+
+  &:active {
+    background-color: #12825f;
   }
 }
 
 .m_button.orange {
   background-color: #f2ab53;
   color: #202327;
+
   &:hover {
     background-color: #ee9322 !important;
     color: #202327 !important;
-    &:active {
-      background-color: #f2ab53;
-    }
+  }
+
+  &:active {
+    background-color: #f2ab53;
   }
 }
 
@@ -513,6 +565,7 @@ $caption-line-height: 14px;
   flex: 0 0 100%;
   max-width: 100%;
 }
+
 .m-checkbox_checked {
   .m-form__Mcheckbox:hover {
     background-color: #f8f5ff;
@@ -523,10 +576,12 @@ $caption-line-height: 14px;
   padding: 8px 16px;
   border-radius: 4px;
   border: 1px solid white;
+
   &:hover {
     background-color: #f8f5ff !important;
     border-width: 1px !important;
     border-color: $color-third !important;
+
     .ant-checkbox-wrapper {
       .ant-checkbox {
         .ant-checkbox-inner {
@@ -597,6 +652,7 @@ $caption-line-height: 14px;
 .typography-example {
   display: flex;
   clear: both;
+
   .typography-info {
     flex: 1;
     display: flex;
@@ -604,11 +660,13 @@ $caption-line-height: 14px;
     width: auto;
     float: left;
   }
+
   .typography-info div {
     flex: 1;
     padding: 0 10px 0 10px;
     text-align: top left;
   }
+
   .example-text {
     flex: 1;
     margin: 0 0 0 40px;
@@ -620,12 +678,14 @@ $caption-line-height: 14px;
 
 .component-mbutton {
   width: auto;
+
   .component-mbutton-1 {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     padding: 50px;
     background-color: $color-dark-50;
   }
+
   .component-mbutton-2 {
     padding: 50px;
     background-color: $color-dark-50;
@@ -634,7 +694,7 @@ $caption-line-height: 14px;
 
 // Mtable
 .table_container {
-  height: 92%;
+  height: 60vh;
   display: flex;
   flex-direction: column;
 
@@ -654,19 +714,13 @@ $caption-line-height: 14px;
     position: relative;
     display: flex;
     width: 100%;
-    // height: 90%;
+    height: 90%;
+    min-height: 20vh;
     justify-content: center;
     align-items: center;
     overflow: hidden;
     flex-grow: 1;
     flex: 1 1 auto;
-
-    .no_data {
-      text-align: center;
-      line-height: 36px;
-      font-size: 14px;
-      transform: translateY(-36px);
-    }
 
     .react_grid_table {
       position: absolute;
@@ -686,21 +740,187 @@ $caption-line-height: 14px;
 
 
 
+// Mcard
+.flex_layout-8-16_container {
+  padding: 12px;
+  padding-bottom: 0;
+  height: 95%;
+}
 
+.one_page_layout_container {
+  padding: 12px;
+  padding-bottom: 0;
+  height: 95%;
+}
 
-.no_data {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.m-custom-card {
+  height: fit-content;
+  min-height: 67.8vh;
 
-  div {
-    text-align: center;
+  .ant-card-body {
+    height: 90%;
+    padding-top: 0;
+    padding-bottom: 0;
 
-    p {
-      font-size: 14px;
-      line-height: 48px;
+    .hafl {
+      width: 50% !important;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
     }
+
+    .no_data {
+      margin-top: 25vh;
+      line-height: 36px;
+
+      .no_data_icon {
+        font-size: 64px;
+      }
+    }
+  }
+
+  .input_layout {
+    padding: 10px 0;
+  }
+
+  .tracking_bill_input {
+    button {
+      margin-top: 12px;
+    }
+  }
+}
+
+// tracking_layout
+.tracking_layout {
+  .information_header {
+    position: relative;
+    margin: 12px;
+    height: 20px;
+
+
+    .header_dash_line {
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      background-color: $color-second;
+      top: 50%;
+    }
+
+    .information_header_text {
+      position: absolute;
+      width: fit-content;
+      text-align: center;
+      margin: 0 auto;
+      z-index: 10;
+      left: 0;
+      right: 0;
+
+      p {
+        background-color: white;
+        color: $color-third;
+        padding: 0 18px;
+      }
+    }
+  }
+
+
+  .general_information_content {
+    .information_content_item {
+      height: 24px;
+      margin: 12px;
+
+      .item_title {
+        min-width: fit-content;
+        width: 30%;
+        margin-right: 8px;
+        color: $color-second;
+      }
+
+      .item_value {
+        flex-grow: 1;
+        border-bottom: 1px dashed black;
+      }
+    }
+  }
+}
+
+// onepage table
+.data_table {
+  display: flex;
+  width: 90%;
+  margin: 12px 5%;
+  flex-wrap: wrap;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+
+  .data_table_column {
+    flex: 1 1 50%;
+    height: 100%;
+    min-width: fit-content;
+
+    .data_table_row {
+      width: 100%;
+      flex-wrap: nowrap;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-bottom-width: 0;
+      border-right-width: 0;
+
+      .data_table_row_column {
+        width: 60%;
+        padding: 8px 12px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-top-width: 0;
+        border-left-width: 0;
+      }
+
+      .liquidation {
+        color: #04B900;
+        text-transform: capitalize;
+        font-weight: 600;
+      }
+
+      .location {
+        color: #C92929;
+        text-transform: capitalize;
+        font-weight: 600;
+      }
+
+      .left_column {
+        background-color: #ECEDEE;
+        width: 40%;
+      }
+    }
+  }
+}
+
+// tracking container
+.table_index_container {
+  width: 100%;
+  max-width: max-content;
+  margin: 12px 5%;
+  align-items: center;
+
+  .form_input_field {
+    padding: 6px 4px;
+    border-radius: 6px;
+    border: 1px solid #0075bb !important;
+
+    .ant-input-outlined {
+      border: 1px solid #0075bb !important;
+
+    }
+  }
+
+  .table_index_input {
+    height: 100%;
+    width: 75px;
+    text-align: center;
+    margin: 0 5px;
+    padding: auto 2px;
+  }
+
+  .next_index_button {
+    margin-left: 5px;
   }
 }

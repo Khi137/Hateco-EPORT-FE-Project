@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { handleColumnsReorder, handleRowsReorder } from "../../utils/util";
+import { getColumnIndex, handleColumnsReorder, handleRowsReorder } from "../../utils/util";
 
 const generateColumnsData = (columnsFormat) => {
     return columnsFormat?.map((column) => ({
@@ -45,17 +45,6 @@ const tableSlice = createSlice({
     name: "table",
     initialState,
     reducers: {
-        getDeFaultData: (state, action) => {
-            const updatedRows = state.defaultData.map(proxyObject => {
-                const plainObject = {};
-                for (let key in proxyObject) {
-                    plainObject[key] = proxyObject[key];
-                }
-                return plainObject;
-            });
-            console.log(updatedRows);
-            // return updatedRows
-        },
         setData: (state, action) => {
             const { defaultData, columnsFormat, rowsHeader, rowsFormat, tableName, reorderRow } = action.payload;
             const tableData = {
@@ -82,10 +71,12 @@ const tableSlice = createSlice({
                 return plainObject;
             });
             updatedRows.push(generateRowData(newRow.newRow, Number(newRow.index), state.rowsFormat, newRow.reorderRow));
+            state.defaultData.push({})
             state.tableData.reactGridRows = updatedRows;
         },
         deleteRows: (state, action) => {
             const { rows } = action.payload;
+            const indexToDelete = getColumnIndex(state.columnsFormat, ["ContainerNo"])
             const idxToDelete = rows.map(row => row.idx);
             const updatedRows = state.tableData.reactGridRows.map(proxyObject => {
                 const plainObject = {};
@@ -95,7 +86,9 @@ const tableSlice = createSlice({
                 return plainObject;
             });
             const filteredRows = updatedRows.filter((row, index) => !idxToDelete.includes(index));
-            console.log(filteredRows);
+            const filteredDefaultData = state.defaultData.filter((obj) => obj.ContainerNo !== rows[0].cells[indexToDelete].text);
+            // console.log(rows[0].cells[indexToDelete].text);
+            state.defaultData = filteredDefaultData
             state.tableData.reactGridRows = filteredRows;
         },
         reorderColumns: (state, action) => {
@@ -169,7 +162,6 @@ const tableSlice = createSlice({
 });
 
 export const {
-    getDeFaultData,
     setData,
     updateRow,
     addRow,
