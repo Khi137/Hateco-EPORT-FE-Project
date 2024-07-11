@@ -300,6 +300,7 @@ class TrackingEdo extends Component {
           <Col lg={{ span: 8 }} sm={{ span: 24 }}>
             <Mcard
               title={<span style={{ color: 'white' }}>Tra cứu số EDO</span>}
+              className="flex_card"
             >
               <Col className="input_layout">
                 <Row justify={"space-between"}>

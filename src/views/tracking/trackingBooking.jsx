@@ -263,6 +263,7 @@ class TrackingBooking extends Component {
           <Col lg={{ span: 8 }} sm={{ span: 24 }}>
             <Mcard
               title={<span style={{ color: 'white' }}>Truy vấn thông tin hóa đơn</span>}
+              className="flex_card"
             >
               <Col className="input_layout">
                 <Col>
