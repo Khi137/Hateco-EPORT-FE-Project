@@ -297,7 +297,7 @@ class TrackingEdo extends Component {
     return (
       <Content className="flex_layout-8-16_container">
         <Row gutter={[12, 12]}>
-          <Col lg={{ span: 8 }} sm={{ span: 24 }}>
+          <Col lg={{ span: 8 }} sm={{ span: 24 }} xs={{ span: 24 }}>
             <Mcard
               title={<span style={{ color: 'white' }}>Tra cứu số EDO</span>}
               className="flex_card"
@@ -386,7 +386,7 @@ class TrackingEdo extends Component {
               </Col>
             </Mcard>
           </Col>
-          <Col lg={{ span: 16 }} sm={{ span: 24 }}>
+          <Col lg={{ span: 16 }} sm={{ span: 24 }} xs={{ span: 24 }}>
             <Mcard
               title={<span style={{ color: 'white' }}>Danh sách container</span>}
               className="container_list"
