@@ -3,14 +3,15 @@
 
  WORKDIR /app
  
- COPY package.json package-lock.json ./
+ #COPY package.json package-lock.json ./
  
- RUN npm install
+
  #RUN npm audit fix
  
  COPY . .
  RUN npm install -g typescript
  RUN npm install react-scripts
+ RUN npm install
  RUN npm run build
  #RUN npm run-script start
  
