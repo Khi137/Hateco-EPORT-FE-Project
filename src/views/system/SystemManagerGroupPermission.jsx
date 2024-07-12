@@ -90,12 +90,10 @@ export class SystemManagerGroupPermission extends Component {
       formData: {
         pinCode: "",
         pinCodeError: true,
-
         taxCode: "",
         billForm: "",
         billSymbol: "",
         billNumber: "",
-
         searchData: "",
       },
       radioValue: "pincode",

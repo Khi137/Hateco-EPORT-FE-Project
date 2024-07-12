@@ -231,9 +231,9 @@
               grid-template-columns: repeat(3, 1fr);
               list-style: none;
             padding-left: 0;
-            @media (max-width: 768px) {
+            @media (max-width: 1200px) {
                 grid-template-columns: 1fr;
-                max-height:200px ;
+                max-height:400px ;
 
                 overflow-x: scroll;
             }
