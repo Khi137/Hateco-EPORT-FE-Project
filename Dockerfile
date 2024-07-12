@@ -11,7 +11,7 @@
  COPY . .
  
  RUN npm run-script build
- RUN npm run-script start
+ #RUN npm run-script start
  
  # Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
  FROM nginx:1.15
