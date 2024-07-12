@@ -9,6 +9,7 @@
  #RUN npm audit fix
  
  COPY . .
+ RUN npm install -g typescript
  RUN npm install react-scripts
  RUN npm run build
  #RUN npm run-script start
