@@ -30,8 +30,7 @@ const extendsionSlice = createSlice({
   initialState,
   reducers: {
     addIconExtendsion: (state, action) => {
-
-      const { id, text, url, parentUrl, icon } = action.payload; // Lấy thông tin từ action payload
+      const { id, text, url, parentUrl, icon } = action.payload;
       const existingExtension = state.find((ext) => ext.id === id);
       if (!existingExtension) {
         state.push({ id, text, url, parentUrl, icon });

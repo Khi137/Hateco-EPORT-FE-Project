@@ -381,7 +381,7 @@ class TrackingBill extends Component {
               </Col>
             </Mcard>
           </Col>
-          <Col lg={{ span: 16 }} sm={{ span: 24 }} xs={{ span: 24 }}>
+          <Col className="layout_col" lg={{ span: 16 }} sm={{ span: 24 }} xs={{ span: 24 }}>
             <Mcard
               title={<span style={{ color: 'white' }}>Danh sách container</span>}
               className="container_list"
@@ -405,7 +405,7 @@ class TrackingBill extends Component {
                     }}
                     functionRequire={{
                       // addcolumn: false,
-                      // deleteColumn: true,
+                      deleteColumn: true,
                       exportExel: true,
                       // saveData: (data) => {
                       //   console.log(data);

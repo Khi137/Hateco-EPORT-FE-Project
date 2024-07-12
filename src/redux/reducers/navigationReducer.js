@@ -217,18 +217,18 @@ const initialState = [
   {
     text: "Quản lý lệnh",
     icon: "FormOutlined",
-    url: "/quản-lý-lệnh",
+    url: "/command_manager",
     subMenu: [
       {
         id: "qll-01",
         text: "Cập nhật thông tin lệnh",
-        url: "/cập-nhật-thông-tin-lệnh",
+        url: "/approve_command",
         icon: "ExportOutlined",
       },
       {
         id: "qll-02",
         text: "Duyệt lệnh",
-        url: "/duyệt-lệnh",
+        url: "/update_command_Infomation",
         icon: "CheckSquareOutlined",
       },
     ],

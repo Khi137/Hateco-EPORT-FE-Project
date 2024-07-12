@@ -76,7 +76,8 @@ const tableSlice = createSlice({
         },
         deleteRows: (state, action) => {
             const { rows } = action.payload;
-            const indexToDelete = getColumnIndex(state.columnsFormat, ["ContainerNo"])
+            // const indexToDelete = getColumnIndex(state.columnsFormat, ["ContainerNo"])
+            const indexToDelete = getColumnIndex(state.columnsFormat, [{ ...state.columnsFormat[1] }.columnId])
             const idxToDelete = rows.map(row => row.idx);
             const updatedRows = state.tableData.reactGridRows.map(proxyObject => {
                 const plainObject = {};
@@ -86,7 +87,7 @@ const tableSlice = createSlice({
                 return plainObject;
             });
             const filteredRows = updatedRows.filter((row, index) => !idxToDelete.includes(index));
-            const filteredDefaultData = state.defaultData.filter((obj) => obj.ContainerNo !== rows[0].cells[indexToDelete].text);
+            const filteredDefaultData = state.defaultData.filter((obj) => obj[{ ...state.columnsFormat[1] }.columnId] !== rows[0].cells[indexToDelete].text);
             // console.log(rows[0].cells[indexToDelete].text);
             state.defaultData = filteredDefaultData
             state.tableData.reactGridRows = filteredRows;

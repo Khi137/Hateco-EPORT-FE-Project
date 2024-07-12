@@ -1,17 +1,16 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import {
   Mbutton,
-  Msearch,
+  Mcard,
   Mselect,
   Mtable,
   Winput,
 } from "../../components/BasicUI";
-import {
-  CloudDownloadOutlined,
-  SaveOutlined,
-  SearchOutlined,
-} from "@ant-design/icons";
-let tableData = [
+import { Col, Row } from "antd";
+import { Content } from "antd/es/layout/layout";
+import Empty from "./Empty";
+import { LoadingOutlined } from "@ant-design/icons";
+const rowData = [
   {
     key: "1",
     category: "Lệnh đóng hàng container",
@@ -50,6 +49,25 @@ let tableData = [
   },
 ];
 
+const valueSelect = [
+  {
+    label: "Quản lý người dùng",
+    option: [
+      { label: "QUANTRI: Quản trị hệ thống", value: "QTHT" },
+      { label: "Dev: Developer", value: "DEV" },
+      { label: "BOD: BOD Tập đoàn", value: "BOD" },
+    ],
+  },
+  {
+    label: "Chọn cảng",
+    option: [
+      { label: "NDV", value: "NDV" },
+      { label: "Cát lái", value: "Catlai" },
+      { label: "Hải phòng", value: "HP" },
+    ],
+  },
+];
+
 function generateRandomContainerNo() {
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let result = "";
@@ -60,25 +78,103 @@ function generateRandomContainerNo() {
   return result;
 }
 
-for (let index = 0; index < 10; index++) {
-  const duplicatedData = { ...tableData[0] };
+for (let index = 0; index < 30; index++) {
+  const duplicatedData = { ...rowData[0] };
   duplicatedData.ContainerNo = generateRandomContainerNo();
-  tableData.push(duplicatedData);
+  rowData.push(duplicatedData);
 }
 export class SystemManagerGroupPermission extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tableData: tableData,
-      loadData: false,
-      selectedRowKeys: [],
+      formData: {
+        pinCode: "",
+        pinCodeError: true,
+        taxCode: "",
+        billForm: "",
+        billSymbol: "",
+        billNumber: "",
+        searchData: "",
+      },
+      radioValue: "pincode",
+      tableData: [],
+      isLoading: false,
     };
+    this.submitButtonRef = createRef();
+    this.pinCodeRef = createRef();
   }
 
-  handleLoadData = () => {
-    this.setState((prev) => ({
-      loadData: !prev.loadData,
+  handleInputChange = (e) => {
+    const { name, value } = e.target;
+    this.setState((prevState) => ({
+      formData: {
+        ...prevState.formData,
+        [name]: value,
+      },
     }));
+    return value;
+  };
+
+  handleRadioChange = (returnValue) => {
+    this.setState({
+      radioValue: returnValue,
+    });
+  };
+
+  handleLoadData = () => {
+    this.setState({ isLoading: true });
+    setTimeout(() => {
+      this.setState((prevState) => ({
+        tableData: rowData,
+        isLoading: false,
+      }));
+    }, 1000);
+  };
+
+  renderInputField = (item, key) => {
+    return (
+      <Row key={key + item?.name}>
+        <Winput
+          title={item?.title}
+          value={item.value}
+          tooltip={item.tooltip}
+          onChange={(e) => this.handleInputChange(e)}
+          checkError={(error) =>
+            this.setState((prevState) => ({
+              formData: {
+                ...prevState.formData,
+                [item?.name + "Error"]: error,
+              },
+            }))
+          }
+          require={item.require}
+          inputRegex={item.regex}
+          minLength={item.minLength}
+          name={item?.name}
+          type={item?.type}
+          className={`form_input_field ${item?.error ? "error_item" : ""}`}
+          prefix={item?.inputIcon}
+          placeholder={item?.placeholder}
+          defaultValue={item?.value}
+          error={typeof item?.error === "string" ? item?.error : false}
+          ref={item.ref}
+        />
+      </Row>
+    );
+  };
+
+  renderSelect = (value, index) => {
+    return (
+      <Row style={{ margin: "12px 0 " }}>
+        <Mselect
+          dataSource={{
+            id: `select${index + 1}`,
+            label: value.label,
+            options: value.option,
+          }}
+        />
+      </Row>
+    );
   };
 
   render() {
@@ -170,78 +266,68 @@ export class SystemManagerGroupPermission extends Component {
       { type: "header", text: "Xóa" },
     ];
     return (
-      <div>
-        <div>
-          <header>Quản lý phân quyền </header>
-          <div>
-            <Mselect
-              dataSource={{
-                id: "select1",
-                label: "Quản lý người dùng",
-                options: [
-                  { label: "QUANTRI: Quản trị hệ thống", value: "QTHT" },
-                  { label: "Dev: Developer", value: "DEV" },
-                  { label: "BOD: BOD Tập đoàn", value: "BOD" },
-                ],
-              }}
-            />
-            <Mselect
-              dataSource={{
-                id: "select1",
-                label: "Chọn cảng",
-                options: [
-                  { label: "NDV", value: "NDV" },
-                  { label: "Cát lái", value: "Catlai" },
-                  { label: "Hải phòng", value: "HP" },
-                ],
-              }}
-            />
-          </div>
-          <div>
-            <button>
-              {" "}
-              <CloudDownloadOutlined /> Nạp dữ liệu
-            </button>
-          </div>
-        </div>
-        <div>
-          <div>
-            <div>
-              <Winput
-                name={"searchData"}
-                className={`form_input_field`}
-                prefix={<SearchOutlined />}
-                placeholder={"Tìm kiếm..."}
-              />
-            </div>
-            <div>
+      <Content className="flex_layout-8-16_container">
+        <Row gutter={[12, 12]}>
+          <Col span={8}>
+            <Mcard
+              title={
+                <>
+                  <span style={{ color: "white" }}>Quản lý phân quyền</span>
+                </>
+              }
+            >
+              {valueSelect.map((value, index) => {
+                return this.renderSelect(value, index);
+              })}
               <Mbutton
-                className="m_button red drop-button-shadow"
-                block
-                htmlType="submit"
+                color=""
+                className="m_button third"
                 type="primary"
-                onClick={this.handleFormSubmit}
-                ref={this.mButtonRef}
+                htmlType="submit"
+                onClick={this.handleLoadData}
+                block
+                size={"12"}
                 dataSource={{
-                  textbutton: "Lưu",
-                  color: "",
-                  size: "12",
-                  icon: "SaveOutlined",
+                  textbutton: `Nạp dữ liệu`,
+                  icon: "CloudDownloadOutlined",
                 }}
               />
-            </div>
-          </div>
-          <div>
-            {/* <Mtable
-              tableData={this.state.tableData}
-              columnsFormat={columnsFormat}
-              rowsFormat={rowsFormat}
-              rowsHeader={rowsHeader}
-              reoderRow={true}
-            /> */}
-          </div>
-        </div>
-      </div>
+            </Mcard>
+          </Col>
+          <Col span={16}>
+            <Mcard>
+              {!this.state.isLoading ? (
+                !this.state.tableData[0] ? (
+                  <Empty
+                    text="Nhập thông tin để nạp dữ liệu phân quyền..."
+                    icon="TeamOutlined"
+                  />
+                ) : (
+                  <Mtable
+                    config={{
+                      defaultData: this.state.tableData,
+                      columnsFormat: columnsFormat,
+                      rowsFormat: rowsFormat,
+                      rowsHeader: rowsHeader,
+                      reorderRow: true,
+                    }}
+                    functionRequire={{
+                      saveData: (data) => {
+                        console.log(data);
+                      },
+                      searchField: ["Category"],
+                    }}
+                  />
+                )
+              ) : (
+                <Row className="no_data" justify={"center"} align={"middle"}>
+                  <LoadingOutlined className="no_data_icon" />
+                </Row>
+              )}
+            </Mcard>
+          </Col>
+        </Row>
+      </Content>
     );
   }
 }

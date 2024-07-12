@@ -26,6 +26,8 @@ import DirectionContainer from "../views/category/directionContainer";
 import PortsList from "../views/category/portsList";
 import StatesContainer from "../views/category/statesContainer";
 import SizeContainer from "../views/category/sizeContainer";
+import ApproveCommand from "../views/commandManager/approveCommand";
+import UpdateCommandInfomation from "../views/commandManager/updateCommandInfomation";
 class MainRoutes extends Component {
   render() {
     return (
@@ -65,7 +67,13 @@ class MainRoutes extends Component {
             <Route path="category_statesContainer" element={<StatesContainer />} />
             <Route path="category_sizeContainer" element={<SizeContainer />} />
           </Route>
+
+          <Route path="/command_manager">
+            <Route path="approve_command" element={<ApproveCommand />} />
+            <Route path="update_command_Infomation" element={<UpdateCommandInfomation />} />
+          </Route>
         </Route>
+
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     );
