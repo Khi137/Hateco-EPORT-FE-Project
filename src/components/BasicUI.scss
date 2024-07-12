@@ -755,7 +755,8 @@ $caption-line-height: 14px;
 
 .m-custom-card {
   height: fit-content;
-  min-height: 67.8vh;
+  min-height: 72vh;
+  margin-bottom: 12px;
 
   .ant-card-body {
     height: 90%;

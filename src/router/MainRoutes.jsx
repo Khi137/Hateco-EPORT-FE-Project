@@ -18,9 +18,9 @@ import TrackingBill from "../views/tracking/trackingBill";
 import TrackingBooking from "../views/tracking/trackingBooking";
 import TrackingEdo from "../views/tracking/trackingEdo";
 import TrackingHouseBill from "../views/tracking/trackingHouseBill";
-import Customer from "../views/category/Customer";
+import Customer from "../views/category/customer";
 import Task from "../views/category/task";
-import ShipExploitBrand from "../views/category/ShipExploitBrand";
+import ShipExploitBrand from "../views/category/shipExploitBrand";
 import CommoditiesType from "../views/category/commoditiesType";
 import DirectionContainer from "../views/category/directionContainer";
 import PortsList from "../views/category/portsList";
@@ -38,7 +38,6 @@ class MainRoutes extends Component {
 
         <Route element={<AuthLayout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/category-customer" element={<Customer />} />
 
           <Route path="/tracking">
             <Route path="tracking_container" element={<TrackingContainer />} />

@@ -142,6 +142,7 @@ class Header extends Component {
             <span>Username</span>
           </div>
         </div>
+        
         <div className="menu">
           <div className="navigate">
             <div className="toggle">
