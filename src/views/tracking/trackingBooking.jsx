@@ -306,16 +306,16 @@ class TrackingBooking extends Component {
                   <Col className="information_header_text"><p>Thông tin chung</p></Col>
                   <Col className="header_dash_line"></Col>
                 </Row>
-                <Col className="general_information_content">
-                  {generalInformationList.map((item, index) => {
-                    return (
-                      <Row className="information_content_item" key={index}>
-                        <Col className="item_title">{item.title}:</Col>
-                        <Col className="item_value">{item.value}</Col>
-                      </Row>
-                    );
-                  })}
-                </Col>
+                  <Col className="general_information_content">
+                    {generalInformationList.map((item, index) => {
+                      return (
+                        <Row className="information_content_item" key={index}>
+                          <Col className="item_title">{item.title}:</Col>
+                          <Col className="item_value">{item.value}</Col>
+                        </Row>
+                      );
+                    })}
+                  </Col>
               </Col>
             </Mcard>
 

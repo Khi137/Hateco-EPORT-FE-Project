@@ -26,6 +26,7 @@ import DirectionContainer from "../views/category/directionContainer";
 import PortsList from "../views/category/portsList";
 import StatesContainer from "../views/category/statesContainer";
 import SizeContainer from "../views/category/sizeContainer";
+import Report from "../views/report/report";
 class MainRoutes extends Component {
   render() {
     return (
@@ -65,6 +66,10 @@ class MainRoutes extends Component {
             <Route path="category_portsList" element={<PortsList />} />
             <Route path="category_statesContainer" element={<StatesContainer />} />
             <Route path="category_sizeContainer" element={<SizeContainer />} />
+          </Route>
+
+          <Route path="/report">
+            <Route path="report-1" element={<Report />} />
           </Route>
         </Route>
         <Route path="/dashboard" element={<Dashboard />} />
