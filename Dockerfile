@@ -9,7 +9,7 @@
  #RUN npm audit fix
  
  COPY . .
- 
+ RUN npm install react-scripts
  RUN npm run-script build
  #RUN npm run-script start
  
