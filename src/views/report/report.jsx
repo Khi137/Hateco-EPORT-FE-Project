@@ -6,6 +6,7 @@ import {
     DownloadOutlined,
     SearchOutlined,
     DatabaseOutlined,
+    LoadingOutlined,
 } from "@ant-design/icons";
 import {
     Mbutton,
@@ -22,7 +23,7 @@ import {
 
 } from "../../components/Mrender";
 import { formatDateTime } from "../../utils/util";
-import { Col, Row, Tooltip } from "antd";
+import { Col, Row, Tooltip, Modal } from "antd";
 
 const rowData = [
     {
@@ -165,13 +166,26 @@ function generateRandomContainerNo() {
     }
     return result;
 }
+const showModal = () => {
+    this.state.modalVisible=true;
+    console.log("Modalvisible showmodal", this.modalVisible)
+};
 
+const handleOk = () => {
+    this.modalVisible = false;
+};
+
+const handleCancel = () => {
+    this.modalVisible=false;
+};
 for (let index = 0; index < 20; index++) {
     const duplicatedData = { ...rowData[0] };
-    duplicatedData.ContainerNo = generateRandomContainerNo();
+    duplicatedData.MaGiaoDich = generateRandomContainerNo();
     rowData.push(duplicatedData);
 }
+
 class Report extends Component {
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -181,13 +195,16 @@ class Report extends Component {
                 fromDate: moment(new Date()).startOf("day").toDate(),
                 toDate: moment(new Date()).endOf("day").toDate(),
                 EdoCodeRef: true,
+                
             },
             tableData: [],
             radioValue: "option1",
         };
         this.submitButtonRef = createRef();
+        this.modalVisible = false;
     }
     componentDidMount() {
+        console.log("Hello");
         this.handleLoadData();
     }
     handleInputChange = (e, dataForm) => {
@@ -253,12 +270,13 @@ class Report extends Component {
                     },
                     isLoading: false,
                 }));
+                console.log("Table Data:", this.state.tableData);
             }
         }, 1000);
     };
+    
     render() {
         const { formData, generalInformation } = this.state;
-
         const generalInformationList = [
             {
                 title: "Loại booking",
@@ -299,21 +317,29 @@ class Report extends Component {
             { columnId: "TongCong", width: 150, resizable: true, reorderable: true, header: "Tổng cộng" },
             { columnId: "LoaiTien", width: 150, resizable: true, reorderable: true, header: "Loại tiền" },
             { columnId: "LapBoi", width: 150, resizable: true, reorderable: true, header: "Lập bởi" },
-            { columnId: "GhiChu", width: 150, resizable: true, reorderable: true, header: "Ghi chú" },
+            { columnId: "GhiChu", width: 150, resizable: true, reorderable: true, header: "Ghi chú" }
         ]
         const rowsFormat = (invoice, index) => {
             return [
                 { type: "text", nonEditable: true, text: String(index + 1) },
-                { type: "text", nonEditable: false, text: invoice?.DiemThuPhi || "" },
-                { type: "text", nonEditable: false, text: invoice?.OperationCode || "" },
-                { type: "text", nonEditable: false, text: invoice?.IsoSizetype || "" },
-                { type: "text", nonEditable: false, text: invoice?.CargoTypeName || "" },
-                { type: "text", nonEditable: false, text: invoice?.ClassName || "" },
-                { type: "text", nonEditable: false, text: invoice?.ExpDate ? formatDateTime(invoice?.ExpDate) : "" },
-                { type: "text", nonEditable: false, text: (invoice?.Block || "") + "-" + (invoice?.Bay || "") + "-" + (invoice?.Row || "") + "-" + (invoice?.Tier || "") },
-                { type: "text", nonEditable: false, text: invoice?.DateIn ? formatDateTime(invoice?.DateIn) : "" },
-                { type: "text", nonEditable: false, text: invoice?.DateOut ? formatDateTime(invoice?.DateOut) : "" },
-                { type: "text", nonEditable: false, text: invoice?.ContainerStatusName || "" }
+                { type: "text", text: invoice?.DiemThuPhi !== null && invoice?.DiemThuPhi !== undefined ? String(invoice?.DiemThuPhi) : "" },
+                { type: "text", text: invoice?.MaGiaoDich !== null && invoice?.MaGiaoDich !== undefined ? String(invoice?.MaGiaoDich) : "" },
+                { type: "text", text: invoice?.SoHoaDon !== null && invoice?.SoHoaDon !== undefined ? String(invoice?.SoHoaDon) : "" },
+                { type: "text", text: invoice?.NgayLapHoaDon !== null && invoice?.NgayLapHoaDon !== undefined ? String(invoice?.NgayLapHoaDon) : "" },
+                { type: "text", text: invoice?.SoPhieuTinhCuoc !== null && invoice?.SoPhieuTinhCuoc !== undefined ? String(invoice?.SoPhieuTinhCuoc) : "" },
+                { type: "text", text: invoice?.SoPin !== null && invoice?.SoPin !== undefined ? String(invoice?.SoPin) : "" },
+                { type: "text", text: invoice?.MaBieuCuoc !== null && invoice?.MaBieuCuoc !== undefined ? String(invoice?.MaBieuCuoc) : "" },
+                { type: "text", text: invoice?.DienGiai !== null && invoice?.DienGiai !== undefined ? String(invoice?.DienGiai) : "" },
+                { type: "text", text: invoice?.DoiTuongThanhToan !== null && invoice?.DoiTuongThanhToan !== undefined ? String(invoice?.DoiTuongThanhToan) : "" },
+                { type: "text", text: invoice?.ThanhTien !== null && invoice?.ThanhTien !== undefined ? String(invoice?.ThanhTien) : "" },
+                { type: "text", text: invoice?.MaSoThue !== null && invoice?.MaSoThue !== undefined ? String(invoice?.MaSoThue) : "" },
+                { type: "text", text: invoice?.PhanTramThue !== null && invoice?.PhanTramThue !== undefined ? String(invoice?.PhanTramThue) : "" },
+                { type: "text", text: invoice?.VAT !== null && invoice?.VAT !== undefined ? String(invoice?.VAT) : "" },
+                { type: "text", text: invoice?.TongCong !== null && invoice?.TongCong !== undefined ? String(invoice?.TongCong) : "" },
+                { type: "text", text: invoice?.LoaiTien !== null && invoice?.LoaiTien !== undefined ? String(invoice?.LoaiTien) : "" },
+                { type: "text", text: invoice?.LapBoi !== null && invoice?.LapBoi !== undefined ? String(invoice?.LapBoi) : "" },
+                { type: "text", text: invoice?.GhiChu !== null && invoice?.GhiChu !== undefined ? String(invoice?.GhiChu) : "" },
+
             ]
         };
 
@@ -335,7 +361,7 @@ class Report extends Component {
             { type: "header", text: "Tổng cộng" },
             { type: "header", text: "Loại tiền" },
             { type: "header", text: "Lập bởi" },
-            { type: "header", text: "Ghi chú" },
+            { type: "header", text: "Ghi chú" }
         ];
         const inputForm = [
             {
@@ -400,11 +426,9 @@ class Report extends Component {
                                         <Mbutton
                                             color=""
                                             className="m_button btn-search"
-                                            htmlType="submit"
                                             block
                                             border="none"
-                                            // onClick={this.handleLoadData}
-                                            // ref={this.submitButtonRef}
+                                            onClick={this.showModal}
                                             size={"12"}
                                             dataSource={{
                                                 textbutton: ` `,
@@ -467,7 +491,7 @@ class Report extends Component {
                                         type="primary"
                                         htmlType="submit"
                                         block
-                                        
+
                                         onClick={this.handleLoadData}
                                         ref={this.submitButtonRef}
                                         size={"12"}
@@ -503,28 +527,55 @@ class Report extends Component {
                         </Mcard>
                     </Col>
                     <Col lg={{ span: 16 }} sm={{ span: 24 }}>
-                        <Mtable
-                            config={{
-                                defaultData: this.state.tableData,
-                                columnsFormat: columnsFormat,
-                                rowsFormat: rowsFormat,
-                                rowsHeader: rowsHeader,
-                                reorderRow: true,
-                            }}
-                            functionRequire={{
-                                // addcolumn: true,
-                                // deleteColumn: true,
-                                exportExel: true,
-                                // saveData: () => { this.saveData() },
-                                searchField: [
-                                    "ContainerNo",
-                                    "OperationCode",
-                                    "IsoSizetype",
-                                ],
-                            }}
-                        />
+                        {!this.state.isLoading ? (
+                            !this.state.tableData[0] ? (
+                                <Col className="no_data">
+                                    <Row justify={"center"}>
+                                        <DatabaseOutlined className="no_data_icon" />
+                                    </Row>
+                                    <Row justify={"center"}>Nhập mã số Edo để nạp dữ liệu container...</Row>
+                                </Col>
+                            ) : (
+                                <Mtable
+                                    config={{
+                                        defaultData: this.state.tableData,
+                                        columnsFormat: columnsFormat,
+                                        rowsFormat: rowsFormat,
+                                        rowsHeader: rowsHeader,
+                                        reorderRow: true,
+                                    }}
+                                    functionRequire={{
+                                        // addcolumn: true,
+                                        // deleteColumn: true,
+                                        exportExel: true,
+                                        // saveData: () => { this.saveData() },
+                                        searchField: [
+                                            "SoHoaDon",
+                                            "MaGiaoDich",
+                                            "MaBieuCuoc",
+                                        ],
+                                    }}
+                                />
+                            )
+                        ) : (
+                            <Row className="no_data" justify={"center"} align={"middle"}>
+                                <LoadingOutlined style={{ fontSize: "64px" }} />
+                            </Row>
+                        )}
                     </Col>
                 </Row >
+
+                {/* Modal for search button */}
+                <Modal
+                    title="Basic Modal"
+                    visible={this.state.modalVisible}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                >
+                    <p>Some contents...</p>
+                    <p>Some contents...</p>
+                    <p>Some contents...</p>
+                </Modal>
             </Content >
         )
     }
