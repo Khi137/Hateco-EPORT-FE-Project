@@ -26,6 +26,7 @@ import DirectionContainer from "../views/category/directionContainer";
 import PortsList from "../views/category/portsList";
 import StatesContainer from "../views/category/statesContainer";
 import SizeContainer from "../views/category/sizeContainer";
+import PostageStandard from "../views/postage/postageStandard";
 class MainRoutes extends Component {
   render() {
     return (
@@ -39,6 +40,10 @@ class MainRoutes extends Component {
         <Route element={<AuthLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/category-customer" element={<Customer />} />
+
+          <Route path="/postage">
+            <Route path="postage-standard" element={<PostageStandard />} />
+          </Route>
 
           <Route path="/tracking">
             <Route path="tracking_container" element={<TrackingContainer />} />
