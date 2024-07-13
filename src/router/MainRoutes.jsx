@@ -26,7 +26,8 @@ import DirectionContainer from "../views/category/directionContainer";
 import PortsList from "../views/category/portsList";
 import StatesContainer from "../views/category/statesContainer";
 import SizeContainer from "../views/category/sizeContainer";
-import PostageStandard from "../views/postage/postageStandard";
+import TariffStandard from "../views/tariff/tariffStandard.jsx";
+import TariffRefer from "../views/tariff/tariffRefer.jsx";
 class MainRoutes extends Component {
   render() {
     return (
@@ -41,8 +42,9 @@ class MainRoutes extends Component {
           <Route path="/" element={<Home />} />
           <Route path="/category-customer" element={<Customer />} />
 
-          <Route path="/postage">
-            <Route path="postage-standard" element={<PostageStandard />} />
+          <Route path="/tariff">
+            <Route path="tariff-standard" element={<TariffStandard />} />
+            <Route path="tariff-refer" element={<TariffRefer />} />
           </Route>
 
           <Route path="/tracking">
