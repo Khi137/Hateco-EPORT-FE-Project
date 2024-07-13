@@ -16,3 +16,12 @@
 .btn-search{
     border:none;
 }
+
+.custom-wide-modal {
+    width: 80% !important;
+    max-width: 1800px !important;
+  }
+  
+  .custom-wide-modal .ant-modal-content {
+    width: 100%;
+  }

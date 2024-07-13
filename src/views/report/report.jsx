@@ -7,6 +7,7 @@ import {
     SearchOutlined,
     DatabaseOutlined,
     LoadingOutlined,
+    CloseOutlined,
 } from "@ant-design/icons";
 import {
     Mbutton,
@@ -166,18 +167,7 @@ function generateRandomContainerNo() {
     }
     return result;
 }
-const showModal = () => {
-    this.state.modalVisible=true;
-    console.log("Modalvisible showmodal", this.modalVisible)
-};
 
-const handleOk = () => {
-    this.modalVisible = false;
-};
-
-const handleCancel = () => {
-    this.modalVisible=false;
-};
 for (let index = 0; index < 20; index++) {
     const duplicatedData = { ...rowData[0] };
     duplicatedData.MaGiaoDich = generateRandomContainerNo();
@@ -185,7 +175,7 @@ for (let index = 0; index < 20; index++) {
 }
 
 class Report extends Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {
@@ -195,14 +185,25 @@ class Report extends Component {
                 fromDate: moment(new Date()).startOf("day").toDate(),
                 toDate: moment(new Date()).endOf("day").toDate(),
                 EdoCodeRef: true,
-                
+
             },
+            modalVisible: false,
             tableData: [],
             radioValue: "option1",
         };
         this.submitButtonRef = createRef();
-        this.modalVisible = false;
     }
+    showModal = () => {
+        this.setState({ modalVisible: true });
+        console.log("Modalvisible showmodal", this.state.modalVisible);
+    };
+    handleOk = () => {
+        this.setState({ modalVisible: false });
+    };
+
+    handleCancel = () => {
+        this.setState({ modalVisible: false });
+    };
     componentDidMount() {
         console.log("Hello");
         this.handleLoadData();
@@ -274,7 +275,7 @@ class Report extends Component {
             }
         }, 1000);
     };
-    
+
     render() {
         const { formData, generalInformation } = this.state;
         const generalInformationList = [
@@ -382,7 +383,7 @@ class Report extends Component {
                 <Row gutter={[12, 12]}>
                     <Col lg={{ span: 8 }} sm={{ span: 24 }}>
                         <Mcard
-                            title={<span style={{ color: 'white' }}>Báo cáo doanh thu hoá đơn thu ngay</span>}
+                            title={<span style={{ color: 'white' }}>Báo cáo doanh thu hoá đơn thu ngay (DTP)</span>}
                         >
                             <Col className='input_layout'>
                                 <Row justify={"space-between"}>
@@ -428,13 +429,14 @@ class Report extends Component {
                                             className="m_button btn-search"
                                             block
                                             border="none"
-                                            onClick={this.showModal}
                                             size={"12"}
+                                            onClick={this.showModal}
                                             dataSource={{
                                                 textbutton: ` `,
                                                 icon: "SearchOutlined",
                                             }}
                                         />
+
                                     </Col>
                                 </Row>
                             </Col>
@@ -567,14 +569,15 @@ class Report extends Component {
 
                 {/* Modal for search button */}
                 <Modal
-                    title="Basic Modal"
-                    visible={this.state.modalVisible}
-                    onOk={this.handleOk}
+                    title="Chọn khách hàng"
+                    open={this.state.modalVisible}
                     onCancel={this.handleCancel}
+                    closeIcon={<CloseOutlined />}
+                    footer={null}
+                    className="custom-wide-modal"
                 >
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
+                    <p>Một vài user</p>
+
                 </Modal>
             </Content >
         )
