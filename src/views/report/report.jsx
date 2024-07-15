@@ -152,6 +152,19 @@ const rowData = [
         GhiChu: "Ghi chú",
     },
 ];
+
+const rowModalData = [
+    {
+        // Test
+        MaKhachHang: "KHCNVD12  ",
+        TenKhachHang: "Nguyễn Văn A",
+        DiaChi: "Quận 4, TP HCM",
+        MaSoThue: "MST123",
+        Email: "PC123@gmail.com",
+        DienThoai: "0927857245",
+    },
+];
+
 const dataSource = [
     {
         type: "divider",
@@ -170,7 +183,7 @@ function generateRandomContainerNo() {
 
 for (let index = 0; index < 20; index++) {
     const duplicatedData = { ...rowData[0] };
-    duplicatedData.MaGiaoDich = generateRandomContainerNo();
+    duplicatedData.MaSoThue = generateRandomContainerNo();
     rowData.push(duplicatedData);
 }
 
@@ -332,8 +345,8 @@ class Report extends Component {
                 { type: "text", text: invoice?.MaBieuCuoc !== null && invoice?.MaBieuCuoc !== undefined ? String(invoice?.MaBieuCuoc) : "" },
                 { type: "text", text: invoice?.DienGiai !== null && invoice?.DienGiai !== undefined ? String(invoice?.DienGiai) : "" },
                 { type: "text", text: invoice?.DoiTuongThanhToan !== null && invoice?.DoiTuongThanhToan !== undefined ? String(invoice?.DoiTuongThanhToan) : "" },
-                { type: "text", text: invoice?.ThanhTien !== null && invoice?.ThanhTien !== undefined ? String(invoice?.ThanhTien) : "" },
                 { type: "text", text: invoice?.MaSoThue !== null && invoice?.MaSoThue !== undefined ? String(invoice?.MaSoThue) : "" },
+                { type: "text", text: invoice?.ThanhTien !== null && invoice?.ThanhTien !== undefined ? String(invoice?.ThanhTien) : "" },
                 { type: "text", text: invoice?.PhanTramThue !== null && invoice?.PhanTramThue !== undefined ? String(invoice?.PhanTramThue) : "" },
                 { type: "text", text: invoice?.VAT !== null && invoice?.VAT !== undefined ? String(invoice?.VAT) : "" },
                 { type: "text", text: invoice?.TongCong !== null && invoice?.TongCong !== undefined ? String(invoice?.TongCong) : "" },
@@ -364,6 +377,27 @@ class Report extends Component {
             { type: "header", text: "Lập bởi" },
             { type: "header", text: "Ghi chú" }
         ];
+
+
+        const columnsModalFormat = [
+            { columnId: "MaKhachHang", width: 100, resizable: true, header: "Mã khách hàng" },
+            { columnId: "TenKhachHang", width: 150, resizable: true, reorderable: true, header: "Tên khách hàng" },
+            { columnId: "DiaChi", width: 150, resizable: true, reorderable: true, header: "Địa chỉ" },
+            { columnId: "MaSoThue", width: 150, resizable: true, reorderable: true, header: "Mã số thuế" },
+            { columnId: "Email", width: 150, resizable: true, reorderable: true, header: "Email" },
+            { columnId: "DienThoai", width: 150, resizable: true, reorderable: true, header: "Điện thoại" }
+        ]
+        const rowsModalFormat = (customer, index) => {
+            return [
+                { type: "text", text: customer?.MaKhachHang !== null && customer?.MaKhachHang !== undefined ? String(customer?.MaKhachHang) : "" },
+                { type: "text", text: customer?.TenKhachHang !== null && customer?.MaKhachHang !== undefined ? String(customer?.MaKhachHang) : "" },
+                { type: "text", text: customer?.DiaChi !== null && customer?.MaKhachHang !== undefined ? String(customer?.MaKhachHang) : "" },
+                { type: "text", text: customer?.MaSoThue !== null && customer?.MaSoThue !== undefined ? String(customer?.MaSoThue) : "" },
+                { type: "text", text: customer?.Email !== null && customer?.Email !== undefined ? String(customer?.Email) : "" },
+                { type: "text", text: customer?.DienThoai !== null && customer?.DienThoai !== undefined ? String(customer?.DienThoai) : "" },
+                
+            ]
+        };
         const inputForm = [
             {
                 title: "Đối tượng thanh toán",
@@ -576,7 +610,24 @@ class Report extends Component {
                     footer={null}
                     className="custom-wide-modal"
                 >
-                    <p>Một vài user</p>
+                    <Mtable
+                        config={{
+                            defaultData: this.state.tableData,
+                            columnsFormat: columnsFormat,
+                            rowsFormat: rowsFormat,
+                            rowsHeader: rowsHeader,
+                            reorderRow: true,
+                        }}
+                        functionRequire={{
+                            // addcolumn: true,
+                            // deleteColumn: true,
+                            //exportExel: true,
+                            // saveData: () => { this.saveData() },
+                            searchField: [
+                                "MaSoThue",
+                            ],
+                        }}
+                    />
 
                 </Modal>
             </Content >

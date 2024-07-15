@@ -27,7 +27,7 @@ import PortsList from "../views/category/portsList";
 import StatesContainer from "../views/category/statesContainer";
 import SizeContainer from "../views/category/sizeContainer";
 import Report from "../views/report/report";
-import PostageStandard from "../views/postage/postageStandard";
+import PostageStandard from "../views/postage/postage";
 class MainRoutes extends Component {
   render() {
     return (
