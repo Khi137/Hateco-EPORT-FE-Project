@@ -1,6 +1,6 @@
 import { Content } from "antd/es/layout/layout";
 import React, { Component, createRef } from "react";
-import { Mcard, Mtable } from "../../components/BasicUI";
+import { Mcard, Mtable } from "../../components/BasicUI/BasicUI";
 import { Col, Row } from "antd";
 import { formatDateTime } from "../../utils/util";
 import { DatabaseOutlined, LoadingOutlined } from "@ant-design/icons";

@@ -18,7 +18,7 @@ import {
     Winput,
     Mdivider,
     Mradio,
-} from "../../components/BasicUI";
+} from "../../components/BasicUI/BasicUI";
 
 import {
 
@@ -395,7 +395,7 @@ class Report extends Component {
                 { type: "text", text: customer?.MaSoThue !== null && customer?.MaSoThue !== undefined ? String(customer?.MaSoThue) : "" },
                 { type: "text", text: customer?.Email !== null && customer?.Email !== undefined ? String(customer?.Email) : "" },
                 { type: "text", text: customer?.DienThoai !== null && customer?.DienThoai !== undefined ? String(customer?.DienThoai) : "" },
-                
+
             ]
         };
         const inputForm = [
