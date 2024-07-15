@@ -10,7 +10,7 @@ import {
   Mtable,
   Msearch,
   Mcard,
-} from "../../components/BasicUI";
+} from "../../components/BasicUI/BasicUI";
 import {
   formatDateTime,
   handleColumnsReorder,

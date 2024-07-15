@@ -6,7 +6,7 @@ import {
   Mselect,
   Mtable,
   Winput,
-} from "../../components/BasicUI.jsx";
+} from "../../components/BasicUI/BasicUI.jsx";
 import Empty from "./Empty.jsx";
 import { Col, Row } from "antd";
 import { Content } from "antd/es/layout/layout.js";

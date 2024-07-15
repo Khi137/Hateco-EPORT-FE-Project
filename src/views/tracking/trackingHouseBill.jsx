@@ -14,7 +14,7 @@ import {
   Mselect,
   Mtable,
   Winput,
-} from "../../components/BasicUI";
+} from "../../components/BasicUI/BasicUI";
 import moment from "moment";
 import { formatDateTime } from "../../utils/util";
 import { Content } from "antd/es/layout/layout";

@@ -7,7 +7,7 @@ import {
   Mselect,
   Mtable,
   Winput,
-} from "../../components/BasicUI";
+} from "../../components/BasicUI/BasicUI";
 import {
   InfoCircleOutlined,
   MenuUnfoldOutlined,
@@ -551,7 +551,7 @@ export default class PostageStandard extends Component {
                       console.log(value)
                       const referenceNumber = Object.values(value)
                       console.log(referenceNumber[0])
-                      this.setState({ referenceNumber: referenceNumber[0].split('-').slice(2).join('-')});
+                      this.setState({ referenceNumber: referenceNumber[0].split('-').slice(2).join('-') });
                       // this.handleInputChange(value)
                     }}
                   />
@@ -592,27 +592,27 @@ export default class PostageStandard extends Component {
                   </Col>
                 </Row>
                 <Winput
-                    key={this.state.referenceNumber}
-                    title={"Số tham chiếu"}
-                    value={this.state.referenceNumber}
-                    tooltip={"Số tham chiếu"}
-                    onChange={(e) => console.log(e)}
-                    // checkError={(error) =>
-                    //   this.setState((prevState) => ({
-                    //     formData: {
-                    //       ...prevState.formData,
-                    //       postageNumberError: error,
-                    //     },
-                    //   }))
-                    // }
-                    require={false}
-                    name={"referenceNumber"}
-                    className={`form_input_field`}
-                    // prefix={item?.inputIcon}
-                    placeholder={"Số tham chiếu"}
-                    // errorText={formData?.postageNumberError || true}
-                    // ref={this.referenceNumberRef}
-                  />
+                  key={this.state.referenceNumber}
+                  title={"Số tham chiếu"}
+                  value={this.state.referenceNumber}
+                  tooltip={"Số tham chiếu"}
+                  onChange={(e) => console.log(e)}
+                  // checkError={(error) =>
+                  //   this.setState((prevState) => ({
+                  //     formData: {
+                  //       ...prevState.formData,
+                  //       postageNumberError: error,
+                  //     },
+                  //   }))
+                  // }
+                  require={false}
+                  name={"referenceNumber"}
+                  className={`form_input_field`}
+                  // prefix={item?.inputIcon}
+                  placeholder={"Số tham chiếu"}
+                // errorText={formData?.postageNumberError || true}
+                // ref={this.referenceNumberRef}
+                />
               </Col>
             </Mcard>
           </Col>

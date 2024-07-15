@@ -34,7 +34,7 @@ import {
 import "./BasicUI.scss";
 import "./main.scss";
 
-import defaultCaptcha from "../assets/captchadefault.png";
+import defaultCaptcha from "../../assets/captchadefault.png";
 
 import {
   BrowserView,
@@ -46,12 +46,12 @@ import {
 import * as LOL from "@ant-design/icons";
 import moment from "moment";
 import { ReactGrid } from "@silevis/reactgrid";
-import { handleRowsSearch } from "../utils/util";
+import { getColumnIndex, handleColumnsReorder, handleRowsReorder, handleRowsSearch } from "../../utils/util.js";
 import "@silevis/reactgrid/styles.css";
 import {
   CustomHeaderCellTemplate,
   CustomHeaderCell,
-} from "./CustomHeaderCell/CustomHeaderCell.tsx";
+} from "../CustomHeaderCell/CustomHeaderCell.tsx";
 import {
   setData,
   updateRow,
@@ -62,7 +62,7 @@ import {
   handleColumnResize,
   handleCellsChanged,
   handleSort,
-} from "../redux/reducers/tableReducer.js";
+} from "../../redux/reducers/tableReducer.js";
 import { connect } from "react-redux";
 
 const { Option } = Select;
@@ -1651,12 +1651,238 @@ class Mselectsearch extends React.Component {
   }
 }
 
+// class Mtable extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       searchValue: "",
+//     };
+//   }
+
+//   handleInputChange = (e) => {
+//     const { name, value } = e.target;
+//     this.setState({ [name]: value });
+//   };
+
+//   componentDidMount() {
+//     const {
+//       defaultData,
+//       columnsFormat,
+//       rowsHeader,
+//       rowsFormat,
+//       tableName,
+//       reorderRow,
+//     } = this.props.config;
+//     this.props.setData({
+//       defaultData,
+//       columnsFormat,
+//       rowsHeader,
+//       rowsFormat,
+//       tableName,
+//       reorderRow,
+//     });
+//   }
+
+//   newRow = () => {
+//     const { reorderRow } = this.props.config;
+//     const newRow = {
+//       newRow: null,
+//       index: this.props.tableData?.reactGridRows?.length - 1,
+//       reorderRow: reorderRow,
+//     };
+//     if (this.props.functionRequire?.newdata) {
+//       newRow.newRow = this.props.functionRequire?.newdata;
+//     }
+//     this.props.addRow({ newRow });
+//   };
+
+//   deleteRows = (selectedRows) => {
+//     if (!selectedRows) return;
+//     if (!selectedRows.columns[1]) return;
+//     this.props.deleteRows({ rows: selectedRows.rows });
+//   };
+
+//   handleSaveData = () => {
+//     console.log(this.props.defaultData);
+//     if (this.props.config.saveData) {
+//       this.props.config.saveData(this.props.defaultData);
+//     }
+//   };
+
+//   handleExportExel = () => {
+//     console.log(this.props.defaultData);
+//   };
+
+//   handleRowsSelection = (selectedRows) => {
+//     this.setState({ selectedRows: selectedRows[0] });
+//   };
+
+//   generateRowData = (container, index, rowsFormat, reorderRow) => {
+//     return {
+//       rowId: String(index + 1),
+//       reorderable: Boolean(reorderRow),
+//       cells: rowsFormat(container, index),
+//     };
+//   };
+
+//   generateTableData = (dataList, rowsFormat, reorderRow) => {
+//     return dataList?.map((container, index) =>
+//       this.generateRowData(container, index, rowsFormat, reorderRow)
+//     );
+//   };
+
+//   render() {
+//     const { tableData } = this.props;
+//     const { searchValue } = this.state;
+//     const { addcolumn, deleteColumn, exportExel, searchField, saveData } = this.props.functionRequire;
+
+//     const rows = searchValue
+//       ? handleRowsSearch(
+//         tableData.reactGridRows,
+//         searchValue || "",
+//         tableData.reactGridColumns,
+//         this.props.functionRequire?.searchField
+//       )
+//       : tableData.reactGridRows;
+
+//     return (
+//       <div className="table_container">
+//         <Row className="table_feature_container">
+//           {searchField[0] && (
+//             <Col className="search_bar">
+//               <Winput
+//                 name={"searchValue"}
+//                 className={`form_input_field`}
+//                 prefix={<LOL.SearchOutlined />}
+//                 placeholder={"Tìm kiếm..."}
+//                 value={searchValue}
+//                 onChange={(e) => this.handleInputChange(e)}
+//               />
+//             </Col>
+//           )}
+//           <Row className="table_feature">
+//             {addcolumn && (
+//               <Col className="exel_export">
+//                 <Mbutton
+//                   color=""
+//                   className="m_button third"
+//                   type="primary"
+//                   htmlType="submit"
+//                   block
+//                   size={"12"}
+//                   dataSource={{
+//                     textbutton: "Thêm dòng",
+//                     color: "second",
+//                     icon: "PlusCircleOutlined",
+//                   }}
+//                   onClick={this.newRow}
+//                 />
+//               </Col>
+//             )}
+//             {deleteColumn && (
+//               <Col className="exel_export">
+//                 <Mbutton
+//                   color=""
+//                   className="m_button red"
+//                   type="primary"
+//                   htmlType="submit"
+//                   block
+//                   size={"12"}
+//                   dataSource={{
+//                     textbutton: "Xoá dòng",
+//                     color: "second",
+//                     icon: "DeleteOutlined",
+//                   }}
+//                   onClick={() => this.deleteRows(this.state.selectedRows)}
+//                 />
+//               </Col>
+//             )}
+//             {saveData && (
+//               <Col className="exel_export">
+//                 <Mbutton
+//                   color=""
+//                   className="m_button green"
+//                   type="primary"
+//                   htmlType="submit"
+//                   block
+//                   size={"12"}
+//                   dataSource={{
+//                     textbutton: "Lưu",
+//                     color: "second",
+//                     icon: "SaveOutlined",
+//                   }}
+//                   onClick={this.handleSaveData}
+//                 />
+//               </Col>
+//             )}
+//             {exportExel && (
+//               <Col className="exel_export">
+//                 <Mbutton
+//                   color=""
+//                   className="m_button third_border"
+//                   type="primary"
+//                   htmlType="submit"
+//                   block
+//                   size={"12"}
+//                   dataSource={{
+//                     textbutton: "Xuất File Exel",
+//                     color: "second",
+//                     icon: "FileExcelOutlined",
+//                   }}
+//                   onClick={this.handleExportExel}
+//                 />
+//               </Col>
+//             )}
+//           </Row>
+//         </Row>
+//         <div className="table_content">
+//           <div className="react_grid_table">
+//             <ReactGrid
+//               {...this.props.config}
+//               rows={rows}
+//               columns={tableData.reactGridColumns}
+//               stickyTopRows={1}
+//               enableRowSelection
+//               enableColumnSelection
+//               onColumnsReordered={(targetColumnId, columnIds) =>
+//                 this.props.reorderColumns({ targetColumnId, columnIds })
+//               }
+//               onRowsReordered={(targetRowId, rowIds) =>
+//                 this.props.reorderRows({ targetRowId, rowIds })
+//               }
+//               canReorderRows={(targetRowId) => targetRowId !== "header"}
+//               onCellsChanged={(changes) =>
+//                 this.props.handleCellsChanged({ changes })
+//               }
+//               onColumnResized={(columnId, width) =>
+//                 this.props.handleColumnResize({ columnId, width })
+//               }
+//               onColumnSort={(columnId) => this.props.handleSort({ columnId })}
+//               onSelectionChanged={this.handleRowsSelection}
+//             />
+//           </div>
+//         </div>
+//       </div >
+//     );
+//   }
+// }
+
 class Mtable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       searchValue: "",
+      defaultData: this.props.config.defaultData,
+      tableData: {
+        reactGridColumns: [...this.generateColumnsData()],
+        reactGridRows: [
+          this.generateRowsHeader(),
+          ...this.generateTableData(this.props.config.defaultData || []),
+        ],
+        newIndex: this.props.config.defaultData.length
+      },
     };
+
   }
 
   handleInputChange = (e) => {
@@ -1664,42 +1890,49 @@ class Mtable extends React.Component {
     this.setState({ [name]: value });
   };
 
-  componentDidMount() {
-    const {
-      defaultData,
-      columnsFormat,
-      rowsHeader,
-      rowsFormat,
-      tableName,
-      reorderRow,
-    } = this.props.config;
-    this.props.setData({
-      defaultData,
-      columnsFormat,
-      rowsHeader,
-      rowsFormat,
-      tableName,
-      reorderRow,
-    });
-  }
-
   newRow = () => {
     const { reorderRow } = this.props.config;
     const newRow = {
       newRow: null,
-      index: this.props.tableData?.reactGridRows?.length - 1,
+      index: this.state.tableData.newIndex,
       reorderRow: reorderRow,
     };
     if (this.props.functionRequire?.newdata) {
       newRow.newRow = this.props.functionRequire?.newdata;
     }
-    this.props.addRow({ newRow });
+
+    const updatedRows = this.state.tableData?.reactGridRows
+    updatedRows.push(this.generateRowData(newRow.newRow, Number(newRow.index), this.props.rowsFormat, newRow.reorderRow));
+    const updateDefaultData = this.state.defaultData
+    updateDefaultData.push({})
+    this.setState(prevState => ({
+      defaultData: updateDefaultData,
+      tableData: {
+        ...prevState.tableData,
+        reactGridRows: updatedRows,
+        newIndex: prevState.tableData.newIndex + 1
+      }
+    }));
   };
 
   deleteRows = (selectedRows) => {
     if (!selectedRows) return;
     if (!selectedRows.columns[1]) return;
-    this.props.deleteRows({ rows: selectedRows.rows });
+    const rows = selectedRows.rows
+
+    const indexToDelete = getColumnIndex(this.props.config.columnsFormat, [{ ...this.props.config.columnsFormat[1] }.columnId])
+    const idxToDelete = rows.map(row => row.idx);
+    const updatedRows = this.state.tableData?.reactGridRows
+    const filteredRows = updatedRows.filter((row, index) => !idxToDelete.includes(index));
+    const filteredDefaultData = this.state.defaultData.filter((obj) => obj[{ ...this.props.config.columnsFormat[1] }.columnId] !== rows[0].cells[indexToDelete].text);
+    // console.log(rows[0].cells[indexToDelete].text);
+    this.setState(prevState => ({
+      defaultData: filteredDefaultData,
+      tableData: {
+        ...prevState.tableData,
+        reactGridRows: filteredRows
+      }
+    }));
   };
 
   handleSaveData = () => {
@@ -1710,40 +1943,198 @@ class Mtable extends React.Component {
   };
 
   handleExportExel = () => {
-    console.log(this.props.defaultData);
+    console.log(this.state.defaultData);
+  };
+
+  handleColumnsReorder = (targetColumnId, columnIds) => {
+    const { tableData } = this.state;
+    const updatedTableData = handleColumnsReorder(
+      tableData,
+      targetColumnId,
+      columnIds
+    );
+    this.setState({ tableData: updatedTableData });
+  };
+
+  handleRowsReorder = (targetRowId, rowIds) => {
+    const { tableData } = this.state;
+    const updatedTableData = handleRowsReorder(tableData, targetRowId, rowIds);
+    console.log(updatedTableData);
+    this.setState({ tableData: updatedTableData });
   };
 
   handleRowsSelection = (selectedRows) => {
     this.setState({ selectedRows: selectedRows[0] });
   };
 
-  generateRowData = (container, index, rowsFormat, reorderRow) => {
-    return {
-      rowId: String(index + 1),
-      reorderable: Boolean(reorderRow),
-      cells: rowsFormat(container, index),
-    };
+  handleCellsChanged = (changes) => {
+    const rows = this.state.tableData.reactGridRows?.map(row => ({
+      ...row,
+      cells: row.cells?.map(cell => ({ ...cell })),
+    }));
+
+    changes.forEach(change => {
+      const row = rows.find(r => r.rowId === change.rowId);
+      if (row) {
+        const columnIndex = this.state.tableData.reactGridColumns.findIndex(col => col.columnId === change.columnId);
+        if (columnIndex >= 0) {
+          const cell = row.cells[columnIndex];
+          if (change.newCell.type === "checkbox") {
+            cell.checked = change.newCell.checked;
+          } else {
+            cell.text = change.newCell.text;
+          }
+
+          const dataIndex = parseInt(change.rowId, 10) - 1;
+          if (this.state.defaultData[dataIndex]) {
+            const columnKey = this.state.tableData.reactGridColumns[columnIndex].columnId;
+            this.state.defaultData[dataIndex] = {
+              ...this.state.defaultData[dataIndex],
+              [columnKey]: change.newCell.type === "checkbox" ? change.newCell.checked : change.newCell.text,
+            };
+          }
+        }
+      }
+    });
+
+    this.state.tableData.reactGridRows = rows;
+    this.setState(prevState => ({
+      tableData: {
+        ...prevState.tableData,
+        reactGridRows: rows
+      }
+    }));
   };
 
-  generateTableData = (dataList, rowsFormat, reorderRow) => {
-    return dataList?.map((container, index) =>
-      this.generateRowData(container, index, rowsFormat, reorderRow)
+
+  handleColumnResize = (ci, width) => {
+    this.setState((prevState) => {
+      const updatedColumns = prevState.tableData.reactGridColumns.map(
+        (column) => {
+          if (column.columnId === ci) {
+            return { ...column, width };
+          }
+          return column;
+        }
+      );
+
+      return {
+        tableData: {
+          ...prevState.tableData,
+          reactGridColumns: updatedColumns,
+        },
+      };
+    });
+  };
+
+  handleCanReorderRows = (targetRowId, rowIds) => {
+    return targetRowId !== "header";
+  };
+
+  handleSort = (columnId) => {
+    console.log("Sorting by column:", columnId);
+    const sortedData = [...this.state.data].sort((a, b) => {
+      return a[columnId].localeCompare(b[columnId]);
+    });
+
+    this.setState({
+      data: sortedData,
+      tableData: {
+        ...this.state.tableData,
+        reactGridRows: [
+          this.generateRowsHeader(),
+          ...this.generateTableData(sortedData)
+        ]
+      }
+    });
+  };
+
+  generateColumnsData = () => {
+    let columnsData = [];
+    this.props.config.columnsFormat
+      ? (columnsData = this.props.config.columnsFormat)
+      : (columnsData = [
+        { columnId: "STT", width: 50, resizable: true, header: "STT" },
+        {
+          columnId: "ContainerStatusName",
+          width: 125,
+          resizable: true,
+          reorderable: true,
+          header: "Tình trạng"
+        },
+        {
+          columnId: "ContainerNo",
+          width: 150,
+          resizable: true,
+          reorderable: true,
+          header: "Số Container"
+        }
+      ]);
+
+    return columnsData.map((column) => ({
+      ...column,
+      sortFunction: () => this.handleSort(column.columnId)
+    }));
+  };
+
+  generateRowsHeader = () => {
+    if (this.props.config.rowsHeader) {
+      return {
+        rowId: "header",
+        cells: this.props.config.rowsHeader
+      };
+    } else {
+      return {
+        rowId: "header",
+        cells: [
+          { type: "header", text: "STT" },
+          { type: "header", text: "Tình trạng" },
+          { type: "header", text: "Số Container" }
+        ]
+      };
+    }
+  };
+
+  generateRowData = (container, index) => {
+    if (this.props.config.rowsFormat) {
+      return {
+        rowId: String(index + 1),
+        reorderable: Boolean(this.props.config.reorderRow),
+        cells: this.props.config.rowsFormat(container, index)
+      };
+    } else {
+      return {
+        rowId: String(index + 1),
+        reorderable: this.props.functionRequire.reoderRow,
+        cells: [
+          { type: "text", nonEditable: true, text: String(index + 1) },
+          {
+            type: "text",
+            nonEditable: true,
+            text: container?.ContainerStatusName || ""
+          },
+          {
+            type: "text",
+            nonEditable: true,
+            text: container?.ContainerNo || ""
+          }
+        ]
+      };
+    }
+  };
+
+  generateTableData = (dataList) => {
+    const generateData = dataList.map((container, index) =>
+      this.generateRowData(container, index)
     );
+    return generateData;
   };
 
   render() {
-    const { tableData } = this.props;
-    const { searchValue } = this.state;
+    const { tableData, searchValue } = this.state;
     const { addcolumn, deleteColumn, exportExel, searchField, saveData } = this.props.functionRequire;
 
-    const rows = searchValue
-      ? handleRowsSearch(
-        tableData.reactGridRows,
-        searchValue || "",
-        tableData.reactGridColumns,
-        this.props.functionRequire?.searchField
-      )
-      : tableData.reactGridRows;
+    // const rows = 
 
     return (
       <div className="table_container">
@@ -1839,25 +2230,28 @@ class Mtable extends React.Component {
           <div className="react_grid_table">
             <ReactGrid
               {...this.props.config}
-              rows={rows}
-              columns={tableData.reactGridColumns}
+              rows={
+                searchValue
+                  ? handleRowsSearch(
+                    tableData?.reactGridRows,
+                    searchValue || "",
+                    tableData.reactGridColumns,
+                    this.props.functionRequire?.searchField
+                  )
+                  : tableData?.reactGridRows
+              }
+              columns={tableData?.reactGridColumns}
               stickyTopRows={1}
               enableRowSelection
               enableColumnSelection
-              onColumnsReordered={(targetColumnId, columnIds) =>
-                this.props.reorderColumns({ targetColumnId, columnIds })
-              }
-              onRowsReordered={(targetRowId, rowIds) =>
-                this.props.reorderRows({ targetRowId, rowIds })
-              }
+              onColumnsReordered={this.handleColumnsReorder}
+              onRowsReordered={this.handleRowsReorder}
               canReorderRows={(targetRowId) => targetRowId !== "header"}
-              onCellsChanged={(changes) =>
-                this.props.handleCellsChanged({ changes })
-              }
+              onCellsChanged={this.handleCellsChanged}
               onColumnResized={(columnId, width) =>
-                this.props.handleColumnResize({ columnId, width })
+                this.handleColumnResize({ columnId, width })
               }
-              onColumnSort={(columnId) => this.props.handleSort({ columnId })}
+              onColumnSort={(columnId) => this.handleSort({ columnId })}
               onSelectionChanged={this.handleRowsSelection}
             />
           </div>
@@ -3194,7 +3588,7 @@ const mapDispatchToProps = {
   handleSort,
 };
 
-const ConnectedMtable = connect(mapStateToProps, mapDispatchToProps)(Mtable);
+// const ConnectedMtable = connect(mapStateToProps, mapDispatchToProps)(Mtable);
 
 export {
   Mcollapse,
@@ -3206,7 +3600,8 @@ export {
   Minput,
   Mbutton,
   Mcard,
-  ConnectedMtable as Mtable,
+  // ConnectedMtable as Mtable,
+  Mtable,
   Mdatepicker,
   Mradio,
   Mform,

@@ -13,9 +13,9 @@ import {
   Mdatepicker,
   Mselect,
   Msearch,
-} from "./components/BasicUI";
-import Header from "./components/Header";
-import "./components/BasicUI.scss";
+} from "./components/BasicUI/BasicUI";
+import Header from "./components/Header/Header";
+import "./components/BasicUI/BasicUI.scss";
 import "./ShowComponent.scss";
 import * as LOL from "@ant-design/icons";
 import { ReactGrid, Column, Row, CellChange } from "@silevis/reactgrid";

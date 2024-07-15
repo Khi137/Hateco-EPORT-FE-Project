@@ -3,7 +3,7 @@ import { Row, Col, Typography, Tooltip } from 'antd';
 import { InfoCircleOutlined, MailOutlined, LockOutlined } from '@ant-design/icons';
 import './styles.scss'
 
-import { Winput } from "../../components/BasicUI"
+import { Winput } from "../../components/BasicUI/BasicUI"
 import { withRouter } from '../../utils/withRouter';
 
 class ForgotPassword extends Component {

@@ -6,11 +6,11 @@ import {
   HomeOutlined,
 } from "@ant-design/icons";
 import { Breadcrumb, Button, Popconfirm, message } from "antd";
-import { toggleSubMenu } from "../redux/reducers/navigationReducer";
+import { toggleSubMenu } from "../../redux/reducers/navigationReducer";
 import "./Header.scss";
-import { withRouter } from "../utils/withRouter";
-import { addIconExtendsion } from "../redux/reducers/extendsionReducer";
-import Extension from "./Extension/Extension";
+import { withRouter } from "../../utils/withRouter";
+import { addIconExtendsion } from "../../redux/reducers/extendsionReducer";
+import Extension from "../Extension/Extension";
 import * as AntdIcons from "@ant-design/icons";
 class Header extends Component {
   constructor(props) {

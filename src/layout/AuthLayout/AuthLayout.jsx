@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Outlet } from "react-router-dom";
 import "./styles.scss"
 import Footer from '../../components/Footer/Footer';
-import Header from '../../components/Header';
+import Header from '../../components/Header/Header';
 
 
 class AuthLayout extends Component {

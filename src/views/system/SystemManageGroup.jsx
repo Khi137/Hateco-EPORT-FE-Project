@@ -1,5 +1,5 @@
 import React, { Component, createRef } from "react";
-import { Mcard, Mtable, Winput } from "../../components/BasicUI";
+import { Mcard, Mtable, Winput } from "../../components/BasicUI/BasicUI";
 import { Row } from "antd";
 import { Content } from "antd/es/layout/layout";
 

@@ -1,7 +1,7 @@
 // Danh mục loại hàng hóa
 
 import React, { Component } from "react";
-import { Mtable, Mcard } from "../../components/BasicUI";
+import { Mtable, Mcard } from "../../components/BasicUI/BasicUI";
 import { Content } from "antd/es/layout/layout";
 import { Col, Row } from "antd";
 import { DatabaseOutlined } from "@ant-design/icons";

@@ -1,8 +1,7 @@
 // Danh mục công việc
 
 import React, { Component } from "react";
-import { ReactGrid } from "@silevis/reactgrid";
-import { Msearch, Mbutton, Mtable, Mcheckbox, Mcard } from "../../components/BasicUI";
+import { Msearch, Mbutton, Mtable, Mcheckbox, Mcard } from "../../components/BasicUI/BasicUI";
 
 import { Checkbox, Col, Row } from "antd";
 import { Content } from "antd/es/layout/layout";

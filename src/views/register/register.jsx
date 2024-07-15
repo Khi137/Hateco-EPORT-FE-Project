@@ -3,7 +3,7 @@ import { Row, Col, Typography, Tooltip, Modal, message, Select } from 'antd';
 import { InfoCircleOutlined, MailOutlined, LockOutlined, NumberOutlined, PhoneOutlined, EnvironmentOutlined, BoldOutlined, DownOutlined, BarcodeOutlined } from '@ant-design/icons';
 import './styles.scss'
 
-import { Mbutton, Mcapcha, Mcheckbox, Winput } from "../../components/BasicUI"
+import { Mbutton, Mcapcha, Mcheckbox, Winput } from "../../components/BasicUI/BasicUI"
 import { withRouter } from '../../utils/withRouter';
 import { NavLink } from 'react-router-dom';
 

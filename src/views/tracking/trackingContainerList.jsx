@@ -1,6 +1,6 @@
 import React, { Component, createRef } from "react";
 import { Col, Row } from "antd";
-import { Mbutton, Mcard, Mtable, Winput } from "../../components/BasicUI";
+import { Mbutton, Mcard, Mtable, Winput } from "../../components/BasicUI/BasicUI";
 import {
   DatabaseOutlined,
   FieldNumberOutlined,

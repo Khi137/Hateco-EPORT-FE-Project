@@ -9,7 +9,7 @@ import {
   NumberOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import { Mbutton, Mcard, Mradio, Mtable, Winput } from "../../components/BasicUI";
+import { Mbutton, Mcard, Mradio, Mtable, Winput } from "../../components/BasicUI/BasicUI";
 import { formatDateTime } from "../../utils/util";
 import { Content, Header } from "antd/es/layout/layout";
 
@@ -404,7 +404,7 @@ class TrackingBill extends Component {
                       reorderRow: true,
                     }}
                     functionRequire={{
-                      // addcolumn: false,
+                      addcolumn: true,
                       deleteColumn: true,
                       exportExel: true,
                       // saveData: (data) => {

@@ -1,6 +1,6 @@
 import React, { Component, createRef } from "react";
 import { Col, Row } from "antd";
-import { Mbutton, Mcard, Winput } from "../../components/BasicUI";
+import { Mbutton, Mcard, Winput } from "../../components/BasicUI/BasicUI";
 import { DatabaseOutlined, FieldNumberOutlined } from "@ant-design/icons";
 import { formatDateTime } from "../../utils/util";
 import { Content } from "antd/es/layout/layout";
