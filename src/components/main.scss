@@ -355,9 +355,9 @@ $body-sm-line-height: 18px;
     font-weight: $main-font-weight-bold;
 }
 
-.m-form__box {
-    max-height: 40px;
-}
+// .m-form__box {
+//     max-height: 40px;
+// }
 
 //caption
 $caption-font-size: 10px;
@@ -996,7 +996,7 @@ text {
 
         .ant-card-head-title {
             padding: 12px 0;
-            
+
         }
     }
 
@@ -1280,24 +1280,24 @@ $invalid: #dd2c00;
     }
 
     &__label {
-        position: absolute;
-        font-size: 0.85rem;
+        // position: absolute;
+        // font-size: 0.85rem;
         color: $font-color;
-        font-weight: bold;
-        left: 26px;
-        top: 10px;
+        // font-weight: bold;
+        // left: 26px;
+        // top: 10px;
         transition: all 250ms ease-in-out;
-        text-transform: uppercase;
-        letter-spacing: 0.1rem;
+        // text-transform: uppercase;
+        // letter-spacing: 0.1rem;
         pointer-events: none;
         font-family: $primary-font;
 
-        &--focus {
-            font-weight: normal;
-            top: -3px !important;
-            font-size: 0.6rem !important;
-            color: $font-color;
-        }
+        // &--focus {
+        //     font-weight: normal;
+        //     top: -3px !important;
+        //     font-size: 0.6rem !important;
+        //     color: $font-color;
+        // }
     }
 
     &__input {
@@ -1309,10 +1309,11 @@ $invalid: #dd2c00;
             height: 32px !important;
             width: 100%;
             color: $brand-title-light !important;
-            padding: 0px 0px 1px 0px !important;
+            padding: 0px 0px 1px 5px !important;
             font-size: 1rem !important;
-            border-bottom: 1px solid $font-color !important;
+            border: 1px solid $font-color !important;
             font-family: $primary-font;
+            border-radius: 6px;
             // border-radius: 0 !important;
 
             &:focus {
@@ -1331,6 +1332,7 @@ $invalid: #dd2c00;
 
         select {
             border-radius: 6px !important;
+            padding: 0px 0px 1px 25px !important;
         }
 
         .ant-checkbox-inner {
@@ -1391,25 +1393,9 @@ $invalid: #dd2c00;
         }
     }
 
-    // &__icon {
-    //     position: absolute;
-    //     top: 10px;
-    //     left: 0px;
-    //     font-size: 1.125rem;
-    //     color: $font-color;
-
-    //     &--error {
-    //         position: absolute;
-    //         top: 56px;
-    //         left: 16px;
-    //         font-size: 1.125rem;
-    //         color: $invalid;
-    //     }
-
-    //     svg {
-    //         color: $font-color;
-    //     }
-    // }
+    &__select {
+        position: relative;
+    }
 
     &__eye {
         position: absolute;
@@ -1437,6 +1423,30 @@ $invalid: #dd2c00;
         color: $light-blue;
         pointer-events: none;
         z-index: 1;
+    }
+}
+
+.icon {
+    position: absolute;
+    top: 8px;
+    left: 6px;
+    $font-color: $brand-title-light;
+
+    .m-form__icon {
+        font-size: 1.125rem;
+        color: $font-color;
+
+        &--error {
+            position: absolute;
+            top: 56px;
+            left: 16px;
+            font-size: 1.125rem;
+            color: $invalid;
+        }
+
+        svg {
+            color: $font-color;
+        }
     }
 }
 

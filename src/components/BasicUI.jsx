@@ -76,13 +76,13 @@ var checkPrSps = new RegExp("[~|`|!|@|#|$|%|^|&|*|(|)|/]", "g");
 var removespc = function (text, exp = "") {
   let checksps = new RegExp(
     "[^a-zA-Z0-9àảãáạăằẳẵắặâầẩẫấậÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬđĐèẻẽéẹêềểễếệÈẺẼÉẸÊỀỂỄẾỆìỉĩíịÌỈĨÍỊòỏõóọôồổỗốộơờởỡớợÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢùủũúụưừửữứựÙỦŨÚỤƯỪỬỮỨỰỳỷỹýỵỲỶỸÝỴ" +
-      exp +
-      "_\\\\/\\(\\)-]",
+    exp +
+    "_\\\\/\\(\\)-]",
     "g"
   );
   return (text + "").normalize().replace(checksps, "");
 };
-var jjjg = setTimeout(() => {}, 0);
+var jjjg = setTimeout(() => { }, 0);
 var setvalthat = (val, that, time = 0) => {
   clearTimeout(jjjg);
   jjjg = setTimeout(() => {
@@ -302,9 +302,9 @@ class MeditSelect extends React.Component {
     if (!window.component) window.component = {};
     window.component[
       this.props.id ||
-        this.props.ref ||
-        this.props.dataSource.id ||
-        this.props.dataSource.ref
+      this.props.ref ||
+      this.props.dataSource.id ||
+      this.props.dataSource.ref
     ] = this;
   }
 
@@ -526,7 +526,7 @@ class Mupload extends React.Component {
     this.mes = {};
   }
 
-  create_Rowguid = () => {};
+  create_Rowguid = () => { };
 
   componentDidMount() {
     this.tmp_patch = this.create_Rowguid();
@@ -584,7 +584,7 @@ class Mupload extends React.Component {
     this.setState({ fileList: nFL });
   };
 
-  handleupload = (file, fileList) => {};
+  handleupload = (file, fileList) => { };
 
   handleRemove = (file) => {
     let formData = new FormData();
@@ -633,7 +633,7 @@ class Mupload extends React.Component {
           <Upload
             ref={this.uploadInputRef}
             style={{ textAlign: "center", margin: "auto" }}
-            action={() => {}}
+            action={() => { }}
             listType="picture"
             beforeUpload={this.handleupload}
             multiple={true}
@@ -1155,8 +1155,8 @@ class Mbutton extends React.Component {
             this.state.color === ""
               ? `ant-btn-${this.state.color} opacity-${this.state.opacity}`
               : this.state.color === "blue"
-              ? `ant-btn-${this.state.color} opacity-${this.state.opacity}`
-              : `ant-btn-${this.state.color} opacity-${this.state.opacity}`
+                ? `ant-btn-${this.state.color} opacity-${this.state.opacity}`
+                : `ant-btn-${this.state.color} opacity-${this.state.opacity}`
           }
           loading={this.state.loading}
           {...this.props}
@@ -1230,8 +1230,8 @@ class Msearch extends React.Component {
       dataSource && dataSource.uppercase
         ? value.toUpperCase()
         : dataSource && dataSource.safeString
-        ? removespc(value)
-        : value;
+          ? removespc(value)
+          : value;
     this.setState({ value: newValue });
     if (config && config.onLiveSearch) {
       config.onLiveSearch(newValue);
@@ -1278,15 +1278,13 @@ class Msearch extends React.Component {
     const data = config && config?.icon ? config : dataSource;
     const icon = data?.icon ? (
       <i
-        className={`m-form__icon ${
-          LOL[data?.icon] ? "" : "material-" + data?.icon
-        }`}
+        className={`m-form__icon ${LOL[data?.icon] ? "" : "material-" + data?.icon
+          }`}
       />
     ) : (
       <i
-        className={`m-form__icon ${
-          LOL["AlignLeftOutlined"] ? "" : "material-" + data?.icon
-        }`}
+        className={`m-form__icon ${LOL["AlignLeftOutlined"] ? "" : "material-" + data?.icon
+          }`}
       />
     );
     const span = (data && data.span) || 24;
@@ -1413,8 +1411,8 @@ class Mautocomplete extends React.Component {
       this.state.placeholder === undefined
         ? data.placeholder
         : this.state.placeholder
-        ? this.state.placeholder
-        : "";
+          ? this.state.placeholder
+          : "";
     return (
       <Col
         xs={span.xs || span}
@@ -1577,8 +1575,8 @@ class Mselectsearch extends React.Component {
       this.state.placeholder === undefined
         ? data.placeholder
         : this.state.placeholder
-        ? this.state.placeholder
-        : "";
+          ? this.state.placeholder
+          : "";
 
     var that = this;
     var value = data.value || this.state.value;
@@ -2016,6 +2014,17 @@ class Minput extends React.Component {
     }
   }
 
+  checkError = (value) => {
+    const { data } = this.props.dataSource
+    if (data.require && value === "")
+      return `${data.title} không được để trống`;
+    if (value.length < (data.minLength || 0))
+      return `${data.title} phải có ít nhất ${data.minLength} ký tự`;
+    if (data.submitRegex && !data.submitRegex.test(value))
+      return `${data.title} không đúng định dạng`;
+    return false;
+  };
+
   onKeyPress(e) {
     if (
       this.props.dataSource?.config &&
@@ -2118,6 +2127,22 @@ class Minput extends React.Component {
       status: status,
     });
   }
+
+  handleCheckError = () => {
+    const error = this.checkError(this.state.value);
+    this.setState({ error });
+    if (this.props.checkError) {
+      this.props.checkError(error);
+    }
+  };
+
+  handleSetError = (error) => {
+    this.setState({ error });
+    if (this.props.checkError) {
+      this.props.checkError(error);
+    }
+  };
+
   handleKeyPress(e) {
     if ((this.props.dataSource || {}).safeString) {
       var char = e.which || e.keyCode;
@@ -2196,19 +2221,22 @@ class Minput extends React.Component {
             (readonly ? "readonly" : "")
           }
         >
-          <label
-            className={
-              (typeof this.state.value === "undefined" ||
-              this.state.value === null
-                ? ""
-                : this.state.value + ""
-              ).length > 0
-                ? "m-form__label m-form__label--focus body-lg-normal"
-                : "m-form__label body-lg-normal"
-            }
-          >
-            {data?.label || ""}
-          </label>
+          <Row className="winput_header">
+            <label
+              className="m-form__label body-lg-normal"
+            >
+              {data?.label} {data.require && <span className="winput_require">*</span>}
+            </label>
+            {data?.tooltip && (
+              <Tooltip
+                placement="top"
+                title={data?.tooltip}
+                className="winput_tooltip"
+              >
+                <LOL.InfoCircleOutlined />
+              </Tooltip>
+            )}
+          </Row>
           <span className="ant-input-search ant-input-affix-wrapper">
             <input
               type={data?.inputType || "text"}
@@ -2230,12 +2258,11 @@ class Minput extends React.Component {
               maxLength={data?.maxLength || 9999}
               tabIndex={data?.tabindex || 1}
               pattern={data?.format || ""}
+              placeholder={data.placeholder || data.title || ""}
             ></input>
           </span>
-          {this.state.blur && (
-            <p className="m-form__label__warning">
-              {/* {this.props.dataSource.test} */}
-            </p>
+          {(data.require || data.regex || data.minLength) && (
+            <Row className="Winput_error_text">{this.state.error}</Row>
           )}
         </div>
       </Col>
@@ -2338,10 +2365,10 @@ class Mdatepicker extends React.Component {
     let value = this.state.value
       ? moment(this.state.value, data.format || "YYYY-MM-DD HH:mm:ss")
       : data.value
-      ? moment(data.value, data.format || "YYYY-MM-DD HH:mm:ss")
-      : data.defaultValue
-      ? moment(data.defaultValue, data.format || "YYYY-MM-DD HH:mm:ss")
-      : null;
+        ? moment(data.value, data.format || "YYYY-MM-DD HH:mm:ss")
+        : data.defaultValue
+          ? moment(data.defaultValue, data.format || "YYYY-MM-DD HH:mm:ss")
+          : null;
 
     if (data.value === "") value = null;
     if (this.state.value === "") value = null;
@@ -2402,9 +2429,8 @@ class Mdatepicker extends React.Component {
         lg={span.lg || span}
         xl={span.xl || span}
         key={data.ref}
-        className={`m-form__box ${data.className || ""} ${
-          readonly ? "readonly" : ""
-        }`}
+        className={`m-form__box ${data.className || ""} ${readonly ? "readonly" : ""
+          }`}
       >
         <div className={`m-form__input ${readonly ? "readonly" : ""}`}>
           <label
@@ -2427,17 +2453,17 @@ class Mdatepicker extends React.Component {
             defaultValue={
               data.defaultValue
                 ? moment(
-                    data.defaultValue,
-                    data.format || "YYYY-MM-DD HH:mm:ss"
-                  )
+                  data.defaultValue,
+                  data.format || "YYYY-MM-DD HH:mm:ss"
+                )
                 : ""
             }
             defaultPickerValue={
               data.defaultPickerValue
                 ? moment(
-                    data.defaultPickerValue,
-                    data.format || "YYYY-MM-DD HH:mm:ss"
-                  )
+                  data.defaultPickerValue,
+                  data.format || "YYYY-MM-DD HH:mm:ss"
+                )
                 : undefined
             }
             value={value}
@@ -2766,7 +2792,7 @@ class Mselect extends React.Component {
         md={span.md || span}
         lg={span.lg || span}
         className="m-form__box"
-        style={{ display: data?.isHide === true ? "none" : "block" }}
+        style={{ display: data?.isHide === true ? "none" : "block", padding: 0 }}
       >
         <div
           className={
@@ -2807,7 +2833,9 @@ class Mselect extends React.Component {
             </option>
             {this.renderOptions(data?.value || this.state.value)}
           </select>
-          {/* {icon} */}
+          <div className="icon">
+            {icon}
+          </div>
         </div>
       </Col>
     );
@@ -2970,9 +2998,9 @@ class MoneFieldInput extends React.Component {
     window.component = window.component || {};
     window.component[
       this.props.id ||
-        this.props.ref ||
-        this.props.dataSource.id ||
-        this.props.dataSource.ref
+      this.props.ref ||
+      this.props.dataSource.id ||
+      this.props.dataSource.ref
     ] = this;
   }
 
