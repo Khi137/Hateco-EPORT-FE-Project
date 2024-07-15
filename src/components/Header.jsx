@@ -136,7 +136,7 @@ class Header extends Component {
 
   styleButton = () => {
     return {
-      padding: "36px",
+      padding: "12px",
     };
   };
 
