@@ -785,6 +785,7 @@ class Mstep extends React.Component {
   }
 
   render() {
+    const { stepStyle, stepsStyle } = this.props;
     let content = [];
     if (Array.isArray(this.data)) {
       content = this.data.map((item, index) => (
@@ -792,10 +793,15 @@ class Mstep extends React.Component {
           title={item.label || ""}
           key={index}
           icon={item.icon || <LOL.UserOutlined />}
+          style={stepStyle}
         ></Step>
       ));
     }
-    return <Steps {...this.config}>{content}</Steps>;
+    return (
+      <Steps direction="vertical" {...this.config} style={stepsStyle}>
+        {content}
+      </Steps>
+    );
   }
 }
 
@@ -1114,6 +1120,7 @@ class Mbutton extends React.Component {
       loading: this.props.loading || false,
       color: this.props.dataSource?.color || "default-color",
       opacity: this.props.dataSource?.opacity || "20",
+      styleButton: this.props.styleButton || {},
       size: this.props?.size || "12",
       textbutton: this.props.dataSource?.textbutton || "Button",
       icon: this.props.dataSource?.icon || "",
@@ -1127,14 +1134,14 @@ class Mbutton extends React.Component {
   reset() {
     this.setState({ loading: false });
   }
-  style() {
-    const size = this.state.size;
-    if (size) {
-      return {
-        padding: `${size}px`,
-      };
-    }
-  }
+  // style() {
+  //   const size = this.state.size;
+  //   if (size) {
+  //     return {
+  //       padding: `${size}px`,
+  //     };
+  //   }
+  // }
 
   render() {
     const { icon } = this.state;
@@ -1148,6 +1155,8 @@ class Mbutton extends React.Component {
       IconComponent = null;
     }
 
+    console.log(this.state.styleButton);
+
     return (
       <div>
         <Button
@@ -1160,7 +1169,7 @@ class Mbutton extends React.Component {
           }
           loading={this.state.loading}
           {...this.props}
-          style={this.style()}
+          style={this.state.styleButton}
         >
           {IconComponent}
           <text className="body-lg-normal">{this.state.textbutton}</text>

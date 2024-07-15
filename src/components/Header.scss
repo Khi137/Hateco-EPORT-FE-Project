@@ -108,7 +108,7 @@
     width: 80%;
     z-index: 150;
     @media (max-width: 768px) {
-        top: 55%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, 40%);
     }
@@ -192,7 +192,6 @@
         .danhmuc-cha{
             border-radius: 4px 0 0 4px;
             background-color: var(--third-color);
-            // border-right: 1px solid var(--primary-color);
             width: 20%;
             ul{
                 padding-left: 0;
@@ -225,42 +224,53 @@
             background-color:white;
             color: black;
             width: 100%;
-            ul {
-              margin-top: 0;
-              display: grid;
-              grid-template-columns: repeat(3, 1fr);
-              list-style: none;
-            padding-left: 0;
-            @media (max-width: 1200px) {
-                grid-template-columns: 1fr;
-                max-height:400px ;
-
-                overflow-x: scroll;
-            }
-          
-              li {
-                width: 180px;
-                min-height: 40px;
-                border-radius: 4px;
-                margin: var(--padding-page);
-               
-          
-                span {
-                  transition: color 0.3s ease; 
+            padding: 12px;
+            .button-custom {
+                position: relative;
+                overflow: hidden; 
+            
+                &:hover {
+                  .icon-add-extension_add,  .icon-add-extension_remove{
+                    opacity: 1; 
+                  }
                 }
-
-                &:nth-of-type(3) {
-                    margin-right: 0;
-                }
-          
-                
               }
-            }
+
+              .icon-add-extension_remove, .icon-add-extension_add{
+                position: absolute;
+                top: 0px;
+                bottom: 0px;
+                right: 6px;
+                width: 50px;   
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: var(--logo-main-2); 
+                border-radius: 0px 4px 4px 0px;
+                opacity: 0; 
+                transition: opacity 0.3s ease; 
+                z-index: 10;
+                cursor: pointer;
+              } 
+
+              .icon-add-extension_add{
+                background-color: var(--logo-main-2); 
+                .icon{
+                    font-size: 20px;
+                  color: white;
+                }
+              }        
+              .icon-add-extension_remove {        
+                background-color: rgb(4, 178, 4);       
+                .icon{
+                    font-size: 20px;
+                  color: white;
+                }
+              }      
           }
     }
    }
 }
-
 .overlay {
     position: fixed;
     top: 0;
@@ -270,7 +280,6 @@
     background-color: rgba(0, 0, 0, 0.1);
     z-index: 50;
 }
-
 .header-container::before {
     position: absolute;
     content: "";
@@ -284,7 +293,6 @@
         z-index: 0;
     }
 }
-
 .text-main {
     position: relative;
     z-index: 10;
@@ -317,34 +325,9 @@
     }
 }
 
-.button-custom {
-    font-size: 14px;
-    width: 312px; 
-    height: 60px;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    text-align: left;
-    word-wrap: break-word;
-    white-space: pre-wrap;
-    background-color: var(--third-color); 
-    color: white; 
-    border: none; 
-    border-radius: 5px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-    @media (max-width: 768px) {
-        font-size: 10px;
-        width: 100%;
-        padding: 0 4px;
-    }
-  }
-  
-  .button-custom:hover {
-    background-color: transparent !important;
-    color: var(--third-color) !important;
-    border: 1px solid var(--third-color) !important;
 
-  }
+  
+
 
 
 

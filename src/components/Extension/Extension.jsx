@@ -12,7 +12,7 @@ export class Extension extends Component {
   };
   handleRemove = (id) => {
     this.props.removeIconExtendison(id);
-    message.success("Loại bỏ tiện ích thành công");
+    message.success("Xóa tiện ích thành công");
   };
 
   content = (id, text) => {

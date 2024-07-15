@@ -9,6 +9,7 @@ import {
   Mradio,
   Mstep,
   Mtable,
+  Winput,
 } from "../../components/BasicUI";
 import {
   IdcardOutlined,
@@ -66,6 +67,44 @@ const rowData = [
   },
 ];
 
+const formInput = [
+  {
+    title: "Số vận đơn",
+    tooltip: "Số vận đơn",
+    require: true,
+    className: `form_input_field`,
+    placeholder: "Nhập số vận đơn",
+  },
+  {
+    title: "Tên khách hàng",
+    tooltip: "Tên khách hàng",
+    require: true,
+    className: `form_input_field`,
+    placeholder: "Nhập tên khách hàng",
+  },
+  {
+    title: "Tên người đại diện",
+    tooltip: "Tên người đại diện",
+    require: true,
+    className: `form_input_field`,
+    placeholder: "Tên người đại diện",
+  },
+  {
+    title: "Số điện thoại",
+    tooltip: "Số điện thoại",
+    require: true,
+    className: `form_input_field`,
+    placeholder: "Nhập số điện thoại",
+  },
+  {
+    title: "Ghi chú",
+    tooltip: "Ghi chú",
+    require: false,
+    className: `form_input_field`,
+    placeholder: "Nhập ghi chú (nếu có)",
+  },
+];
+
 function generateRandomContainerNo() {
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let result = "";
@@ -76,12 +115,12 @@ function generateRandomContainerNo() {
   return result;
 }
 
-for (let index = 0; index < 10; index++) {
+for (let index = 0; index < 20; index++) {
   const duplicatedData = { ...rowData[0] };
   duplicatedData.ContainerNo = generateRandomContainerNo();
   rowData.push(duplicatedData);
 }
-export class tskImportPickup extends Component {
+export class TskImportPickup extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -134,6 +173,19 @@ export class tskImportPickup extends Component {
     this.setState((prevState) => ({
       currentStep: prevState.currentStep - 1,
     }));
+  };
+  renderInput = (value) => {
+    return (
+      <Col span={8}>
+        <Winput
+          title={value.title}
+          tooltip={value.tooltip}
+          require={value.require}
+          className={value.className}
+          placeholder={value.placeholder}
+        />
+      </Col>
+    );
   };
   render() {
     const columnsFormat = [
@@ -222,25 +274,42 @@ export class tskImportPickup extends Component {
     const { currentStep } = this.state;
     return (
       <Content className="flex_layout-8-16_container">
-        <Row gutter={[12, 12]}>
-          <Col span={8}>
-            <Mcard
-              title={
-                <>
-                  <span style={{ color: "white" }}>
-                    Thông tin lệnh - Giao container hàng
-                  </span>
-                </>
-              }
-            >
-              <Row gutter={[12, 12]} className="pt-12_layout">
-                <Col span={12}>
+        <Mcard>
+          <Row>
+            <Col span={4}>
+              <Row className="p_layout f-title">Các bước</Row>
+              <Mstep
+                dataSource={dataSource}
+                config={{ current: 0 }}
+                currentStep={this.state.currentStep + 1}
+                stepStyle={{
+                  minHeight: "200px",
+                  display: "flex",
+                }}
+                stepsStyle={{
+                  width: "300px",
+                  margin: "auto",
+                }}
+              />
+            </Col>
+            <Col span={1}>
+              <div className="vertical-line"></div>
+            </Col>
+            <Col span={19}>
+              <Row className="f-title center_layout mt-12_layout">
+                Thông tin lệnh - giao hàng container
+              </Row>
+              <Row>
+                <Col span={24}>
+                  <div className="horizontal-line"></div>
+                </Col>
+              </Row>
+              <Row gutter={[12, 12]}>
+                <Col span={8}>
                   <Row>HẠN TRẢ RỖNG</Row>
                   <Mdatepicker
                     dataSource={{
-                      // value: formData.fromDate,
                       format: "YYYY-MM-DD HH:mm:ss",
-                      // defaultValue: formData.fromDate,
                       id: "my-datepicker",
                       required: true,
                       lockbefore: true,
@@ -248,35 +317,11 @@ export class tskImportPickup extends Component {
                     }}
                   />
                 </Col>
-                <Col span={12}>
-                  <Row>SỐ VẬN ĐƠN</Row>
-                  <Minput
-                    dataSource={{
-                      inputType: "text",
-                    }}
-                  />
-                </Col>
-              </Row>
-              <Row className="line-layout">THÔNG TIN CHỦ HÀNG</Row>
-              <Row>
-                {formInfoCustomer.map((el, index) => {
-                  return this.renderFormInputCustomer(el, index);
+                {formInput.map((el) => {
+                  return this.renderInput(el);
                 })}
               </Row>
-              <Row className="line-layout">PHƯƠNG THỨC VẬN CHUYỂN</Row>
-              <Row className="pt-12_layout">
-                <Mradio
-                  dataSource={{
-                    label: "Select an option",
-                    options: [
-                      { label: "Xe chủ hàng", value: "option1" },
-                      { label: "Xà lan", value: "option2" },
-                    ],
-                    radioStyle: { display: "flex", justifyContent: "center" },
-                  }}
-                />
-              </Row>
-              <Row className="p_layout-flex_center">
+              <Row className="center_layout">
                 <Mbutton
                   color=""
                   className="m_button third"
@@ -291,117 +336,114 @@ export class tskImportPickup extends Component {
                   }}
                 />
               </Row>
-            </Mcard>
-          </Col>
-          <Col span={16}>
-            <Mcard>
-              {/* <Empty
-                  text="Truy vấn thông tin lệnh để nạp dữ liệu container..."
-                  icon="InboxOutlined"
-                /> */}
-              <Row className="pt-12_layout">
-                <Mstep
-                  dataSource={dataSource}
-                  currentStep={this.state.currentStep + 1}
-                />
+              <Row>
+                <Col span={24}>
+                  <div className="horizontal-line"></div>
+                </Col>
               </Row>
-              {!this.state.isLoading ? (
-                !this.state.tableData[0] ? (
-                  <Empty
-                    text="Truy vấn thông tin lệnh để nạp dữ liệu container..."
-                    icon="InboxOutlined"
-                  />
-                ) : (
-                  <>
-                    {this.state.currentStep === 0 && (
-                      <Mtable
-                        config={{
-                          defaultData: this.state.tableData,
-                          columnsFormat: columnsFormat,
-                          rowsFormat: rowsFormat,
-                          rowsHeader: rowsHeader,
-                          reorderRow: true,
-                        }}
-                        functionRequire={{
-                          addcolumn: false,
-                          deleteColumn: false,
-                          exportExel: false,
-                          searchField: ["Group", "Address", "FullName"],
-                        }}
-                      />
-                    )}
-                    {this.state.currentStep === 1 && (
-                      <Empty
-                        text="Dữ liệu ở trang tính cước..."
-                        icon="InboxOutlined"
-                      />
-                    )}
+              <Row className="full-width">
+                {!this.state.isLoading ? (
+                  !this.state.tableData[0] ? (
+                    <Empty
+                      text="Truy vấn thông tin lệnh để nạp dữ liệu container..."
+                      icon="InboxOutlined"
+                    />
+                  ) : (
+                    <Row className="flex-col_layout">
+                      {this.state.currentStep === 0 && (
+                        <Mtable
+                          config={{
+                            defaultData: this.state.tableData,
+                            columnsFormat: columnsFormat,
+                            rowsFormat: rowsFormat,
+                            rowsHeader: rowsHeader,
+                            reorderRow: true,
+                          }}
+                          functionRequire={{
+                            addcolumn: false,
+                            deleteColumn: false,
+                            exportExel: false,
+                            searchField: ["Group", "Address", "FullName"],
+                          }}
+                        />
+                      )}
+                      {this.state.currentStep === 1 && (
+                        <Empty
+                          text="Dữ liệu ở trang tính cước..."
+                          icon="InboxOutlined"
+                        />
+                      )}
 
-                    {this.state.currentStep === 2 && (
-                      <Empty
-                        text="Dữ liệu ở trang thanh toán..."
-                        icon="InboxOutlined"
-                      />
-                    )}
+                      {this.state.currentStep === 2 && (
+                        <Empty
+                          text="Dữ liệu ở trang thanh toán..."
+                          icon="InboxOutlined"
+                        />
+                      )}
 
-                    <Row
-                      className={
-                        currentStep === 0
-                          ? "mt-12_layout mb-12_layout flex_end"
-                          : "mt-12_layout mb-12_layout"
-                      }
-                      justify="space-between"
-                    >
-                      {currentStep > 0 && (
+                      <Row
+                        className={
+                          currentStep === 0
+                            ? "mt-12_layout mb-12_layout flex_end"
+                            : "mt-12_layout mb-12_layout"
+                        }
+                        justify="space-between"
+                      >
+                        {currentStep > 0 && (
+                          <Col>
+                            <Mbutton
+                              color=""
+                              className="m_button third_border"
+                              type="primary"
+                              htmlType="submit"
+                              onClick={this.handlePreviousStep}
+                              block
+                              size={12}
+                              dataSource={{
+                                textbutton: "Quay lại",
+                                icon: "DoubleLeftOutlined",
+                              }}
+                            />
+                          </Col>
+                        )}
+
                         <Col>
                           <Mbutton
                             color=""
                             className="m_button third_border"
                             type="primary"
                             htmlType="submit"
-                            onClick={this.handlePreviousStep}
+                            onClick={this.handleNextStep}
                             block
                             size={12}
                             dataSource={{
-                              textbutton: "Quay lại",
-                              icon: "DoubleLeftOutlined",
+                              textbutton:
+                                currentStep === dataSource.length - 1
+                                  ? "Hoàn tất"
+                                  : "Tiếp theo",
+                              icon: "DoubleRightOutlined",
                             }}
                           />
                         </Col>
-                      )}
-
-                      <Col>
-                        <Mbutton
-                          color=""
-                          className="m_button third_border"
-                          type="primary"
-                          htmlType="submit"
-                          onClick={this.handleNextStep}
-                          block
-                          size={12}
-                          dataSource={{
-                            textbutton:
-                              currentStep === dataSource.length - 1
-                                ? "Hoàn tất"
-                                : "Tiếp theo",
-                            icon: "DoubleRightOutlined",
-                          }}
-                        />
-                      </Col>
+                      </Row>
                     </Row>
-                  </>
-                )
-              ) : (
-                <Row className="no_data" justify={"center"} align={"middle"}>
-                  <LoadingOutlined className="no_data_icon" />
-                </Row>
-              )}
-            </Mcard>
-          </Col>
-        </Row>
+                  )
+                ) : (
+                  <Row
+                    className="no_data center_layout"
+                    justify={"center"}
+                    align={"middle"}
+                  >
+                    <LoadingOutlined className="no_data_icon" />
+                  </Row>
+                )}
+              </Row>
+            </Col>
+          </Row>
+        </Mcard>
       </Content>
     );
   }
 }
 
-export default tskImportPickup;
+export default TskImportPickup;

@@ -276,13 +276,13 @@ export class Dashboard extends Component {
   render() {
     return (
       <div className="dashboard-container">
-        <div className="header-dashboard">
+        {/* <div className="header-dashboard">
           <HomeOutlined
             className="icon-header"
             onClick={() => this.props.navigate("/")}
           />
           <span className="text">Header</span>
-        </div>
+        </div> */}
         <div className="content-dashboard">
           <div className="left-content">
             <div className="header">

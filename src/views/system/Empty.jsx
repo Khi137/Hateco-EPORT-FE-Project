@@ -21,6 +21,7 @@ export class Empty extends Component {
           padding: "30px",
           gap: "12px",
           height: "65vh",
+          width: "100%",
         }}
       >
         <IconComponent style={{ fontSize: "40px" }} />
