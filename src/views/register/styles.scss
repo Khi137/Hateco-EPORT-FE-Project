@@ -198,7 +198,7 @@ $login-background-image: url('../../assets/backgroundImage/LoginBackground.jpg')
 .ant-modal {
     position: relative;
     max-height: 80vh !important;
-    width: 691.2px !important;
+    width: 691.2px;
     overflow-y: scroll;
     border-radius: 8px;
     -ms-overflow-style: none;

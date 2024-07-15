@@ -28,6 +28,8 @@ import StatesContainer from "../views/category/statesContainer";
 import SizeContainer from "../views/category/sizeContainer";
 import TariffStandard from "../views/tariff/tariffStandard.jsx";
 import TariffRefer from "../views/tariff/tariffRefer.jsx";
+import TariffFreeDay from "../views/tariff/tariffFreeDay.jsx";
+import TariffHoliday from "../views/tariff/tariffHoliday.jsx";
 class MainRoutes extends Component {
   render() {
     return (
@@ -45,6 +47,8 @@ class MainRoutes extends Component {
           <Route path="/tariff">
             <Route path="tariff-standard" element={<TariffStandard />} />
             <Route path="tariff-refer" element={<TariffRefer />} />
+            <Route path="tariff-freeday" element={<TariffFreeDay />} />
+            <Route path="tariff-holiday" element={<TariffHoliday />} />
           </Route>
 
           <Route path="/tracking">

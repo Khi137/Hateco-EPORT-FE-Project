@@ -5401,3 +5401,19 @@ select {
         .ant-descriptions-view {}
     }
 }
+//-----------tariff
+
+.tariffFreeDay_content {
+    .btn-search {
+        border: none;
+        color: $color-second;
+    }
+}
+
+.custom-wide-modal-tariff {
+    width: 68% !important;
+    max-width: 1800px !important;
+}
+
+
+  
