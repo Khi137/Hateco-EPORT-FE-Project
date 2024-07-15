@@ -7,11 +7,9 @@ import {
   Mselect,
   Mtable,
   Winput,
-} from "../../components/BasicUI/BasicUI";
-import {
-  InfoCircleOutlined,
-  MenuUnfoldOutlined,
-} from "@ant-design/icons";
+} from "../../components/BasicUI";
+import { DatabaseOutlined, InfoCircleOutlined, LoadingOutlined} from "@ant-design/icons";
+import moment from "moment";
 
 const rowData = [
   {
@@ -29,7 +27,7 @@ const rowData = [
     BLNo: null,
     BookingNo: "50940502",
     HousebillNo: null,
-    PostageCode: "TCNU8698362",
+    TariffCode: "TCNU8698362",
     ClassCode: "3",
     Description: "HLC",
     FE: "F",
@@ -100,21 +98,21 @@ const rowData = [
     CVType: "B",
     CargoType: "A",
     Type: "Container",
-    DomesticInternational: 'Domestic',
-    MoneyType: 'USD',
-    Full20: 'Y',
-    Full40: 'Y',
-    Full45: 'Y',
-    Empty20: 'Y',
-    Empty40: 'Y',
-    Empty45: 'Y',
-    NonCont: '1000',
-    IncludeTax: '1000',
-    VAT: '10%',
-    Unit: 'Thousand',
+    DomesticInternational: "Domestic",
+    MoneyType: "USD",
+    Full20: "Y",
+    Full40: "Y",
+    Full45: "Y",
+    Empty20: "Y",
+    Empty40: "Y",
+    Empty45: "Y",
+    NonCont: "1000",
+    IncludeTax: "1000",
+    VAT: "10%",
+    Unit: "Thousand",
     BookingType: true,
     BookingDate: "2021-04-06T10:35:25.000Z",
-    Plan: 'Complete',
+    Plan: "Complete",
     BookingAmount: 1,
     StackingAmount: 0,
     ShipperName: "shipperName",
@@ -134,7 +132,7 @@ const rowData = [
   },
 ];
 
-function generateRandomPostageCode() {
+function generateRandomTariffCode() {
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let result = "";
   const charactersLength = characters.length;
@@ -146,71 +144,61 @@ function generateRandomPostageCode() {
 
 for (let index = 0; index < 20; index++) {
   const duplicatedData = { ...rowData[0] };
-  duplicatedData.PostageCode = generateRandomPostageCode();
+  duplicatedData.TariffCode = generateRandomTariffCode();
   rowData.push(duplicatedData);
 }
 
-export default class PostageStandard extends Component {
+export default class TariffStandard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       formData: {
-        postageNumber: '',
-        searchData: "",
-        postageNumberError: true,
+        tariffNumber: "",
+        tariffNumberError: true,
+        fromDate: moment(new Date()).startOf("day").toDate(),
+        toDate: moment(new Date()).endOf("day").toDate(),
       },
       generalInformation: {},
       tableData: [],
-      referenceNumber: '',
+      referenceNumber: "",
     };
     this.submitButtonRef = createRef();
     this.referenceNumberRef = createRef();
   }
 
-  // handleInputChange = (e, dataForm) => {
-  //   const { name, value } = e.target;
-  //   this.setState((prevState) => ({
-  //     [dataForm]: {
-  //       ...prevState[dataForm],
-  //       [name]: value,
-  //     },
-  //   }));
-  //   return value;
-  // };
-
-  handleLoadData = () => {
-    const postageNumberError = this.state.formData.postageNumberError;
-    if (postageNumberError) {
-      this.referenceNumberRef.current.handleCheckError();
-      return;
-    }
+  handleLoadData = (value) => {
+    const referenceNumbers = Object.values(value)[0]
+      .split("-")
+      .slice(2)
+      .join("-");
+    // const tariffNumberError = this.state.formData.tariffNumberError;
+    // if (tariffNumberError) {
+    //   this.referenceNumberRef.current.handleCheckError();
+    //   return;
+    // }
     this.setState({ isLoading: true });
     if (this.submitButtonRef.current) {
       this.submitButtonRef.current.loading();
     }
     setTimeout(() => {
-      if (this.submitButtonRef.current) {
-        this.submitButtonRef.current.reset();
-        this.setState((prevState) => ({
-          generalInformation: rowData[0] ? rowData[0] : {},
-          tableData: rowData,
-          formData: {
-            ...prevState.formData,
-            postageNumberError: false,
-          },
-          isLoading: false,
-        }));
-      }
+      this.setState((prevState) => ({
+        generalInformation: rowData[0] ? rowData[0] : {},
+        tableData: rowData,
+        referenceNumber: referenceNumbers,
+        formData: {
+          ...prevState.formData,
+          tariffNumberError: false,
+        },
+        isLoading: false,
+      }));
     }, 1000);
   };
 
   render() {
-    console.log("Current referenceNumber:", this.state.referenceNumber);
-
     const columnsFormat = [
       { columnId: "STT", width: 50, resizable: true, header: "STT" },
       {
-        columnId: "PostageCode",
+        columnId: "TariffCode",
         width: 150,
         resizable: true,
         reorderable: true,
@@ -351,104 +339,104 @@ export default class PostageStandard extends Component {
       },
     ];
 
-    const rowsFormat = (container, index) => {
+    const rowsFormat = (tariff, index) => {
       return [
         { type: "text", nonEditable: true, text: String(index + 1) },
         {
           type: "text",
           nonEditable: false,
-          text: container?.PostageCode || "",
+          text: tariff?.tariffCode || "",
         },
         {
           type: "text",
           nonEditable: false,
-          text: container?.Description || "",
+          text: tariff?.Description || "",
         },
         {
           type: "text",
           nonEditable: false,
-          text: container?.Direction || "",
+          text: tariff?.Direction || "",
         },
         {
           type: "text",
           nonEditable: false,
-          text: container?.CargoType || "",
+          text: tariff?.CargoType || "",
         },
-        { type: "text", nonEditable: false, text: container?.CVType || "" },
+        { type: "text", nonEditable: false, text: tariff?.CVType || "" },
         {
           type: "text",
           nonEditable: false,
-          text: container?.Plan || "",
-        },
-        {
-          type: "text",
-          nonEditable: false,
-          text: container?.TransportType || "",
+          text: tariff?.Plan || "",
         },
         {
           type: "text",
           nonEditable: false,
-          text: container?.Type || "",
+          text: tariff?.TransportType || "",
         },
         {
           type: "text",
           nonEditable: false,
-          text: container?.DomesticInternational || "",
+          text: tariff?.Type || "",
         },
         {
           type: "text",
           nonEditable: false,
-          text: container?.MoneyType || "",
+          text: tariff?.DomesticInternational || "",
         },
         {
           type: "text",
           nonEditable: false,
-          text: container?.Full20 || "",
+          text: tariff?.MoneyType || "",
         },
         {
           type: "text",
           nonEditable: false,
-          text: container?.Full40 || "",
+          text: tariff?.Full20 || "",
         },
         {
           type: "text",
           nonEditable: false,
-          text: container?.Full45 || "",
+          text: tariff?.Full40 || "",
         },
         {
           type: "text",
           nonEditable: false,
-          text: container?.Empty20 || "",
+          text: tariff?.Full45 || "",
         },
         {
           type: "text",
           nonEditable: false,
-          text: container?.Empty40 || "",
+          text: tariff?.Empty20 || "",
         },
         {
           type: "text",
           nonEditable: false,
-          text: container?.Empty45 || "",
+          text: tariff?.Empty40 || "",
         },
         {
           type: "text",
           nonEditable: false,
-          text: container?.NonCont || "",
+          text: tariff?.Empty45 || "",
         },
         {
           type: "text",
           nonEditable: false,
-          text: container?.IncludeTax || "",
+          text: tariff?.NonCont || "",
         },
         {
           type: "text",
           nonEditable: false,
-          text: container?.VAT || "",
+          text: tariff?.IncludeTax || "",
         },
         {
           type: "text",
           nonEditable: false,
-          text: container?.Unit || "",
+          text: tariff?.VAT || "",
+        },
+        {
+          type: "text",
+          nonEditable: false,
+          text: tariff?.Unit || "",
         },
       ];
     };
@@ -478,7 +466,7 @@ export default class PostageStandard extends Component {
     ];
 
     return (
-      <Content className="flex_layout-8-16_container tracking_layout">
+      <Content className="flex_layout-8-16_container tariff_layout">
         <Row gutter={[12, 12]}>
           <Col lg={{ span: 8 }} sm={{ span: 24 }}>
             <Mcard
@@ -503,7 +491,7 @@ export default class PostageStandard extends Component {
                   <Mselect
                     dataSource={{
                       label: "Mẫu biểu cước",
-                      ref: 'samplePostage',
+                      ref: this.submitButtonRef,
                       options: [
                         {
                           label: "01/01/2020-24/04/2021-NDV-BIEUCUOC2021",
@@ -548,11 +536,7 @@ export default class PostageStandard extends Component {
                       ],
                     }}
                     onChangeValue={(value) => {
-                      console.log(value)
-                      const referenceNumber = Object.values(value)
-                      console.log(referenceNumber[0])
-                      this.setState({ referenceNumber: referenceNumber[0].split('-').slice(2).join('-') });
-                      // this.handleInputChange(value)
+                      this.handleLoadData(value)
                     }}
                   />
                 </Row>
@@ -561,12 +545,12 @@ export default class PostageStandard extends Component {
                     <Row>Từ ngày</Row>
                     <Mdatepicker
                       dataSource={{
-                        // value: formData.fromDate,
+                        value: this.state.formData.fromDate,
                         format: "YYYY-MM-DD HH:mm:ss",
-                        // defaultValue: formData.fromDate,
+                        defaultValue: this.state.formData.fromDate,
                         id: "my-datepicker",
                         // label: 'Select Date',
-                        // span: { xs: 24, sm: 12, md: 8 },
+                        span: { xs: 24, sm: 12, md: 8, lg: 24 },
                         required: true,
                         lockbefore: true,
                         propReadonly: false,
@@ -577,12 +561,12 @@ export default class PostageStandard extends Component {
                     <Row>Đến ngày</Row>
                     <Mdatepicker
                       dataSource={{
-                        // value: formData.toDate,
+                        value: this.state.formData.toDate,
                         format: "YYYY-MM-DD HH:mm:ss",
-                        // defaultValue: formData.toDate,
+                        defaultValue: this.state.formData.toDate,
                         id: "my-datepicker",
                         // label: 'Select Date',
-                        // span: { xs: 24, sm: 12, md: 8 },
+                        span: { xs: 24, sm: 12, md: 8, lg: 24 },
                         required: true,
                         lockbefore: true,
                         propReadonly: false,
@@ -597,21 +581,21 @@ export default class PostageStandard extends Component {
                   value={this.state.referenceNumber}
                   tooltip={"Số tham chiếu"}
                   onChange={(e) => console.log(e)}
-                  // checkError={(error) =>
-                  //   this.setState((prevState) => ({
-                  //     formData: {
-                  //       ...prevState.formData,
-                  //       postageNumberError: error,
-                  //     },
-                  //   }))
-                  // }
+                  checkError={(error) =>
+                    this.setState((prevState) => ({
+                      formData: {
+                        ...prevState.formData,
+                        tariffNumberError: error,
+                      },
+                    }))
+                  }
                   require={false}
                   name={"referenceNumber"}
                   className={`form_input_field`}
                   // prefix={item?.inputIcon}
                   placeholder={"Số tham chiếu"}
-                // errorText={formData?.postageNumberError || true}
-                // ref={this.referenceNumberRef}
+                  // errorText={formData?.tariffNumberError || true}
+                  ref={this.referenceNumberRef}
                 />
               </Col>
             </Mcard>
@@ -625,22 +609,40 @@ export default class PostageStandard extends Component {
               }
               className="container_list"
             >
-              <Mtable
-                config={{
-                  defaultData: this.state.tableData,
-                  columnsFormat: columnsFormat,
-                  rowsFormat: rowsFormat,
-                  rowsHeader: rowsHeader,
-                  reorderRow: true,
-                }}
-                functionRequire={{
-                  // addcolumn: true,
-                  // deleteColumn: true,
-                  exportExel: true,
-                  // saveData: () => { this.saveData() },
-                  searchField: ["PostageCode", "Direction", "CargoType"],
-                }}
-              />
+              {!this.state.isLoading ? (
+                !this.state.tableData[0] ? (
+                  <Col className="no_data">
+                    <Row justify={"center"}>
+                      <DatabaseOutlined className="no_data_icon" />
+                    </Row>
+                    <Row justify={"center"}>
+                      Chọn mẫu biểu cước để nạp dữ liệu...
+                    </Row>
+                  </Col>
+                ) : (
+                  <Mtable
+                    key={this.state.tableData}
+                    config={{
+                      defaultData: this.state.tableData,
+                      columnsFormat: columnsFormat,
+                      rowsFormat: rowsFormat,
+                      rowsHeader: rowsHeader,
+                      reorderRow: true,
+                    }}
+                    functionRequire={{
+                      addcolumn: true,
+                      deleteColumn: true,
+                      exportExel: true,
+                      saveData: () => { this.saveData() },
+                      searchField: ["TariffCode", "Direction", "CargoType"],
+                    }}
+                  />
+                )
+              ) : (
+                <Row className="no_data" justify={"center"} align={"middle"}>
+                  <LoadingOutlined style={{ fontSize: "64px" }} />
+                </Row>
+              )}
             </Mcard>
           </Col>
         </Row>

@@ -26,7 +26,13 @@ import StatesContainer from "../views/category/statesContainer";
 import SizeContainer from "../views/category/sizeContainer";
 import ApproveCommand from "../views/commandManager/approveCommand";
 import UpdateCommandInfomation from "../views/commandManager/updateCommandInfomation";
-import PostageStandard from "../views/postage/postageStandard";
+
+import Report from "../views/report/report";
+import PostageStandard from "../views/postage/postage";
+
+import TariffStandard from "../views/tariff/tariffStandard.jsx";
+import TariffRefer from "../views/tariff/tariffRefer.jsx";
+
 class MainRoutes extends Component {
   render() {
     return (
@@ -40,42 +46,67 @@ class MainRoutes extends Component {
         <Route element={<AuthLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/category-customer" element={<Customer />} />
+        </Route>
+        <Route path="/postage">
+          <Route path="postage-standard" element={<PostageStandard />} />
+        </Route>
+        <Route path="/tariff">
+          <Route path="tariff-standard" element={<TariffStandard />} />
+          <Route path="tariff-refer" element={<TariffRefer />} />
+        </Route>
 
-          <Route path="/postage">
-            <Route path="postage-standard" element={<PostageStandard />} />
-          </Route>
+        <Route path="/tracking">
+          <Route path="tracking_container" element={<TrackingContainer />} />
+          <Route
+            path="tracking_container_list"
+            element={<TrackingContainerList />}
+          />
+          <Route path="tracking_bill" element={<TrackingBill />} />
+          <Route path="tracking_booking" element={<TrackingBooking />} />
+          <Route path="tracking_edo" element={<TrackingEdo />} />
+          <Route path="tracking_housebill" element={<TrackingHouseBill />} />
+        </Route>
 
-          <Route path="/tracking">
-            <Route path="tracking_container" element={<TrackingContainer />} />
-            <Route path="tracking_container_list" element={<TrackingContainerList />} />
-            <Route path="tracking_bill" element={<TrackingBill />} />
-            <Route path="tracking_booking" element={<TrackingBooking />} />
-            <Route path="tracking_edo" element={<TrackingEdo />} />
-            <Route path="tracking_housebill" element={<TrackingHouseBill />} />
-          </Route>
+        <Route path="/system_manager">
+          <Route path="SystemManageUser" element={<SystemManageUser />} />
+          <Route path="SystemManageGroup" element={<SystemManageGroup />} />
+          <Route
+            path="SystemManagerGroupPermission"
+            element={<SystemManagerGroupPermission />}
+          />
+        </Route>
 
-          <Route path="/system_manager">
-            <Route path="SystemManageUser" element={<SystemManageUser />} />
-            <Route path="SystemManageGroup" element={<SystemManageGroup />} />
-            <Route path="SystemManagerGroupPermission" element={<SystemManagerGroupPermission />} />
-          </Route>
+        {/* <Route path="/system" element={<System />} /> */}
+        <Route path="/category">
+          <Route path="category_customer" element={<Customer />} />
+          <Route
+            path="category_shipExploitBrand"
+            element={<ShipExploitBrand />}
+          />
+          <Route path="category_task" element={<Task />} />
+          <Route
+            path="category_commoditiesType"
+            element={<CommoditiesType />}
+          />
+          <Route
+            path="category_directionContainer"
+            element={<DirectionContainer />}
+          />
+          <Route path="category_portsList" element={<PortsList />} />
+          <Route
+            path="category_statesContainer"
+            element={<StatesContainer />}
+          />
+          <Route path="category_sizeContainer" element={<SizeContainer />} />
+        </Route>
 
-          {/* <Route path="/system" element={<System />} /> */}
-          <Route path="/category">
-            <Route path="category_customer" element={<Customer />} />
-            <Route path="category_shipExploitBrand" element={<ShipExploitBrand />} />
-            <Route path="category_task" element={<Task />} />
-            <Route path="category_commoditiesType" element={<CommoditiesType />} />
-            <Route path="category_directionContainer" element={<DirectionContainer />} />
-            <Route path="category_portsList" element={<PortsList />} />
-            <Route path="category_statesContainer" element={<StatesContainer />} />
-            <Route path="category_sizeContainer" element={<SizeContainer />} />
-          </Route>
+        <Route path="/command_manager">
+          <Route path="approve_command" element={<ApproveCommand />} />
+          <Route path="update_command_Infomation" element={<UpdateCommandInfomation />} />
+        </Route>
 
-          <Route path="/command_manager">
-            <Route path="approve_command" element={<ApproveCommand />} />
-            <Route path="update_command_Infomation" element={<UpdateCommandInfomation />} />
-          </Route>
+        <Route path="/report">
+          <Route path="report-1" element={<Report />} />
         </Route>
 
         <Route path="/dashboard" element={<Dashboard />} />
