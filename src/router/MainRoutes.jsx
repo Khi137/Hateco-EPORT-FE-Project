@@ -26,7 +26,11 @@ import DirectionContainer from "../views/category/directionContainer";
 import PortsList from "../views/category/portsList";
 import StatesContainer from "../views/category/statesContainer";
 import SizeContainer from "../views/category/sizeContainer";
+import InstantInvoiceWithReleasePointReport from "../views/report/instantInvoiceWithReleasePointReport";
+import ContainerInvoiceReport from "../views/report/containerInvoiceReport";
 import PostageStandard from "../views/postage/postageStandard";
+import ContainerStorageReport from "../views/report/containerStorageReport";
+import JobModeInvoiceWithReleasePointReport from "../views/report/jobModeInvoiceWithReleasePointReport";
 class MainRoutes extends Component {
   render() {
     return (
@@ -47,7 +51,10 @@ class MainRoutes extends Component {
 
           <Route path="/tracking">
             <Route path="tracking_container" element={<TrackingContainer />} />
-            <Route path="tracking_container_list" element={<TrackingContainerList />} />
+            <Route
+              path="tracking_container_list"
+              element={<TrackingContainerList />}
+            />
             <Route path="tracking_bill" element={<TrackingBill />} />
             <Route path="tracking_booking" element={<TrackingBooking />} />
             <Route path="tracking_edo" element={<TrackingEdo />} />
@@ -57,19 +64,41 @@ class MainRoutes extends Component {
           <Route path="/system_manager">
             <Route path="SystemManageUser" element={<SystemManageUser />} />
             <Route path="SystemManageGroup" element={<SystemManageGroup />} />
-            <Route path="SystemManagerGroupPermission" element={<SystemManagerGroupPermission />} />
+            <Route
+              path="SystemManagerGroupPermission"
+              element={<SystemManagerGroupPermission />}
+            />
           </Route>
 
           {/* <Route path="/system" element={<System />} /> */}
           <Route path="/category">
             <Route path="category_customer" element={<Customer />} />
-            <Route path="category_shipExploitBrand" element={<ShipExploitBrand />} />
+            <Route
+              path="category_shipExploitBrand"
+              element={<ShipExploitBrand />}
+            />
             <Route path="category_task" element={<Task />} />
-            <Route path="category_commoditiesType" element={<CommoditiesType />} />
-            <Route path="category_directionContainer" element={<DirectionContainer />} />
+            <Route
+              path="category_commoditiesType"
+              element={<CommoditiesType />}
+            />
+            <Route
+              path="category_directionContainer"
+              element={<DirectionContainer />}
+            />
             <Route path="category_portsList" element={<PortsList />} />
-            <Route path="category_statesContainer" element={<StatesContainer />} />
+            <Route
+              path="category_statesContainer"
+              element={<StatesContainer />}
+            />
             <Route path="category_sizeContainer" element={<SizeContainer />} />
+          </Route>
+
+          <Route path="/report">
+            <Route path="InstantInvoiceWithReleasePointReport" element={<InstantInvoiceWithReleasePointReport />} />
+            <Route path="containerInvoiceReport" element={<ContainerInvoiceReport />} />
+            <Route path="containerStorageReport" element={<ContainerStorageReport />} />
+            <Route path="jobModeInvoiceWithReleasePointReport" element={<JobModeInvoiceWithReleasePointReport />} />
           </Route>
         </Route>
         <Route path="/dashboard" element={<Dashboard />} />
