@@ -9,48 +9,48 @@ const initialState = [
   {
     text: "Tác nghiệp",
     icon: "DownSquareOutlined",
-    url: "/tác-nghiệp",
+    url: "/Task",
     subMenu: [
       {
         id: "tacnghiep-01",
         text: "Lệnh giao container hàng",
-        url: "/lệnh-giao-container-hàng",
+        url: "/tskImportPickup",
         icon: "RightSquareOutlined",
       },
       {
         id: "tacnghiep-02",
         text: "Lệnh giao container rỗng",
-        url: "/lệnh-giao-container-rỗng",
+        url: "/tskEmptyPickup",
         icon: "BorderOuterOutlined",
       },
       {
         id: "tacnghiep-03",
         text: "Lệnh hạ container hàng",
-        url: "/lệnh-hạ-container-hàng",
+        url: "/tskFCL_Pre_Advice",
         icon: "BorderInnerOutlined",
       },
       {
         id: "tacnghiep-04",
         text: "Lệnh hạ container rỗng",
-        url: "/lệnh-hạ-container-rỗng",
+        url: "/tskPre_Advice",
         icon: "BorderBottomOutlined",
       },
       {
         id: "tacnghiep-05",
         text: "Lệnh đóng hàng",
-        url: "/lệnh-đóng-hàng",
+        url: "/tskStuffingOrder",
         icon: "FullscreenExitOutlined",
       },
       {
         id: "tacnghiep-06",
         text: "Lệnh rút hàng",
-        url: "/lệnh-rút-hàng",
+        url: "/tskUnstuffingOrder",
         icon: "FullscreenOutlined",
       },
       {
         id: "tacnghiep-07",
         text: "Lệnh dịch vụ",
-        url: "/lệnh-dịch-vụ",
+        url: "/tskService",
         icon: "PicCenterOutlined",
       },
       {
