@@ -9,9 +9,10 @@ import {
     NumberOutlined,
     SearchOutlined,
 } from "@ant-design/icons";
-import { Mbutton, Mcard, Mradio, Mtable, Winput } from "../../components/BasicUI/BasicUI";
+import { Mbutton, Mcard, Mdatepicker, Mradio, Mtable, Winput } from "../../components/BasicUI/BasicUI";
 import { formatDateTime } from "../../utils/util";
 import { Content, Header } from "antd/es/layout/layout";
+import moment from "moment";
 
 const rowData = [
     {
@@ -152,6 +153,12 @@ class TskUpdateOrder extends Component {
                 billNumber: "",
 
                 searchData: "",
+
+                EdoCode: "",
+                EdoCodeError: true,
+                fromDate: moment(new Date()).startOf("day").toDate(),
+                toDate: moment(new Date()).endOf("day").toDate(),
+                EdoCodeRef: true,
             },
             radioValue: "pincode",
             tableData: [],
@@ -179,11 +186,11 @@ class TskUpdateOrder extends Component {
     };
 
     handleLoadData = () => {
-        const pinCodeError = this.state.formData.pinCodeError;
-        if (pinCodeError) {
-            this.pinCodeRef?.current?.handleCheckError();
-            return;
-        }
+        // const pinCodeError = this.state.formData.pinCodeError;
+        // if (pinCodeError) {
+        //     this.pinCodeRef?.current?.handleCheckError();
+        //     return;
+        // }
         this.setState({ isLoading: true });
         if (this.submitButtonRef.current) {
             this.submitButtonRef.current.loading();
@@ -240,55 +247,24 @@ class TskUpdateOrder extends Component {
 
         const inputForm = [
             {
-                title: "Mã số thuế",
-                tooltip: "Nhập mã số thuế có khoảng 10 đến 13 số vd: 0101234567-001",
-                placeholder: "Nhập mã số thuế",
+                title: "Tra cứu theo số pin",
+                tooltip: "Tra cứu theo số pin",
+                placeholder: "Nhập số pin",
                 inputIcon: <NumberOutlined />,
                 name: "taxCode",
                 type: "text",
                 value: formData.taxCode,
+                require: true
             },
             {
-                title: "Mẫu hoá đơn",
-                tooltip: "Mẫu hoá đơn",
-                placeholder: "Mẫu hoá đơn",
+                title: "Số container",
+                tooltip: "Số container",
+                placeholder: "Nhập số container",
                 inputIcon: <BoldOutlined />,
                 name: "billForm",
                 type: "text",
                 value: formData.billForm,
-            },
-            {
-                title: "Ký hiệu hoá đơn",
-                tooltip: "Ký hiệu hoá đơn",
-                placeholder: "Ký hiệu hoá đơn",
-                inputIcon: <EnvironmentOutlined />,
-                name: "billSymbol",
-                type: "text",
-                value: formData.billSymbol,
-            },
-            {
-                title: "Số hoá đơn",
-                tooltip: "Số hoá đơn",
-                placeholder: "Số hoá đơn",
-                inputIcon: <BarcodeOutlined />,
-                name: "billNumber",
-                type: "text",
-                value: formData.billNumber,
-            },
-        ];
-
-        const pincodeForm = [
-            {
-                title: "Mã tra cứu",
-                tooltip: "Nhập Mã tra cứu",
-                placeholder: "Mã tra cứu",
-                inputIcon: <NumberOutlined />,
-                name: "pinCode",
-                type: "text",
-                value: formData.pinCode,
-                require: true,
-                ref: this.pinCodeRef,
-                error: formData.pinCodeError,
+                require: true
             },
         ];
 
@@ -337,33 +313,50 @@ class TskUpdateOrder extends Component {
         ];
 
         return (
-            <Content className="flex_layout-8-16_container">
-                <Row gutter={[12, 12]}>
+            <Content className="flex_layout-8-16_container tsk_update_order_container" style={{ minHeight: "0px" }}>
+                <Row className="flex_layout_card" gutter={[12, 12]}>
                     <Col lg={{ span: 8 }} sm={{ span: 24 }} xs={{ span: 24 }} >
                         <Mcard
-                            title={<span style={{ color: 'white' }}>Truy vấn thông tin hóa đơn</span>}
+                            title={<span style={{ color: 'white' }}>Cập nhật thông tin lệnh</span>}
                             className="flex_card"
                         >
-                            <Col className="input_layout tracking_bill_input">
-                                <Row >
-                                    <Mradio
-                                        dataSource={{
-                                            value: this.state.radioValue,
-                                            label: "Select an option",
-                                            options: [
-                                                { label: "Mã tra cứu", value: "pincode" },
-                                                { label: "Thông tin hóa đơn", value: "infor" },
-                                            ],
-                                        }}
-                                        onChangeValue={(returnValue) =>
-                                            this.handleRadioChange(returnValue.undefined)
-                                        }
-                                    />
+                            <Col className="input_layout">
+                                <Row justify={"space-between"}>
+                                    <Col>
+                                        <Row>Từ ngày</Row>
+                                        <Mdatepicker
+                                            dataSource={{
+                                                value: formData.fromDate,
+                                                format: "YYYY-MM-DD HH:mm:ss",
+                                                defaultValue: formData.fromDate,
+                                                id: "my-datepicker",
+                                                // label: 'Select Date',
+                                                // span: { xs: 24, sm: 12, md: 8 },
+                                                required: true,
+                                                lockbefore: true,
+                                                propReadonly: false,
+                                            }}
+                                        />
+                                    </Col>
+                                    <Col>
+                                        <Row>Đến ngày</Row>
+                                        <Mdatepicker
+                                            dataSource={{
+                                                value: formData.toDate,
+                                                format: "YYYY-MM-DD HH:mm:ss",
+                                                defaultValue: formData.toDate,
+                                                id: "my-datepicker",
+                                                // label: 'Select Date',
+                                                // span: { xs: 24, sm: 12, md: 8 },
+                                                required: true,
+                                                lockbefore: true,
+                                                propReadonly: false,
+                                                className: "date_input",
+                                            }}
+                                        />
+                                    </Col>
                                 </Row>
-                                {(this.state.radioValue === "pincode"
-                                    ? pincodeForm
-                                    : inputForm
-                                ).map((item, key) => this.renderInputField(item, key))}
+                                {inputForm.map((item, key) => this.renderInputField(item, key))}
                                 <Mbutton
                                     color=""
                                     className="m_button third"
@@ -404,9 +397,9 @@ class TskUpdateOrder extends Component {
                                             reorderRow: true,
                                         }}
                                         functionRequire={{
-                                            addcolumn: true,
-                                            deleteColumn: true,
-                                            exportExel: true,
+                                            // addcolumn: true,
+                                            // deleteColumn: true,
+                                            // exportExel: true,
                                             // saveData: (data) => {
                                             //   console.log(data);
                                             // },
@@ -423,9 +416,102 @@ class TskUpdateOrder extends Component {
                                     <LoadingOutlined className="no_data_icon" />
                                 </Row>
                             )}
+
+                        </Mcard>
+                    </Col>
+                    <Col className="layout_col" lg={{ span: 24 }} sm={{ span: 24 }} xs={{ span: 24 }}>
+                        <Mcard
+                            title={<span style={{ color: 'white' }}>Danh sách container</span>}
+                            className="container_list"
+                        >
+                            {!this.state.isLoading ? (
+                                !this.state.tableData[0] ? (
+                                    <Col className="no_data">
+                                        <Row justify={"center"}>
+                                            <DatabaseOutlined className="no_data_icon" />
+                                        </Row>
+                                        <Row justify={"center"}>Nhập thông tin HouseBill để nạp dữ liệu container...</Row>
+                                    </Col>
+                                ) : (
+                                    <Mtable
+                                        config={{
+                                            defaultData: this.state.tableData,
+                                            columnsFormat: columnsFormat,
+                                            rowsFormat: rowsFormat,
+                                            rowsHeader: rowsHeader,
+                                            reorderRow: true,
+                                        }}
+                                        functionRequire={{
+                                            // addcolumn: true,
+                                            // deleteColumn: true,
+                                            // exportExel: true,
+                                            // saveData: (data) => {
+                                            //   console.log(data);
+                                            // },
+                                            searchField: [
+                                                "ContainerNo",
+                                                "OperationCode",
+                                                "IsoSizetype",
+                                            ],
+                                        }}
+                                    />
+                                )
+                            ) : (
+                                <Row className="no_data" justify={"center"} align={"middle"}>
+                                    <LoadingOutlined className="no_data_icon" />
+                                </Row>
+                            )}
+
                         </Mcard>
                     </Col>
                 </Row>
+                {/* <Content>
+                    <Col className="layout_col" lg={{ span: 8 }} sm={{ span: 24 }} xs={{ span: 24 }}>
+                        <Mcard
+                            title={<span style={{ color: 'white' }}>Danh sách container</span>}
+                            className="container_list"
+                        >
+                            {!this.state.isLoading ? (
+                                !this.state.tableData[0] ? (
+                                    <Col className="no_data">
+                                        <Row justify={"center"}>
+                                            <DatabaseOutlined className="no_data_icon" />
+                                        </Row>
+                                        <Row justify={"center"}>Nhập thông tin HouseBill để nạp dữ liệu container...</Row>
+                                    </Col>
+                                ) : (
+                                    <Mtable
+                                        config={{
+                                            defaultData: this.state.tableData,
+                                            columnsFormat: columnsFormat,
+                                            rowsFormat: rowsFormat,
+                                            rowsHeader: rowsHeader,
+                                            reorderRow: true,
+                                        }}
+                                        functionRequire={{
+                                            // addcolumn: true,
+                                            // deleteColumn: true,
+                                            // exportExel: true,
+                                            // saveData: (data) => {
+                                            //   console.log(data);
+                                            // },
+                                            searchField: [
+                                                "ContainerNo",
+                                                "OperationCode",
+                                                "IsoSizetype",
+                                            ],
+                                        }}
+                                    />
+                                )
+                            ) : (
+                                <Row className="no_data" justify={"center"} align={"middle"}>
+                                    <LoadingOutlined className="no_data_icon" />
+                                </Row>
+                            )}
+
+                        </Mcard>
+                    </Col>
+                </Content> */}
             </Content >
         );
     }

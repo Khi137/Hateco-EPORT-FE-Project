@@ -145,15 +145,62 @@ class PendingTask extends Component {
             formData: {
                 pinCode: "",
                 pinCodeError: true,
-
                 containerNo: "",
                 containerNoError: true,
 
-                searchData: "",
+                getMeterial: true,
+                lowerYard: true,
+                emptyContainer: true,
+                emptyReturn: true,
+
+                packageCommon: true,
+                packageBag: true,
+                packageCold: true,
+                packageCold50: true,
+                packageSmallBag: true,
+                packageCommon150: true,
+                packageCold150: true,
+                withdrawCommon20: true,
+                withdrawCold20: true,
+                withdrawCommon: true,
+                withdrawBag: true,
+                withdrawCold: true,
+                withdrawPart30: true,
+                withdrawPart30Bag: true,
+                withdrawPartAfter30: true,
+                withdrawPartAfter30Bag: true,
+                packageIncrease20: true,
+                packageIncreaseCold20: true,
+
+                ContainerInspection: true,
+                ContainerWeigh: true,
+                ContainerWeighVGM: true,
+                liftingCleaning: true,
+                cutSeal: true,
+                checkSeal: true,
+                forcedContainer: true,
+                removeNCover: true,
+                liftingFixing: true,
+                rentalRepair: true,
+                checkDaggerContainer: true,
+                plugUnplugContainer: true,
+                cleanBack: true,
+                plugFrezing: true,
+                saveContainerField: true,
+                withdrawBagService: true,
+                checkContainer: true,
+                heatContainer: true,
+                sweepingClean: true,
+                waterClean: true,
+                chemicalsClean: true,
+                weighingGoods: true,
+                inspectionPortVehicle: true,
+                inspectionCustomerVehicle: true,
             },
             radioValue: "pincode",
             tableData: [],
             isLoading: false,
+            mode: "lifting"
         };
         this.submitButtonRef = createRef();
         this.pinCodeRef = createRef();
@@ -202,11 +249,18 @@ class PendingTask extends Component {
         }, 1000);
     };
 
-    handleCheckboxChange = (value) => {
+    changeMode = (type) => {
+        this.setState({
+            mode: type,
+        });
+    }
+
+    handleCheckboxChange = (value, name) => {
+        console.log(value, name);
         this.setState(prevState => ({
             formData: {
                 ...prevState.formData,
-                termsAgreed: value
+                [name]: !value
             }
         }));
     };
@@ -244,16 +298,19 @@ class PendingTask extends Component {
     };
 
     renderCheckboxField = (item) => {
-        <Col span={12}>
-            <Mcheckbox dataSource={{
-                span: 12,
-                label: <Row><Row style={{ userSelect: "none" }}>{item.label}</Row></Row>,
-                value: item.value,
-                className: `${item.value && "m-checkbox_checked"}`,
-            }}
-                onClick={() => this.handleCheckboxChange(!item.value)}
-            />
-        </Col>
+        return (
+            <Col span={12}>
+                <Mcheckbox dataSource={{
+                    span: 12,
+                    label: <Row><Row style={{ userSelect: "none" }}>{item.label}</Row></Row>,
+                    value: item.value,
+                    className: `${item.value && "m-checkbox_checked"}`,
+                    name: item.name
+                }}
+                    onClick={() => this.handleCheckboxChange(item.value, item.name)}
+                />
+            </Col>
+        )
     }
 
     render() {
@@ -289,12 +346,244 @@ class PendingTask extends Component {
             },
         ];
 
-        const checkboxForm = [
-            {
-                label: "LẤY NGUYÊN",
-                value: formData.getMeterial
-            }
-        ]
+        const checkboxForm = {
+            lifting: [
+                {
+                    label: "LẤY NGUYÊN",
+                    value: formData.getMeterial,
+                    name: "getMeterial"
+                },
+                {
+                    label: "HẠ BÃI",
+                    value: formData.lowerYard,
+                    name: "lowerYard"
+                },
+                {
+                    label: "CẤP RỖNG",
+                    value: formData.emptyContainer,
+                    name: "emptyContainer"
+                },
+                {
+                    label: "TRẢ RỖNG",
+                    value: formData.emptyReturn,
+                    name: "emptyReturn"
+                }
+            ],
+            withdrawal: [
+                {
+                    label: "ĐÓNG HÀNG THƯỜNG",
+                    value: formData.packageCommon,
+                    name: "packageCommon"
+                },
+                {
+                    label: "ĐÓNG HÀNG BAO",
+                    value: formData.packageBag,
+                    name: "packageBag"
+                },
+                {
+                    label: "ĐÓNG HÀNG LẠNH",
+                    value: formData.packageCold,
+                    name: "packageCold"
+                },
+                {
+                    label: "ĐÓNG HÀNG LẠNH TĂNG 50%",
+                    value: formData.packageCold50,
+                    name: "packageCold50"
+                },
+                {
+                    label: "ĐÓNG HÀNG BỊCH",
+                    value: formData.packageSmallBag,
+                    name: "packageSmallBag"
+                },
+                {
+                    label: "ĐÓNG HÀNG TĂNG 150%",
+                    value: formData.packageCommon150,
+                    name: "packageCommon150"
+                },
+                {
+                    label: "ĐÓNG HÀNG LẠNH TĂNG 150%",
+                    value: formData.packageCold50,
+                    name: "packageCold50"
+                },
+                {
+                    label: "RÚT HÀNG TĂNG 20%",
+                    value: formData.withdrawCommon20,
+                    name: "withdrawCommon20"
+                },
+                {
+                    label: "RÚT HÀNG LẠNH TĂNG 20%",
+                    value: formData.withdrawCommon,
+                    name: "withdrawCommon"
+                },
+                {
+                    label: "RÚT HÀNG THÔNG THƯỜNG",
+                    value: formData.withdrawCold20,
+                    name: "withdrawCold20"
+                },
+                {
+                    label: "RÚT HÀNG BAO",
+                    value: formData.withdrawBag,
+                    name: "withdrawBag"
+                },
+                {
+                    label: "RÚT HÀNG LẠNH",
+                    value: formData.withdrawCold,
+                    name: "withdrawCold"
+                },
+                {
+                    label: "RÚT HÀNG 1 PHẦN < 30%",
+                    value: formData.withdrawPart30,
+                    name: "withdrawPart30"
+                },
+                {
+                    label: "RÚT HÀNG 1 PHẦN < 30% HÀNG BAO",
+                    value: formData.withdrawPart30Bag,
+                    name: "withdrawPart30Bag"
+                },
+                {
+                    label: "RÚT HÀNG 1 PHẦN > 30%",
+                    value: formData.withdrawPartAfter30,
+                    name: "withdrawPartAfter30"
+                },
+                {
+                    label: "RÚT HÀNG 1 PHẦN > 30% HÀNG BAO",
+                    value: formData.withdrawPartAfter30Bag,
+                    name: "withdrawPartAfter30Bag"
+                },
+                {
+                    label: "ĐÓNG HÀNG TĂNG 20%",
+                    value: formData.packageIncrease20,
+                    name: "packageIncrease20"
+                },
+                {
+                    label: "ĐÓNG HÀNG LẠNH TĂNG 20%",
+                    value: formData.packageIncreaseCold20,
+                    name: "packageIncreaseCold20"
+                },
+            ],
+            service: [
+                {
+                    label: "KIỂM ĐỊNH CONTAINER",
+                    value: formData.ContainerInspection,
+                    name: "ContainerInspection"
+                },
+                {
+                    label: "CÂN CONT ( KHÔNG PHÁT HÀNH VGM )",
+                    value: formData.ContainerWeigh,
+                    name: "ContainerWeigh"
+                },
+                {
+                    label: "CÂN CONT ( PHÁT HÀNH VGM )",
+                    value: formData.ContainerWeighVGM,
+                    name: "ContainerWeighVGM"
+                },
+                {
+                    label: "NÂNG HẠ VỆ SINH",
+                    value: formData.liftingCleaning,
+                    name: "liftingCleaning"
+                },
+                {
+                    label: "CẮT NIÊM PHONG CHÌ",
+                    value: formData.cutSeal,
+                    name: "cutSeal"
+                },
+                {
+                    label: "DÁN - KIỂM TRA NIÊM PHONG CHÌ",
+                    value: formData.checkSeal,
+                    name: "checkSeal"
+                },
+                {
+                    label: "CHẰNG BUỘC CONTAINER",
+                    value: formData.forcedContainer,
+                    name: "forcedContainer"
+                },
+                {
+                    label: "THÁO / PHỦ BẠT CHE",
+                    value: formData.removeNCover,
+                    name: "removeNCover"
+                },
+                {
+                    label: "NÂNG HẠ SỬA CHỮA",
+                    value: formData.liftingFixing,
+                    name: "liftingFixing"
+                },
+                {
+                    label: "THUÊ BÃI VỆ SINH SỬA CHỮA",
+                    value: formData.rentalRepair,
+                    name: "rentalRepair"
+                },
+                {
+                    label: "DÁN HOẶC THÁO NHÃN CONTAINER CHỨA HÀNG NGUY HIỂM",
+                    value: formData.checkDaggerContainer,
+                    name: "checkDaggerContainer"
+                },
+                {
+                    label: "CẮM / RÚT PHÍCH ĐIỆN CHO CONTAINER LẠNH",
+                    value: formData.plugUnplugContainer,
+                    name: "plugUnplugContainer"
+                },
+                {
+                    label: "VỆ SINH BÃI SAU KIỂM HÓA",
+                    value: formData.cleanBack,
+                    name: "cleanBack"
+                },
+                {
+                    label: "CẮM ĐIỆN LẠNH",
+                    value: formData.plugFrezing,
+                    name: "plugFrezing"
+                },
+                {
+                    label: "LƯU BÃI CONTAINER",
+                    value: formData.saveContainerField,
+                    name: "saveContainerField"
+                },
+                {
+                    label: "RÚT HÀNG BAO",
+                    value: formData.withdrawBagService,
+                    name: "withdrawBagService"
+                },
+                {
+                    label: "KIỂM HÓA, KIỂM ĐỊNH, GIÁM ĐỊNH",
+                    value: formData.checkContainer,
+                    name: "checkContainer"
+                },
+                {
+                    label: "HUN TRÙNG",
+                    value: formData.heatContainer,
+                    name: "heatContainer"
+                },
+                {
+                    label: "VỆ SINH QUÉT",
+                    value: formData.sweepingClean,
+                    name: "sweepingClean"
+                },
+                {
+                    label: "VỆ SINH NƯỚC",
+                    value: formData.waterClean,
+                    name: "waterClean"
+                },
+                {
+                    label: "VỆ SINH HÓA CHẤT",
+                    value: formData.chemicalsClean,
+                    name: "chemicalsClean"
+                },
+                {
+                    label: "CÂN HÀNG XE CẢNG",
+                    value: formData.weighingGoods,
+                    name: "weighingGoods"
+                },
+                {
+                    label: "KIỂM HÓA MÁY SOI - XE CẢNG",
+                    value: formData.inspectionPortVehicle,
+                    name: "inspectionPortVehicle"
+                },
+                {
+                    label: "KIỂM HÓA MÁY SOI - XE CHỦ HÀNG",
+                    value: formData.inspectionCustomerVehicle,
+                    name: "inspectionCustomerVehicle"
+                },
+            ]
+        }
 
         const columnsFormat = [
             { columnId: "STT", width: 50, resizable: true, header: "STT" },
@@ -341,11 +630,11 @@ class PendingTask extends Component {
         ];
 
         return (
-            <Content className="flex_layout-8-16_container">
+            <Content className="flex_layout-8-16_container" >
                 <Row gutter={[12, 12]}>
-                    <Col lg={{ span: 8 }} sm={{ span: 24 }} xs={{ span: 24 }} >
+                    <Col lg={{ span: 10 }} sm={{ span: 24 }} xs={{ span: 24 }} >
                         <Mcard
-                            title={<span style={{ color: 'white' }}>Truy vấn thông tin hóa đơn</span>}
+                            title={<span style={{ color: 'white', minHeight: "40vh" }}>Duyệt lệnh</span>}
                             className="flex_card"
                         >
                             <Col className="input_layout tracking_bill_input">
@@ -394,35 +683,66 @@ class PendingTask extends Component {
                                         icon: "CloudDownloadOutlined",
                                     }}
                                 />
-                                <Row style={{ marginTop: 12, height: "100%" }}>
-                                    <Col span={12}>
-                                        <Mcheckbox dataSource={{
-                                            span: 12,
-                                            label: <Row><Row style={{ userSelect: "none" }}>Tôi đồng ý với</Row></Row>,
-                                            value: formData.termsAgreed,
-                                            className: `${formData.termsAgreed && "m-checkbox_checked"}`,
-                                        }}
-                                            onClick={() => this.handleCheckboxChange(!formData.termsAgreed)}
+                                <Row justify={"space-around"} gutter={[12, 12]}>
+                                    <Col>
+                                        <Mbutton
+                                            color=""
+                                            className={`m_button ${this.state.mode === "lifting" ? "third" : "third_border"}`}
+                                            type="primary"
+                                            htmlType="submit"
+                                            block
+                                            onClick={() => this.changeMode("lifting")}
+                                            size={"12"}
+                                            dataSource={{
+                                                textbutton: `Nâng hạ`,
+                                            }}
                                         />
                                     </Col>
-                                    <Col span={12} style={{ display: "flex", justifyContent: "center" }}>
-                                        <Mcheckbox dataSource={{
-                                            span: 12,
-                                            label: <Row><Row style={{ userSelect: "none" }}>Tôi đồng ý với</Row></Row>,
-                                            value: formData.termsAgreed,
-                                            className: `${formData.termsAgreed && "m-checkbox_checked"}`,
-                                        }}
-                                            onClick={() => this.handleCheckboxChange(!formData.termsAgreed)}
+                                    <Col>
+                                        <Mbutton
+                                            color=""
+                                            className={`m_button ${this.state.mode === "withdrawal" ? "third" : "third_border"}`}
+                                            type="primary"
+                                            htmlType="submit"
+                                            block
+                                            onClick={() => this.changeMode("withdrawal")}
+                                            size={"12"}
+                                            dataSource={{
+                                                textbutton: `Đóng rút`,
+                                            }}
                                         />
                                     </Col>
+                                    <Col>
+                                        <Mbutton
+                                            color=""
+                                            className={`m_button ${this.state.mode === "service" ? "third" : "third_border"}`}
+                                            type="primary"
+                                            htmlType="submit"
+                                            block
+                                            onClick={() => this.changeMode("service")}
+                                            size={"12"}
+                                            dataSource={{
+                                                textbutton: `Dịch vụ`,
+                                            }}
+                                        />
+                                    </Col>
+                                </Row>
+                                <Row style={{ marginTop: 12 }}>
+                                    {
+                                        checkboxForm[this.state.mode].map(index => {
+                                            return (
+                                                this.renderCheckboxField(index)
+                                            )
+                                        })
+                                    }
                                 </Row>
 
                             </Col>
                         </Mcard>
                     </Col>
-                    <Col className="layout_col" lg={{ span: 16 }} sm={{ span: 24 }} xs={{ span: 24 }}>
+                    <Col className="layout_col" lg={{ span: 14 }} sm={{ span: 24 }} xs={{ span: 24 }}>
                         <Mcard
-                            title={<span style={{ color: 'white' }}>Danh sách container</span>}
+                            title={<span style={{ color: 'white', minHeight: "40vh" }}>Danh sách container</span>}
                             className="container_list"
                         >
                             {!this.state.isLoading ? (
@@ -443,8 +763,8 @@ class PendingTask extends Component {
                                             reorderRow: true,
                                         }}
                                         functionRequire={{
-                                            addcolumn: true,
-                                            deleteColumn: true,
+                                            // addcolumn: true,
+                                            // deleteColumn: true,
                                             exportExel: true,
                                             // saveData: (data) => {
                                             //   console.log(data);

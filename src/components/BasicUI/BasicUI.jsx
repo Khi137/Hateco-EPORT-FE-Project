@@ -1155,8 +1155,6 @@ class Mbutton extends React.Component {
       IconComponent = null;
     }
 
-    console.log(this.state.styleButton);
-
     return (
       <div>
         <Button
@@ -2143,7 +2141,7 @@ class Mtable extends React.Component {
     const { tableData, searchValue } = this.state;
     const { addcolumn, deleteColumn, exportExel, searchField, saveData } = this.props.functionRequire;
 
-    // const rows = 
+    console.log(this.props.config.defaultData);
 
     return (
       <div className="table_container">
