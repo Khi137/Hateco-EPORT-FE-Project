@@ -487,10 +487,10 @@ class jobModeInvoiceWithReleasePointReport extends Component {
                             </Col>
 
                             <Col className='input_layout'>
-                                <div className="div-napdulieu">
+                                <div className="div-loaddata">
                                     <Mbutton
                                         color=""
-                                        className="m_button btn-napdulieu"
+                                        className="m_button btn-loaddata"
                                         type="primary"
                                         htmlType="submit"
                                         block

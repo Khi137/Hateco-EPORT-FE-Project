@@ -5426,4 +5426,40 @@ select {
 }
 
 
+ //-----------report
+
+.general_information_content{
+
+    .information_content_item{
+
+        .item_title{
+            font-size: 18px;
+        }
+
+    }
+}
+.div-loaddata{
+    text-align: center;
+}
+
+.mtable-tacnghiep .table_container .table_feature_container{
+    display: none;
+}
+
+.btn-loaddata{
+    width: 35% !important;
+}
+
+.search-btn{
+    border:none;
+}
+
+.custom-wide-modal-report {
+    width: 70% !important;
+    max-width: 1800px !important;
+}
   
+.custom-wide-modal-report .ant-modal-content {
+    width: 100%;
+}
+

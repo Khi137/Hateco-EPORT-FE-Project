@@ -684,10 +684,10 @@ class containerStorageReport extends Component {
                                 </Col>
                             </Row>
                             <Col className='input_layout_cont'>
-                                <div className="div-napdulieu">
+                                <div className="div-loaddata">
                                     <Mbutton
                                         color=""
-                                        className="m_button btn-napdulieu"
+                                        className="m_button btn-loaddata"
                                         type="primary"
                                         htmlType="submit"
                                         block

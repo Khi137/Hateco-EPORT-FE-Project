@@ -198,9 +198,9 @@ for (let index = 0; index < 20; index++) {
     duplicatedModalData.MaSoThue = generateRandomContainerNo();
     rowModalData.push(duplicatedModalData);
 
-    const duplicatedTacNghienlData = { ...rowTacNghiepData[0] };
-    duplicatedTacNghienlData.TacNghiep = generateRandomContainerNo();
-    rowTacNghiepData.push(duplicatedTacNghienlData);
+    const duplicatedTacNghiepData = { ...rowTacNghiepData[0] };
+    duplicatedTacNghiepData.TacNghiep = generateRandomContainerNo();
+    rowTacNghiepData.push(duplicatedTacNghiepData);
 }
 
 class containerInvoiceReport extends Component {
@@ -304,12 +304,13 @@ class containerInvoiceReport extends Component {
                     },
                     isLoading: false,
                 }));
-                console.log("Table Data:", this.state.tableData);
+                console.log("Updated tacNghiepData:", this.state.tacNghiepData);
             }
         }, 1000);
     };
 
     render() {
+        console.log(this.state.tacNghiepData);
         const { formData, generalInformation } = this.state;
         const generalInformationList = [
             {
@@ -444,6 +445,7 @@ class containerInvoiceReport extends Component {
         ];
 
         return (
+
             <Content className='flex_layout-8-16_container' >
                 <Row gutter={[12, 12]}>
                     <Col lg={{ span: 8 }} sm={{ span: 24 }}>
@@ -491,7 +493,7 @@ class containerInvoiceReport extends Component {
                                     <Col xs={24} sm={6} md={4} lg={3}>
                                         <Mbutton
                                             color=""
-                                            className="m_button btn-search"
+                                            className=" search-btn"
                                             block
                                             border="none"
                                             size={"12"}
@@ -554,10 +556,10 @@ class containerInvoiceReport extends Component {
                             </Col>
 
                             <Col className='input_layout'>
-                                <div className="div-napdulieu">
+                                <div className="div-loaddata">
                                     <Mbutton
                                         color=""
-                                        className="m_button btn-napdulieu"
+                                        className="m_button btn-loaddata"
                                         type="primary"
                                         htmlType="submit"
                                         block
@@ -585,9 +587,9 @@ class containerInvoiceReport extends Component {
                                             <Row className="information_content_item" key={index} justify={"space-between"}>
                                                 <Col className="item_title">{item.title}:</Col>
                                                 {item.value ? (
-                                                    <Col className="item_value thongke_value">{item.value}</Col>
+                                                    <Col className="item_value body-xl-normal">{item.value}</Col>
                                                 ) : (
-                                                    <span className="item_value thongke_value dashed-line"></span>
+                                                    <span className="item_value dashed-line body-xl-bold m-red-text"></span>
                                                 )}
                                             </Row>
                                         );
@@ -611,10 +613,10 @@ class containerInvoiceReport extends Component {
                                     functionRequire={{
                                         // addcolumn: true,
                                         // deleteColumn: true,
-                                        //exportExel: true,
+                                        // exportExel: true,
                                         // saveData: () => { this.saveData() },
                                         searchField: [
-                                            "MaSoThue",
+
                                         ],
 
                                     }}
@@ -673,7 +675,7 @@ class containerInvoiceReport extends Component {
                     onCancel={this.handleCancel}
                     closeIcon={<CloseOutlined />}
                     footer={null}
-                    className="custom-wide-modal"
+                    className="custom-wide-modal-report"
                 >
                     <Mtable
                         config={{

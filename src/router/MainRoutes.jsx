@@ -16,9 +16,9 @@ import TrackingBill from "../views/tracking/trackingBill";
 import TrackingBooking from "../views/tracking/trackingBooking";
 import TrackingEdo from "../views/tracking/trackingEdo";
 import TrackingHouseBill from "../views/tracking/trackingHouseBill";
-import Customer from "../views/category/customer";
+import Customer from "../views/category/Customer";
 import Task from "../views/category/task";
-import ShipExploitBrand from "../views/category/shipExploitBrand";
+import ShipExploitBrand from "../views/category/ShipExploitBrand";
 import CommoditiesType from "../views/category/commoditiesType";
 import DirectionContainer from "../views/category/directionContainer";
 import PortsList from "../views/category/portsList";
@@ -131,6 +131,7 @@ class MainRoutes extends Component {
 
           <Route path="/report">
             <Route path="InstantInvoiceWithReleasePointReport" element={<InstantInvoiceWithReleasePointReport />} />
+            <Route path="containerStorageReport" element={<ContainerStorageReport />} />
             <Route path="containerInvoiceReport" element={<ContainerInvoiceReport />} />
             <Route path="jobModeInvoiceWithReleasePointReport" element={<JobModeInvoiceWithReleasePointReport />} />
           </Route>
@@ -139,11 +140,6 @@ class MainRoutes extends Component {
             <Route path="approve_command" element={<ApproveCommand />} />
             <Route path="update_command_Infomation" element={<UpdateCommandInfomation />} />
           </Route>
-
-          <Route path="/report">
-            <Route path="report-1" element={<Report />} />
-          </Route>
-
           <Route path="/dashboard" element={<Dashboard />} />
 
         </Route>

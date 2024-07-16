@@ -469,7 +469,7 @@ class InstantInvoiceWithReleasePointReport extends Component {
                                     <Col xs={24} sm={6} md={4} lg={3}>
                                         <Mbutton
                                             color=""
-                                            className="m_button btn-search"
+                                            className="m_button search-btn"
                                             block
                                             border="none"
                                             size={"12"}
@@ -529,10 +529,10 @@ class InstantInvoiceWithReleasePointReport extends Component {
                             </Col>
 
                             <Col className='input_layout'>
-                                <div className="div-napdulieu">
+                                <div className="div-loaddata">
                                     <Mbutton
                                         color=""
-                                        className="m_button btn-napdulieu"
+                                        className="m_button btn-loaddata"
                                         type="primary"
                                         htmlType="submit"
                                         block

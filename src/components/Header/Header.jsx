@@ -6,16 +6,16 @@ import {
   HomeOutlined,
 } from "@ant-design/icons";
 import { Breadcrumb, Button, Col, Popconfirm, Row, message } from "antd";
-import { toggleSubMenu } from "../redux/reducers/navigationReducer";
+import { toggleSubMenu } from "../../redux/reducers/navigationReducer";
 import "./Header.scss";
-import { withRouter } from "../utils/withRouter";
+import { withRouter } from "../../utils/withRouter";
 import {
   addIconExtendsion,
   removeIconExtendison,
-} from "../redux/reducers/extendsionReducer";
-import Extension from "./Extension/Extension";
+} from "../../redux/reducers/extendsionReducer";
+import Extension from "../Extension/Extension";
 import * as AntdIcons from "@ant-design/icons";
-import { Mbutton } from "./BasicUI";
+import { Mbutton } from "../BasicUI/BasicUI";
 import span from "span";
 class Header extends Component {
   constructor(props) {
