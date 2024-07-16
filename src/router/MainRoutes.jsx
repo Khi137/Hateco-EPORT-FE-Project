@@ -36,6 +36,9 @@ import PostageStandard from "../views/postage/postage";
 
 import TariffStandard from "../views/tariff/tariffStandard.jsx";
 import TariffRefer from "../views/tariff/tariffRefer.jsx";
+import TariffFreeDay from "../views/tariff/tariffFreeDay.jsx";
+import TariffHoliday from "../views/tariff/tariffHoliday.jsx";
+
 class MainRoutes extends Component {
   render() {
     return (
@@ -52,6 +55,13 @@ class MainRoutes extends Component {
 
           <Route path="/postage">
             <Route path="postage-standard" element={<PostageStandard />} />
+          </Route>
+
+          <Route path="/tariff">
+            <Route path="tariff-standard" element={<TariffStandard />} />
+            <Route path="tariff-refer" element={<TariffRefer />} />
+            <Route path="tariff-freeday" element={<TariffFreeDay />} />
+            <Route path="tariff-holiday" element={<TariffHoliday />} />
           </Route>
 
           <Route path="/tracking">
@@ -103,11 +113,6 @@ class MainRoutes extends Component {
             <Route path="InstantInvoiceWithReleasePointReport" element={<InstantInvoiceWithReleasePointReport />} />
             <Route path="containerInvoiceReport" element={<ContainerInvoiceReport />} />
             <Route path="jobModeInvoiceWithReleasePointReport" element={<JobModeInvoiceWithReleasePointReport />} />
-          </Route>
-
-          <Route path="/tariff">
-            <Route path="tariff-standard" element={<TariffStandard />} />
-            <Route path="tariff-refer" element={<TariffRefer />} />
           </Route>
 
           <Route path="/command_manager">
