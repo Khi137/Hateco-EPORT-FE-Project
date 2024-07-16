@@ -715,7 +715,7 @@ $caption-line-height: 14px;
   height: 100%;
   display: flex;
   flex-direction: column;
-
+  width: 100%;
   .table_feature_container {
     width: 100%;
     justify-content: space-between;
@@ -948,6 +948,86 @@ $caption-line-height: 14px;
   .next_index_button {
     margin-left: 5px;
   }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.flex-col_layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.mt-12_layout {
+  margin-top: 12px;
+}
+
+.mb-12_layout {
+  margin-bottom: 12px;
+}
+
+.flex_end {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.p_layout{
+  padding: 12px;
+}
+.f-title{
+  font-size: 20px;
+}
+
+.flex-col_layout {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.center_layout{
+  width: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vertical-line {
+  position: relative;
+  border-left: 2px solid $color-third;
+  height: 100%; 
+  margin: 0 auto;
+}
+
+.vertical-line::after {
+  content: '*\A *\A *'; 
+  position: absolute;
+  top: 50%; 
+  left: -10px; 
+  transform: translateY(-50%);
+  background-color: #fff;
+  white-space: pre;
+  padding: 0 6px; 
+  font-size: 14px; 
+}
+
+.horizontal-line {
+  position: relative; 
+  border-top: 2px solid $color-third; 
+  width: 100%;
+  margin: 12px 0; 
+}
+
+.horizontal-line::after {
+  content: '* * *'; 
+  position: absolute;
+  top: -10px; 
+  left: 50%; 
+  transform: translateX(-50%); 
+  background-color: #fff; 
+  padding: 0 5px;
 }
 
 @media (max-width: 992px) {

@@ -5,13 +5,18 @@ import {
   AlignLeftOutlined,
   HomeOutlined,
 } from "@ant-design/icons";
-import { Breadcrumb, Button, Popconfirm, message } from "antd";
-import { toggleSubMenu } from "../../redux/reducers/navigationReducer";
+import { Breadcrumb, Button, Col, Popconfirm, Row, message } from "antd";
+import { toggleSubMenu } from "../redux/reducers/navigationReducer";
 import "./Header.scss";
-import { withRouter } from "../../utils/withRouter";
-import { addIconExtendsion } from "../../redux/reducers/extendsionReducer";
-import Extension from "../Extension/Extension";
+import { withRouter } from "../utils/withRouter";
+import {
+  addIconExtendsion,
+  removeIconExtendison,
+} from "../redux/reducers/extendsionReducer";
+import Extension from "./Extension/Extension";
 import * as AntdIcons from "@ant-design/icons";
+import { Mbutton } from "./BasicUI";
+import span from "span";
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -64,7 +69,14 @@ class Header extends Component {
     return { parentUrl, subUrl };
   };
 
-  handleAddExtendsion = (subId) => {
+  handleRemoveExtendsion = (subId, e) => {
+    e.stopPropagation();
+    this.props.removeIconExtendison(subId);
+    message.success("Xóa tiện ích thành công");
+  };
+
+  handleAddExtendsion = (subId, e) => {
+    e.stopPropagation();
     const subItem = this.findSubItemById(subId);
     if (subItem) {
       const existingExtension = this.props.extensions.find(
@@ -90,7 +102,8 @@ class Header extends Component {
     }
   };
 
-  handleNavigateSubMenu = (parentUrl, subUrl) => {
+  handleNavigateSubMenu = (e, parentUrl, subUrl) => {
+    e.stopPropagation();
     const fullPath = `${parentUrl}${subUrl}`;
     this.props.navigate(fullPath);
   };
@@ -100,7 +113,6 @@ class Header extends Component {
     const currentPath = location.pathname;
     const pathSegments = currentPath.split("/").filter(Boolean);
     let breadcrumbs = [];
-    console.log(pathSegments);
     navigations.forEach((navItem) => {
       if (pathSegments.includes(navItem.url.replace("/", ""))) {
         breadcrumbs.push(navItem.text);
@@ -116,6 +128,57 @@ class Header extends Component {
     });
 
     return breadcrumbs;
+  };
+
+  isExtensionAdded = (subId) => {
+    return this.props.extensions.some((ext) => ext.id === subId);
+  };
+
+  styleButton = () => {
+    return {
+      padding: "12px",
+    };
+  };
+
+  renderButtonItem = (itemUrl, value) => {
+    const IconComponent = AntdIcons[value.icon];
+    const isAdded = this.isExtensionAdded(value.id);
+    return (
+      <Col span={8} className="button-custom">
+        <Mbutton
+          color=""
+          className="m_button third"
+          type="primary"
+          htmlType="submit"
+          onClick={(e) =>
+            this.handleNavigateSubMenu(e, itemUrl, value.url, value.text)
+          }
+          styleButton={this.styleButton()}
+          block
+          size={"12"}
+          dataSource={{
+            textbutton: value.text,
+            icon: value.icon,
+          }}
+        ></Mbutton>
+        <Row
+          className={
+            isAdded ? "icon-add-extension_add" : "icon-add-extension_remove"
+          }
+          onClick={(e) =>
+            isAdded
+              ? this.handleRemoveExtendsion(value.id, e)
+              : this.handleAddExtendsion(value.id, e)
+          }
+        >
+          {isAdded ? (
+            <AntdIcons.DeleteOutlined className="icon" />
+          ) : (
+            <AntdIcons.PlusCircleOutlined className="icon" />
+          )}
+        </Row>
+      </Col>
+    );
   };
 
   render() {
@@ -175,6 +238,7 @@ class Header extends Component {
                 <ul>
                   {navigations.map((item) => {
                     const IconComponentParent = AntdIcons[item.icon];
+
                     return (
                       <li
                         key={item.text}
@@ -192,45 +256,17 @@ class Header extends Component {
                 </ul>
               </div>
               <div className="danhmuc-con">
-                <ul>
+                <Row gutter={[12, 12]}>
                   {navigations.map((item) =>
                     item.isOpen && item.subMenu
                       ? item.subMenu.map((subItem) => {
-                          const IconComponent = AntdIcons[subItem.icon];
-
                           return (
-                            <li key={subItem.text}>
-                              <Popconfirm
-                                title="?"
-                                description="Bạn muốn thêm tiện ích hay điều hướng?"
-                                okText="Đi đến"
-                                cancelText="+"
-                                onCancel={() =>
-                                  this.handleAddExtendsion(subItem.id)
-                                }
-                                onConfirm={() =>
-                                  this.handleNavigateSubMenu(
-                                    item.url,
-                                    subItem.url,
-                                    subItem.text
-                                  )
-                                }
-                              >
-                                <Button className="button-custom">
-                                  {IconComponent && (
-                                    <IconComponent
-                                      style={{ marginRight: "8px" }}
-                                    />
-                                  )}
-                                  {subItem.text}
-                                </Button>
-                              </Popconfirm>
-                            </li>
+                            <>{this.renderButtonItem(item.url, subItem)}</>
                           );
                         })
                       : null
                   )}
-                </ul>
+                </Row>
               </div>
             </div>
           )}
@@ -248,6 +284,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   toggleSubMenu: (menuText) => dispatch(toggleSubMenu(menuText)),
   addIconExtendsion: (subItem) => dispatch(addIconExtendsion(subItem)),
+  removeIconExtendison: (subId) => dispatch(removeIconExtendison(subId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));

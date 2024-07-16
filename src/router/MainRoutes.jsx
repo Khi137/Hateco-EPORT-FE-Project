@@ -50,7 +50,8 @@ class MainRoutes extends Component {
         </Route>
 
         <Route element={<AuthLayout />}>
-          <Route path="/" element={<Home />} />
+          {/* <Route path="/" element={<Home />} /> */}
+          <Route path="/" element={<Dashboard />} />
           <Route path="/category-customer" element={<Customer />} />
 
           <Route path="/postage">
@@ -75,7 +76,26 @@ class MainRoutes extends Component {
             <Route path="tracking_edo" element={<TrackingEdo />} />
             <Route path="tracking_housebill" element={<TrackingHouseBill />} />
           </Route>
+          <Route path="/tracking">
+            <Route path="tracking_container" element={<TrackingContainer />} />
+            <Route
+              path="tracking_container_list"
+              element={<TrackingContainerList />}
+            />
+            <Route path="tracking_bill" element={<TrackingBill />} />
+            <Route path="tracking_booking" element={<TrackingBooking />} />
+            <Route path="tracking_edo" element={<TrackingEdo />} />
+            <Route path="tracking_housebill" element={<TrackingHouseBill />} />
+          </Route>
 
+          <Route path="/system_manager">
+            <Route path="SystemManageUser" element={<SystemManageUser />} />
+            <Route path="SystemManageGroup" element={<SystemManageGroup />} />
+            <Route
+              path="SystemManagerGroupPermission"
+              element={<SystemManagerGroupPermission />}
+            />
+          </Route>
           <Route path="/system_manager">
             <Route path="SystemManageUser" element={<SystemManageUser />} />
             <Route path="SystemManageGroup" element={<SystemManageGroup />} />

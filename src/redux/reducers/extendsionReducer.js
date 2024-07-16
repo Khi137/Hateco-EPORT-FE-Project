@@ -24,7 +24,7 @@ const loadFromCookies = () => {
 };
 
 const initialState = loadFromCookies();
-
+const MAX_EXTENSIONS = 6;
 const extendsionSlice = createSlice({
   name: "extendsion",
   initialState,
@@ -33,10 +33,13 @@ const extendsionSlice = createSlice({
       const { id, text, url, parentUrl, icon } = action.payload;
       const existingExtension = state.find((ext) => ext.id === id);
       if (!existingExtension) {
-        state.push({ id, text, url, parentUrl, icon });
-        saveToCookies(state);
+        const newState = [...state, { id, text, url, parentUrl, icon }];
+        if (newState.length > MAX_EXTENSIONS) {
+          newState.shift();
+        }
+        saveToCookies(newState);
+        return newState;
       }
-
       return state;
     },
     removeIconExtendison: (state, action) => {
