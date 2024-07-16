@@ -1,8 +1,10 @@
 // Danh mục loại hàng hóa
 
 import React, { Component } from "react";
-import { ReactGrid } from "@silevis/reactgrid";
-import { Msearch, Mbutton, Mtable, Mcheckbox } from "../../components/BasicUI";
+import { Mtable, Mcard } from "../../components/BasicUI/BasicUI";
+import { Content } from "antd/es/layout/layout";
+import { Col, Row } from "antd";
+import { DatabaseOutlined } from "@ant-design/icons";
 
 const rowData = [
   { key: "1", taskCode: "GP", taskName: "General" },
@@ -57,53 +59,6 @@ const rowsHeader = [
   { type: "header", text: "Tên loại hàng" },
 ];
 
-const Navigation = ({ searchValue, handleSearchChange, handleFormSubmit }) => (
-  <div>
-    <div>
-      <Msearch
-        dataSource={{
-          id: "search1",
-          label: "Search",
-          value: searchValue,
-          icon: "SearchOutlined",
-          text: "",
-        }}
-        config={{
-          onLiveSearch: (value) => console.log("Live search:", value),
-        }}
-        onChangeValue={(e) => handleSearchChange(e["search1"])}
-      />
-    </div>
-    <div>
-      <Mbutton
-        className="m_button green drop-button-shadow"
-        block
-        htmlType="submit"
-        type="primary"
-        onClick={handleFormSubmit}
-        dataSource={{
-          textbutton: "Xuất file excel",
-          color: "",
-          size: "12",
-          icon: "FileExcelOutlined",
-        }}
-      />
-    </div>
-  </div>
-);
-
-const Table = ({ rowData, columnsFormat, rowsFormat, rowsHeader }) => (
-  <div>
-    <Mtable
-      tableData={rowData}
-      columnsFormat={columnsFormat}
-      rowsFormat={rowsFormat}
-      rowsHeader={rowsHeader}
-      reoderRow={true}
-    />
-  </div>
-);
-
 class CommoditiesType extends Component {
   constructor(props) {
     super(props);
@@ -125,24 +80,49 @@ class CommoditiesType extends Component {
 
   render() {
     return (
-      <div>
-        <div>
-          <div>Danh mục loại hàng hóa</div>
-          <div>
-            <Navigation
-              searchValue={this.state.searchValue}
-              handleSearchChange={this.handleSearchChange}
-              handleFormSubmit={this.handleFormSubmit}
-            />
-            <Table
-              rowData={rowData}
-              columnsFormat={columnsFormat}
-              rowsFormat={rowsFormat}
-              rowsHeader={rowsHeader}
-            />
-          </div>
-        </div>
-      </div>
+      <Content className="one_page_layout_container">
+        <Row gutter={[12, 12]}>
+          <Col span={24} >
+            <Mcard
+              title={<span style={{ color: 'white' }}>Danh mục loại hàng hóa</span>}
+            >
+              <Col>
+                {rowData.length === 0 ? (
+                  <Col className="no_data">
+                    <Row justify={"center"}>
+                      <DatabaseOutlined className="no_data_icon" />
+                    </Row>
+                    <Row justify={"center"}>Nhập số container để nạp dữ liệu container...</Row>
+                  </Col>
+                ) : (
+                  <Col className="have_data">
+                    <Mtable
+                      config={{
+                        defaultData: rowData,
+                        columnsFormat: columnsFormat,
+                        rowsFormat: rowsFormat,
+                        rowsHeader: rowsHeader,
+                        reorderRow: true,
+                      }}
+                      functionRequire={{
+                        // addcolumn: true,
+                        // deleteColumn: true,
+                        exportExel: true,
+                        // saveData: () => { this.saveData() },
+                        searchField: [
+                          "ContainerNo",
+                          "OperationCode",
+                          "IsoSizetype",
+                        ],
+                      }}
+                    />
+                  </Col>
+                )}
+              </Col>
+            </Mcard>
+          </Col>
+        </Row>
+      </Content>
     );
   }
 }

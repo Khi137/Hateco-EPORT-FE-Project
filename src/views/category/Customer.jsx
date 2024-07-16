@@ -9,13 +9,16 @@ import {
   Mbutton,
   Mtable,
   Msearch,
-} from "../../components/BasicUI";
+  Mcard,
+} from "../../components/BasicUI/BasicUI";
 import {
   formatDateTime,
   handleColumnsReorder,
   handleRowsReorder,
   handleRowsSearch,
 } from "../../utils/util";
+import { Content } from "antd/es/layout/layout";
+import { Col, Row } from "antd";
 
 let rowData = [
   {
@@ -169,7 +172,7 @@ let rowData = [
 
 const options = [
   {
-    title: "Bâc khach hang",
+    title: "Bậc khách hàng",
     data: [
       { value: "1", label: "Tất cả" },
       { value: "2", label: "XNK : Cty Xuất Nhập Khẩu" },
@@ -177,7 +180,7 @@ const options = [
     ],
   },
   {
-    title: "Lua chon khach hang",
+    title: "Lựa chọn khách hàng",
     data: [
       { label: "Hoạt động", value: "1" },
       { label: "Không hoạt động", value: "2" },
@@ -228,15 +231,16 @@ export class Customer extends Component {
 
   renderSelect = (option, index) => {
     return (
-      <div>
+      <>
         <p className="body-lg-normal">{option?.title || ""}</p>
         <Mselect
           dataSource={{
             label: "Loại khách hàng",
             options: option?.data || [],
+            // icon: "SearchOutlined"
           }}
         />
-      </div>
+      </>
     );
   };
 
@@ -394,97 +398,105 @@ export class Customer extends Component {
     ];
 
     return (
-      <div>
-        <div>
-          <header>Danh mục khách hàng</header>
-          <div>
-            <div>
-              {options.map((option, index) => {
-                return this.renderSelect(option, index);
-              })}
-            </div>
-            <div>
-              <Minput
-                dataSource={{
-                  label: "Mã số thuế:",
-                  inputType: "text",
-                  placeholder: "Nhập mã số thuế ...",
-                }}
-              />
-              <Minput
-                dataSource={{
-                  label: "Tên khách hàng:",
-                  inputType: "text",
-                  placeholder: "Nhập tên khách hàng ...",
-                }}
-              />
-            </div>
+      <Content className="flex_layout-8-16_container">
+        <Row gutter={[12, 12]}>
+          <Col lg={{ span: 8 }} sm={{ span: 24 }} xs={{ span: 24 }} >
+            <Mcard
+              title={<span style={{ color: 'white' }}>Danh mục khách hàng</span>}
+              className="flex_card"
+            >
+              <Col className="input_layout tracking_bill_input">
+                {options.map((option, index) => {
+                  return this.renderSelect(option, index);
+                })}
 
-            <div>
-              <div className="line body-xl-normal">Hình thức thanh toán</div>
-              <Mradio
-                dataSource={{
-                  label: "Hình thức thanh toán",
-                  options: [
-                    { label: "Tiền mặt", value: "1" },
-                    { label: "Chuyển khoản", value: "2" },
-                    { label: "Khác", value: "3" },
-                  ],
+                <Row>
+                  <Minput
+                    dataSource={{
+                      label: "Mã số thuế",
+                      inputType: "text",
+                      placeholder: "Nhập mã số thuế ...",
+                    }}
+                  />
+                  <Minput
+                    dataSource={{
+                      label: "Tên khách hàng",
+                      inputType: "text",
+                      placeholder: "Nhập tên khách hàng ...",
+                    }}
+                  />
+                </Row>
+
+                <Row>
+                  <Row className="line ">Hình thức thanh toán</Row>
+                  <Mradio
+                    dataSource={{
+                      label: "Hình thức thanh toán",
+                      options: [
+                        { label: "Tiền mặt", value: "1" },
+                        { label: "Chuyển khoản", value: "2" },
+                        { label: "Khác", value: "3" },
+                      ],
+                    }}
+                  />
+                </Row>
+                <Row>
+                  <Row className="line ">Trạng thái hoạt động</Row>
+                  <Mradio
+                    dataSource={{
+                      label: "Trạng thái hoạt động",
+                      options: [
+                        { label: "Hoạt động", value: "1" },
+                        { label: "Không hoạt động", value: "2" },
+                        { label: "Tạm ngừng", value: "3" },
+                      ],
+                    }}
+                  />
+                </Row>
+                <Mbutton
+                  className="m_button third drop-button-shadow"
+                  block
+                  htmlType="submit"
+                  type="primary"
+                  onClick={this.handleFormSubmit}
+                  ref={this.mButtonRef}
+                  dataSource={{
+                    textbutton: "Nạp dữ liệu",
+                    color: "",
+                    size: "12",
+                    icon: "CloudDownloadOutlined",
+                  }}
+                />
+              </Col>
+            </Mcard>
+          </Col>
+          <Col className="layout_col" lg={{ span: 16 }} sm={{ span: 24 }} xs={{ span: 24 }}>
+            <Mcard
+              title={<span style={{ color: 'white' }}>Danh sách container</span>}
+              className="container_list"
+            >
+              <Mtable
+                config={{
+                  defaultData: rowData,
+                  columnsFormat: columnsFormat,
+                  rowsFormat: rowsFormat,
+                  rowsHeader: rowsHeader,
+                  reoderRow: true,
+                }}
+                functionRequire={{
+                  addcolumn: false,
+                  deleteColumn: true,
+                  exportExel: true,
+                  saveData: (data) => {
+                    console.log(data);
+                  },
+                  searchField: ["cusCode", "OperationCode", "IsoSizetype"],
                 }}
               />
-            </div>
-            <div>
-              <div className="line body-xl-normal">Trạng thái hoạt động</div>
-              <Mradio
-                dataSource={{
-                  label: "Trạng thái hoạt động",
-                  options: [
-                    { label: "Hoạt động", value: "1" },
-                    { label: "Không hoạt động", value: "2" },
-                    { label: "Tạm ngừng", value: "3" },
-                  ],
-                }}
-              />
-            </div>
-            <div>
-              <Mbutton
-                className="m_button third drop-button-shadow"
-                block
-                htmlType="submit"
-                type="primary"
-                onClick={this.handleFormSubmit}
-                ref={this.mButtonRef}
-                dataSource={{
-                  textbutton: "Nạp dữ liệu",
-                  color: "",
-                  size: "12",
-                  icon: "CloudDownloadOutlined",
-                }}
-              />
-            </div>
-          </div>
-        </div>
-        <div>
-          <Mtable
-            config={{
-              defaultData: this.state.tableData,
-              columnsFormat: columnsFormat,
-              rowsFormat: rowsFormat,
-              rowsHeader: rowsHeader,
-              reoderRow: true,
-            }}
-            functionRequire={{
-              addcolumn: false,
-              deleteColumn: true,
-              exportExel: true,
-              saveData: (data) => {
-                console.log(data);
-              },
-              searchField: ["ContainerNumber", "OperationCode", "IsoSizetype"],
-            }}
-          />
-        </div>
-      </div>
+            </Mcard>
+          </Col>
+        </Row>
+      </Content >
     );
   }
 }

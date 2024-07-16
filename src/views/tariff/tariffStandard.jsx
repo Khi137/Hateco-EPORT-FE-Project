@@ -7,8 +7,8 @@ import {
   Mselect,
   Mtable,
   Winput,
-} from "../../components/BasicUI";
-import { DatabaseOutlined, InfoCircleOutlined, LoadingOutlined} from "@ant-design/icons";
+} from "../../components/BasicUI/BasicUI";
+import { DatabaseOutlined, InfoCircleOutlined, LoadingOutlined } from "@ant-design/icons";
 import moment from "moment";
 
 const rowData = [

@@ -1,7 +1,7 @@
 import React, { Component, createRef } from "react";
 import { Col, Row } from "antd";
 import { DatabaseOutlined, LoadingOutlined } from "@ant-design/icons";
-import { Mbutton, Mcard, Mtable, Winput } from "../../components/BasicUI";
+import { Mbutton, Mcard, Mtable, Winput } from "../../components/BasicUI/BasicUI";
 import { formatDateTime } from "../../utils/util";
 import { Content } from "antd/es/layout/layout";
 
@@ -260,9 +260,10 @@ class TrackingBooking extends Component {
     return (
       <Content className="flex_layout-8-16_container tracking_layout">
         <Row gutter={[12, 12]}>
-          <Col lg={{ span: 8 }} sm={{ span: 24 }}>
+          <Col lg={{ span: 8 }} sm={{ span: 24 }} xs={{ span: 24 }}>
             <Mcard
               title={<span style={{ color: 'white' }}>Truy vấn thông tin hóa đơn</span>}
+              className="flex_card"
             >
               <Col className="input_layout">
                 <Col>
@@ -320,7 +321,7 @@ class TrackingBooking extends Component {
             </Mcard>
 
           </Col>
-          <Col lg={{ span: 16 }} sm={{ span: 24 }}>
+          <Col className="layout_col" lg={{ span: 16 }} sm={{ span: 24 }} xs={{ span: 24 }}>
             <Mcard
               title={<span style={{ color: 'white' }}>Danh sách container</span>}
               className="container_list"

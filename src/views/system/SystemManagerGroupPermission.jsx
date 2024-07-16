@@ -5,7 +5,7 @@ import {
   Mselect,
   Mtable,
   Winput,
-} from "../../components/BasicUI";
+} from "../../components/BasicUI/BasicUI";
 import { Col, Row } from "antd";
 import { Content } from "antd/es/layout/layout";
 import Empty from "./Empty";

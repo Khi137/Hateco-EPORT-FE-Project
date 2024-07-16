@@ -9,7 +9,7 @@ import {
   NumberOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import { Mbutton, Mcard, Mradio, Mtable, Winput } from "../../components/BasicUI";
+import { Mbutton, Mcard, Mradio, Mtable, Winput } from "../../components/BasicUI/BasicUI";
 import { formatDateTime } from "../../utils/util";
 import { Content, Header } from "antd/es/layout/layout";
 
@@ -339,9 +339,10 @@ class TrackingBill extends Component {
     return (
       <Content className="flex_layout-8-16_container">
         <Row gutter={[12, 12]}>
-          <Col lg={{ span: 8 }} sm={{ span: 24 }}>
+          <Col lg={{ span: 8 }} sm={{ span: 24 }} xs={{ span: 24 }} >
             <Mcard
               title={<span style={{ color: 'white' }}>Truy vấn thông tin hóa đơn</span>}
+              className="flex_card"
             >
               <Col className="input_layout tracking_bill_input">
                 <Row >
@@ -380,7 +381,7 @@ class TrackingBill extends Component {
               </Col>
             </Mcard>
           </Col>
-          <Col lg={{ span: 16 }} sm={{ span: 24 }}>
+          <Col className="layout_col" lg={{ span: 16 }} sm={{ span: 24 }} xs={{ span: 24 }}>
             <Mcard
               title={<span style={{ color: 'white' }}>Danh sách container</span>}
               className="container_list"
@@ -403,8 +404,8 @@ class TrackingBill extends Component {
                       reorderRow: true,
                     }}
                     functionRequire={{
-                      // addcolumn: false,
-                      // deleteColumn: true,
+                      addcolumn: true,
+                      deleteColumn: true,
                       exportExel: true,
                       // saveData: (data) => {
                       //   console.log(data);

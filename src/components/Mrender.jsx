@@ -31,7 +31,7 @@ import {
   Mswitch,
   Mtab,
   Mupload,
-} from "./BasicUI";
+} from "./BasicUI/BasicUI";
 
 const terminalList = [
   {
@@ -104,7 +104,7 @@ export class MCarouselWithMenu extends React.Component {
     );
   }
 
-  renderCarouselMenu(item) {}
+  renderCarouselMenu(item) { }
 
   render() {
     return (
@@ -731,10 +731,10 @@ export class Mcontact extends React.Component {
                           isMobile
                             ? "fb://page/356459924914161"
                             : "https://www.facebook.com/messages/t/" +
-                              item.ContactFacebookID
+                            item.ContactFacebookID
                         }
                         target={isMobile ? "_seft" : "_blank"}
-                        // onClick={() => { window.open("https://zalo.me/0913887726"); }}
+                      // onClick={() => { window.open("https://zalo.me/0913887726"); }}
                       >
                         Facebook
                       </Mbutton>
@@ -834,10 +834,10 @@ export class Mcontact extends React.Component {
                 isMobile
                   ? "fb://page/356459924914161"
                   : "https://www.facebook.com/messages/t/" +
-                    item.ContactFacebookID
+                  item.ContactFacebookID
               }
               target={isMobile ? "_seft" : "_blank"}
-              // onClick={() => { window.open("https://zalo.me/0913887726"); }}
+            // onClick={() => { window.open("https://zalo.me/0913887726"); }}
             >
               Facebook
             </Mbutton>
@@ -889,7 +889,7 @@ export class Mcontact extends React.Component {
     let user_info = {};
     try {
       user_info = JSON.parse(localStorage.getItem("user_info"));
-    } catch (err) {}
+    } catch (err) { }
     user_info = user_info || {};
     return (
       <>
@@ -939,11 +939,11 @@ export class Mcontact extends React.Component {
               <a
                 href={
                   user_info.UserGroupCode == "OPR" ||
-                  user_info.UserGroupCode == "Operation"
+                    user_info.UserGroupCode == "Operation"
                     ? window.root_url +
-                      "/assets/documents/03.HDSD_Smartport_V2.7.4__Hãng_tàu.pdf"
+                    "/assets/documents/03.HDSD_Smartport_V2.7.4__Hãng_tàu.pdf"
                     : window.root_url +
-                      "/assets/documents/02.HDSD_Smartport_V2.7.4__Khách_hàng.pdf"
+                    "/assets/documents/02.HDSD_Smartport_V2.7.4__Khách_hàng.pdf"
                 }
                 target="_blank"
                 className="menu-item"
@@ -1222,7 +1222,7 @@ export class MslideThumbnail extends React.Component {
             onClick={() => {
               window.open(
                 window.root_url +
-                  "/assets/documents/SMARTPORT_Q_A_15022023_P1.pdf"
+                "/assets/documents/SMARTPORT_Q_A_15022023_P1.pdf"
               );
             }}
           >
@@ -1232,7 +1232,7 @@ export class MslideThumbnail extends React.Component {
             onClick={() => {
               window.open(
                 window.root_url +
-                  "/assets/documents/02.HDSD_Smartport_V2.7.4__Khách_hàng.pdf"
+                "/assets/documents/02.HDSD_Smartport_V2.7.4__Khách_hàng.pdf"
               );
             }}
           >

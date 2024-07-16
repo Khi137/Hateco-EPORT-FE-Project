@@ -2,8 +2,10 @@
 
 import React, { Component } from "react";
 import { ReactGrid } from "@silevis/reactgrid";
-import { Msearch, Mbutton, Mtable, Mcheckbox } from "../../components/BasicUI";
-import { Checkbox } from "antd";
+import { Msearch, Mbutton, Mtable, Mcheckbox, Mcard } from "../../components/BasicUI/BasicUI";
+import { Checkbox, Col, Row } from "antd";
+import { Content } from "antd/es/layout/layout";
+import { DatabaseOutlined } from "@ant-design/icons";
 
 let rowData = [
   {
@@ -143,57 +145,49 @@ export class SizeContainer extends Component {
     ];
 
     return (
-      <div>
-        <div>
-          <div>Danh mục kích cỡ</div>
-          <div>
-            <div>
-              <div>
-                <Msearch
-                  dataSource={{
-                    id: "search1",
-                    label: "Search",
-                    value: this.state.searchValue,
-                    icon: "SearchOutlined",
-                    text: "",
-                  }}
-                  config={{
-                    onLiveSearch: (value) => console.log("Live search:", value),
-                  }}
-                  onChangeValue={(e) => this.handleSearchChange(e["search1"])}
-                />
-              </div>
-              <div>
-                <Mbutton
-                  className="m_button green drop-button-shadow"
-                  block
-                  htmlType="submit"
-                  type="primary"
-                  onClick={this.handleFormSubmit}
-                  ref={this.mButtonRef}
-                  dataSource={{
-                    textbutton: "Xuất file excel",
-                    color: "",
-                    size: "12",
-                    icon: "FileExcelOutlined",
-                  }}
-                />
-              </div>
-            </div>
-            <div>
-              <Mtable
-                tableData={rowData}
-                columnsFormat={columnsFormat}
-                rowsFormat={rowsFormat}
-                rowsHeader={rowsHeader}
-                reoderRow={true}
-                // searchValue={formData.searchData}
-                // searchField={["ContainerNumber", "OperationCode", "IsoSizetype"]}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+      <Content className="one_page_layout_container">
+        <Row gutter={[12, 12]}>
+          <Col span={24} >
+            <Mcard
+              title={<span style={{ color: 'white' }}>Danh mục kích cỡ</span>}
+            >
+              <Col>
+                {rowData.length === 0 ? (
+                  <Col className="no_data">
+                    <Row justify={"center"}>
+                      <DatabaseOutlined className="no_data_icon" />
+                    </Row>
+                    <Row justify={"center"}>Nhập số container để nạp dữ liệu container...</Row>
+                  </Col>
+                ) : (
+                  <Col className="have_data">
+                    <Mtable
+                      config={{
+                        defaultData: rowData,
+                        columnsFormat: columnsFormat,
+                        rowsFormat: rowsFormat,
+                        rowsHeader: rowsHeader,
+                        reorderRow: true,
+                      }}
+                      functionRequire={{
+                        // addcolumn: true,
+                        // deleteColumn: true,
+                        exportExel: true,
+                        // saveData: () => { this.saveData() },
+                        searchField: [
+                          "ContainerNo",
+                          "OperationCode",
+                          "IsoSizetype",
+                        ],
+                      }}
+                    />
+                  </Col>
+                )}
+              </Col>
+            </Mcard>
+          </Col>
+        </Row>
+      </Content>
     );
   }
 }

@@ -5,10 +5,8 @@ import Login from "../views/login/login";
 import UnAuthLayout from "../layout/UnAuthLayout/UnAuthLayout";
 import AuthLayout from "../layout/AuthLayout/AuthLayout";
 import Register from "../views/register/register";
-import ForgotPassword from "../views/forgotPassword/forgotPassword";
 import ShowComponent from "../ShowComponent";
 import Dashboard from "../components/Dashboard/Dashboard";
-import Header from "../components/Header";
 import SystemManageUser from "../views/system/SystemManageUser";
 import SystemManageGroup from "../views/system/SystemManageGroup";
 import SystemManagerGroupPermission from "../views/system/SystemManagerGroupPermission";
@@ -18,27 +16,28 @@ import TrackingBill from "../views/tracking/trackingBill";
 import TrackingBooking from "../views/tracking/trackingBooking";
 import TrackingEdo from "../views/tracking/trackingEdo";
 import TrackingHouseBill from "../views/tracking/trackingHouseBill";
-import Customer from "../views/category/Customer";
+import Customer from "../views/category/customer";
 import Task from "../views/category/task";
-import ShipExploitBrand from "../views/category/ShipExploitBrand";
+import ShipExploitBrand from "../views/category/shipExploitBrand";
 import CommoditiesType from "../views/category/commoditiesType";
 import DirectionContainer from "../views/category/directionContainer";
 import PortsList from "../views/category/portsList";
 import StatesContainer from "../views/category/statesContainer";
 import SizeContainer from "../views/category/sizeContainer";
+import ApproveCommand from "../views/commandManager/approveCommand";
+import UpdateCommandInfomation from "../views/commandManager/updateCommandInfomation";
+import InstantInvoiceWithReleasePointReport from "../views/report/instantInvoiceWithReleasePointReport";
+import ContainerInvoiceReport from "../views/report/containerInvoiceReport";
+import ContainerStorageReport from "../views/report/containerStorageReport";
+import JobModeInvoiceWithReleasePointReport from "../views/report/jobModeInvoiceWithReleasePointReport";
 
 import Report from "../views/report/report";
 import PostageStandard from "../views/postage/postage";
 
 import TariffStandard from "../views/tariff/tariffStandard.jsx";
 import TariffRefer from "../views/tariff/tariffRefer.jsx";
-import Service from "../views/task/service.jsx";
-import UnstuffingOrder from "../views/task/unstuffingOrder.jsx";
-import StuffingOrder from "../views/task/stuffingOrder.jsx";
-import PreAdvice from "../views/task/preAdvice.jsx";
-import FCLPreAdvice from "../views/task/fCLPreAdvice.jsx";
-import EmptyPickup from "../views/task/emptyPickup.jsx";
-import TskImportPickup from "../views/task/tskImportPickup.jsx";
+import TariffFreeDay from "../views/tariff/tariffFreeDay.jsx";
+import TariffHoliday from "../views/tariff/tariffHoliday.jsx";
 
 class MainRoutes extends Component {
   render() {
@@ -58,19 +57,12 @@ class MainRoutes extends Component {
           <Route path="/postage">
             <Route path="postage-standard" element={<PostageStandard />} />
           </Route>
+
           <Route path="/tariff">
             <Route path="tariff-standard" element={<TariffStandard />} />
             <Route path="tariff-refer" element={<TariffRefer />} />
-          </Route>
-
-          <Route path="/Task">
-            <Route path="tskImportPickup" element={<TskImportPickup />} />
-            <Route path="tskEmptyPickup" element={<EmptyPickup />} />
-            <Route path="tskFCL_Pre_Advice" element={<FCLPreAdvice />} />
-            <Route path="tskPre_Advice" element={<PreAdvice />} />
-            <Route path="tskStuffingOrder" element={<StuffingOrder />} />
-            <Route path="tskUnstuffingOrder" element={<UnstuffingOrder />} />
-            <Route path="tskService" element={<Service />} />
+            <Route path="tariff-freeday" element={<TariffFreeDay />} />
+            <Route path="tariff-holiday" element={<TariffHoliday />} />
           </Route>
 
           <Route path="/tracking">
@@ -84,7 +76,26 @@ class MainRoutes extends Component {
             <Route path="tracking_edo" element={<TrackingEdo />} />
             <Route path="tracking_housebill" element={<TrackingHouseBill />} />
           </Route>
+          <Route path="/tracking">
+            <Route path="tracking_container" element={<TrackingContainer />} />
+            <Route
+              path="tracking_container_list"
+              element={<TrackingContainerList />}
+            />
+            <Route path="tracking_bill" element={<TrackingBill />} />
+            <Route path="tracking_booking" element={<TrackingBooking />} />
+            <Route path="tracking_edo" element={<TrackingEdo />} />
+            <Route path="tracking_housebill" element={<TrackingHouseBill />} />
+          </Route>
 
+          <Route path="/system_manager">
+            <Route path="SystemManageUser" element={<SystemManageUser />} />
+            <Route path="SystemManageGroup" element={<SystemManageGroup />} />
+            <Route
+              path="SystemManagerGroupPermission"
+              element={<SystemManagerGroupPermission />}
+            />
+          </Route>
           <Route path="/system_manager">
             <Route path="SystemManageUser" element={<SystemManageUser />} />
             <Route path="SystemManageGroup" element={<SystemManageGroup />} />
@@ -119,10 +130,24 @@ class MainRoutes extends Component {
           </Route>
 
           <Route path="/report">
+            <Route path="InstantInvoiceWithReleasePointReport" element={<InstantInvoiceWithReleasePointReport />} />
+            <Route path="containerInvoiceReport" element={<ContainerInvoiceReport />} />
+            <Route path="jobModeInvoiceWithReleasePointReport" element={<JobModeInvoiceWithReleasePointReport />} />
+          </Route>
+
+          <Route path="/command_manager">
+            <Route path="approve_command" element={<ApproveCommand />} />
+            <Route path="update_command_Infomation" element={<UpdateCommandInfomation />} />
+          </Route>
+
+          <Route path="/report">
             <Route path="report-1" element={<Report />} />
           </Route>
+
+          <Route path="/dashboard" element={<Dashboard />} />
+
         </Route>
-      </Routes>
+      </Routes >
     );
   }
 }
