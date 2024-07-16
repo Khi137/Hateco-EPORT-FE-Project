@@ -25,211 +25,97 @@ import { formatDateTime } from "../../utils/util";
 
 const rowData = [
   {
-    Rowguid: "20383CFB-35E4-454E-BA7E-C112ADE17335",
-    TerminalCode: null,
-    VesselKey: "TBA",
-    VesselImVoy: null,
-    VesselExVoy: null,
-    ETB: null,
-    ETD: null,
-    BargeKey: null,
-    BargeImVoy: null,
-    BargeExVoy: null,
-    DeliveryOrder: null,
-    BLNo: null,
-    BookingNo: "50940502",
-    HousebillNo: null,
-    TariffCode: "TCNU8698362",
-    ClassCode: "3",
-    Description: "HLC",
-    FE: "F",
-    ContainerStatusCode: "D",
-    CargoTypeCode: "GP",
-    Commodity: null,
-    LocalSizetype: "4500",
-    Direction: "North",
-    IsLocalForeign: "F",
-    JobModeCodeIn: "HBAI",
-    MethodCodeIn: "T",
-    EffectiveDate: "2021-04-10T19:44:22.000Z",
-    ExpirationDate: "2021-04-14T12:54:30.000Z",
-    RoundHours: "Nửa giờ",
-    AdditionalHours: "10.5",
-    PaymentType: "M: Mua ngay",
-    JobModeCodeOut: "LAYN",
-    MethodCodeOut: "V",
-    EirInNo: null,
-    EirOutNo: null,
-    StuffNo: null,
-    UnstuffNo: null,
-    ServiceNo: null,
-    DraftNo: null,
-    InvoiceNo: null,
-    Block: "A6",
-    Bay: "06",
-    Row: "02",
-    Tier: "4",
-    Area: null,
-    VGM: true,
-    MCWeight: null,
-    TareWeight: null,
-    Sealno: null,
-    Sealno1: null,
-    Sealno2: "8256247",
-    POL: "VNHPH",
-    POD: "VNHPH",
-    FPOD: null,
-    TransitCode: null,
-    TransitPort: null,
-    Temperature: null,
-    Vent: null,
-    VentUnit: null,
-    Class: null,
-    Unno: null,
-    OogTop: null,
-    OogLeft: null,
-    OogRight: null,
-    OogBack: null,
-    OogFront: null,
-    CusHold: false,
-    TerHold: false,
-    TerHoldReason: null,
-    IsReturnBack: false,
-    IsSpecialWarning: false,
-    SpecialWarning: null,
-    ContainerCondition: null,
-    IsTruckBarge: "T",
-    TruckNo: null,
-    RemoocNo: null,
-    Note: null,
-    ID_TOS: "0000000671104",
-    CreatedBy: "catos_ndv",
-    CreatedTime: "2021-04-06T10:36:05.000Z",
-    ModifiedBy: "catos_ndv",
-    ModifiedTime: "2021-04-06T10:37:01.000Z",
-    MaxGrossWeight: null,
-    XuatNeo: null,
-    XuatPhao: null,
-    CVType: "B",
-    CargoType: "A",
-    Type: "Container",
-    DomesticInternational: "Domestic",
-    MoneyType: "USD",
-    Full20: "Y",
-    Full40: "Y",
-    Full45: "Y",
-    Empty20: "Y",
-    Empty40: "Y",
-    Empty45: "Y",
-    NonCont: "1000",
-    IncludeTax: "1000",
-    VAT: "10%",
-    Unit: "Thousand",
-    BookingType: true,
-    BookingDate: "2021-04-06T10:35:25.000Z",
-    Plan: "Complete",
-    BookingAmount: 1,
-    StackingAmount: 0,
-    ShipperName: "shipperName",
-    BookingStatus: 0,
-    VesselName: "To Be Assign",
-    Humidity: null,
-    O2: null,
-    CO2: null,
-    BookingReleaseDate: null,
-    UserGroupRank: null,
-    OperationName: "CÔNG TY TNHH HAPAG- LLOYD  (VIET NAM)",
-    CallSign: null,
-    VETB: "2017-02-01T00:00:00.000Z",
-    VETD: "2017-02-01T00:00:00.000Z",
-    VImVoy: null,
-    VExVoy: null,
-    FullEmpty: "F:Full",
-    ProductType: "*",
+    HolidayContent: "",
     StartTime: "2021-04-10T19:44:22.000Z",
     EndTime: "2021-04-14T12:54:30.000Z",
-    NumberFreeDay: "28",
+  },
+];
+
+const rowDataUser = [
+  {
+    UserName: "Trần Đăng Khoa",
+    Address: "107 Bến Vân Đồn, Q4, TPHCM",
+    TaxCode: "TCNU8698362",
+    Email: "dangkhoa020229@gmail.com",
+    PhoneNumber: "0869212854",
+  },
+];
+
+const optionSampleHoliday = [
+  {
+    label: "Nghỉ lễ *_*",
+    value: "*_*",
+  },
+  {
+    label: "Nghỉ lễ *_*_*",
+    value: "*_*_*",
+  },
+  {
+    label: "Lịch nghỉ lễ 2024_VNL_*",
+    value: "VNL",
   },
 ];
 
 const carrierOptions = [
   {
-    label: "ACC: Khách hàng lẻ - Công ty Cổ phần Cảng Nam Đình Vũ",
-    value: "ACC",
+    value: "AEL",
+    label: "CÔNG TY CỔ PHẦN A.E.L VIỆT NAM",
   },
-  { label: "ACL: ADVANCE CONTAINER LINE", value: "ACL" },
-  { label: "AEL: CÔNG TY CỔ PHẦN A.E.L VIỆT NAM", value: "AEL" },
+  { value: "ANL", label: "ANL SINGAPORE PTE LTD (ANL)" },
   {
-    label: "ANL: ANL SINGAPORE PTE LTD C/O CMA-CGM VIET NAM JSC",
-    value: "ANL",
+    value: "ANLV",
+    label: "ANL SINGAPORE PTE LTD C/O CMA-CGM VIET NAM JSC",
   },
+  { value: "APL", label: "APL CO. PTE. LTD" },
   {
-    label: "ANP: AN PHONG LOGS",
-    value: "ANP",
+    value: "APLV",
+    label: "AMERICAN PRESIDENT LINES, LLC C/O CMA-CGM VIET NAM JSC",
   },
+  { value: "ASO", label: "ASO" },
+  { value: "BDG", label: "BDG" },
+  { value: "CMA", label: "CMA CGM" },
   {
-    label: "APL: CMA CGM ASIA SHIPPING PTE. LTD C/O CMA-CGM VIET NAM JSC",
-    value: "APL",
-  },
-  {
-    label: "ASC: ASIA LOGISTICS AND TRADING JSC",
-    value: "ASC",
-  },
-  {
-    label: "ASL: ASEAN SEAS LINE CO., LTD.",
-    value: "ASL",
+    value: "CMAV",
+    label: "CMA-CGM SA C/O CMA-CGM VIET NAM JSC",
   },
   {
-    label: "BLP: Transworld GLS VietNam Co.,LTD",
-    value: "BLP",
-  },
-  {
-    label:
-      "CCL: Chi nhánh Công ty Cổ phần Vinalines Logistics Việt Nam tại Hải Phòng",
-    value: "CCL",
-  },
-  {
-    label: "CKL: CK LINE CO., LTD",
-    value: "CKL",
-  },
-  {
-    label: "CMA: CMA-CGM SA C/O CMA-CGM VIET NAM JSC",
-    value: "CMA",
-  },
-  {
-    label:
-      "CNC: CMA CGM ASIA SHIPPING PTE. LTD (CNC AS A BRAND OF CMA CGM ASIA SHIPPING PTE. LTD) C/O CMA-CGM VIET NAM JSC",
     value: "CNC",
+    label: "APL CO. PTE LTD - CNC, AS A BRAND OF APL CO. PTE LTD",
   },
+  {
+    value: "CNCV",
+    label:
+      "CMA CGM ASIA SHIPPING PTE. LTD (CNC AS A BRAND OF CMA CGM ASIA SHIPPING PTE. LTD) C/O CMA-CGM VIET NAM JSC",
+  },
+  { value: "COS", label: "COSCO" },
+  { value: "CUL", label: "CUL" },
+  { value: "DEL", label: "CMA CGM (DELMAS)" },
+  { value: "DNA", label: "DNA" },
+  { value: "ELM", label: "ELM" },
+  {
+    value: "EMC",
+    label: "CÔNG TY TNHH ĐẠI LÝ VẬN TẢI EVERGREEN (VIỆT NAM)",
+  },
+  { value: "GEM", label: "GEM" },
+  { value: "GLO", label: "GLO" },
+  { value: "GLS", label: "GLS" },
 ];
 
-const typeProductOptions = [
-  {
-    label: "Tất cả",
-    value: "*",
-  },
-  {
-    label: "Hàng nội (L)",
-    value: "L",
-  },
-  {
-    label: "Hàng ngoại (F)",
-    value: "F",
-  },
+const hld1 = [
+  "Giải phóng miền Nam và Quốc tế Lao động 30/04 - 01/05",
+  "Tết dương lịch",
+  "Tết âm lịch",
 ];
+const hld2 = ["NGÀY LỄ CÔNG TY", "Quốc Khánh"];
+const hld3 = ["Tết dương lịch"];
 
-const typePaymentOptions = [
-  {
-    label: "Thu ngay",
-    value: "M",
-  },
-  {
-    label: "Thu sau",
-    value: "C",
-  },
-];
+const holidayMap = {
+  "*_*": hld1,
+  "*_*_*": hld2,
+  VNL: hld3,
+};
 
-function generateRandomCarrier() {
+function generateRandomTaxCode() {
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let result = "";
   const charactersLength = characters.length;
@@ -240,9 +126,9 @@ function generateRandomCarrier() {
 }
 
 for (let index = 0; index < 20; index++) {
-  const duplicatedData = { ...rowData[0] };
-  duplicatedData.Carrier = generateRandomCarrier();
-  rowData.push(duplicatedData);
+  const duplicatedData = { ...rowDataUser[0] };
+  duplicatedData.TaxCode = generateRandomTaxCode();
+  rowDataUser.push(duplicatedData);
 }
 
 export default class TariffHoliday extends Component {
@@ -256,7 +142,9 @@ export default class TariffHoliday extends Component {
       },
       generalInformation: {},
       tableData: [],
-      scheduleHoliday: "",
+      tableDataUser: [],
+      selectCustomer: "",
+      contentCalender: "",
       carrier: "",
       modalVisible: false,
     };
@@ -265,6 +153,7 @@ export default class TariffHoliday extends Component {
 
   showModal = () => {
     this.setState({ modalVisible: true });
+    this.handleLoadDataUser();
   };
   handleOk = () => {
     this.setState({ modalVisible: false });
@@ -274,25 +163,23 @@ export default class TariffHoliday extends Component {
     this.setState({ modalVisible: false });
   };
 
-  handleLoadData = (code, type, payment) => {
-    // const selectedCarrier = carrierOptions.find((option) =>
-    //   option.value.startsWith(code)
-    // );
-    // const updatedCarrierLabel = selectedCarrier ? selectedCarrier.label : "";
+  handleLoadData = (value) => {
+    const holidayContents = holidayMap[value] || [];
+    const contentValue = value === "VNL" ? "LỊCH NGHỈ LỄ 2024" : "*";
+    const carrierValue = value === "VNL" ? "VNL:VNL" : "*";
 
-    // const selectedTypeProduct = typeProductOptions.find((option) =>
-    //   option.value.startsWith(type)
-    // );
-    // const updatedTypeProductLabel = selectedTypeProduct
-    //   ? selectedTypeProduct.label
-    //   : "";
+    rowData.length = 0;
+    rowData.push({
+      HolidayContent: "",
+      StartTime: "2021-04-10T19:44:22.000Z",
+      EndTime: "2021-04-14T12:54:30.000Z",
+    });
 
-    // const selectedPaymentProduct = typePaymentOptions.find((option) =>
-    //   option.value.startsWith(payment)
-    // );
-    // const updatedPaymentProductLabel = selectedPaymentProduct
-    //   ? selectedPaymentProduct.label
-    //   : "";
+    for (let index = 0; index < holidayContents.length; index++) {
+      const duplicatedData = { ...rowData[0] };
+      duplicatedData.HolidayContent = holidayContents[index];
+      rowData.push(duplicatedData);
+    }
 
     this.setState({ isLoading: true });
     if (this.submitButtonRef.current) {
@@ -302,15 +189,28 @@ export default class TariffHoliday extends Component {
       this.setState((prevState) => ({
         generalInformation: rowData[0] ? rowData[0] : {},
         tableData: rowData,
+        tableDataUser: rowDataUser,
         formData: {
           ...prevState.formData,
           tariffNumberError: false,
         },
-        // typeProduct: updatedTypeProductLabel,
-        // typePayment: updatedPaymentProductLabel,
+        selectCustomer: "*",
+        contentCalender: contentValue,
+        carrier: carrierValue,
         isLoading: false,
       }));
     }, 1000);
+  };
+
+  handleLoadDataUser = () => {
+    this.setState((prevState) => ({
+      generalInformation: rowData[0] ? rowData[0] : {},
+      tableDataUser: rowDataUser,
+      formData: {
+        ...prevState.formData,
+        tariffNumberError: false,
+      },
+    }));
   };
 
   handleCheckboxChange = (returnValue) => {
@@ -323,39 +223,64 @@ export default class TariffHoliday extends Component {
     const columnsFormat = [
       { columnId: "STT", width: 100, resizable: true, header: "STT" },
       {
-        columnId: "FullEmpty",
-        width: 200,
+        columnId: "HolidayContent",
+        width: 500,
         resizable: true,
         reorderable: true,
-        header: "Full/Empty",
-      },
-      {
-        columnId: "ProductType",
-        width: 200,
-        resizable: true,
-        reorderable: true,
-        header: "Loại hàng",
+        header: "Nội dung miễn lưu bãi",
       },
       {
         columnId: "StartTime",
-        width: 300,
+        width: 320,
         resizable: true,
         reorderable: true,
         header: "Thời gian bắt đầu",
       },
       {
         columnId: "EndTime",
-        width: 300,
+        width: 320,
         resizable: true,
         reorderable: true,
         header: "Thời gian kết thúc",
       },
+    ];
+
+    const columnsFormatUser = [
+      { columnId: "STT", width: 150, resizable: true, header: "Mã khách hàng" },
       {
-        columnId: "NumberFreeDay",
+        columnId: "UserName",
+        width: 200,
+        resizable: true,
+        reorderable: true,
+        header: "Tên khách hàng",
+      },
+      {
+        columnId: "Address",
+        width: 300,
+        resizable: true,
+        reorderable: true,
+        header: "Địa chỉ",
+      },
+      {
+        columnId: "TaxCode",
+        width: 200,
+        resizable: true,
+        reorderable: true,
+        header: "Mã số thuế",
+      },
+      {
+        columnId: "Email",
+        width: 250,
+        resizable: true,
+        reorderable: true,
+        header: "Email",
+      },
+      {
+        columnId: "PhoneNumber",
         width: 150,
         resizable: true,
         reorderable: true,
-        header: "Số ngày miễn phí",
+        header: "Số điện thoại",
       },
     ];
 
@@ -365,12 +290,7 @@ export default class TariffHoliday extends Component {
         {
           type: "text",
           nonEditable: false,
-          text: tariff?.FullEmpty || "",
-        },
-        {
-          type: "text",
-          nonEditable: false,
-          text: tariff?.ProductType || "",
+          text: tariff?.HolidayContent || "",
         },
         {
           type: "text",
@@ -382,21 +302,50 @@ export default class TariffHoliday extends Component {
           nonEditable: false,
           text: tariff?.EndTime ? formatDateTime(tariff?.EndTime) : "",
         },
+      ];
+    };
+
+    const rowsFormatUser = (tariff, index) => {
+      return [
+        { type: "text", nonEditable: true, text: String(index + 1) },
         {
           type: "text",
           nonEditable: false,
-          text: tariff?.NumberFreeDay || "",
+          text: tariff?.UserName || "",
         },
+        {
+          type: "text",
+          nonEditable: false,
+          text: tariff?.Address || "",
+        },
+        {
+          type: "text",
+          nonEditable: false,
+          text: tariff?.TaxCode || "",
+        },
+        {
+          type: "text",
+          nonEditable: false,
+          text: tariff?.Email || "",
+        },
+        { type: "text", nonEditable: false, text: tariff?.PhoneNumber || "" },
       ];
     };
 
     const rowsHeader = [
       { type: "header", text: "STT" },
-      { type: "header", text: "Full/Empty" },
-      { type: "header", text: "Loại hàng" },
+      { type: "header", text: "Nội dung miễn lưu" },
       { type: "header", text: "Thời gian bắt đầu" },
       { type: "header", text: "Thời gian kết thúc" },
-      { type: "header", text: "Số ngày miễn phí" },
+    ];
+
+    const rowsHeaderUser = [
+      { type: "header", text: "Mã khách hàng" },
+      { type: "header", text: "Tên khách hàng" },
+      { type: "header", text: "Địa chỉ" },
+      { type: "header", text: "Mã số thuế" },
+      { type: "header", text: "Email" },
+      { type: "header", text: "Điện thoại" },
     ];
     return (
       <Content className="flex_layout-8-16_container tariffHoliday_content">
@@ -425,42 +374,21 @@ export default class TariffHoliday extends Component {
                   </Row>
                   <Mselect
                     dataSource={{
-                      label: "Lịch nghỉ lễ 2024_VNL_*",
                       ref: this.submitButtonRef,
-                      options: [
-                        {
-                          label: "Nghỉ lễ *_*",
-                          value: "*_*",
-                        },
-                        {
-                          label: "Nghỉ lễ *_*_*",
-                          value: "*_*_*",
-                        },
-                        {
-                          label: "Lịch nghỉ lễ 2024_VNL_*",
-                          value: "VNL",
-                        },
-                      ],
+                      options: optionSampleHoliday,
                     }}
                     onChangeValue={(value) => {
-                      //   const stringValue = Object.values(value)[0];
-                      //   const code = stringValue.substring(0, 3);
-                      //   const type = stringValue.charAt(
-                      //     stringValue.indexOf("_") + 1
-                      //   );
-                      //   const payment = stringValue.charAt(
-                      //     stringValue.indexOf("_", stringValue.indexOf("_") + 1) +
-                      //       1
-                      //   );
-                      //   this.handleLoadData(code, type, payment);
+                      this.handleLoadData(Object.values(value)[0]);
                     }}
                   />
                   <Mdivider dataSource={{ label: "Chi tiết cấu hình" }} />
                 </Row>
 
                 <Winput
+                  key={this.state.contentCalender}
                   title={"Nội dung"}
                   tooltip={"Nội dung"}
+                  value={this.state.contentCalender}
                   onChange={(e) => console.log(e)}
                   checkError={(error) =>
                     this.setState((prevState) => ({
@@ -472,10 +400,8 @@ export default class TariffHoliday extends Component {
                   }
                   require={false}
                   name={"contentHoliday"}
-                  className={`form_input_field`}
                   prefix={<UnorderedListOutlined />}
                   placeholder={"Nội dung"}
-                  // errorText={formData?.tariffNumberError || true}
                 />
                 <Row>
                   <Row>
@@ -491,57 +417,11 @@ export default class TariffHoliday extends Component {
                     </Tooltip>
                   </Row>
                   <Mselect
+                    key={this.state.carrier}
                     dataSource={{
-                      label: "Hãng khai thác",
+                      label: this.state.carrier || "Hãng khai thác",
                       ref: this.submitButtonRef,
-                      options: [
-                        {
-                          value: "AEL",
-                          label: "CÔNG TY CỔ PHẦN A.E.L VIỆT NAM",
-                        },
-                        { value: "ANL", label: "ANL SINGAPORE PTE LTD (ANL)" },
-                        {
-                          value: "ANLV",
-                          label:
-                            "ANL SINGAPORE PTE LTD C/O CMA-CGM VIET NAM JSC",
-                        },
-                        { value: "APL", label: "APL CO. PTE. LTD" },
-                        {
-                          value: "APLV",
-                          label:
-                            "AMERICAN PRESIDENT LINES, LLC C/O CMA-CGM VIET NAM JSC",
-                        },
-                        { value: "ASO", label: "ASO" },
-                        { value: "BDG", label: "BDG" },
-                        { value: "CMA", label: "CMA CGM" },
-                        {
-                          value: "CMAV",
-                          label: "CMA-CGM SA C/O CMA-CGM VIET NAM JSC",
-                        },
-                        {
-                          value: "CNC",
-                          label:
-                            "APL CO. PTE LTD - CNC, AS A BRAND OF APL CO. PTE LTD",
-                        },
-                        {
-                          value: "CNCV",
-                          label:
-                            "CMA CGM ASIA SHIPPING PTE. LTD (CNC AS A BRAND OF CMA CGM ASIA SHIPPING PTE. LTD) C/O CMA-CGM VIET NAM JSC",
-                        },
-                        { value: "COS", label: "COSCO" },
-                        { value: "CUL", label: "CUL" },
-                        { value: "DEL", label: "CMA CGM (DELMAS)" },
-                        { value: "DNA", label: "DNA" },
-                        { value: "ELM", label: "ELM" },
-                        {
-                          value: "EMC",
-                          label:
-                            "CÔNG TY TNHH ĐẠI LÝ VẬN TẢI EVERGREEN (VIỆT NAM)",
-                        },
-                        { value: "GEM", label: "GEM" },
-                        { value: "GLO", label: "GLO" },
-                        { value: "GLS", label: "GLS" },
-                      ],
+                      options: carrierOptions,
                     }}
                     onChangeValue={(value) => {}}
                   />
@@ -555,8 +435,10 @@ export default class TariffHoliday extends Component {
                     style={{ marginRight: "16px" }}
                   >
                     <Winput
+                      key={this.state.selectCustomer}
                       title={"Chọn khách hàng"}
                       tooltip={"Chọn khách hàng"}
+                      value={this.state.selectCustomer}
                       onChange={(e) => console.log(e)}
                       checkError={(error) =>
                         this.setState((prevState) => ({
@@ -568,10 +450,8 @@ export default class TariffHoliday extends Component {
                       }
                       require={false}
                       name={"selectUser"}
-                      className={`form_input_field`}
                       prefix={<UserOutlined />}
                       placeholder={"Chọn khách hàng"}
-                      // errorText={formData?.tariffNumberError || true}
                     />
                   </Col>
                   <Col
@@ -584,10 +464,11 @@ export default class TariffHoliday extends Component {
                     <Mbutton
                       color=""
                       className="btn-search"
+                      block
                       size={"12"}
                       onClick={this.showModal}
                       dataSource={{
-                        textbutton: ` `,
+                        textbutton: " ",
                         icon: "SearchOutlined",
                       }}
                     />
@@ -600,7 +481,7 @@ export default class TariffHoliday extends Component {
             <Mcard
               title={
                 <span style={{ color: "white" }}>
-                  Danh sách cấu hình lưu bãi
+                  Danh sách miễn lưu bãi ngày lễ
                 </span>
               }
               className="container_list"
@@ -612,7 +493,7 @@ export default class TariffHoliday extends Component {
                       <DatabaseOutlined className="no_data_icon" />
                     </Row>
                     <Row justify={"center"}>
-                      Chọn mẫu biểu cước để nạp dữ liệu...
+                      Không có dữ liệu để hiển thị...
                     </Row>
                   </Col>
                 ) : (
@@ -632,7 +513,7 @@ export default class TariffHoliday extends Component {
                       saveData: () => {
                         this.saveData();
                       },
-                      searchField: ["FullEmpty", "ProductType"],
+                      searchField: ["HolidayContent"],
                     }}
                   />
                 )
@@ -650,26 +531,19 @@ export default class TariffHoliday extends Component {
             closeIcon={<CloseOutlined />}
             footer={null}
             className="custom-wide-modal-tariff"
-            style={{ width: "80%" }}
           >
             <Row>Tìm theo mã số thuế*</Row>
             <Mtable
-              key={this.state.tableData}
+              key={this.state.tableDataUser}
               config={{
-                defaultData: this.state.tableData,
-                columnsFormat: columnsFormat,
-                rowsFormat: rowsFormat,
-                rowsHeader: rowsHeader,
+                defaultData: this.state.tableDataUser,
+                columnsFormat: columnsFormatUser,
+                rowsFormat: rowsFormatUser,
+                rowsHeader: rowsHeaderUser,
                 reorderRow: true,
               }}
               functionRequire={{
-                addcolumn: false,
-                deleteColumn: false,
-                exportExel: false,
-                // saveData: () => {
-                //   this.saveData();
-                // },
-                searchField: ["FullEmpty", "ProductType"],
+                searchField: ["TaxCode"],
               }}
             />
           </Modal>
