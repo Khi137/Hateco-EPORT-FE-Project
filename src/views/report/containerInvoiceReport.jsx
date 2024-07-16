@@ -188,7 +188,9 @@ function generateRandomContainerNo() {
     }
     return result;
 }
-
+function formatNumber(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 for (let index = 0; index < 20; index++) {
     const duplicatedData = { ...rowData[0] };
     duplicatedData.MaSoThue = generateRandomContainerNo();
@@ -203,6 +205,8 @@ for (let index = 0; index < 20; index++) {
     rowTacNghiepData.push(duplicatedTacNghiepData);
 }
 
+
+
 class containerInvoiceReport extends Component {
 
     constructor(props) {
@@ -214,19 +218,23 @@ class containerInvoiceReport extends Component {
                 fromDate: moment(new Date()).startOf("day").toDate(),
                 toDate: moment(new Date()).endOf("day").toDate(),
                 EdoCodeRef: true,
-
+            doituongthanhtoan: "", //
             },
+            generalInformation: {},
             modalVisible: false,
             tableData: [],
             modalData: [],
             tacNghiepData: [],
             radioValue: "option1",
+
+            isSearching: false,
         };
         this.submitButtonRef = createRef();
+        this.searchButtonRef = createRef();
     }
     showModal = () => {
         this.setState({ modalVisible: true });
-        console.log("Modalvisible showmodal", this.state.modalVisible);
+        this.handleSearchData();
     };
     handleOk = () => {
         this.setState({ modalVisible: false });
@@ -236,8 +244,20 @@ class containerInvoiceReport extends Component {
         this.setState({ modalVisible: false });
     };
     componentDidMount() {
-        console.log("Hello");
-        this.handleLoadData();
+
+    }
+    handleCellChanged = (changes) => {
+        changes.forEach(({ cell, row, column, value }) => {
+            if (column.columnId === 'TenKhachHang') {
+                this.setState(prevState => ({
+                    formData: {
+                        ...prevState.formData,
+                        doituongthanhtoan: value
+                    },
+                    modalVisible: false
+                }));
+            }
+        });
     }
     handleInputChange = (e, dataForm) => {
         const { name, value } = e.target;
@@ -303,19 +323,36 @@ class containerInvoiceReport extends Component {
                         ...prevState.formData,
                     },
                     isLoading: false,
+                    generalInformation: {
+                        TongTien: formatNumber(1000000), // Example value
+                    },
                 }));
                 console.log("Updated tacNghiepData:", this.state.tacNghiepData);
             }
         }, 1000);
     };
-
+    handleSearchData = () => {
+        this.setState({ isSearching: true, modalVisible: true });
+        if (this.searchButtonRef.current) {
+            this.searchButtonRef.current.loading();
+        }
+        setTimeout(() => {
+            if (this.searchButtonRef.current) {
+                this.searchButtonRef.current.reset();
+                this.setState({
+                    modalData: rowModalData,
+                    isSearching: false,
+                });
+            }
+        }, 1000);
+    };
     render() {
         console.log(this.state.tacNghiepData);
         const { formData, generalInformation } = this.state;
         const generalInformationList = [
             {
                 title: "Tổng tiền",
-                // value: generalInformation.OperationCode ? "Booking chỉ định" : "",
+                value: generalInformation.TongTien
             },
         ];
         const columnsFormat = [
@@ -414,9 +451,9 @@ class containerInvoiceReport extends Component {
 
         ];
         const columnsTacNghiepFormat = [
-            { columnId: "TacNghiep", width: 200, resizable: true, header: "Tác nghiệp" },
-            { columnId: "SoLuong", width: 200, resizable: true, reorderable: true, header: "Số lượng" },
-            { columnId: "TongTien", width: 200, resizable: true, reorderable: true, header: "Tổng tiền" },
+            { columnId: "TacNghiep", width: 150, resizable: true, header: "Tác nghiệp" },
+            { columnId: "SoLuong", width: 150, resizable: true, reorderable: true, header: "Số lượng" },
+            { columnId: "TongTien", width: 150, resizable: true, reorderable: true, header: "Tổng tiền" },
         ];
         const rowsTacNghiepFormat = (customer, index) => {
             return [
@@ -438,7 +475,7 @@ class containerInvoiceReport extends Component {
                 inputIcon: <DownloadOutlined />,
                 name: "doituongthanhtoan",
                 type: "text",
-                value: null,
+                value: formData.doituongthanhtoan,
                 require: true,
                 ref: null,
             },
@@ -497,6 +534,7 @@ class containerInvoiceReport extends Component {
                                             block
                                             border="none"
                                             size={"12"}
+                                            ref={this.searchButtonRef}
                                             onClick={this.showModal}
                                             dataSource={{
                                                 textbutton: ` `,
@@ -582,18 +620,20 @@ class containerInvoiceReport extends Component {
                                     }}
                                 />
                                 <Col className="general_information_content">
-                                    {generalInformationList.map((item, index) => {
-                                        return (
-                                            <Row className="information_content_item" key={index} justify={"space-between"}>
-                                                <Col className="item_title">{item.title}:</Col>
-                                                {item.value ? (
-                                                    <Col className="item_value body-xl-normal">{item.value}</Col>
+                                    {generalInformationList.map((item, index) => (
+                                        <Row className="information_content_item" key={index} justify="space-between">
+                                            <Col className="item_title">{item.title}:</Col>
+                                            {!this.state.isLoading ? (
+                                                item.value ? (
+                                                    <Col className="item_value dashed-line body-xl-bold m-red-text">{item.value}</Col>
                                                 ) : (
-                                                    <span className="item_value dashed-line body-xl-bold m-red-text"></span>
-                                                )}
-                                            </Row>
-                                        );
-                                    })}
+                                                    <span className="item_value dashed-line body-xl-bold m-red-text">0</span>
+                                                )
+                                            ) : (
+                                                <span className="item_value dashed-line body-xl-bold m-red-text">Loading...</span>
+                                            )}
+                                        </Row>
+                                    ))}
                                 </Col>
                             </Col>
                             <Mdivider
@@ -602,25 +642,55 @@ class containerInvoiceReport extends Component {
                                 }}
                             />
                             <div className="mtable-tacnghiep">
-                                <Mtable
-                                    config={{
-                                        defaultData: this.state.tacNghiepData,
-                                        columnsFormat: columnsTacNghiepFormat,
-                                        rowsFormat: rowsTacNghiepFormat,
-                                        rowsHeader: rowsTacNghiepHeader,
-                                        reorderRow: true,
-                                    }}
-                                    functionRequire={{
-                                        // addcolumn: true,
-                                        // deleteColumn: true,
-                                        // exportExel: true,
-                                        // saveData: () => { this.saveData() },
-                                        searchField: [
+                                {!this.state.isLoading ? (
+                                    !this.state.tableData[0] ? (
+                                        <Mtable
+                                            config={{
+                                                defaultData: "",
+                                                columnsFormat: columnsTacNghiepFormat,
+                                                rowsFormat: rowsTacNghiepFormat,
+                                                rowsHeader: rowsTacNghiepHeader,
+                                                reorderRow: true,
+                                            }}
+                                            functionRequire={{
+                                                // addcolumn: true,
+                                                // deleteColumn: true,
+                                                // exportExel: true,
+                                                // saveData: () => { this.saveData() },
+                                                searchField: [
 
-                                        ],
+                                                ],
 
-                                    }}
-                                />
+                                            }}
+                                        />
+                                    ) : (
+                                        <Mtable
+                                            config={{
+                                                defaultData: this.state.tacNghiepData,
+                                                columnsFormat: columnsTacNghiepFormat,
+                                                rowsFormat: rowsTacNghiepFormat,
+                                                rowsHeader: rowsTacNghiepHeader,
+                                                reorderRow: true,
+                                            }}
+                                            functionRequire={{
+                                                // addcolumn: true,
+                                                // deleteColumn: true,
+                                                // exportExel: true,
+                                                // saveData: () => { this.saveData() },
+                                                searchField: [
+
+                                                ],
+
+                                            }}
+                                        />
+                                    )
+                                ) : (
+                                    <Row className="no_data" justify={"center"} align={"middle"}>
+                                        <LoadingOutlined style={{ fontSize: "64px" }} />
+                                    </Row>
+                                )}
+
+
                             </div>
 
                         </Mcard>
@@ -634,7 +704,7 @@ class containerInvoiceReport extends Component {
                                     <Row justify={"center"}>
                                         <DatabaseOutlined className="no_data_icon" />
                                     </Row>
-                                    <Row justify={"center"}>Loading</Row>
+                                    <Row justify={"center"}>Chưa có dữ liệu hiển thị</Row>
                                 </Col>
                             ) : (
                                 <Mtable
@@ -677,26 +747,36 @@ class containerInvoiceReport extends Component {
                     footer={null}
                     className="custom-wide-modal-report"
                 >
-                    <Mtable
-                        config={{
-                            defaultData: this.state.modalData,
-                            columnsFormat: columnsModalFormat,
-                            rowsFormat: rowsModalFormat,
-                            rowsHeader: rowsModalHeader,
-                            reorderRow: true,
-                        }}
-                        functionRequire={{
-                            // addcolumn: true,
-                            // deleteColumn: true,
-                            //exportExel: true,
-                            // saveData: () => { this.saveData() },
-                            searchField: [
-                                "MaSoThue",
-                            ],
-
-                        }}
-                    />
-
+                    {!this.state.isSearching ? (
+                        !this.state.modalData[0] ? (
+                            <Col className="no_data">
+                                <Row justify={"center"}>
+                                    <DatabaseOutlined className="no_data_icon" />
+                                </Row>
+                                <Row justify={"center"}>Nhập thông tin để nạp dữ liệu ...</Row>
+                            </Col>
+                        ) : (
+                            <Mtable
+                                config={{
+                                    defaultData: this.state.modalData,
+                                    columnsFormat: columnsModalFormat,
+                                    rowsFormat: rowsModalFormat,
+                                    rowsHeader: rowsModalHeader,
+                                    reorderRow: true,
+                                }}
+                                functionRequire={{
+                                    searchField: [
+                                        "MaSoThue",
+                                    ],
+                                }}
+                                onCellsChanged={this.handleCellChanged}
+                            />
+                        )
+                    ) : (
+                        <Row className="no_data" justify={"center"} align={"middle"}>
+                            <LoadingOutlined style={{ fontSize: "64px" }} />
+                        </Row>
+                    )}
                 </Modal>
             </Content >
         )

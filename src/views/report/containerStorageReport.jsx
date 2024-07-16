@@ -24,7 +24,7 @@ import {
 
 } from "../../components/Mrender";
 import { formatDateTime } from "../../utils/util";
-import { Col, Row, Tooltip, Modal } from "antd";
+import { Col, Row, Tooltip } from "antd";
 
 const rowData = [
     {
@@ -141,7 +141,7 @@ const rowData = [
         TrangThaiContainer: "Full",
         SoBooking: "123456789",
         SoVanDon: "MAEU987654321",
-        TacNghiep: "Nhập",
+        Tong: "Nhập",
         ViTri: "A12B34",
         CangXep: "HKHKG",
         CangDo: "VNSGN",
@@ -152,7 +152,7 @@ const rowData = [
         LoaiHang: "Dry",
         HangHoa: "Electronics",
         TrongLuong: 20000,
-        VGM: 21000,
+        VGM: true,
         NhietDo: null,
         ThongGio: false,
         DonViTG: "KG",
@@ -169,18 +169,14 @@ const rowData = [
     },
 ];
 
-const rowModalData = [
+const rowTongData = [
     {
         // Test
-        MaKhachHang: "KHCNVD12  ",
-        TenKhachHang: "Nguyễn Văn A",
-        DiaChi: "Quận 4, TP HCM",
-        MaSoThue: "MST123",
-        Email: "PC123@gmail.com",
-        DienThoai: "0927857245",
+        Tong: "Tổng cộng",
+        SoLuong: 4426,
+        TEU: 8518,
     },
 ];
-
 const dataSource = [
     {
         type: "divider",
@@ -202,9 +198,6 @@ for (let index = 0; index < 20; index++) {
     duplicatedData.SoContainer = generateRandomContainerNo();
     rowData.push(duplicatedData);
 
-    const duplicatedModalData = { ...rowModalData[0] };
-    duplicatedModalData.MaSoThue = generateRandomContainerNo();
-    rowModalData.push(duplicatedModalData);
 }
 
 class containerStorageReport extends Component {
@@ -220,9 +213,7 @@ class containerStorageReport extends Component {
                 EdoCodeRef: true,
                 stackingSelectValue: "stacking",
             },
-            modalVisible: false,
             tableData: [],
-            modalData: [],
             radioValue: "option1",
         };
         this.submitButtonRef = createRef();
@@ -230,21 +221,9 @@ class containerStorageReport extends Component {
     handleSelectChange = (value) => {
         this.setState({ selectValue: value });
     }
-    showModal = () => {
-        this.setState({ modalVisible: true });
-        console.log("Modalvisible showmodal", this.state.modalVisible);
-    };
-    handleOk = () => {
-        this.setState({ modalVisible: false });
-    };
-
-    handleCancel = () => {
-        this.setState({ modalVisible: false });
-    };
     componentDidMount() {
         console.log("Hello");
         this.setState({ stackingSelectValue: "stacking" });
-        this.handleLoadData();
     }
     handleInputChange = (e, dataForm) => {
         const { name, value } = e.target;
@@ -304,7 +283,7 @@ class containerStorageReport extends Component {
                 this.setState((prevState) => ({
                     generalInformation: rowData[0] ? rowData[0] : {},
                     tableData: rowData,
-                    modalData: rowModalData,
+                    tongData : rowTongData,
                     formData: {
                         ...prevState.formData,
                     },
@@ -349,7 +328,7 @@ class containerStorageReport extends Component {
             { columnId: "TrangThaiContainer", width: 150, resizable: true, reorderable: true, header: "Trạng thái Container" },
             { columnId: "SoBooking", width: 150, resizable: true, reorderable: true, header: "Số booking" },
             { columnId: "SoVanDon", width: 150, resizable: true, reorderable: true, header: "Số vận đơn" },
-            { columnId: "TacNghiep", width: 150, resizable: true, reorderable: true, header: "Tác nghiệp" },
+            { columnId: "Tong", width: 150, resizable: true, reorderable: true, header: "Tác nghiệp" },
             { columnId: "ViTri", width: 150, resizable: true, reorderable: true, header: "Vị trí" },
             { columnId: "CangXep", width: 150, resizable: true, reorderable: true, header: "Cảng xếp" },
             { columnId: "CangDo", width: 150, resizable: true, reorderable: true, header: "Cảng dỡ" },
@@ -360,7 +339,7 @@ class containerStorageReport extends Component {
             { columnId: "LoaiHang", width: 150, resizable: true, reorderable: true, header: "Loại hàng" },
             { columnId: "HangHoa", width: 150, resizable: true, reorderable: true, header: "Hàng hoá" },
             { columnId: "TrongLuong", width: 150, resizable: true, reorderable: true, header: "Trọng lượng" },
-            { columnId: "VGM", width: 150, resizable: true, reorderable: true, header: "VGM" },
+            { columnId: "VGM", width: 150, resizable: false, reorderable: true, header: "VGM" },
             { columnId: "NhietDo", width: 150, resizable: true, reorderable: true, header: "Nhiệt độ" },
             { columnId: "ThongGio", width: 150, resizable: true, reorderable: true, header: "Thông gió" },
             { columnId: "DonViTG", width: 150, resizable: true, reorderable: true, header: "Đơn vị TG" },
@@ -386,7 +365,7 @@ class containerStorageReport extends Component {
                 { type: "text", text: invoice?.TrangThaiContainer !== null && invoice?.TrangThaiContainer !== undefined ? String(invoice?.TrangThaiContainer) : "" },
                 { type: "text", text: invoice?.SoBooking !== null && invoice?.SoBooking !== undefined ? String(invoice?.SoBooking) : "" },
                 { type: "text", text: invoice?.SoVanDon !== null && invoice?.SoVanDon !== undefined ? String(invoice?.SoVanDon) : "" },
-                { type: "text", text: invoice?.TacNghiep !== null && invoice?.TacNghiep !== undefined ? String(invoice?.TacNghiep) : "" },
+                { type: "text", text: invoice?.Tong !== null && invoice?.Tong !== undefined ? String(invoice?.Tong) : "" },
                 { type: "text", text: invoice?.ViTri !== null && invoice?.ViTri !== undefined ? String(invoice?.ViTri) : "" },
                 { type: "text", text: invoice?.CangXep !== null && invoice?.CangXep !== undefined ? String(invoice?.CangXep) : "" },
                 { type: "text", text: invoice?.CangDo !== null && invoice?.CangDo !== undefined ? String(invoice?.CangDo) : "" },
@@ -397,7 +376,7 @@ class containerStorageReport extends Component {
                 { type: "text", text: invoice?.LoaiHang !== null && invoice?.LoaiHang !== undefined ? String(invoice?.LoaiHang) : "" },
                 { type: "text", text: invoice?.HangHoa !== null && invoice?.HangHoa !== undefined ? String(invoice?.HangHoa) : "" },
                 { type: "text", text: invoice?.TrongLuong !== null && invoice?.TrongLuong !== undefined ? String(invoice?.TrongLuong) : "" },
-                { type: "text", text: invoice?.VGM !== null && invoice?.VGM !== undefined ? String(invoice?.VGM) : "" },
+                {type: "checkbox", nonEditable: true, checked: Boolean(invoice?.VGM) || false,},
                 { type: "text", text: invoice?.NhietDo !== null && invoice?.NhietDo !== undefined ? String(invoice?.NhietDo) : "" },
                 { type: "text", text: invoice?.ThongGio !== null && invoice?.ThongGio !== undefined ? String(invoice?.ThongGio) : "" },
                 { type: "text", text: invoice?.DonViTG !== null && invoice?.DonViTG !== undefined ? String(invoice?.DonViTG) : "" },
@@ -454,34 +433,23 @@ class containerStorageReport extends Component {
         ];
 
 
-        const columnsModalFormat = [
-            { columnId: "MaKhachHang", width: 200, resizable: true, header: "Mã khách hàng" },
-            { columnId: "TenKhachHang", width: 200, resizable: true, reorderable: true, header: "Tên khách hàng" },
-            { columnId: "DiaChi", width: 200, resizable: true, reorderable: true, header: "Địa chỉ" },
-            { columnId: "MaSoThue", width: 200, resizable: true, reorderable: true, header: "Mã số thuế" },
-            { columnId: "Email", width: 200, resizable: true, reorderable: true, header: "Email" },
-            { columnId: "DienThoai", width: 150, resizable: true, reorderable: true, header: "Điện thoại" }
-        ]
-        const rowsModalFormat = (customer, index) => {
-            return [
-                { type: "text", text: customer?.MaKhachHang !== null && customer?.MaKhachHang !== undefined ? String(customer?.MaKhachHang) : "" },
-                { type: "text", text: customer?.TenKhachHang !== null && customer?.TenKhachHang !== undefined ? String(customer?.TenKhachHang) : "" },
-                { type: "text", text: customer?.DiaChi !== null && customer?.DiaChi !== undefined ? String(customer?.DiaChi) : "" },
-                { type: "text", text: customer?.MaSoThue !== null && customer?.MaSoThue !== undefined ? String(customer?.MaSoThue) : "" },
-                { type: "text", text: customer?.Email !== null && customer?.Email !== undefined ? String(customer?.Email) : "" },
-                { type: "text", text: customer?.DienThoai !== null && customer?.DienThoai !== undefined ? String(customer?.DienThoai) : "" },
 
+        const columnsTongFormat = [
+            { columnId: "Tong", width: 150, resizable: true, header: "Tổng" },
+            { columnId: "SoLuong", width: 150, resizable: true, reorderable: true, header: "Số lượng" },
+            { columnId: "TEU", width: 150, resizable: true, reorderable: true, header: "TEU" },
+        ];
+        const rowsTongFormat = (customer, index) => {
+            return [
+                { type: "text", text: "Tổng" },
+                { type: "text", text: customer?.SoLuong !== null && customer?.SoLuong !== undefined ? String(customer?.SoLuong) : "" },
+                { type: "text", text: customer?.TEU !== null && customer?.TEU !== undefined ? String(customer?.TEU) : "" },
             ]
         };
-
-        const rowsModalHeader = [
-            { type: "header", text: "Mã khách hàng" },
-            { type: "header", text: "Tên khách hàng" },
-            { type: "header", text: "Địa chỉ" },
-            { type: "header", text: "Mã số thuế" },
-            { type: "header", text: "Email" },
-            { type: "header", text: "Điện thoại" },
-
+        const rowsTongHeader = [
+            { type: "header", text: "Tổng" },
+            { type: "header", text: "Số lượng" },
+            { type: "header", text: "TEU" },
         ];
         const inputForm = [
             {
@@ -683,7 +651,7 @@ class containerStorageReport extends Component {
                                     />
                                 </Col>
                             </Row>
-                            <Col className='input_layout_cont'>
+                            <Col className='input_layout'>
                                 <div className="div-loaddata">
                                     <Mbutton
                                         color=""
@@ -709,26 +677,42 @@ class containerStorageReport extends Component {
                                         label: "Tổng",
                                     }}
                                 />
-                                <div className="mtable-tacnghiep">
-                                    <Mtable
-                                        config={{
-                                            defaultData: this.state.tableData,
-                                            columnsFormat: columnsFormat,
-                                            rowsFormat: rowsFormat,
-                                            rowsHeader: rowsHeader,
-                                            reorderRow: true,
-                                        }}
-                                        functionRequire={{
-                                            // addcolumn: true,
-                                            // deleteColumn: true,
-                                            exportExel: true,
-                                            // saveData: () => { this.saveData() },
-                                            searchField: [
-                                                "SoContainer",
-                                                "SoNiemChi",
-                                            ],
-                                        }}
-                                    />
+                                <div className="mtable-Tong">
+                                {!this.state.isLoading ? (
+                                    !this.state.tableData[0] ? (
+                                        <Col className="no_data">
+                                            <Row justify={"center"}>
+                                                <DatabaseOutlined className="no_data_icon" />
+                                            </Row>
+                                            <Row justify={"center"}>Loading</Row>
+                                        </Col>
+                                    ) : (
+                                        <Mtable
+                                            config={{
+                                                defaultData: this.state.tongData,
+                                                columnsFormat: columnsTongFormat,
+                                                rowsFormat: rowsTongFormat,
+                                                rowsHeader: rowsTongHeader,
+                                                reorderRow: true,
+                                            }}
+                                            functionRequire={{
+                                                // addcolumn: true,
+                                                // deleteColumn: true,
+                                                // exportExel: true,
+                                                // saveData: () => { this.saveData() },
+                                                searchField: [
+
+                                                ],
+
+                                            }}
+                                        />
+                                    )
+                                ) : (
+                                    <Row className="no_data" justify={"center"} align={"middle"}>
+                                        <LoadingOutlined style={{ fontSize: "64px" }} />
+                                    </Row>
+                                )}
+
                                 </div>
                             </Col>
                         </Mcard>
@@ -743,7 +727,7 @@ class containerStorageReport extends Component {
                                         <Row justify={"center"}>
                                             <DatabaseOutlined className="no_data_icon" />
                                         </Row>
-                                        <Row justify={"center"}>Nhập mã số Edo để nạp dữ liệu container...</Row>
+                                        <Row justify={"center"}>Nhập thông tin để nạp dữ liệu ...</Row>
                                     </Col>
                                 ) : (
                                     <Mtable

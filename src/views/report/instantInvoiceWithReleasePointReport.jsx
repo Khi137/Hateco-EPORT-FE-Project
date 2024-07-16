@@ -180,7 +180,9 @@ function generateRandomContainerNo() {
     }
     return result;
 }
-
+function formatNumber(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
 for (let index = 0; index < 20; index++) {
     const duplicatedData = { ...rowData[0] };
     duplicatedData.MaSoThue = generateRandomContainerNo();
@@ -206,14 +208,17 @@ class InstantInvoiceWithReleasePointReport extends Component {
             },
             modalVisible: false,
             tableData: [],
+            generalInformation: {},
             modalData: [],
             radioValue: "option1",
+            isSearching: false,
         };
         this.submitButtonRef = createRef();
+        this.searchButtonRef = createRef();
     }
     showModal = () => {
         this.setState({ modalVisible: true });
-        console.log("Modalvisible showmodal", this.state.modalVisible);
+        this.handleSearchData();
     };
     handleOk = () => {
         this.setState({ modalVisible: false });
@@ -224,7 +229,7 @@ class InstantInvoiceWithReleasePointReport extends Component {
     };
     componentDidMount() {
         console.log("Hello");
-        this.handleLoadData();
+
     }
     handleInputChange = (e, dataForm) => {
         const { name, value } = e.target;
@@ -289,26 +294,45 @@ class InstantInvoiceWithReleasePointReport extends Component {
                         ...prevState.formData,
                     },
                     isLoading: false,
+                    generalInformation: {
+                        TongTienTruocThue: formatNumber(2000000000),
+                        TongTienThue: formatNumber(2000000),
+                        TongTienSauThue: formatNumber(1800000000)
+                    },
                 }));
                 console.log("Table Data:", this.state.tableData);
             }
         }, 1000);
     };
-
+    handleSearchData = () => {
+        this.setState({ isSearching: true, modalVisible: true });
+        if (this.searchButtonRef.current) {
+            this.searchButtonRef.current.loading();
+        }
+        setTimeout(() => {
+            if (this.searchButtonRef.current) {
+                this.searchButtonRef.current.reset();
+                this.setState({
+                    modalData: rowModalData,
+                    isSearching: false,
+                });
+            }
+        }, 1000);
+    };
     render() {
         const { formData, generalInformation } = this.state;
         const generalInformationList = [
             {
                 title: "Tổng tiền trước thuế",
-                // value: generalInformation.OperationCode ? "Booking chỉ định" : "",
+                value: generalInformation.TongTienTruocThue
             },
             {
                 title: "Tổng tiền thuế",
-                // value: generalInformation.OperationCode,
+                value: generalInformation.TongTienThue
             },
             {
                 title: "Tổng tiền sau thuế",
-                // value: generalInformation.IsoSizetype,
+                value: generalInformation.TongTienSauThue
             },
 
         ];
@@ -473,6 +497,7 @@ class InstantInvoiceWithReleasePointReport extends Component {
                                             block
                                             border="none"
                                             size={"12"}
+                                            ref={this.searchButtonRef}
                                             onClick={this.showModal}
                                             dataSource={{
                                                 textbutton: ` `,
@@ -555,18 +580,20 @@ class InstantInvoiceWithReleasePointReport extends Component {
                                     }}
                                 />
                                 <Col className="general_information_content">
-                                    {generalInformationList.map((item, index) => {
-                                        return (
-                                            <Row className="information_content_item" key={index} justify={"space-between"}>
-                                                <Col className="item_title">{item.title}:</Col>
-                                                {item.value ? (
-                                                    <Col className="item_value thongke_value">{item.value}</Col>
+                                    {generalInformationList.map((item, index) => (
+                                        <Row className="information_content_item" key={index} justify="space-between">
+                                            <Col className="item_title">{item.title}:</Col>
+                                            {!this.state.isLoading ? (
+                                                item.value ? (
+                                                    <Col className="item_value dashed-line body-xl-bold m-red-text">{item.value}</Col>
                                                 ) : (
-                                                    <span className="item_value thongke_value dashed-line">0</span>
-                                                )}
-                                            </Row>
-                                        );
-                                    })}
+                                                    <span className="item_value dashed-line body-xl-bold m-red-text">0</span>
+                                                )
+                                            ) : (
+                                                <span className="item_value dashed-line body-xl-bold m-red-text">Loading...</span>
+                                            )}
+                                        </Row>
+                                    ))}
                                 </Col>
                             </Col>
                         </Mcard>
@@ -581,7 +608,7 @@ class InstantInvoiceWithReleasePointReport extends Component {
                                         <Row justify={"center"}>
                                             <DatabaseOutlined className="no_data_icon" />
                                         </Row>
-                                        <Row justify={"center"}>Nhập mã số Edo để nạp dữ liệu container...</Row>
+                                        <Row justify={"center"}>Nhập thông tin để nạp dữ liệu ...</Row>
                                     </Col>
                                 ) : (
                                     <Mtable
@@ -624,28 +651,37 @@ class InstantInvoiceWithReleasePointReport extends Component {
                     onCancel={this.handleCancel}
                     closeIcon={<CloseOutlined />}
                     footer={null}
-                    className="custom-wide-modal"
+                    className="custom-wide-modal-report"
                 >
-                    <Mtable
-                        config={{
-                            defaultData: this.state.modalData,
-                            columnsFormat: columnsModalFormat,
-                            rowsFormat: rowsModalFormat,
-                            rowsHeader: rowsModalHeader,
-                            reorderRow: true,
-                        }}
-                        functionRequire={{
-                            // addcolumn: true,
-                            // deleteColumn: true,
-                            //exportExel: true,
-                            // saveData: () => { this.saveData() },
-                            searchField: [
-                                "MaSoThue",
-                            ],
-
-                        }}
-                    />
-
+                    {!this.state.isSearching ? (
+                        !this.state.modalData[0] ? (
+                            <Col className="no_data">
+                                <Row justify={"center"}>
+                                    <DatabaseOutlined className="no_data_icon" />
+                                </Row>
+                                <Row justify={"center"}>Nhập thông tin để nạp dữ liệu ...</Row>
+                            </Col>
+                        ) : (
+                            <Mtable
+                                config={{
+                                    defaultData: this.state.modalData,
+                                    columnsFormat: columnsModalFormat,
+                                    rowsFormat: rowsModalFormat,
+                                    rowsHeader: rowsModalHeader,
+                                    reorderRow: true,
+                                }}
+                                functionRequire={{
+                                    searchField: [
+                                        "MaSoThue",
+                                    ],
+                                }}
+                            />
+                        )
+                    ) : (
+                        <Row className="no_data" justify={"center"} align={"middle"}>
+                            <LoadingOutlined style={{ fontSize: "64px" }} />
+                        </Row>
+                    )}
                 </Modal>
             </Content >
         )

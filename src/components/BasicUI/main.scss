@@ -5438,6 +5438,10 @@ select {
 
     }
 }
+.dashed-line{
+    border-bottom: 1px dashed #464646;
+    width: 45%;
+}
 .div-loaddata{
     text-align: center;
 }
@@ -5455,7 +5459,7 @@ select {
 }
 
 .custom-wide-modal-report {
-    width: 70% !important;
+    width: 70vw !important;
     max-width: 1800px !important;
 }
   
@@ -5463,3 +5467,10 @@ select {
     width: 100%;
 }
 
+.cont_select{
+    width: 45%;
+}
+
+.item_value{
+    text-align: right;
+}
