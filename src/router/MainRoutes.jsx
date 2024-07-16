@@ -26,13 +26,16 @@ import StatesContainer from "../views/category/statesContainer";
 import SizeContainer from "../views/category/sizeContainer";
 import ApproveCommand from "../views/commandManager/approveCommand";
 import UpdateCommandInfomation from "../views/commandManager/updateCommandInfomation";
+import InstantInvoiceWithReleasePointReport from "../views/report/instantInvoiceWithReleasePointReport";
+import ContainerInvoiceReport from "../views/report/containerInvoiceReport";
+import ContainerStorageReport from "../views/report/containerStorageReport";
+import JobModeInvoiceWithReleasePointReport from "../views/report/jobModeInvoiceWithReleasePointReport";
 
 import Report from "../views/report/report";
 import PostageStandard from "../views/postage/postage";
 
 import TariffStandard from "../views/tariff/tariffStandard.jsx";
 import TariffRefer from "../views/tariff/tariffRefer.jsx";
-
 class MainRoutes extends Component {
   render() {
     return (
@@ -46,12 +49,9 @@ class MainRoutes extends Component {
         <Route element={<AuthLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/category-customer" element={<Customer />} />
+
           <Route path="/postage">
             <Route path="postage-standard" element={<PostageStandard />} />
-          </Route>
-          <Route path="/tariff">
-            <Route path="tariff-standard" element={<TariffStandard />} />
-            <Route path="tariff-refer" element={<TariffRefer />} />
           </Route>
 
           <Route path="/tracking">
@@ -99,6 +99,17 @@ class MainRoutes extends Component {
             <Route path="category_sizeContainer" element={<SizeContainer />} />
           </Route>
 
+          <Route path="/report">
+            <Route path="InstantInvoiceWithReleasePointReport" element={<InstantInvoiceWithReleasePointReport />} />
+            <Route path="containerInvoiceReport" element={<ContainerInvoiceReport />} />
+            <Route path="jobModeInvoiceWithReleasePointReport" element={<JobModeInvoiceWithReleasePointReport />} />
+          </Route>
+
+          <Route path="/tariff">
+            <Route path="tariff-standard" element={<TariffStandard />} />
+            <Route path="tariff-refer" element={<TariffRefer />} />
+          </Route>
+
           <Route path="/command_manager">
             <Route path="approve_command" element={<ApproveCommand />} />
             <Route path="update_command_Infomation" element={<UpdateCommandInfomation />} />
@@ -109,8 +120,9 @@ class MainRoutes extends Component {
           </Route>
 
           <Route path="/dashboard" element={<Dashboard />} />
+
         </Route>
-      </Routes>
+      </Routes >
     );
   }
 }
