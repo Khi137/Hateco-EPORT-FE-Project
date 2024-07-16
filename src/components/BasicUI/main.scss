@@ -634,16 +634,21 @@ text {
     height: 472px;
 }
 
-.ant-radio-wrapper {
-    span {
-        font-size: 16px !important;
-        font-family: $primary-font;
-        color: $brand-cl100;
-    }
+.ant-radio-group {
+    flex-wrap: wrap;
 
-    &.ant-radio-wrapper-checked {
+    .ant-radio-wrapper {
         span {
-            font-weight: bold;
+            min-width: fit-content;
+            font-size: 16px !important;
+            font-family: $primary-font;
+            color: $brand-cl100;
+        }
+
+        &.ant-radio-wrapper-checked {
+            span {
+                font-weight: bold;
+            }
         }
     }
 }
@@ -1426,7 +1431,7 @@ $invalid: #dd2c00;
     }
 }
 
-.icon {
+.select-icon {
     position: absolute;
     top: 8px;
     left: 6px;
@@ -5411,6 +5416,7 @@ select {
         .ant-descriptions-view {}
     }
 }
+
 //-----------tariff
 
 .tariffFreeDay_content {
@@ -5424,6 +5430,3 @@ select {
     width: 68% !important;
     max-width: 1800px !important;
 }
-
-
-  

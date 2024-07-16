@@ -9,7 +9,7 @@ const initialState = [
   {
     text: "Tác nghiệp",
     icon: "DownSquareOutlined",
-    url: "/Task",
+    url: "/task",
     subMenu: [
       {
         id: "tacnghiep-01",
@@ -62,13 +62,13 @@ const initialState = [
       {
         id: "tacnghiep-09",
         text: "Cập nhật thông tin lệnh",
-        url: "/cập-nhật-thông-tin-lệnh",
+        url: "/tskUpdateOrder",
         icon: "RetweetOutlined",
       },
       {
         id: "tacnghiep-10",
         text: "Lệnh chờ thanh toán",
-        url: "/lệnh-chờ-thanh-toán",
+        url: "/pendingTask",
         icon: "ClockCircleOutlined",
       },
       {

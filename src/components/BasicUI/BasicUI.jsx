@@ -3236,7 +3236,7 @@ class Mselect extends React.Component {
             </option>
             {this.renderOptions(data?.value || this.state.value)}
           </select>
-          <div className="icon">
+          <div className="select-icon">
             {icon}
           </div>
         </div>

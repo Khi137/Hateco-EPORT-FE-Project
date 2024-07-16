@@ -38,6 +38,8 @@ import TariffStandard from "../views/tariff/tariffStandard.jsx";
 import TariffRefer from "../views/tariff/tariffRefer.jsx";
 import TariffFreeDay from "../views/tariff/tariffFreeDay.jsx";
 import TariffHoliday from "../views/tariff/tariffHoliday.jsx";
+import PendingTask from "../views/task/pendingTask.jsx";
+import TskUpdateOrder from "../views/task/tskUpdateOrder.jsx";
 
 class MainRoutes extends Component {
   render() {
@@ -142,6 +144,11 @@ class MainRoutes extends Component {
 
           <Route path="/report">
             <Route path="report-1" element={<Report />} />
+          </Route>
+
+          <Route path="/task">
+            <Route path="pendingTask" element={<PendingTask />} />
+            <Route path="tskUpdateOrder" element={<TskUpdateOrder />} />
           </Route>
 
           <Route path="/dashboard" element={<Dashboard />} />
