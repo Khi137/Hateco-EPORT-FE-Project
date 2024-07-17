@@ -24,7 +24,7 @@ import {
 
 } from "../../components/Mrender";
 import { formatDateTime } from "../../utils/util";
-import { Col, Row, Tooltip, Modal } from "antd";
+import { Col, Row, Tooltip } from "antd";
 
 const rowData = [
     {
@@ -143,7 +143,7 @@ const rowData = [
     },
 ];
 
-const rowModalData = [
+const rowCustomerData = [
     {
         // Test
         MaKhachHang: "KHCNVD12  ",
@@ -170,15 +170,13 @@ function generateRandomContainerNo() {
     }
     return result;
 }
-
+function formatNumber(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
 for (let index = 0; index < 20; index++) {
     const duplicatedData = { ...rowData[0] };
     duplicatedData.DoanhThuThucTucDichVu = generateRandomContainerNo();
     rowData.push(duplicatedData);
-
-    const duplicatedModalData = { ...rowModalData[0] };
-    duplicatedModalData.DoanhThuThucTucDichVu = generateRandomContainerNo();
-    rowModalData.push(duplicatedModalData);
 }
 
 class jobModeInvoiceWithReleasePointReport extends Component {
@@ -194,27 +192,15 @@ class jobModeInvoiceWithReleasePointReport extends Component {
                 EdoCodeRef: true,
 
             },
-            modalVisible: false,
+            generalInformation : {},
             tableData: [],
-            modalData: [],
+            customerData: [],
             radioValue: "option1",
         };
         this.submitButtonRef = createRef();
     }
-    showModal = () => {
-        this.setState({ modalVisible: true });
-        console.log("Modalvisible showmodal", this.state.modalVisible);
-    };
-    handleOk = () => {
-        this.setState({ modalVisible: false });
-    };
-
-    handleCancel = () => {
-        this.setState({ modalVisible: false });
-    };
     componentDidMount() {
         console.log("Hello");
-        this.handleLoadData();
     }
     handleInputChange = (e, dataForm) => {
         const { name, value } = e.target;
@@ -274,11 +260,15 @@ class jobModeInvoiceWithReleasePointReport extends Component {
                 this.setState((prevState) => ({
                     generalInformation: rowData[0] ? rowData[0] : {},
                     tableData: rowData,
-                    modalData: rowModalData,
+                    customerData: rowCustomerData,
                     formData: {
                         ...prevState.formData,
                     },
                     isLoading: false,
+                    generalInformation: {
+                        TongTEU: formatNumber(1300),
+                        TongTien: formatNumber(200000000),
+                    },
                 }));
                 console.log("Table Data:", this.state.tableData);
             }
@@ -290,11 +280,11 @@ class jobModeInvoiceWithReleasePointReport extends Component {
         const generalInformationList = [
             {
                 title: "Tổng (TEU)",
-                // value: generalInformation.OperationCode ? "Booking chỉ định" : "",
+                value: generalInformation.TongTEU
             },
             {
                 title: "Tổng tiền",
-                // value: generalInformation.OperationCode,
+                value: generalInformation.TongTien
             },
         ];
         const columnsFormat = [
@@ -332,7 +322,7 @@ class jobModeInvoiceWithReleasePointReport extends Component {
         ];
 
 
-        const columnsModalFormat = [
+        const columnsCustomerFormat = [
             { columnId: "MaKhachHang", width: 200, resizable: true, header: "Mã khách hàng" },
             { columnId: "TenKhachHang", width: 200, resizable: true, reorderable: true, header: "Tên khách hàng" },
             { columnId: "DiaChi", width: 200, resizable: true, reorderable: true, header: "Địa chỉ" },
@@ -340,7 +330,7 @@ class jobModeInvoiceWithReleasePointReport extends Component {
             { columnId: "Email", width: 200, resizable: true, reorderable: true, header: "Email" },
             { columnId: "DienThoai", width: 150, resizable: true, reorderable: true, header: "Điện thoại" }
         ]
-        const rowsModalFormat = (customer, index) => {
+        const rowsCustomerFormat = (customer, index) => {
             return [
                 { type: "text", text: customer?.MaKhachHang !== null && customer?.MaKhachHang !== undefined ? String(customer?.MaKhachHang) : "" },
                 { type: "text", text: customer?.TenKhachHang !== null && customer?.TenKhachHang !== undefined ? String(customer?.TenKhachHang) : "" },
@@ -352,7 +342,7 @@ class jobModeInvoiceWithReleasePointReport extends Component {
             ]
         };
 
-        const rowsModalHeader = [
+        const rowsCustomerHeader = [
             { type: "header", text: "Mã khách hàng" },
             { type: "header", text: "Tên khách hàng" },
             { type: "header", text: "Địa chỉ" },
@@ -487,10 +477,10 @@ class jobModeInvoiceWithReleasePointReport extends Component {
                             </Col>
 
                             <Col className='input_layout'>
-                                <div className="div-napdulieu">
+                                <div className="div-loaddata">
                                     <Mbutton
                                         color=""
-                                        className="m_button btn-napdulieu"
+                                        className="m_button btn-loaddata"
                                         type="primary"
                                         htmlType="submit"
                                         block
@@ -514,40 +504,71 @@ class jobModeInvoiceWithReleasePointReport extends Component {
                                     }}
                                 />
                                 <Col className="general_information_content">
-                                    {generalInformationList.map((item, index) => {
-                                        return (
-                                            <Row className="information_content_item" key={index} justify={"space-between"}>
-                                                <Col className="item_title">{item.title}:</Col>
-                                                {/* <Col className="item_value">{item.value}</Col> */}
-                                                {item.value ?
-                                                    <Col className="item_value thongke_value">{item.value}</Col>
-                                                    : <Col className="item_value thongke_value"></Col>}
-
-                                            </Row>
-                                        );
-                                    })}
+                                    {generalInformationList.map((item, index) => (
+                                        <Row className="information_content_item" key={index} justify="space-between">
+                                            <Col className="item_title">{item.title}:</Col>
+                                            {!this.state.isLoading ? (
+                                                item.value ? (
+                                                    <Col className="item_value dashed-line body-xl-bold m-red-text">{item.value}</Col>
+                                                ) : (
+                                                    <span className="item_value dashed-line body-xl-bold m-red-text">0</span>
+                                                )
+                                            ) : (
+                                                <span className="item_value dashed-line body-xl-bold m-red-text">Loading...</span>
+                                            )}
+                                        </Row>
+                                    ))}
                                 </Col>
                             </Col>
                             <div className="mtable-tacnghiep">
-                                <Mtable
-                                    config={{
-                                        defaultData: this.state.modalData,
-                                        columnsFormat: columnsModalFormat,
-                                        rowsFormat: rowsModalFormat,
-                                        rowsHeader: rowsModalHeader,
-                                        reorderRow: true,
-                                    }}
-                                    functionRequire={{
-                                        // addcolumn: true,
-                                        // deleteColumn: true,
-                                        //exportExel: true,
-                                        // saveData: () => { this.saveData() },
-                                        searchField: [
-                                            "MaSoThue",
-                                        ],
+                                {!this.state.isLoading ? (
+                                    !this.state.tableData[0] ? (
+                                        <Mtable
+                                            config={{
+                                                defaultData: this.state.customerData,
+                                                columnsFormat: columnsCustomerFormat,
+                                                rowsFormat: rowsCustomerFormat,
+                                                rowsHeader: rowsCustomerHeader,
+                                                reorderRow: true,
+                                            }}
+                                            functionRequire={{
+                                                // addcolumn: true,
+                                                // deleteColumn: true,
+                                                //exportExel: true,
+                                                // saveData: () => { this.saveData() },
+                                                searchField: [
+                                                    "MaSoThue",
+                                                ],
 
-                                    }}
-                                />
+                                            }}
+                                        />
+                                    ) : (
+                                        <Mtable
+                                            config={{
+                                                defaultData: this.state.customerData,
+                                                columnsFormat: columnsCustomerFormat,
+                                                rowsFormat: rowsCustomerFormat,
+                                                rowsHeader: rowsCustomerHeader,
+                                                reorderRow: true,
+                                            }}
+                                            functionRequire={{
+                                                // addcolumn: true,
+                                                // deleteColumn: true,
+                                                //exportExel: true,
+                                                // saveData: () => { this.saveData() },
+                                                searchField: [
+                                                    "MaSoThue",
+                                                ],
+
+                                            }}
+                                        />
+                                    )
+                                ) : (
+                                    <Row className="no_data" justify={"center"} align={"middle"}>
+                                        <LoadingOutlined style={{ fontSize: "64px" }} />
+                                    </Row>
+                                )}
+
                             </div>
                         </Mcard>
                     </Col>
@@ -561,7 +582,7 @@ class jobModeInvoiceWithReleasePointReport extends Component {
                                         <Row justify={"center"}>
                                             <DatabaseOutlined className="no_data_icon" />
                                         </Row>
-                                        <Row justify={"center"}>Nhập mã số Edo để nạp dữ liệu container...</Row>
+                                        <Row justify={"center"}>Nhập thông tin để nạp dữ liệu ...</Row>
                                     </Col>
                                 ) : (
                                     <Mtable
@@ -596,35 +617,7 @@ class jobModeInvoiceWithReleasePointReport extends Component {
                     </Col>
                 </Row >
 
-                {/* Modal for search button */}
-                <Modal
-                    title="Chọn khách hàng"
-                    open={this.state.modalVisible}
-                    onCancel={this.handleCancel}
-                    closeIcon={<CloseOutlined />}
-                    footer={null}
-                    className="custom-wide-modal"
-                >
-                    <Mtable
-                        config={{
-                            defaultData: this.state.modalData,
-                            columnsFormat: columnsModalFormat,
-                            rowsFormat: rowsModalFormat,
-                            rowsHeader: rowsModalHeader,
-                            reorderRow: true,
-                        }}
-                        functionRequire={{
-                            // addcolumn: true,
-                            // deleteColumn: true,
-                            //exportExel: true,
-                            // saveData: () => { this.saveData() },
-                            searchField: [
-                                "MaSoThue",
-                            ],
 
-                        }}
-                    />
-                </Modal>
             </Content >
         )
     }

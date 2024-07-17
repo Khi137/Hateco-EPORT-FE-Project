@@ -133,6 +133,7 @@ class MainRoutes extends Component {
 
           <Route path="/report">
             <Route path="InstantInvoiceWithReleasePointReport" element={<InstantInvoiceWithReleasePointReport />} />
+            <Route path="containerStorageReport" element={<ContainerStorageReport />} />
             <Route path="containerInvoiceReport" element={<ContainerInvoiceReport />} />
             <Route path="jobModeInvoiceWithReleasePointReport" element={<JobModeInvoiceWithReleasePointReport />} />
           </Route>
@@ -141,11 +142,6 @@ class MainRoutes extends Component {
             <Route path="approve_command" element={<ApproveCommand />} />
             <Route path="update_command_Infomation" element={<UpdateCommandInfomation />} />
           </Route>
-
-          <Route path="/report">
-            <Route path="report-1" element={<Report />} />
-          </Route>
-
           <Route path="/dashboard" element={<Dashboard />} />
 
         </Route>
