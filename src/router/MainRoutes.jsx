@@ -38,6 +38,7 @@ import TariffStandard from "../views/tariff/tariffStandard.jsx";
 import TariffRefer from "../views/tariff/tariffRefer.jsx";
 import TariffFreeDay from "../views/tariff/tariffFreeDay.jsx";
 import TariffHoliday from "../views/tariff/tariffHoliday.jsx";
+import TariffContract from "../views/tariff/tariffContract.jsx";
 import PendingTask from "../views/task/pendingTask.jsx";
 import TskUpdateOrder from "../views/task/tskUpdateOrder.jsx";
 
@@ -65,6 +66,7 @@ class MainRoutes extends Component {
             <Route path="tariff-refer" element={<TariffRefer />} />
             <Route path="tariff-freeday" element={<TariffFreeDay />} />
             <Route path="tariff-holiday" element={<TariffHoliday />} />
+            <Route path="tariff-contract" element={<TariffContract />} />
           </Route>
 
           <Route path="/tracking">
@@ -78,26 +80,7 @@ class MainRoutes extends Component {
             <Route path="tracking_edo" element={<TrackingEdo />} />
             <Route path="tracking_housebill" element={<TrackingHouseBill />} />
           </Route>
-          <Route path="/tracking">
-            <Route path="tracking_container" element={<TrackingContainer />} />
-            <Route
-              path="tracking_container_list"
-              element={<TrackingContainerList />}
-            />
-            <Route path="tracking_bill" element={<TrackingBill />} />
-            <Route path="tracking_booking" element={<TrackingBooking />} />
-            <Route path="tracking_edo" element={<TrackingEdo />} />
-            <Route path="tracking_housebill" element={<TrackingHouseBill />} />
-          </Route>
 
-          <Route path="/system_manager">
-            <Route path="SystemManageUser" element={<SystemManageUser />} />
-            <Route path="SystemManageGroup" element={<SystemManageGroup />} />
-            <Route
-              path="SystemManagerGroupPermission"
-              element={<SystemManagerGroupPermission />}
-            />
-          </Route>
           <Route path="/system_manager">
             <Route path="SystemManageUser" element={<SystemManageUser />} />
             <Route path="SystemManageGroup" element={<SystemManageGroup />} />
@@ -146,9 +129,9 @@ class MainRoutes extends Component {
             <Route path="report-1" element={<Report />} />
           </Route>
 
-          <Route path="/task">
-            <Route path="pendingTask" element={<PendingTask />} />
-            <Route path="tskUpdateOrder" element={<TskUpdateOrder />} />
+          <Route path="/orders_checking">
+            <Route path="pending_Task" element={<PendingTask />} />
+            <Route path="tsk_update_order" element={<TskUpdateOrder />} />
           </Route>
 
           <Route path="/dashboard" element={<Dashboard />} />

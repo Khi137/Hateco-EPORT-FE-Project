@@ -180,36 +180,36 @@ const initialState = [
   {
     text: "Biểu cước",
     icon: "SnippetsOutlined",
-    url: "/biểu-cước",
+    url: "/tariff",
     subMenu: [
       {
         id: "bieucuoc-01",
         text: "Biểu cước",
-        url: "/biểu-cước",
+        url: "/tariff-standard",
         icon: "FundOutlined",
       },
       {
         id: "bieucuoc-02",
         text: "Hợp đồng",
-        url: "/hợp-đồng",
+        url: "/tariff-contract",
         icon: "FileTextOutlined",
       },
       {
         id: "bieucuoc-03",
         text: "Cấu hình ngày lễ",
-        url: "/cấu-hình-ngày-lễ",
+        url: "/tariff-holiday",
         icon: "CalendarOutlined",
       },
       {
         id: "bieucuoc-04",
         text: "Cấu hình lưu bãi",
-        url: "/cấu-hình-lưu-bãi",
+        url: "/tariff-freeday",
         icon: "BookOutlined",
       },
       {
         id: "bieucuoc-05",
         text: "Cấu hình sử dụng điện",
-        url: "/cấu-hình-sử-dụng-điện",
+        url: "/tariff-refer",
         icon: "DeleteRowOutlined",
       },
     ],
@@ -217,18 +217,18 @@ const initialState = [
   {
     text: "Quản lý lệnh",
     icon: "FormOutlined",
-    url: "/command_manager",
+    url: "/orders_checking",
     subMenu: [
       {
         id: "qll-01",
         text: "Cập nhật thông tin lệnh",
-        url: "/approve_command",
+        url: "/pending_Task",
         icon: "ExportOutlined",
       },
       {
         id: "qll-02",
         text: "Duyệt lệnh",
-        url: "/update_command_Infomation",
+        url: "/tsk_update_order",
         icon: "CheckSquareOutlined",
       },
     ],

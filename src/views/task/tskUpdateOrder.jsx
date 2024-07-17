@@ -13,6 +13,8 @@ import { Mbutton, Mcard, Mdatepicker, Mradio, Mtable, Winput } from "../../compo
 import { formatDateTime } from "../../utils/util";
 import { Content, Header } from "antd/es/layout/layout";
 import moment from "moment";
+import UpdateCommandOrder from "../../components/TskUpdateOrderModal/UpdateCommandOrder";
+import UpdateContainer from "../../components/TskUpdateOrderModal/UpdateContainer";
 
 const rowData = [
     {
@@ -160,6 +162,11 @@ class TskUpdateOrder extends Component {
                 toDate: moment(new Date()).endOf("day").toDate(),
                 EdoCodeRef: true,
             },
+            modalVisibe: {
+                updateCommandOrderVisible: false,
+                updateContainerVisible: false,
+                chooseShipRoute: false,
+            },
             radioValue: "pincode",
             tableData: [],
             isLoading: false,
@@ -209,6 +216,19 @@ class TskUpdateOrder extends Component {
             }
         }, 1000);
     };
+
+    handleSaveData = () => {
+        console.log("save data");
+    }
+
+    hanldeChangeVisible = (modalName) => {
+        this.setState((prevState) => ({
+            modalVisibe: {
+                ...prevState.modalVisibe,
+                [modalName]: !prevState.modalVisibe[modalName],
+            },
+        }));
+    }
 
     renderInputField = (item, key) => {
         return (
@@ -357,26 +377,47 @@ class TskUpdateOrder extends Component {
                                     </Col>
                                 </Row>
                                 {inputForm.map((item, key) => this.renderInputField(item, key))}
-                                <Mbutton
-                                    color=""
-                                    className="m_button third"
-                                    type="primary"
-                                    htmlType="submit"
-                                    block
-                                    onClick={this.handleLoadData}
-                                    ref={this.submitButtonRef}
-                                    size={"12"}
-                                    dataSource={{
-                                        textbutton: `Nạp dữ liệu`,
-                                        icon: "CloudDownloadOutlined",
-                                    }}
-                                />
+                                <Row justify={"space-between"}>
+                                    <Col lg={{ span: 9 }}>
+                                        <Mbutton
+                                            color=""
+                                            className="m_button green"
+                                            type="primary"
+                                            htmlType="submit"
+                                            block
+                                            // onClick={this.handleSaveData}
+                                            onClick={() => this.hanldeChangeVisible("updateCommandOrderVisible")}
+                                            // ref={this.submitButtonRef}
+                                            size={"12"}
+                                            dataSource={{
+                                                textbutton: `Lưu dữ liệu`,
+                                                icon: "CloudUploadOutlined",
+                                            }}
+                                        />
+                                    </Col>
+                                    <Col lg={{ span: 14 }}>
+                                        <Mbutton
+                                            color=""
+                                            className="m_button third"
+                                            type="primary"
+                                            htmlType="submit"
+                                            block
+                                            onClick={this.handleLoadData}
+                                            ref={this.submitButtonRef}
+                                            size={"12"}
+                                            dataSource={{
+                                                textbutton: `Nạp dữ liệu`,
+                                                icon: "CloudDownloadOutlined",
+                                            }}
+                                        />
+                                    </Col>
+                                </Row>
                             </Col>
                         </Mcard>
                     </Col>
                     <Col className="layout_col" lg={{ span: 16 }} sm={{ span: 24 }} xs={{ span: 24 }}>
                         <Mcard
-                            title={<span style={{ color: 'white' }}>Danh sách container</span>}
+                            title={<span style={{ color: 'white' }}>Danh sách lệnh</span>}
                             className="container_list"
                         >
                             {!this.state.isLoading ? (
@@ -385,7 +426,7 @@ class TskUpdateOrder extends Component {
                                         <Row justify={"center"}>
                                             <DatabaseOutlined className="no_data_icon" />
                                         </Row>
-                                        <Row justify={"center"}>Nhập thông tin HouseBill để nạp dữ liệu container...</Row>
+                                        <Row justify={"center"}>Nhập số pin để nạp dữ liệu lệnh...</Row>
                                     </Col>
                                 ) : (
                                     <Mtable
@@ -430,7 +471,7 @@ class TskUpdateOrder extends Component {
                                         <Row justify={"center"}>
                                             <DatabaseOutlined className="no_data_icon" />
                                         </Row>
-                                        <Row justify={"center"}>Nhập thông tin HouseBill để nạp dữ liệu container...</Row>
+                                        <Row justify={"center"}>Nhập số pinlđể nạp dữ liệu container...</Row>
                                     </Col>
                                 ) : (
                                     <Mtable
@@ -465,53 +506,14 @@ class TskUpdateOrder extends Component {
                         </Mcard>
                     </Col>
                 </Row>
-                {/* <Content>
-                    <Col className="layout_col" lg={{ span: 8 }} sm={{ span: 24 }} xs={{ span: 24 }}>
-                        <Mcard
-                            title={<span style={{ color: 'white' }}>Danh sách container</span>}
-                            className="container_list"
-                        >
-                            {!this.state.isLoading ? (
-                                !this.state.tableData[0] ? (
-                                    <Col className="no_data">
-                                        <Row justify={"center"}>
-                                            <DatabaseOutlined className="no_data_icon" />
-                                        </Row>
-                                        <Row justify={"center"}>Nhập thông tin HouseBill để nạp dữ liệu container...</Row>
-                                    </Col>
-                                ) : (
-                                    <Mtable
-                                        config={{
-                                            defaultData: this.state.tableData,
-                                            columnsFormat: columnsFormat,
-                                            rowsFormat: rowsFormat,
-                                            rowsHeader: rowsHeader,
-                                            reorderRow: true,
-                                        }}
-                                        functionRequire={{
-                                            // addcolumn: true,
-                                            // deleteColumn: true,
-                                            // exportExel: true,
-                                            // saveData: (data) => {
-                                            //   console.log(data);
-                                            // },
-                                            searchField: [
-                                                "ContainerNo",
-                                                "OperationCode",
-                                                "IsoSizetype",
-                                            ],
-                                        }}
-                                    />
-                                )
-                            ) : (
-                                <Row className="no_data" justify={"center"} align={"middle"}>
-                                    <LoadingOutlined className="no_data_icon" />
-                                </Row>
-                            )}
-
-                        </Mcard>
-                    </Col>
-                </Content> */}
+                <UpdateCommandOrder
+                    visible={this.state.modalVisibe.updateCommandOrderVisible}
+                    onCancle={() => this.hanldeChangeVisible("updateCommandOrderVisible")}
+                />
+                <UpdateContainer
+                    visible={this.state.modalVisibe.updateContainerVisible}
+                    onCancle={() => this.hanldeChangeVisible("updateContainerVisible")}
+                />
             </Content >
         );
     }

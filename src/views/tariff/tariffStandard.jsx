@@ -13,88 +13,11 @@ import moment from "moment";
 
 const rowData = [
   {
-    Rowguid: "20383CFB-35E4-454E-BA7E-C112ADE17335",
-    TerminalCode: null,
-    VesselKey: "TBA",
-    VesselImVoy: null,
-    VesselExVoy: null,
-    ETB: null,
-    ETD: null,
-    BargeKey: null,
-    BargeImVoy: null,
-    BargeExVoy: null,
-    DeliveryOrder: null,
-    BLNo: null,
-    BookingNo: "50940502",
-    HousebillNo: null,
     TariffCode: "TCNU8698362",
-    ClassCode: "3",
     Description: "HLC",
-    FE: "F",
-    ContainerStatusCode: "D",
-    CargoTypeCode: "GP",
-    Commodity: null,
-    LocalSizetype: "4500",
     Direction: "North",
-    IsLocalForeign: "F",
-    JobModeCodeIn: "HBAI",
-    MethodCodeIn: "T",
     DateIn: "2021-04-10T19:44:22.000Z",
     DateOut: "2021-04-14T12:54:30.000Z",
-    JobModeCodeOut: "LAYN",
-    MethodCodeOut: "V",
-    EirInNo: null,
-    EirOutNo: null,
-    StuffNo: null,
-    UnstuffNo: null,
-    ServiceNo: null,
-    DraftNo: null,
-    InvoiceNo: null,
-    Block: "A6",
-    Bay: "06",
-    Row: "02",
-    Tier: "4",
-    Area: null,
-    VGM: true,
-    MCWeight: null,
-    TareWeight: null,
-    Sealno: null,
-    Sealno1: null,
-    Sealno2: "8256247",
-    POL: "VNHPH",
-    POD: "VNHPH",
-    FPOD: null,
-    TransitCode: null,
-    TransitPort: null,
-    Temperature: null,
-    Vent: null,
-    VentUnit: null,
-    Class: null,
-    Unno: null,
-    OogTop: null,
-    OogLeft: null,
-    OogRight: null,
-    OogBack: null,
-    OogFront: null,
-    CusHold: false,
-    TerHold: false,
-    TerHoldReason: null,
-    IsReturnBack: false,
-    IsSpecialWarning: false,
-    SpecialWarning: null,
-    ContainerCondition: null,
-    IsTruckBarge: "T",
-    TruckNo: null,
-    RemoocNo: null,
-    Note: null,
-    ID_TOS: "0000000671104",
-    CreatedBy: "catos_ndv",
-    CreatedTime: "2021-04-06T10:36:05.000Z",
-    ModifiedBy: "catos_ndv",
-    ModifiedTime: "2021-04-06T10:37:01.000Z",
-    MaxGrossWeight: null,
-    XuatNeo: null,
-    XuatPhao: null,
     CVType: "B",
     CargoType: "A",
     Type: "Container",
@@ -110,27 +33,52 @@ const rowData = [
     IncludeTax: "1000",
     VAT: "10%",
     Unit: "Thousand",
-    BookingType: true,
-    BookingDate: "2021-04-06T10:35:25.000Z",
-    Plan: "Complete",
-    BookingAmount: 1,
-    StackingAmount: 0,
-    ShipperName: "shipperName",
-    BookingStatus: 0,
-    VesselName: "To Be Assign",
-    Humidity: null,
-    O2: null,
-    CO2: null,
-    BookingReleaseDate: null,
-    UserGroupRank: null,
-    OperationName: "CÔNG TY TNHH HAPAG- LLOYD  (VIET NAM)",
-    CallSign: null,
-    VETB: "2017-02-01T00:00:00.000Z",
-    VETD: "2017-02-01T00:00:00.000Z",
-    VImVoy: null,
-    VExVoy: null,
+    Plan: 'A'
   },
 ];
+
+const tariffOptions = [
+  {
+    label: "01/01/2020-24/04/2021-NDV-BIEUCUOC2021",
+    value: "01/01/2020-24/04/2021-NDV-BIEUCUOC2021",
+  },
+  {
+    label: "01/01/2020-27/04/2021-NDV-BIEUCUOC2021",
+    value: "01/01/2020-27/04/2021-NDV-BIEUCUOC2021",
+  },
+  {
+    label: "01/01/2020-29/04/2021-NDV-BIEUCUOC2021",
+    value: "01/01/2020-29/04/2021-NDV-BIEUCUOC2021",
+  },
+  {
+    label: "01/01/2020-30/04/2021-NDV-BIEUCUOC2021",
+    value: "01/01/2020-30/04/2021-NDV-BIEUCUOC2021",
+  },
+  {
+    label: "01/01/2020-24/08/2024-NDV-BIEUCUOC2021",
+    value: "01/01/2020-24/08/2024-NDV-BIEUCUOC2021",
+  },
+  {
+    label: "01/05/2021-31/12/2021-NDV-BIEUCUOC2021",
+    value: "01/05/2021-31/12/2021-NDV-BIEUCUOC2021",
+  },
+  {
+    label: "01/05/2021-31/12/2022-NDV-BIEUCUOC2021",
+    value: "01/05/2021-31/12/2022-NDV-BIEUCUOC2021",
+  },
+  {
+    label: "01/01/2023-07/12/2024-NDV-BIEUCUOC2021",
+    value: "01/01/2023-07/12/2024-NDV-BIEUCUOC2021",
+  },
+  {
+    label: "01/05/2023-07/12/2024-NDV-BIEUCUOC2021",
+    value: "01/05/2023-07/12/2024-NDV-BIEUCUOC2021",
+  },
+  {
+    label: "30/05/2024-07/12/2024-NDV-BIEUCUOC2050",
+    value: "30/05/2024-07/12/2024-NDV-BIEUCUOC2050",
+  },
+]
 
 function generateRandomTariffCode() {
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -147,13 +95,11 @@ for (let index = 0; index < 20; index++) {
   duplicatedData.TariffCode = generateRandomTariffCode();
   rowData.push(duplicatedData);
 }
-
 export default class TariffStandard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       formData: {
-        tariffNumber: "",
         tariffNumberError: true,
         fromDate: moment(new Date()).startOf("day").toDate(),
         toDate: moment(new Date()).endOf("day").toDate(),
@@ -167,15 +113,8 @@ export default class TariffStandard extends Component {
   }
 
   handleLoadData = (value) => {
-    const referenceNumbers = Object.values(value)[0]
-      .split("-")
-      .slice(2)
-      .join("-");
-    // const tariffNumberError = this.state.formData.tariffNumberError;
-    // if (tariffNumberError) {
-    //   this.referenceNumberRef.current.handleCheckError();
-    //   return;
-    // }
+    const referenceNumbers = Object.values(value)[0].split("-").slice(2).join("-");
+    
     this.setState({ isLoading: true });
     if (this.submitButtonRef.current) {
       this.submitButtonRef.current.loading();
@@ -345,7 +284,7 @@ export default class TariffStandard extends Component {
         {
           type: "text",
           nonEditable: false,
-          text: tariff?.tariffCode || "",
+          text: tariff?.TariffCode || "",
         },
         {
           type: "text",
@@ -492,48 +431,7 @@ export default class TariffStandard extends Component {
                     dataSource={{
                       label: "Mẫu biểu cước",
                       ref: this.submitButtonRef,
-                      options: [
-                        {
-                          label: "01/01/2020-24/04/2021-NDV-BIEUCUOC2021",
-                          value: "01/01/2020-24/04/2021-NDV-BIEUCUOC2021",
-                        },
-                        {
-                          label: "01/01/2020-27/04/2021-NDV-BIEUCUOC2021",
-                          value: "01/01/2020-27/04/2021-NDV-BIEUCUOC2021",
-                        },
-                        {
-                          label: "01/01/2020-29/04/2021-NDV-BIEUCUOC2021",
-                          value: "01/01/2020-29/04/2021-NDV-BIEUCUOC2021",
-                        },
-                        {
-                          label: "01/01/2020-30/04/2021-NDV-BIEUCUOC2021",
-                          value: "01/01/2020-30/04/2021-NDV-BIEUCUOC2021",
-                        },
-                        {
-                          label: "01/01/2020-24/08/2024-NDV-BIEUCUOC2021",
-                          value: "01/01/2020-24/08/2024-NDV-BIEUCUOC2021",
-                        },
-                        {
-                          label: "01/05/2021-31/12/2021-NDV-BIEUCUOC2021",
-                          value: "01/05/2021-31/12/2021-NDV-BIEUCUOC2021",
-                        },
-                        {
-                          label: "01/05/2021-31/12/2022-NDV-BIEUCUOC2021",
-                          value: "01/05/2021-31/12/2022-NDV-BIEUCUOC2021",
-                        },
-                        {
-                          label: "01/01/2023-07/12/2024-NDV-BIEUCUOC2021",
-                          value: "01/01/2023-07/12/2024-NDV-BIEUCUOC2021",
-                        },
-                        {
-                          label: "01/05/2023-07/12/2024-NDV-BIEUCUOC2021",
-                          value: "01/05/2023-07/12/2024-NDV-BIEUCUOC2021",
-                        },
-                        {
-                          label: "30/05/2024-07/12/2024-NDV-BIEUCUOC2050",
-                          value: "30/05/2024-07/12/2024-NDV-BIEUCUOC2050",
-                        },
-                      ],
+                      options: tariffOptions
                     }}
                     onChangeValue={(value) => {
                       this.handleLoadData(value)
@@ -549,7 +447,6 @@ export default class TariffStandard extends Component {
                         format: "YYYY-MM-DD HH:mm:ss",
                         defaultValue: this.state.formData.fromDate,
                         id: "my-datepicker",
-                        // label: 'Select Date',
                         span: { xs: 24, sm: 12, md: 8, lg: 24 },
                         required: true,
                         lockbefore: true,
@@ -565,7 +462,6 @@ export default class TariffStandard extends Component {
                         format: "YYYY-MM-DD HH:mm:ss",
                         defaultValue: this.state.formData.toDate,
                         id: "my-datepicker",
-                        // label: 'Select Date',
                         span: { xs: 24, sm: 12, md: 8, lg: 24 },
                         required: true,
                         lockbefore: true,
@@ -592,9 +488,7 @@ export default class TariffStandard extends Component {
                   require={false}
                   name={"referenceNumber"}
                   className={`form_input_field`}
-                  // prefix={item?.inputIcon}
                   placeholder={"Số tham chiếu"}
-                  // errorText={formData?.tariffNumberError || true}
                   ref={this.referenceNumberRef}
                 />
               </Col>

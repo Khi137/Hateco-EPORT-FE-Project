@@ -632,7 +632,7 @@ class PendingTask extends Component {
         return (
             <Content className="flex_layout-8-16_container" >
                 <Row gutter={[12, 12]}>
-                    <Col lg={{ span: 10 }} sm={{ span: 24 }} xs={{ span: 24 }} >
+                    <Col lg={{ span: 8 }} sm={{ span: 24 }} xs={{ span: 24 }} >
                         <Mcard
                             title={<span style={{ color: 'white', minHeight: "40vh" }}>Duyệt lệnh</span>}
                             className="flex_card"
@@ -666,23 +666,10 @@ class PendingTask extends Component {
                                             { label: "Lệnh khởi tạo", value: "3" },
                                             { label: "Đã duyệt", value: "4" },
                                         ],
-                                        className: "pending_task_radio_item"
+                                        className: "pending_task_radio_item",
                                     }}
                                 />
-                                <Mbutton
-                                    color=""
-                                    className="m_button third"
-                                    type="primary"
-                                    htmlType="submit"
-                                    block
-                                    onClick={this.handleLoadData}
-                                    ref={this.submitButtonRef}
-                                    size={"12"}
-                                    dataSource={{
-                                        textbutton: `Nạp dữ liệu`,
-                                        icon: "CloudDownloadOutlined",
-                                    }}
-                                />
+                                <Row className="horizontal-line" />
                                 <Row justify={"space-around"} gutter={[12, 12]}>
                                     <Col>
                                         <Mbutton
@@ -727,7 +714,7 @@ class PendingTask extends Component {
                                         />
                                     </Col>
                                 </Row>
-                                <Row style={{ marginTop: 12 }}>
+                                <Row style={{ marginTop: 12, maxHeight: "30vh", overflowY: "scroll", overflowX: "hidden" }}>
                                     {
                                         checkboxForm[this.state.mode].map(index => {
                                             return (
@@ -736,11 +723,24 @@ class PendingTask extends Component {
                                         })
                                     }
                                 </Row>
-
+                                <Mbutton
+                                    color=""
+                                    className="m_button third"
+                                    type="primary"
+                                    htmlType="submit"
+                                    block
+                                    onClick={this.handleLoadData}
+                                    ref={this.submitButtonRef}
+                                    size={"12"}
+                                    dataSource={{
+                                        textbutton: `Nạp dữ liệu`,
+                                        icon: "CloudDownloadOutlined",
+                                    }}
+                                />
                             </Col>
                         </Mcard>
                     </Col>
-                    <Col className="layout_col" lg={{ span: 14 }} sm={{ span: 24 }} xs={{ span: 24 }}>
+                    <Col className="layout_col" lg={{ span: 16 }} sm={{ span: 24 }} xs={{ span: 24 }}>
                         <Mcard
                             title={<span style={{ color: 'white', minHeight: "40vh" }}>Danh sách container</span>}
                             className="container_list"
