@@ -21,52 +21,6 @@ import {
 } from "@ant-design/icons";
 import moment from "moment";
 
-const rowData = [
-  {
-    TariffCode: "HH",
-    Description: "Phí hạ hàng GP từ xe -> cont",
-    Direction: "Export",
-    CargoType: "General",
-    CVType: "*",
-    Plan: "HẠ BÃI",
-    TransportType: "BÃI - XE",
-    Type: "*",
-    DomesticInternational: "Tất cả",
-    MoneyType: "VND",
-    Full20: "20",
-    Full40: "361111",
-    Full45: "600000",
-    Empty20: "740000",
-    Empty40: "0",
-    Empty45: "0",
-    NonCont: "0",
-    IncludeTax: "0",
-    VAT: "8",
-    Unit: "CONT",
-  },
-];
-
-const rowDataUser = [
-  {
-    UserName: "Trần Đăng Khoa",
-    Address: "107 Bến Vân Đồn, Q4, TPHCM",
-    TaxCode: "TCNU8698362",
-    Email: "dangkhoa020229@gmail.com",
-    PhoneNumber: "0869212854",
-  },
-];
-
-const sampleTariff = [
-  {
-    label: "(+) Thêm mới",
-    value: "Add",
-  },
-  {
-    label: "Hợp đồng CMA_2022-05-03_CMA_*_0100100047",
-    value: "CMA",
-  },
-]
-
 function generateRandomTaxCode() {
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let result = "";
@@ -76,74 +30,6 @@ function generateRandomTaxCode() {
   }
   return result;
 }
-
-for (let index = 0; index < 20; index++) {
-  const duplicatedData = { ...rowDataUser[0] };
-  duplicatedData.TaxCode = generateRandomTaxCode();
-  rowDataUser.push(duplicatedData);
-}
-
-const carrierOptions = [
-  {
-    label: "ACC: Khách hàng lẻ - Công ty Cổ phần Cảng Nam Đình Vũ",
-    value: "ACC",
-  },
-  { label: "ACL: ADVANCE CONTAINER LINE", value: "ACL" },
-  { label: "AEL: CÔNG TY CỔ PHẦN A.E.L VIỆT NAM", value: "AEL" },
-  {
-    label: "ANL: ANL SINGAPORE PTE LTD C/O CMA-CGM VIET NAM JSC",
-    value: "ANL",
-  },
-  {
-    label: "ANP: AN PHONG LOGS",
-    value: "ANP",
-  },
-  {
-    label: "APL: CMA CGM ASIA SHIPPING PTE. LTD C/O CMA-CGM VIET NAM JSC",
-    value: "APL",
-  },
-  {
-    label: "ASC: ASIA LOGISTICS AND TRADING JSC",
-    value: "ASC",
-  },
-  {
-    label: "ASL: ASEAN SEAS LINE CO., LTD.",
-    value: "ASL",
-  },
-  {
-    label: "BLP: Transworld GLS VietNam Co.,LTD",
-    value: "BLP",
-  },
-  {
-    label:
-      "CCL: Chi nhánh Công ty Cổ phần Vinalines Logistics Việt Nam tại Hải Phòng",
-    value: "CCL",
-  },
-  {
-    label: "CKL: CK LINE CO., LTD",
-    value: "CKL",
-  },
-  {
-    label: "CMA: CMA-CGM SA C/O CMA-CGM VIET NAM JSC",
-    value: "CMA",
-  },
-  {
-    label:
-      "CNC: CMA CGM ASIA SHIPPING PTE. LTD (CNC AS A BRAND OF CMA CGM ASIA SHIPPING PTE. LTD) C/O CMA-CGM VIET NAM JSC",
-    value: "CNC",
-  },
-];
-
-const typePaymentOptions = [
-  {
-    label: "Thu ngay",
-    value: "M",
-  },
-  {
-    label: "Thu sau",
-    value: "C",
-  },
-];
 
 export default class TariffContract extends Component {
   constructor(props) {
@@ -166,72 +52,116 @@ export default class TariffContract extends Component {
       modalVisible: false,
     };
     this.submitButtonRef = createRef();
-  }
 
-  showModal = () => {
-    this.setState({ modalVisible: true });
-    this.handleLoadDataUser();
-  };
-
-  handleCancel = () => {
-    this.setState({ modalVisible: false });
-  };
-
-  handleLoadData = (value) => {
-    const nameContractValue = value === "CMA" ? "Hợp đồng CMA" : "";
-    const typePaymentValue = value === "CMA" ? "Thu sau" : "";
-    const customerSelectValue =
-      value === "CMA" ? "TỔNG CÔNG TY THÉP VIỆT NAM -CTCP" : "";
-
-    const carrierValue = carrierOptions.find((option) =>
-      option.value.startsWith(value)
-    );
-    const updatedCarrierValue = carrierValue ? carrierValue.label : "";
-
-    if (value === "Add") rowData.length = 0;
-
-    this.setState({ isLoading: true });
-    if (this.submitButtonRef.current) {
-      this.submitButtonRef.current.loading();
-    }
-    setTimeout(() => {
-      this.setState((prevState) => ({
-        generalInformation: rowData[0] ? rowData[0] : {},
-        tableData: rowData,
-        tableDataUser: rowDataUser,
-        formData: {
-          ...prevState.formData,
-          tariffNumberError: false,
-        },
-        nameContract: nameContractValue,
-        carrier: updatedCarrierValue,
-        typePayment: typePaymentValue,
-        customerSelect: customerSelectValue,
-        isLoading: false,
-        isDataLoaded: true,
-      }));
-    }, 1000);
-  };
-
-  handleLoadDataUser = () => {
-    this.setState((prevState) => ({
-      generalInformation: rowData[0] ? rowData[0] : {},
-      tableDataUser: rowDataUser,
-      formData: {
-        ...prevState.formData,
-        tariffNumberError: false,
+    this.rowData = [
+      {
+        TariffCode: "HH",
+        Description: "Phí hạ hàng GP từ xe -> cont",
+        Direction: "Export",
+        CargoType: "General",
+        CVType: "*",
+        Plan: "HẠ BÃI",
+        TransportType: "BÃI - XE",
+        Type: "*",
+        DomesticInternational: "Tất cả",
+        MoneyType: "VND",
+        Full20: "20",
+        Full40: "361111",
+        Full45: "600000",
+        Empty20: "740000",
+        Empty40: "0",
+        Empty45: "0",
+        NonCont: "0",
+        IncludeTax: "0",
+        VAT: "8",
+        Unit: "CONT",
       },
-    }));
-  };
+    ];
+    
+    this.rowDataUser = [
+      {
+        UserName: "Trần Đăng Khoa",
+        Address: "107 Bến Vân Đồn, Q4, TPHCM",
+        TaxCode: "TCNU8698362",
+        Email: "dangkhoa020229@gmail.com",
+        PhoneNumber: "0869212854",
+      },
+    ];
+    
+    this.sampleTariff = [
+      {
+        label: "(+) Thêm mới",
+        value: "Add",
+      },
+      {
+        label: "Hợp đồng CMA_2022-05-03_CMA_*_0100100047",
+        value: "CMA",
+      },
+    ]
 
-  handleCheckboxChange = (returnValue) => {
-    this.setState({
-      checkboxValue: returnValue.checked,
-    });
-  };
+    this.carrierOptions = [
+      {
+        label: "ACC: Khách hàng lẻ - Công ty Cổ phần Cảng Nam Đình Vũ",
+        value: "ACC",
+      },
+      { label: "ACL: ADVANCE CONTAINER LINE", value: "ACL" },
+      { label: "AEL: CÔNG TY CỔ PHẦN A.E.L VIỆT NAM", value: "AEL" },
+      {
+        label: "ANL: ANL SINGAPORE PTE LTD C/O CMA-CGM VIET NAM JSC",
+        value: "ANL",
+      },
+      {
+        label: "ANP: AN PHONG LOGS",
+        value: "ANP",
+      },
+      {
+        label: "APL: CMA CGM ASIA SHIPPING PTE. LTD C/O CMA-CGM VIET NAM JSC",
+        value: "APL",
+      },
+      {
+        label: "ASC: ASIA LOGISTICS AND TRADING JSC",
+        value: "ASC",
+      },
+      {
+        label: "ASL: ASEAN SEAS LINE CO., LTD.",
+        value: "ASL",
+      },
+      {
+        label: "BLP: Transworld GLS VietNam Co.,LTD",
+        value: "BLP",
+      },
+      {
+        label:
+          "CCL: Chi nhánh Công ty Cổ phần Vinalines Logistics Việt Nam tại Hải Phòng",
+        value: "CCL",
+      },
+      {
+        label: "CKL: CK LINE CO., LTD",
+        value: "CKL",
+      },
+      {
+        label: "CMA: CMA-CGM SA C/O CMA-CGM VIET NAM JSC",
+        value: "CMA",
+      },
+      {
+        label:
+          "CNC: CMA CGM ASIA SHIPPING PTE. LTD (CNC AS A BRAND OF CMA CGM ASIA SHIPPING PTE. LTD) C/O CMA-CGM VIET NAM JSC",
+        value: "CNC",
+      },
+    ];
+    
+    this.typePaymentOptions = [
+      {
+        label: "Thu ngay",
+        value: "M",
+      },
+      {
+        label: "Thu sau",
+        value: "C",
+      },
+    ];
 
-  render() {
-    const columnsFormat = [
+    this.columnsFormat = [
       { columnId: "STT", width: 50, resizable: true, header: "STT" },
       {
         columnId: "TariffCode",
@@ -394,7 +324,7 @@ export default class TariffContract extends Component {
       },
     ];
 
-    const columnsFormatUser = [
+    this.columnsFormatUser = [
       { columnId: "STT", width: 150, resizable: true, header: "Mã khách hàng" },
       {
         columnId: "UserName",
@@ -433,114 +363,48 @@ export default class TariffContract extends Component {
       },
     ];
 
-    const rowsFormat = (tariff, index) => {
-      return [
+    this.rowsFormat = (tariff, index) => {
+      const textFields = [
+        { key: "TariffCode" },
+        { key: "Description" },
+        { key: "Direction" },
+        { key: "CargoType" },
+        { key: "CVType" },
+        { key: "Plan" },
+        { key: "TransportType" },
+        { key: "Type" },
+        { key: "DomesticInternational" },
+        { key: "MoneyType" },
+        { key: "Full20" },
+        { key: "Full40" },
+        { key: "Full45" },
+        { key: "Empty20" },
+        { key: "Empty40" },
+        { key: "Empty45" },
+        { key: "NonCont" },
+        { key: "VAT" },
+        { key: "Unit" },
+      ];
+    
+      const result = [
         { type: "text", nonEditable: true, text: String(index + 1) },
-        {
+        ...textFields.map(field => ({
           type: "text",
           nonEditable: false,
-          text: tariff?.TariffCode || "",
-        },
-        {
-          type: "text",
-          nonEditable: false,
-          text: tariff?.Description || "",
-        },
-        {
-          type: "text",
-          nonEditable: false,
-          text: tariff?.Direction || "",
-        },
-        {
-          type: "text",
-          nonEditable: false,
-          text: tariff?.CargoType || "",
-        },
-        { type: "text", nonEditable: false, text: tariff?.CVType || "" },
-        {
-          type: "text",
-          nonEditable: false,
-          text: tariff?.Plan || "",
-        },
-        {
-          type: "text",
-          nonEditable: false,
-          text: tariff?.TransportType || "",
-        },
-        {
-          type: "text",
-          nonEditable: false,
-          text: tariff?.Type || "",
-        },
-        {
-          type: "text",
-          nonEditable: false,
-          text: tariff?.DomesticInternational || "",
-        },
-        {
-          type: "text",
-          nonEditable: false,
-          text: tariff?.MoneyType || "",
-        },
-        {
-          type: "text",
-          nonEditable: false,
-          text: tariff?.Full20 || "",
-        },
-        {
-          type: "text",
-          nonEditable: false,
-          text: tariff?.Full40 || "",
-        },
-        {
-          type: "text",
-          nonEditable: false,
-          text: tariff?.Full45 || "",
-        },
-        {
-          type: "text",
-          nonEditable: false,
-          text: tariff?.Empty20 || "",
-        },
-        {
-          type: "text",
-          nonEditable: false,
-          text: tariff?.Empty40 || "",
-        },
-        {
-          type: "text",
-          nonEditable: false,
-          text: tariff?.Empty45 || "",
-        },
-        {
-          type: "text",
-          nonEditable: false,
-          text: tariff?.NonCont || "",
-        },
+          text: tariff?.[field.key] || "",
+        })),
         {
           type: "checkbox",
           nonEditable: false,
           checked: tariff?.IncludeTax === this.state.checkboxValue,
         },
-        {
-          type: "text",
-          nonEditable: false,
-          text: tariff?.VAT || "",
-        },
-        {
-          type: "text",
-          nonEditable: false,
-          text: tariff?.Unit || "",
-        },
-        {
-          type: "text",
-          nonEditable: false,
-          text: "Tải lạiiii",
-        },
+        { type: "text", nonEditable: false, text: "Tải lạiiii" },
       ];
+    
+      return result;
     };
-
-    const rowsFormatUser = (tariff, index) => {
+    
+    this.rowsFormatUser = (tariff, index) => {
       return [
         { type: "text", nonEditable: true, text: String(index + 1) },
         {
@@ -567,7 +431,7 @@ export default class TariffContract extends Component {
       ];
     };
 
-    const rowsHeader = [
+    this.rowsHeader = [
       { type: "header", text: "STT" },
       { type: "header", text: "Mã biểu cước" },
       { type: "header", text: "Diễn giải" },
@@ -592,7 +456,7 @@ export default class TariffContract extends Component {
       { type: "header", text: "Tải lại" },
     ];
 
-    const rowsHeaderUser = [
+    this.rowsHeaderUser = [
       { type: "header", text: "Mã khách hàng" },
       { type: "header", text: "Tên khách hàng" },
       { type: "header", text: "Địa chỉ" },
@@ -600,6 +464,76 @@ export default class TariffContract extends Component {
       { type: "header", text: "Email" },
       { type: "header", text: "Điện thoại" },
     ];
+
+    for (let index = 0; index < 20; index++) {
+      const duplicatedData = { ...this.rowDataUser[0] };
+      duplicatedData.TaxCode = generateRandomTaxCode();
+      this.rowDataUser.push(duplicatedData);
+    }
+  }
+
+  showModal = () => {
+    this.setState({ modalVisible: true });
+    this.handleLoadDataUser();
+  };
+
+  handleCancel = () => {
+    this.setState({ modalVisible: false });
+  };
+
+  handleLoadData = (value) => {
+    const nameContractValue = value === "CMA" ? "Hợp đồng CMA" : "";
+    const typePaymentValue = value === "CMA" ? "Thu sau" : "";
+    const customerSelectValue =
+      value === "CMA" ? "TỔNG CÔNG TY THÉP VIỆT NAM -CTCP" : "";
+
+    const carrierValue = this.carrierOptions.find((option) =>
+      option.value.startsWith(value)
+    );
+    const updatedCarrierValue = carrierValue ? carrierValue.label : "";
+
+    if (value === "Add") this.rowData.length = 0;
+
+    this.setState({ isLoading: true });
+    if (this.submitButtonRef.current) {
+      this.submitButtonRef.current.loading();
+    }
+    setTimeout(() => {
+      this.setState((prevState) => ({
+        generalInformation: this.rowData[0] ? this.rowData[0] : {},
+        tableData: this.rowData,
+        formData: {
+          ...prevState.formData,
+          tariffNumberError: false,
+        },
+        nameContract: nameContractValue,
+        carrier: updatedCarrierValue,
+        typePayment: typePaymentValue,
+        customerSelect: customerSelectValue,
+        isLoading: false,
+        isDataLoaded: true,
+      }));
+    }, 1000);
+  };
+
+  handleLoadDataUser = () => {
+    this.setState((prevState) => ({
+      generalInformation: this.rowDataUser[0] ? this.rowDataUser[0] : {},
+      tableDataUser: this.rowDataUser,
+      formData: {
+        ...prevState.formData,
+        tariffNumberError: false,
+      },
+    }));
+  };
+
+  handleCheckboxChange = (returnValue) => {
+    this.setState({
+      checkboxValue: returnValue.checked,
+    });
+  };
+
+  render() {
     return (
       <Content className="flex_layout-8-16_container tariffContract_content">
         <Row gutter={[12, 12]}>
@@ -629,7 +563,7 @@ export default class TariffContract extends Component {
                     dataSource={{
                       label: "Mẫu biểu cước",
                       ref: this.submitButtonRef,
-                      options: sampleTariff
+                      options: this.sampleTariff
                     }}
                     onChangeValue={(value) => {
                       this.handleLoadData(Object.values(value)[0]);
@@ -666,7 +600,7 @@ export default class TariffContract extends Component {
                         format: "YYYY-MM-DD HH:mm:ss",
                         defaultValue: this.state.formData.fromDate,
                         id: "my-datepicker",
-                        span: { xs: 24, sm: 12, md: 8, lg: 24 },
+                        span: { xs: 24, sm: 24},
                         required: true,
                         lockbefore: true,
                         propReadonly: false,
@@ -681,7 +615,7 @@ export default class TariffContract extends Component {
                         format: "YYYY-MM-DD HH:mm:ss",
                         defaultValue: this.state.formData.toDate,
                         id: "my-datepicker",
-                        span: { xs: 24, sm: 12, md: 8, lg: 24 },
+                        span: { xs: 24, sm: 24},
                         required: true,
                         lockbefore: true,
                         propReadonly: false,
@@ -709,7 +643,7 @@ export default class TariffContract extends Component {
                       dataSource={{
                         label: this.state.carrier || "",
                         ref: this.submitButtonRef,
-                        options: carrierOptions,
+                        options: this.carrierOptions,
                       }}
                       onChangeValue={() => {
                       }}
@@ -733,14 +667,14 @@ export default class TariffContract extends Component {
                       dataSource={{
                         label: this.state.typePayment || "",
                         ref: this.submitButtonRef,
-                        options: typePaymentOptions,
+                        options: this.typePaymentOptions,
                       }}
                       onChangeValue={() => {}}
                     />
                   </Col>
                 </Row>
                 <Row align="bottom">
-                  <Col xs={24} sm={18} md={20} lg={22} style={{ marginRight: "16px" }}>
+                  <Col xs={24} sm={22} md={23} lg={22}> 
                     <Winput
                       key={this.state.customerSelect}
                       title={"Chọn khách hàng"}
@@ -763,7 +697,7 @@ export default class TariffContract extends Component {
                       disabled={!!this.state.customerSelect}
                     />
                   </Col>
-                  <Col xs={24} sm={6} md={4} lg={1} style={{ marginBottom: "4px" }}>
+                    <Col xs={24} sm={2} md={1} lg={2} style={{ marginBottom: "4px", display: 'flex', justifyContent: 'center'}} className="tariff-button">
                     <Mbutton
                       color=""
                       block
@@ -805,9 +739,9 @@ export default class TariffContract extends Component {
                     key={this.state.tableData}
                     config={{
                       defaultData: this.state.tableData,
-                      columnsFormat: columnsFormat,
-                      rowsFormat: rowsFormat,
-                      rowsHeader: rowsHeader,
+                      columnsFormat: this.columnsFormat,
+                      rowsFormat: this.rowsFormat,
+                      rowsHeader: this.rowsHeader,
                       reorderRow: true,
                     }}
                     functionRequire={{
@@ -841,9 +775,9 @@ export default class TariffContract extends Component {
               key={this.state.tableDataUser}
               config={{
                 defaultData: this.state.tableDataUser,
-                columnsFormat: columnsFormatUser,
-                rowsFormat: rowsFormatUser,
-                rowsHeader: rowsHeaderUser,
+                columnsFormat: this.columnsFormatUser,
+                rowsFormat: this.rowsFormatUser,
+                rowsHeader: this.rowsHeaderUser,
                 reorderRow: true,
               }}
               functionRequire={{

@@ -21,150 +21,6 @@ import {
 import moment from "moment";
 import { formatDateTime } from "../../utils/util";
 
-const rowData = [
-  {
-    FullEmpty: "F:Full",
-    ProductType: "*",
-    StartTime: "2021-04-10T19:44:22.000Z",
-    EndTime: "2021-04-14T12:54:30.000Z",
-    NumberFreeDay: "28",
-  },
-];
-
-const rowDataUser = [
-  {
-    UserName: "Trần Đăng Khoa",
-    Address: "107 Bến Vân Đồn, Q4, TPHCM",
-    TaxCode: "TCNU8698362",
-    Email: "dangkhoa020229@gmail.com",
-    PhoneNumber: "0869212854",
-  },
-];
-
-const carrierOptions = [
-  {
-    label: "ACC: Khách hàng lẻ - Công ty Cổ phần Cảng Nam Đình Vũ",
-    value: "ACC",
-  },
-  { label: "ACL: ADVANCE CONTAINER LINE", value: "ACL" },
-  { label: "AEL: CÔNG TY CỔ PHẦN A.E.L VIỆT NAM", value: "AEL" },
-  {
-    label: "ANL: ANL SINGAPORE PTE LTD C/O CMA-CGM VIET NAM JSC",
-    value: "ANL",
-  },
-  {
-    label: "ANP: AN PHONG LOGS",
-    value: "ANP",
-  },
-  {
-    label: "APL: CMA CGM ASIA SHIPPING PTE. LTD C/O CMA-CGM VIET NAM JSC",
-    value: "APL",
-  },
-  {
-    label: "ASC: ASIA LOGISTICS AND TRADING JSC",
-    value: "ASC",
-  },
-  {
-    label: "ASL: ASEAN SEAS LINE CO., LTD.",
-    value: "ASL",
-  },
-  {
-    label: "BLP: Transworld GLS VietNam Co.,LTD",
-    value: "BLP",
-  },
-  {
-    label:
-      "CCL: Chi nhánh Công ty Cổ phần Vinalines Logistics Việt Nam tại Hải Phòng",
-    value: "CCL",
-  },
-  {
-    label: "CKL: CK LINE CO., LTD",
-    value: "CKL",
-  },
-  {
-    label: "CMA: CMA-CGM SA C/O CMA-CGM VIET NAM JSC",
-    value: "CMA",
-  },
-  {
-    label:
-      "CNC: CMA CGM ASIA SHIPPING PTE. LTD (CNC AS A BRAND OF CMA CGM ASIA SHIPPING PTE. LTD) C/O CMA-CGM VIET NAM JSC",
-    value: "CNC",
-  },
-];
-
-const typeProductOptions = [
-  {
-    label: "Tất cả",
-    value: "*",
-  },
-  {
-    label: "Hàng nội (L)",
-    value: "L",
-  },
-  {
-    label: "Hàng ngoại (F)",
-    value: "F",
-  },
-];
-
-const sampleOptions = [
-  {
-    label: "ACC_YKH0006894_*_C_2023-08-31",
-    value: "ACC_YKH0006894_*_C_2023-08-31",
-  },
-  {
-    label: "ACL_*_*_M_2026-08-01",
-    value: "ACL_*_*_M_2026-08-01",
-  },
-  {
-    label: "AEL *_L_C_2028-06-23",
-    value: "AEL *_L_C_2028-06-23",
-  },
-  {
-    label: "ANL_F_C_2021-12-31",
-    value: "ANL_F_C_2021-12-31",
-  },
-  {
-    label: "ANP_*_M_2021-12-31",
-    value: "ANP_*_M_2021-12-31",
-  },
-  {
-    label: "APL_*_C_2021-12-31",
-    value: "APL_*_C_2021-12-31",
-  },
-  {
-    label: "ASL_F_M_2023-12-01",
-    value: "ASL_F_M_2023-12-01",
-  },
-  {
-    label: "BLP_*_C_2021-12-31",
-    value: "BLP_*_C_2021-12-31",
-  },
-  {
-    label: "CKL_*_C_2021-12-31",
-    value: "CKL_*_C_2021-12-31",
-  },
-  {
-    label: "CMA_*_C_2022-02-01",
-    value: "CMA_*_C_2022-02-01",
-  },
-  {
-    label: "CNC_*_C_2021-12-31",
-    value: "CNC_*_C_2021-12-31",
-  },
-]
-
-const typePaymentOptions = [
-  {
-    label: "Thu ngay",
-    value: "M",
-  },
-  {
-    label: "Thu sau",
-    value: "C",
-  },
-];
-
 function generateRandomNumberFreeDay() {
   const characters = "123";
   let result = "";
@@ -183,15 +39,6 @@ function generateRandomTaxCode() {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
   return result;
-}
-
-for (let index = 0; index < 20; index++) {
-  const duplicatedData = { ...rowData[0] };
-  const duplicatedDataUser = { ...rowDataUser[0] };
-  duplicatedData.NumberFreeDay = generateRandomNumberFreeDay();
-  duplicatedDataUser.TaxCode = generateRandomTaxCode();
-  rowData.push(duplicatedData);
-  rowDataUser.push(duplicatedDataUser);
 }
 export default class TariffFreeDay extends Component {
   constructor(props) {
@@ -212,85 +59,152 @@ export default class TariffFreeDay extends Component {
       modalVisible: false,
     };
     this.submitButtonRef = createRef();
-  }
 
-  componentDidMount() {
-    this.handleLoadData();
-  }
-
-  showModal = () => {
-    this.setState({ modalVisible: true });
-    this.handleLoadDataUser()
-  };
-
-  handleOk = () => {
-    this.setState({ modalVisible: false });
-  };
-
-  handleCancel = () => {
-    this.setState({ modalVisible: false });
-  };
-
-  handleLoadData = (code, type, payment) => {
-    const selectedCarrier = carrierOptions.find((option) =>
-      option.value.startsWith(code)
-    );
-    const updatedCarrierLabel = selectedCarrier ? selectedCarrier.label : "";
-
-    const selectedTypeProduct = typeProductOptions.find((option) =>
-      option.value.startsWith(type)
-    );
-    const updatedTypeProductLabel = selectedTypeProduct
-      ? selectedTypeProduct.label
-      : "";
-
-    const selectedPaymentProduct = typePaymentOptions.find((option) =>
-      option.value.startsWith(payment)
-    );
-    const updatedPaymentProductLabel = selectedPaymentProduct
-      ? selectedPaymentProduct.label
-      : "";
-
-    this.setState({ isLoading: true });
-    if (this.submitButtonRef.current) {
-      this.submitButtonRef.current.loading();
-    }
-    setTimeout(() => {
-      this.setState((prevState) => ({
-        generalInformation: rowData[0] ? rowData[0] : {},
-        tableData: rowData,
-        tableDataUser: rowDataUser,
-        formData: {
-          ...prevState.formData,
-          tariffNumberError: false,
-        },
-        operatingCarrier: updatedCarrierLabel,
-        typeProduct: updatedTypeProductLabel,
-        typePayment: updatedPaymentProductLabel,
-        isLoading: false,
-      }));
-    }, 1000);
-  };
-
-  handleLoadDataUser = () => {
-    this.setState((prevState) => ({
-      generalInformation: rowData[0] ? rowData[0] : {},
-      tableDataUser: rowDataUser,
-      formData: {
-        ...prevState.formData,
-        tariffNumberError: false,
+    this.rowData = [
+      {
+        FullEmpty: "F:Full",
+        ProductType: "*",
+        StartTime: "2021-04-10T19:44:22.000Z",
+        EndTime: "2021-04-14T12:54:30.000Z",
+        NumberFreeDay: "28",
       },
-    }));
-  };
+    ];
+    
+    this.rowDataUser = [
+      {
+        UserName: "Trần Đăng Khoa",
+        Address: "107 Bến Vân Đồn, Q4, TPHCM",
+        TaxCode: "TCNU8698362",
+        Email: "dangkhoa020229@gmail.com",
+        PhoneNumber: "0869212854",
+      },
+    ];
+    
+    this.carrierOptions = [
+      {
+        label: "ACC: Khách hàng lẻ - Công ty Cổ phần Cảng Nam Đình Vũ",
+        value: "ACC",
+      },
+      { label: "ACL: ADVANCE CONTAINER LINE", value: "ACL" },
+      { label: "AEL: CÔNG TY CỔ PHẦN A.E.L VIỆT NAM", value: "AEL" },
+      {
+        label: "ANL: ANL SINGAPORE PTE LTD C/O CMA-CGM VIET NAM JSC",
+        value: "ANL",
+      },
+      {
+        label: "ANP: AN PHONG LOGS",
+        value: "ANP",
+      },
+      {
+        label: "APL: CMA CGM ASIA SHIPPING PTE. LTD C/O CMA-CGM VIET NAM JSC",
+        value: "APL",
+      },
+      {
+        label: "ASC: ASIA LOGISTICS AND TRADING JSC",
+        value: "ASC",
+      },
+      {
+        label: "ASL: ASEAN SEAS LINE CO., LTD.",
+        value: "ASL",
+      },
+      {
+        label: "BLP: Transworld GLS VietNam Co.,LTD",
+        value: "BLP",
+      },
+      {
+        label:
+          "CCL: Chi nhánh Công ty Cổ phần Vinalines Logistics Việt Nam tại Hải Phòng",
+        value: "CCL",
+      },
+      {
+        label: "CKL: CK LINE CO., LTD",
+        value: "CKL",
+      },
+      {
+        label: "CMA: CMA-CGM SA C/O CMA-CGM VIET NAM JSC",
+        value: "CMA",
+      },
+      {
+        label:
+          "CNC: CMA CGM ASIA SHIPPING PTE. LTD (CNC AS A BRAND OF CMA CGM ASIA SHIPPING PTE. LTD) C/O CMA-CGM VIET NAM JSC",
+        value: "CNC",
+      },
+    ];
+    
+    this.typeProductOptions = [
+      {
+        label: "Tất cả",
+        value: "*",
+      },
+      {
+        label: "Hàng nội (L)",
+        value: "L",
+      },
+      {
+        label: "Hàng ngoại (F)",
+        value: "F",
+      },
+    ];
+    
+    this.sampleOptions = [
+      {
+        label: "ACC_YKH0006894_*_C_2023-08-31",
+        value: "ACC_YKH0006894_*_C_2023-08-31",
+      },
+      {
+        label: "ACL_*_*_M_2026-08-01",
+        value: "ACL_*_*_M_2026-08-01",
+      },
+      {
+        label: "AEL *_L_C_2028-06-23",
+        value: "AEL *_L_C_2028-06-23",
+      },
+      {
+        label: "ANL_F_C_2021-12-31",
+        value: "ANL_F_C_2021-12-31",
+      },
+      {
+        label: "ANP_*_M_2021-12-31",
+        value: "ANP_*_M_2021-12-31",
+      },
+      {
+        label: "APL_*_C_2021-12-31",
+        value: "APL_*_C_2021-12-31",
+      },
+      {
+        label: "ASL_F_M_2023-12-01",
+        value: "ASL_F_M_2023-12-01",
+      },
+      {
+        label: "BLP_*_C_2021-12-31",
+        value: "BLP_*_C_2021-12-31",
+      },
+      {
+        label: "CKL_*_C_2021-12-31",
+        value: "CKL_*_C_2021-12-31",
+      },
+      {
+        label: "CMA_*_C_2022-02-01",
+        value: "CMA_*_C_2022-02-01",
+      },
+      {
+        label: "CNC_*_C_2021-12-31",
+        value: "CNC_*_C_2021-12-31",
+      },
+    ]
+    
+    this.typePaymentOptions = [
+      {
+        label: "Thu ngay",
+        value: "M",
+      },
+      {
+        label: "Thu sau",
+        value: "C",
+      },
+    ];
 
-  handleCheckboxChange = (returnValue) => {
-    this.setState({
-      checkboxValue: returnValue.checked,
-    });
-  };
-
-  render() {
-    const columnsFormat = [
+    this.columnsFormat = [
       { columnId: "STT", width: 100, resizable: true, header: "STT" },
       {
         columnId: "FullEmpty",
@@ -329,7 +243,7 @@ export default class TariffFreeDay extends Component {
       },
     ];
 
-    const columnsFormatUser = [
+    this.columnsFormatUser = [
       { columnId: "STT", width: 150, resizable: true, header: "Mã khách hàng" },
       {
         columnId: "UserName",
@@ -368,7 +282,7 @@ export default class TariffFreeDay extends Component {
       },
     ];
 
-    const rowsFormat = (tariff, index) => {
+    this.rowsFormat = (tariff, index) => {
       return [
         { type: "text", nonEditable: true, text: String(index + 1) },
         {
@@ -399,7 +313,7 @@ export default class TariffFreeDay extends Component {
       ];
     };
 
-    const rowsFormatUser = (tariff, index) => {
+    this.rowsFormatUser = (tariff, index) => {
       return [
         { type: "text", nonEditable: true, text: String(index + 1) },
         {
@@ -426,7 +340,7 @@ export default class TariffFreeDay extends Component {
       ];
     };
 
-    const rowsHeader = [
+    this.rowsHeader = [
       { type: "header", text: "STT" },
       { type: "header", text: "Full/Empty" },
       { type: "header", text: "Loại hàng" },
@@ -435,7 +349,7 @@ export default class TariffFreeDay extends Component {
       { type: "header", text: "Số ngày miễn phí" },
     ];
 
-    const rowsHeaderUser = [
+    this.rowsHeaderUser = [
       { type: "header", text: "Mã khách hàng" },
       { type: "header", text: "Tên khách hàng" },
       { type: "header", text: "Địa chỉ" },
@@ -443,6 +357,88 @@ export default class TariffFreeDay extends Component {
       { type: "header", text: "Email" },
       { type: "header", text: "Điện thoại" },
     ];
+
+    for (let index = 0; index < 20; index++) {
+      const duplicatedData = { ...this.rowData[0] };
+      const duplicatedDataUser = { ...this.rowDataUser[0] };
+      duplicatedData.NumberFreeDay = generateRandomNumberFreeDay();
+      duplicatedDataUser.TaxCode = generateRandomTaxCode();
+      this.rowData.push(duplicatedData);
+      this.rowDataUser.push(duplicatedDataUser);
+    }
+  }
+
+  componentDidMount() {
+    this.handleLoadData();
+  }
+
+  showModal = () => {
+    this.setState({ modalVisible: true });
+    this.handleLoadDataUser()
+  };
+
+  handleCancel = () => {
+    this.setState({ modalVisible: false });
+  };
+
+  handleLoadData = (code, type, payment) => {
+    const selectedCarrier = this.carrierOptions.find((option) =>
+      option.value.startsWith(code)
+    );
+    const updatedCarrierLabel = selectedCarrier ? selectedCarrier.label : "";
+
+    const selectedTypeProduct = this.typeProductOptions.find((option) =>
+      option.value.startsWith(type)
+    );
+    const updatedTypeProductLabel = selectedTypeProduct
+      ? selectedTypeProduct.label
+      : "";
+
+    const selectedPaymentProduct = this.typePaymentOptions.find((option) =>
+      option.value.startsWith(payment)
+    );
+    const updatedPaymentProductLabel = selectedPaymentProduct
+      ? selectedPaymentProduct.label
+      : "";
+
+    this.setState({ isLoading: true });
+    if (this.submitButtonRef.current) {
+      this.submitButtonRef.current.loading();
+    }
+    setTimeout(() => {
+      this.setState((prevState) => ({
+        generalInformation: this.rowData[0] ? this.rowData[0] : {},
+        tableData: this.rowData,
+        formData: {
+          ...prevState.formData,
+          tariffNumberError: false,
+        },
+        operatingCarrier: updatedCarrierLabel,
+        typeProduct: updatedTypeProductLabel,
+        typePayment: updatedPaymentProductLabel,
+        isLoading: false,
+      }));
+    }, 1000);
+  };
+
+  handleLoadDataUser = () => {
+    this.setState((prevState) => ({
+      generalInformation: this.rowDataUser[0] ? this.rowDataUser[0] : {},
+      tableDataUser: this.rowDataUser,
+      formData: {
+        ...prevState.formData,
+        tariffNumberError: false,
+      },
+    }));
+  };
+
+  handleCheckboxChange = (returnValue) => {
+    this.setState({
+      checkboxValue: returnValue.checked,
+    });
+  };
+
+  render() {
     return (
       <Content className="flex_layout-8-16_container tariffFreeDay_content">
         <Row gutter={[12, 12]}>
@@ -468,7 +464,7 @@ export default class TariffFreeDay extends Component {
                     dataSource={{
                       label: "Mẫu...",
                       ref: this.submitButtonRef,
-                      options: sampleOptions,
+                      options: this.sampleOptions,
                     }}
                     onChangeValue={(value) => {
                       const stringValue = Object.values(value)[0];
@@ -494,7 +490,7 @@ export default class TariffFreeDay extends Component {
                         format: "YYYY-MM-DD HH:mm:ss",
                         defaultValue: this.state.formData.fromDate,
                         id: "my-datepicker",
-                        span: { xs: 24, sm: 12, md: 8, lg: 24 },
+                        span: { xs: 24, sm: 24 },
                         required: true,
                         lockbefore: true,
                         propReadonly: false,
@@ -509,7 +505,7 @@ export default class TariffFreeDay extends Component {
                         format: "YYYY-MM-DD HH:mm:ss",
                         defaultValue: this.state.formData.toDate,
                         id: "my-datepicker",
-                        span: { xs: 24, sm: 12, md: 8, lg: 24 },
+                        span: { xs: 24, sm: 24 },
                         required: true,
                         lockbefore: true,
                         propReadonly: false,
@@ -537,14 +533,14 @@ export default class TariffFreeDay extends Component {
                     dataSource={{
                       label: this.state.operatingCarrier || "Hãng khai thác",
                       ref: this.submitButtonRef,
-                      options: carrierOptions,
+                      options: this.carrierOptions,
                     }}
                     value={this.state.operatingCarrier}
                     onChangeValue={(value) => {}}
                   />
                 </Row>
                 <Row align="bottom">
-                  <Col xs={24} sm={18} md={20} lg={22} style={{ marginRight: "16px" }}>
+                  <Col xs={24} sm={22} md={23} lg={22}>
                     <Winput
                       title={"Chọn khách hàng"}
                       tooltip={"Chọn khách hàng"}
@@ -564,7 +560,7 @@ export default class TariffFreeDay extends Component {
                       placeholder={"Chọn khách hàng"}
                     />
                   </Col>
-                  <Col xs={24} sm={6} md={4} lg={1} style={{ marginBottom: "4px" }}>
+                  <Col xs={24} sm={2} md={1} lg={2} style={{ marginBottom: "4px", display: 'flex', justifyContent: 'center'}} className="tariff-button">
                     <Mbutton
                       color=""
                       className="btn-search"
@@ -596,7 +592,7 @@ export default class TariffFreeDay extends Component {
                       dataSource={{
                         label: this.state.typeProduct || "",
                         ref: this.submitButtonRef,
-                        options: typeProductOptions,
+                        options: this.typeProductOptions,
                       }}
                       onChangeValue={(value) => {}}
                     />
@@ -619,7 +615,7 @@ export default class TariffFreeDay extends Component {
                       dataSource={{
                         label: this.state.typePayment || "",
                         ref: this.submitButtonRef,
-                        options: typePaymentOptions,
+                        options: this.typePaymentOptions,
                       }}
                       onChangeValue={() => {
                       }}
@@ -661,9 +657,9 @@ export default class TariffFreeDay extends Component {
                     key={this.state.tableData}
                     config={{
                       defaultData: this.state.tableData,
-                      columnsFormat: columnsFormat,
-                      rowsFormat: rowsFormat,
-                      rowsHeader: rowsHeader,
+                      columnsFormat: this.columnsFormat,
+                      rowsFormat: this.rowsFormat,
+                      rowsHeader: this.rowsHeader,
                       reorderRow: true,
                     }}
                     functionRequire={{
@@ -700,9 +696,9 @@ export default class TariffFreeDay extends Component {
               key={this.state.tableDataUser}
               config={{
                 defaultData: this.state.tableDataUser,
-                columnsFormat: columnsFormatUser,
-                rowsFormat: rowsFormatUser,
-                rowsHeader: rowsHeaderUser,
+                columnsFormat: this.columnsFormatUser,
+                rowsFormat: this.rowsFormatUser,
+                rowsHeader: this.rowsHeaderUser,
                 reorderRow: true,
               }}
               functionRequire={{
