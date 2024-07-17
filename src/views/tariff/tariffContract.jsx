@@ -16,18 +16,33 @@ import {
   DatabaseOutlined,
   InfoCircleOutlined,
   LoadingOutlined,
+  UnorderedListOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import moment from "moment";
-import { formatDateTime } from "../../utils/util";
 
 const rowData = [
   {
-    FullEmpty: "F:Full",
-    ProductType: "*",
-    StartTime: "2021-04-10T19:44:22.000Z",
-    EndTime: "2021-04-14T12:54:30.000Z",
-    NumberFreeDay: "28",
+    TariffCode: "HH",
+    Description: "Phí hạ hàng GP từ xe -> cont",
+    Direction: "Export",
+    CargoType: "General",
+    CVType: "*",
+    Plan: "HẠ BÃI",
+    TransportType: "BÃI - XE",
+    Type: "*",
+    DomesticInternational: "Tất cả",
+    MoneyType: "VND",
+    Full20: "20",
+    Full40: "361111",
+    Full45: "600000",
+    Empty20: "740000",
+    Empty40: "0",
+    Empty45: "0",
+    NonCont: "0",
+    IncludeTax: "0",
+    VAT: "8",
+    Unit: "CONT",
   },
 ];
 
@@ -40,6 +55,33 @@ const rowDataUser = [
     PhoneNumber: "0869212854",
   },
 ];
+
+const sampleTariff = [
+  {
+    label: "(+) Thêm mới",
+    value: "Add",
+  },
+  {
+    label: "Hợp đồng CMA_2022-05-03_CMA_*_0100100047",
+    value: "CMA",
+  },
+]
+
+function generateRandomTaxCode() {
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let result = "";
+  const charactersLength = characters.length;
+  for (let i = 0; i < 10; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
+for (let index = 0; index < 20; index++) {
+  const duplicatedData = { ...rowDataUser[0] };
+  duplicatedData.TaxCode = generateRandomTaxCode();
+  rowDataUser.push(duplicatedData);
+}
 
 const carrierOptions = [
   {
@@ -92,68 +134,6 @@ const carrierOptions = [
   },
 ];
 
-const typeProductOptions = [
-  {
-    label: "Tất cả",
-    value: "*",
-  },
-  {
-    label: "Hàng nội (L)",
-    value: "L",
-  },
-  {
-    label: "Hàng ngoại (F)",
-    value: "F",
-  },
-];
-
-const sampleOptions = [
-  {
-    label: "ACC_YKH0006894_*_C_2023-08-31",
-    value: "ACC_YKH0006894_*_C_2023-08-31",
-  },
-  {
-    label: "ACL_*_*_M_2026-08-01",
-    value: "ACL_*_*_M_2026-08-01",
-  },
-  {
-    label: "AEL *_L_C_2028-06-23",
-    value: "AEL *_L_C_2028-06-23",
-  },
-  {
-    label: "ANL_F_C_2021-12-31",
-    value: "ANL_F_C_2021-12-31",
-  },
-  {
-    label: "ANP_*_M_2021-12-31",
-    value: "ANP_*_M_2021-12-31",
-  },
-  {
-    label: "APL_*_C_2021-12-31",
-    value: "APL_*_C_2021-12-31",
-  },
-  {
-    label: "ASL_F_M_2023-12-01",
-    value: "ASL_F_M_2023-12-01",
-  },
-  {
-    label: "BLP_*_C_2021-12-31",
-    value: "BLP_*_C_2021-12-31",
-  },
-  {
-    label: "CKL_*_C_2021-12-31",
-    value: "CKL_*_C_2021-12-31",
-  },
-  {
-    label: "CMA_*_C_2022-02-01",
-    value: "CMA_*_C_2022-02-01",
-  },
-  {
-    label: "CNC_*_C_2021-12-31",
-    value: "CNC_*_C_2021-12-31",
-  },
-]
-
 const typePaymentOptions = [
   {
     label: "Thu ngay",
@@ -165,35 +145,7 @@ const typePaymentOptions = [
   },
 ];
 
-function generateRandomNumberFreeDay() {
-  const characters = "123";
-  let result = "";
-  const charactersLength = characters.length;
-  for (let i = 0; i < 2; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
-}
-
-function generateRandomTaxCode() {
-  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  let result = "";
-  const charactersLength = characters.length;
-  for (let i = 0; i < 10; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
-}
-
-for (let index = 0; index < 20; index++) {
-  const duplicatedData = { ...rowData[0] };
-  const duplicatedDataUser = { ...rowDataUser[0] };
-  duplicatedData.NumberFreeDay = generateRandomNumberFreeDay();
-  duplicatedDataUser.TaxCode = generateRandomTaxCode();
-  rowData.push(duplicatedData);
-  rowDataUser.push(duplicatedDataUser);
-}
-export default class TariffFreeDay extends Component {
+export default class TariffContract extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -205,51 +157,38 @@ export default class TariffFreeDay extends Component {
       generalInformation: {},
       tableData: [],
       tableDataUser: [],
-      operatingCarrier: "",
-      typeProduct: "",
+      nameContract: "",
+      carrier: "",
       typePayment: "",
+      customerSelect: "",
+      isDataLoaded: false,
       checkboxValue: false,
       modalVisible: false,
     };
     this.submitButtonRef = createRef();
   }
 
-  componentDidMount() {
-    this.handleLoadData();
-  }
-
   showModal = () => {
     this.setState({ modalVisible: true });
-    this.handleLoadDataUser()
-  };
-
-  handleOk = () => {
-    this.setState({ modalVisible: false });
+    this.handleLoadDataUser();
   };
 
   handleCancel = () => {
     this.setState({ modalVisible: false });
   };
 
-  handleLoadData = (code, type, payment) => {
-    const selectedCarrier = carrierOptions.find((option) =>
-      option.value.startsWith(code)
-    );
-    const updatedCarrierLabel = selectedCarrier ? selectedCarrier.label : "";
+  handleLoadData = (value) => {
+    const nameContractValue = value === "CMA" ? "Hợp đồng CMA" : "";
+    const typePaymentValue = value === "CMA" ? "Thu sau" : "";
+    const customerSelectValue =
+      value === "CMA" ? "TỔNG CÔNG TY THÉP VIỆT NAM -CTCP" : "";
 
-    const selectedTypeProduct = typeProductOptions.find((option) =>
-      option.value.startsWith(type)
+    const carrierValue = carrierOptions.find((option) =>
+      option.value.startsWith(value)
     );
-    const updatedTypeProductLabel = selectedTypeProduct
-      ? selectedTypeProduct.label
-      : "";
+    const updatedCarrierValue = carrierValue ? carrierValue.label : "";
 
-    const selectedPaymentProduct = typePaymentOptions.find((option) =>
-      option.value.startsWith(payment)
-    );
-    const updatedPaymentProductLabel = selectedPaymentProduct
-      ? selectedPaymentProduct.label
-      : "";
+    if (value === "Add") rowData.length = 0;
 
     this.setState({ isLoading: true });
     if (this.submitButtonRef.current) {
@@ -264,10 +203,12 @@ export default class TariffFreeDay extends Component {
           ...prevState.formData,
           tariffNumberError: false,
         },
-        operatingCarrier: updatedCarrierLabel,
-        typeProduct: updatedTypeProductLabel,
-        typePayment: updatedPaymentProductLabel,
+        nameContract: nameContractValue,
+        carrier: updatedCarrierValue,
+        typePayment: typePaymentValue,
+        customerSelect: customerSelectValue,
         isLoading: false,
+        isDataLoaded: true,
       }));
     }, 1000);
   };
@@ -291,41 +232,165 @@ export default class TariffFreeDay extends Component {
 
   render() {
     const columnsFormat = [
-      { columnId: "STT", width: 100, resizable: true, header: "STT" },
+      { columnId: "STT", width: 50, resizable: true, header: "STT" },
       {
-        columnId: "FullEmpty",
-        width: 200,
+        columnId: "TariffCode",
+        width: 150,
         resizable: true,
         reorderable: true,
-        header: "Full/Empty",
+        header: "Mã biểu cước",
       },
       {
-        columnId: "ProductType",
-        width: 200,
+        columnId: "Description",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "Diễn giải",
+      },
+      {
+        columnId: "Direction",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "Hướng cont",
+      },
+      {
+        columnId: "CargoType",
+        width: 150,
         resizable: true,
         reorderable: true,
         header: "Loại hàng",
       },
       {
-        columnId: "StartTime",
-        width: 300,
-        resizable: true,
-        reorderable: true,
-        header: "Thời gian bắt đầu",
-      },
-      {
-        columnId: "EndTime",
-        width: 300,
-        resizable: true,
-        reorderable: true,
-        header: "Thời gian kết thúc",
-      },
-      {
-        columnId: "NumberFreeDay",
+        columnId: "CVType",
         width: 150,
         resizable: true,
         reorderable: true,
-        header: "Số ngày miễn phí",
+        header: "Loại CV",
+      },
+      {
+        columnId: "Plan",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "Phương Án",
+      },
+      {
+        columnId: "TransportType",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "PTGN",
+      },
+      {
+        columnId: "Type",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "Loại hình",
+      },
+      {
+        columnId: "DomesticInternational",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "Nội/Ngoại",
+      },
+      {
+        columnId: "MoneyType",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "Loại tiền",
+      },
+      {
+        columnId: "Full20",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "Tiền 20 Full",
+      },
+      {
+        columnId: "Full40",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "Tiền 40 Full",
+      },
+      {
+        columnId: "Full45",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "Tiền 45 Full",
+      },
+      {
+        columnId: "Empty20",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "Tiền 20 Empty",
+      },
+      {
+        columnId: "Empty40",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "Tiền 40 Empty",
+      },
+      {
+        columnId: "Empty45",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "Tiền 45 Empty",
+      },
+      {
+        columnId: "NonCont",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "Tiền Non-Cont",
+      },
+      {
+        columnId: "IncludeTax",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "Bao gồm thuế",
+        render: (text, record) => (
+          <Mcheckbox
+            dataSource={{
+              key: "isCheck",
+              value: this.state.checkboxValue,
+            }}
+            onChange={(e) => this.handleCheckboxChange(e)}
+          />
+        ),
+      },
+      {
+        columnId: "VAT",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "VAT (%)",
+      },
+      {
+        columnId: "Unit",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "Đơn vị tính",
+      },
+      {
+        columnId: "Reload",
+        width: 150,
+        resizable: true,
+        reorderable: true,
+        header: "Tải lại",
+        render: () => (
+          <Mbutton onClick={() => this.handleLoadData()}>Tải lại</Mbutton>
+        ),
       },
     ];
 
@@ -374,27 +439,103 @@ export default class TariffFreeDay extends Component {
         {
           type: "text",
           nonEditable: false,
-          text: tariff?.FullEmpty || "",
+          text: tariff?.TariffCode || "",
         },
         {
           type: "text",
           nonEditable: false,
-          text: tariff?.ProductType || "",
+          text: tariff?.Description || "",
         },
         {
           type: "text",
           nonEditable: false,
-          text: tariff?.StartTime ? formatDateTime(tariff?.StartTime) : "",
+          text: tariff?.Direction || "",
         },
         {
           type: "text",
           nonEditable: false,
-          text: tariff?.EndTime ? formatDateTime(tariff?.EndTime) : "",
+          text: tariff?.CargoType || "",
+        },
+        { type: "text", nonEditable: false, text: tariff?.CVType || "" },
+        {
+          type: "text",
+          nonEditable: false,
+          text: tariff?.Plan || "",
         },
         {
           type: "text",
           nonEditable: false,
-          text: tariff?.NumberFreeDay || "",
+          text: tariff?.TransportType || "",
+        },
+        {
+          type: "text",
+          nonEditable: false,
+          text: tariff?.Type || "",
+        },
+        {
+          type: "text",
+          nonEditable: false,
+          text: tariff?.DomesticInternational || "",
+        },
+        {
+          type: "text",
+          nonEditable: false,
+          text: tariff?.MoneyType || "",
+        },
+        {
+          type: "text",
+          nonEditable: false,
+          text: tariff?.Full20 || "",
+        },
+        {
+          type: "text",
+          nonEditable: false,
+          text: tariff?.Full40 || "",
+        },
+        {
+          type: "text",
+          nonEditable: false,
+          text: tariff?.Full45 || "",
+        },
+        {
+          type: "text",
+          nonEditable: false,
+          text: tariff?.Empty20 || "",
+        },
+        {
+          type: "text",
+          nonEditable: false,
+          text: tariff?.Empty40 || "",
+        },
+        {
+          type: "text",
+          nonEditable: false,
+          text: tariff?.Empty45 || "",
+        },
+        {
+          type: "text",
+          nonEditable: false,
+          text: tariff?.NonCont || "",
+        },
+        {
+          type: "checkbox",
+          nonEditable: false,
+          checked: tariff?.IncludeTax === this.state.checkboxValue,
+        },
+        {
+          type: "text",
+          nonEditable: false,
+          text: tariff?.VAT || "",
+        },
+        {
+          type: "text",
+          nonEditable: false,
+          text: tariff?.Unit || "",
+        },
+        {
+          type: "text",
+          nonEditable: false,
+          text: "Tải lạiiii",
         },
       ];
     };
@@ -428,11 +569,27 @@ export default class TariffFreeDay extends Component {
 
     const rowsHeader = [
       { type: "header", text: "STT" },
-      { type: "header", text: "Full/Empty" },
+      { type: "header", text: "Mã biểu cước" },
+      { type: "header", text: "Diễn giải" },
+      { type: "header", text: "Hướng cont" },
       { type: "header", text: "Loại hàng" },
-      { type: "header", text: "Thời gian bắt đầu" },
-      { type: "header", text: "Thời gian kết thúc" },
-      { type: "header", text: "Số ngày miễn phí" },
+      { type: "header", text: "Loại CV" },
+      { type: "header", text: "Phương án" },
+      { type: "header", text: "PTGN" },
+      { type: "header", text: "Loại hình" },
+      { type: "header", text: "Nội/Ngoại" },
+      { type: "header", text: "Loại tiền" },
+      { type: "header", text: "Tiền 20 Full" },
+      { type: "header", text: "Tiền 40 Full" },
+      { type: "header", text: "Tiền 45 Full" },
+      { type: "header", text: "Tiền 20 Empty" },
+      { type: "header", text: "Tiền 40 Empty" },
+      { type: "header", text: "Tiền 45 Empty" },
+      { type: "header", text: "Tiền Non-Cont" },
+      { type: "header", text: "Bao gồm thuế" },
+      { type: "header", text: "VAT (%)" },
+      { type: "header", text: "Đơn vị tính" },
+      { type: "header", text: "Tải lại" },
     ];
 
     const rowsHeaderUser = [
@@ -444,21 +601,25 @@ export default class TariffFreeDay extends Component {
       { type: "header", text: "Điện thoại" },
     ];
     return (
-      <Content className="flex_layout-8-16_container tariffFreeDay_content">
+      <Content className="flex_layout-8-16_container tariffContract_content">
         <Row gutter={[12, 12]}>
           <Col lg={{ span: 8 }} sm={{ span: 24 }}>
             <Mcard
-              title={<span style={{ color: "white" }}>Cấu hình lưu bãi</span>}
+              title={
+                <span style={{ color: "white" }}>
+                  Cấu hình biểu cước giảm giá
+                </span>
+              }
             >
               <Col className="input_layout">
                 <Row>
                   <Row>
                     <Col>
-                      Mẫu<span>*</span>
+                      Mẫu biểu cước<span>*</span>
                     </Col>
                     <Tooltip
                       placement="top"
-                      title={"Mẫu"}
+                      title={"Mẫu biểu cước"}
                       className="item_tooltip"
                     >
                       <InfoCircleOutlined />
@@ -466,28 +627,39 @@ export default class TariffFreeDay extends Component {
                   </Row>
                   <Mselect
                     dataSource={{
-                      label: "Mẫu...",
+                      label: "Mẫu biểu cước",
                       ref: this.submitButtonRef,
-                      options: sampleOptions,
+                      options: sampleTariff
                     }}
                     onChangeValue={(value) => {
-                      const stringValue = Object.values(value)[0];
-                      const code = stringValue.substring(0, 3);
-                      const type = stringValue.charAt(
-                        stringValue.indexOf("_") + 1
-                      );
-                      const payment = stringValue.charAt(
-                        stringValue.indexOf("_", stringValue.indexOf("_") + 1) +
-                          1
-                      );
-                      this.handleLoadData(code, type, payment);
+                      this.handleLoadData(Object.values(value)[0]);
                     }}
                   />
                   <Mdivider dataSource={{ label: "Chi tiết cấu hình" }} />
                 </Row>
+                <Winput
+                  key={this.state.nameContract}
+                  title={"Tên hợp đồng"}
+                  tooltip={"Tên hợp đồng"}
+                  value={this.state.nameContract}
+                  onChange={(e) => console.log(e)}
+                  checkError={(error) =>
+                    this.setState((prevState) => ({
+                      formData: {
+                        ...prevState.formData,
+                        tariffNumberError: error,
+                      },
+                    }))
+                  }
+                  require={false}
+                  name={"nameContract"}
+                  className={`form_input_field`}
+                  prefix={<UnorderedListOutlined />}
+                  placeholder={"Tên hợp đồng"}
+                />
                 <Row justify={"space-between"}>
                   <Col>
-                    <Row>Ngày hiệu lực</Row>
+                    <Row>Từ ngày...</Row>
                     <Mdatepicker
                       dataSource={{
                         value: this.state.formData.fromDate,
@@ -502,7 +674,7 @@ export default class TariffFreeDay extends Component {
                     />
                   </Col>
                   <Col>
-                    <Row>Ngày hết hạn</Row>
+                    <Row>Đến ngày...</Row>
                     <Mdatepicker
                       dataSource={{
                         value: this.state.formData.toDate,
@@ -518,93 +690,35 @@ export default class TariffFreeDay extends Component {
                     />
                   </Col>
                 </Row>
-                <Row>
-                  <Row>
-                    <Col>
-                      Hãng khai thác<span>*</span>
-                    </Col>
-                    <Tooltip
-                      placement="top"
-                      title={"Hãng khai thác"}
-                      className="item_tooltip"
-                    >
-                      <InfoCircleOutlined />
-                    </Tooltip>
-                  </Row>
-
-                  <Mselect
-                    key={this.state.operatingCarrier}
-                    dataSource={{
-                      label: this.state.operatingCarrier || "Hãng khai thác",
-                      ref: this.submitButtonRef,
-                      options: carrierOptions,
-                    }}
-                    value={this.state.operatingCarrier}
-                    onChangeValue={(value) => {}}
-                  />
-                </Row>
-                <Row align="bottom">
-                  <Col xs={24} sm={18} md={20} lg={22} style={{ marginRight: "16px" }}>
-                    <Winput
-                      title={"Chọn khách hàng"}
-                      tooltip={"Chọn khách hàng"}
-                      onChange={(e) => console.log(e)}
-                      checkError={(error) =>
-                        this.setState((prevState) => ({
-                          formData: {
-                            ...prevState.formData,
-                            tariffNumberError: error,
-                          },
-                        }))
-                      }
-                      require={false}
-                      name={"selectUser"}
-                      className={`form_input_field`}
-                      prefix={<UserOutlined />}
-                      placeholder={"Chọn khách hàng"}
-                    />
-                  </Col>
-                  <Col xs={24} sm={6} md={4} lg={1} style={{ marginBottom: "4px" }}>
-                    <Mbutton
-                      color=""
-                      className="btn-search"
-                      size={"12"}
-                      onClick={this.showModal}
-                      dataSource={{
-                          textbutton: ` `,
-                          icon: "SearchOutlined",
-                      }}
-                    />
-                  </Col>
-                </Row>
                 <Row justify={"space-between"}>
                   <Col span={11}>
                     <Row>
                       <Col>
-                        Hàng Nội/Ngoại<span>*</span>
+                        Hãng khai thác<span>*</span>
                       </Col>
                       <Tooltip
                         placement="top"
-                        title={"Hàng Nội/Ngoại"}
+                        title={"Hãng khai thác"}
                         className="item_tooltip"
                       >
                         <InfoCircleOutlined />
                       </Tooltip>
                     </Row>
                     <Mselect
-                      key={this.state.typeProduct}
+                      key={this.state.carrier}
                       dataSource={{
-                        label: this.state.typeProduct || "",
+                        label: this.state.carrier || "",
                         ref: this.submitButtonRef,
-                        options: typeProductOptions,
+                        options: carrierOptions,
                       }}
-                      onChangeValue={(value) => {}}
+                      onChangeValue={() => {
+                      }}
                     />
                   </Col>
                   <Col span={11}>
                     <Row>
                       <Col>
-                        Loại thanh toán<span>*</span>
+                        thanh toán<span>*</span>
                       </Col>
                       <Tooltip
                         placement="top"
@@ -621,18 +735,48 @@ export default class TariffFreeDay extends Component {
                         ref: this.submitButtonRef,
                         options: typePaymentOptions,
                       }}
-                      onChangeValue={() => {
-                      }}
+                      onChangeValue={() => {}}
                     />
                   </Col>
-                  <Mcheckbox
-                    dataSource={{
-                      key: "isRFCheck",
-                      label: "Tính lưu bãi container lạnh",
-                      value: this.state.checkboxValue,
-                    }}
-                    onChangeValue={this.handleCheckboxChange}
-                  />
+                </Row>
+                <Row align="bottom">
+                  <Col xs={24} sm={18} md={20} lg={22} style={{ marginRight: "16px" }}>
+                    <Winput
+                      key={this.state.customerSelect}
+                      title={"Chọn khách hàng"}
+                      tooltip={"Chọn khách hàng"}
+                      value={this.state.customerSelect}
+                      onChange={(e) => console.log(e)}
+                      checkError={(error) =>
+                        this.setState((prevState) => ({
+                          formData: {
+                            ...prevState.formData,
+                            tariffNumberError: error,
+                          },
+                        }))
+                      }
+                      require={false}
+                      name={"selectUser"}
+                      className={`form_input_field`}
+                      prefix={<UserOutlined />}
+                      placeholder={"Chọn khách hàng"}
+                      disabled={!!this.state.customerSelect}
+                    />
+                  </Col>
+                  <Col xs={24} sm={6} md={4} lg={1} style={{ marginBottom: "4px" }}>
+                    <Mbutton
+                      color=""
+                      block
+                      className="btn-search"
+                      size={"12"}
+                      onClick={this.showModal}
+                      dataSource={{
+                        textbutton: ` `,
+                        icon: "SearchOutlined",
+                      }}
+                      disabled={!!this.state.customerSelect}
+                    />
+                  </Col>
                 </Row>
               </Col>
             </Mcard>
@@ -641,7 +785,7 @@ export default class TariffFreeDay extends Component {
             <Mcard
               title={
                 <span style={{ color: "white" }}>
-                  Danh sách cấu hình lưu bãi
+                  Danh sách cấu hình hợp đồng
                 </span>
               }
               className="container_list"
@@ -673,7 +817,7 @@ export default class TariffFreeDay extends Component {
                       saveData: () => {
                         this.saveData();
                       },
-                      searchField: ["FullEmpty", "ProductType"],
+                      searchField: ["TariffCode"],
                     }}
                   />
                 )
@@ -691,11 +835,8 @@ export default class TariffFreeDay extends Component {
             closeIcon={<CloseOutlined />}
             footer={null}
             className="custom-wide-modal-tariff"
-            style={{width: "80%"}}
           >
-            <Row>
-              Tìm theo mã số thuế*
-            </Row>
+            <Row>Tìm theo mã số thuế*</Row>
             <Mtable
               key={this.state.tableDataUser}
               config={{

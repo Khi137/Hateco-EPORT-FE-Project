@@ -16,9 +16,9 @@ import TrackingBill from "../views/tracking/trackingBill";
 import TrackingBooking from "../views/tracking/trackingBooking";
 import TrackingEdo from "../views/tracking/trackingEdo";
 import TrackingHouseBill from "../views/tracking/trackingHouseBill";
-import Customer from "../views/category/customer";
+import Customer from "../views/category/Customer";
 import Task from "../views/category/task";
-import ShipExploitBrand from "../views/category/shipExploitBrand";
+import ShipExploitBrand from "../views/category/ShipExploitBrand";
 import CommoditiesType from "../views/category/commoditiesType";
 import DirectionContainer from "../views/category/directionContainer";
 import PortsList from "../views/category/portsList";
@@ -38,6 +38,7 @@ import TariffStandard from "../views/tariff/tariffStandard.jsx";
 import TariffRefer from "../views/tariff/tariffRefer.jsx";
 import TariffFreeDay from "../views/tariff/tariffFreeDay.jsx";
 import TariffHoliday from "../views/tariff/tariffHoliday.jsx";
+import TariffContract from "../views/tariff/tariffContract.jsx";
 
 class MainRoutes extends Component {
   render() {
@@ -63,6 +64,7 @@ class MainRoutes extends Component {
             <Route path="tariff-refer" element={<TariffRefer />} />
             <Route path="tariff-freeday" element={<TariffFreeDay />} />
             <Route path="tariff-holiday" element={<TariffHoliday />} />
+            <Route path="tariff-contract" element={<TariffContract />} />
           </Route>
 
           <Route path="/tracking">
