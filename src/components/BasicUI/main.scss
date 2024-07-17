@@ -5459,6 +5459,20 @@ select {
 }
 //-----------tariff
 
+.tariffContract_content {
+  .ant-btn-default:disabled {
+    background: transparent;
+  }
+}
+.tariffFreeDay_content,
+.tariffContract_content,
+.tariffHoliday_content {
+  .tariff-button {
+    .ant-btn {
+      padding: 0;
+    }
+  }
+}
 .btn-search {
   border: none;
   color: $color-second;

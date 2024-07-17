@@ -5,17 +5,6 @@ import { Col, Row } from "antd";
 import { formatDateTime } from "../../utils/util";
 import { DatabaseOutlined, LoadingOutlined } from "@ant-design/icons";
 
-const rowData = [
-  {
-    EffectiveDate: "2021-04-10T19:44:22.000Z",
-    ExpirationDate: "2021-04-14T12:54:30.000Z",
-    RoundHours: 'Nửa giờ',
-    AdditionalHours: '10.5',
-    PaymentType: 'M: Mua ngay',
-    Carrier: "TCNU8698362",
-  },
-];
-
 function generateRandomCarrier() {
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let result = "";
@@ -25,13 +14,6 @@ function generateRandomCarrier() {
   }
   return result;
 }
-
-for (let index = 0; index < 20; index++) {
-  const duplicatedData = { ...rowData[0] };
-  duplicatedData.Carrier = generateRandomCarrier();
-  rowData.push(duplicatedData);
-}
-
 export default class TariffRefer extends Component {
   constructor(props) {
     super(props);
@@ -43,31 +25,19 @@ export default class TariffRefer extends Component {
       tableData: [],
     };
     this.submitButtonRef = createRef();
-  }
 
-  componentDidMount() {
-    this.handleLoadData()
-  }
+    this.rowData = [
+      {
+        EffectiveDate: "2021-04-10T19:44:22.000Z",
+        ExpirationDate: "2021-04-14T12:54:30.000Z",
+        RoundHours: 'Nửa giờ',
+        AdditionalHours: '10.5',
+        PaymentType: 'M: Mua ngay',
+        Carrier: "TCNU8698362",
+      },
+    ];
 
-  handleLoadData = () => {
-    this.setState({ isLoading: true });
-    if (this.submitButtonRef.current) {
-      this.submitButtonRef.current.loading();
-    }
-    setTimeout(() => {
-      this.setState((prevState) => ({
-        generalInformation: rowData[0] ? rowData[0] : {},
-        tableData: rowData,
-        formData: {
-          ...prevState.formData,
-          tariffNumberError: false,
-        },
-        isLoading: false,
-      }));
-    }, 1000);
-  };
-  render() {
-    const columnsFormat = [
+    this.columnsFormat = [
       { columnId: "STT", width: 100, resizable: true, header: "STT" },
       {
         columnId: "Carrier",
@@ -113,7 +83,7 @@ export default class TariffRefer extends Component {
       },
     ];
 
-    const rowsFormat = (tariff, index) => {
+    this.rowsFormat = (tariff, index) => {
       return [
         { type: "text", nonEditable: true, text: String(index + 1) },
         {
@@ -145,7 +115,7 @@ export default class TariffRefer extends Component {
       ];
     };
 
-    const rowsHeader = [
+    this.rowsHeader = [
       { type: "header", text: "STT" },
       { type: "header", text: "Hãng khai thác" },
       { type: "header", text: "Ngày hiệu lực" },
@@ -154,6 +124,36 @@ export default class TariffRefer extends Component {
       { type: "header", text: "Giờ cộng thêm" },
       { type: "header", text: "Loại thanh toán" },
     ];
+
+    for (let index = 0; index < 20; index++) {
+      const duplicatedData = { ...this.rowData[0] };
+      duplicatedData.Carrier = generateRandomCarrier();
+      this.rowData.push(duplicatedData);
+    }
+  }
+
+  componentDidMount() {
+    this.handleLoadData()
+  }
+
+  handleLoadData = () => {
+    this.setState({ isLoading: true });
+    if (this.submitButtonRef.current) {
+      this.submitButtonRef.current.loading();
+    }
+    setTimeout(() => {
+      this.setState((prevState) => ({
+        generalInformation: this.rowData[0] ? this.rowData[0] : {},
+        tableData: this.rowData,
+        formData: {
+          ...prevState.formData,
+          tariffNumberError: false,
+        },
+        isLoading: false,
+      }));
+    }, 1000);
+  };
+  render() {
     return (
       <Content className="flex_layout-8-16_container tariff_layout">
         <Row gutter={[12, 12]}>
@@ -175,9 +175,9 @@ export default class TariffRefer extends Component {
                   <Mtable
                     config={{
                       defaultData: this.state.tableData,
-                      columnsFormat: columnsFormat,
-                      rowsFormat: rowsFormat,
-                      rowsHeader: rowsHeader,
+                      columnsFormat: this.columnsFormat,
+                      rowsFormat: this.rowsFormat,
+                      rowsHeader: this.rowsHeader,
                       reorderRow: true,
                     }}
                     functionRequire={{
