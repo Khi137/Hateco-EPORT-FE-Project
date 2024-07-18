@@ -5440,6 +5440,20 @@ select {
 
 //-----------tariff
 
+.tariffContract_content {
+  .ant-btn-default:disabled {
+    background: transparent;
+  }
+}
+.tariffFreeDay_content,
+.tariffContract_content,
+.tariffHoliday_content {
+  .tariff-button {
+    .ant-btn {
+      padding: 0;
+    }
+  }
+}
 .btn-search {
   border: none;
   color: $color-second;
@@ -5461,4 +5475,58 @@ select {
 
 .ant-modal-content .table_container .table_content {
   min-height: 50vh;
+} //-----------report
+
+.general_information_content{
+
+    .information_content_item{
+
+        .item_title{
+            font-size: 18px;
+        }
+
+    }
+}
+.dashed-line{
+    border-bottom: 1px dashed #464646;
+    width: 45%;
+}
+.div-loaddata{
+    text-align: center;
+}
+
+.mtable-tacnghiep .table_container .table_feature_container{
+    display: none;
+}
+
+.btn-loaddata{
+    width: 35% !important;
+}
+
+.search-btn{
+    border:none;
+}
+
+.custom-wide-modal-report {
+    width: 70vw !important;
+    max-width: 1800px !important;
+}
+  
+.custom-wide-modal-report .ant-modal-content {
+    width: 100%;
+}
+
+.cont_select{
+    width: 45%;
+}
+
+.item_value{
+    text-align: right;
+}
+
+.container-storage-form{
+  gap: 12px;
+}
+.input_layout_cont{
+  margin-top: -10px;
 }

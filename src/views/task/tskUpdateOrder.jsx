@@ -386,7 +386,7 @@ class TskUpdateOrder extends Component {
                                             htmlType="submit"
                                             block
                                             // onClick={this.handleSaveData}
-                                            onClick={() => this.hanldeChangeVisible("updateCommandOrderVisible")}
+                                            onClick={() => this.hanldeChangeVisible("updateContainerVisible")}
                                             // ref={this.submitButtonRef}
                                             size={"12"}
                                             dataSource={{

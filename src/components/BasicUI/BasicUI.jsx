@@ -2142,6 +2142,8 @@ class Mtable extends React.Component {
     const { tableData, searchValue } = this.state;
     const { addcolumn, deleteColumn, exportExel, searchField, saveData } = this.props.functionRequire;
 
+    // const rows = 
+
     return (
       <div className="table_container">
         <Row className="table_feature_container">

@@ -267,30 +267,30 @@ const initialState = [
   {
     text: "Thống kê - báo cáo",
     icon: "BarChartOutlined",
-    url: "/thống-kê-báo-cáo",
+    url: "/report",
     subMenu: [
       {
         id: "tkbc-01",
         text: "Hóa đơn thu ngay",
-        url: "/hóa-đơn-thu-ngay",
+        url: "/InstantInvoiceWithReleasePointReport",
         icon: "FileWordOutlined",
       },
       {
         id: "tkbc-02",
         text: "Hóa đơn theo tác nghiệp",
-        url: "/hóa-đơn-theo-tác-nghiệp",
+        url: "/containerInvoiceReport",
         icon: "FilePptOutlined",
       },
       {
         id: "tkbc-03",
         text: "Tổng hợp doanh thu hóa đơn thu ngay",
-        url: "/tổng-hợp-doanh-thu-hóa-đơn-thu-ngay",
+        url: "/jobModeInvoiceWithReleasePointReport",
         icon: "FileMarkdownOutlined",
       },
       {
         id: "tkbc-04",
         text: "Container biến động",
-        url: "/container-biến-động",
+        url: "/containerStorageReport",
         icon: "FolderOutlined",
       },
       {
