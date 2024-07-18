@@ -32,17 +32,15 @@ $yellow: #e0bb38;
   src: url("../fonts/titillium-web-v9-latin-regular.eot");
   /* IE9 Compat Modes */
   src: local(""),
-    url("../fonts/titillium-web-v9-latin-regular.eot?#iefix")
-      format("embedded-opentype"),
-    /* IE6-IE8 */ url("../fonts/titillium-web-v9-latin-regular.woff2")
-      format("woff2"),
+    url("../fonts/titillium-web-v9-latin-regular.eot?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */
+    url("../fonts/titillium-web-v9-latin-regular.woff2") format("woff2"),
     /* Super Modern Browsers */
-      url("../fonts/titillium-web-v9-latin-regular.woff") format("woff"),
-    /* Modern Browsers */ url("../fonts/titillium-web-v9-latin-regular.ttf")
-      format("truetype"),
+    url("../fonts/titillium-web-v9-latin-regular.woff") format("woff"),
+    /* Modern Browsers */
+    url("../fonts/titillium-web-v9-latin-regular.ttf") format("truetype"),
     /* Safari, Android, iOS */
-      url("../fonts/titillium-web-v9-latin-regular.svg#TitilliumWeb")
-      format("svg");
+    url("../fonts/titillium-web-v9-latin-regular.svg#TitilliumWeb") format("svg");
   /* Legacy iOS */
 }
 
@@ -54,16 +52,15 @@ $yellow: #e0bb38;
   src: url("../fonts/titillium-web-v9-latin-600.eot");
   /* IE9 Compat Modes */
   src: local(""),
-    url("../fonts/titillium-web-v9-latin-600.eot?#iefix")
-      format("embedded-opentype"),
-    /* IE6-IE8 */ url("../fonts/titillium-web-v9-latin-600.woff2")
-      format("woff2"),
-    /* Super Modern Browsers */ url("../fonts/titillium-web-v9-latin-600.woff")
-      format("woff"),
-    /* Modern Browsers */ url("../fonts/titillium-web-v9-latin-600.ttf")
-      format("truetype"),
+    url("../fonts/titillium-web-v9-latin-600.eot?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */
+    url("../fonts/titillium-web-v9-latin-600.woff2") format("woff2"),
+    /* Super Modern Browsers */
+    url("../fonts/titillium-web-v9-latin-600.woff") format("woff"),
+    /* Modern Browsers */
+    url("../fonts/titillium-web-v9-latin-600.ttf") format("truetype"),
     /* Safari, Android, iOS */
-      url("../fonts/titillium-web-v9-latin-600.svg#TitilliumWeb") format("svg");
+    url("../fonts/titillium-web-v9-latin-600.svg#TitilliumWeb") format("svg");
   /* Legacy iOS */
 }
 
@@ -75,17 +72,15 @@ $yellow: #e0bb38;
   src: url("../fonts/roboto-v20-vietnamese_latin-regular.eot");
   /* IE9 Compat Modes */
   src: local(""),
-    url("../fonts/roboto-v20-vietnamese_latin-regular.eot?#iefix")
-      format("embedded-opentype"),
-    /* IE6-IE8 */ url("../fonts/roboto-v20-vietnamese_latin-regular.woff2")
-      format("woff2"),
+    url("../fonts/roboto-v20-vietnamese_latin-regular.eot?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */
+    url("../fonts/roboto-v20-vietnamese_latin-regular.woff2") format("woff2"),
     /* Super Modern Browsers */
-      url("../fonts/roboto-v20-vietnamese_latin-regular.woff") format("woff"),
+    url("../fonts/roboto-v20-vietnamese_latin-regular.woff") format("woff"),
     /* Modern Browsers */
-      url("../fonts/roboto-v20-vietnamese_latin-regular.ttf") format("truetype"),
+    url("../fonts/roboto-v20-vietnamese_latin-regular.ttf") format("truetype"),
     /* Safari, Android, iOS */
-      url("../fonts/roboto-v20-vietnamese_latin-regular.svg#Roboto")
-      format("svg");
+    url("../fonts/roboto-v20-vietnamese_latin-regular.svg#Roboto") format("svg");
   /* Legacy iOS */
 }
 
@@ -97,16 +92,15 @@ $yellow: #e0bb38;
   src: url("../fonts/roboto-v20-vietnamese_latin-700.eot");
   /* IE9 Compat Modes */
   src: local(""),
-    url("../fonts/roboto-v20-vietnamese_latin-700.eot?#iefix")
-      format("embedded-opentype"),
-    /* IE6-IE8 */ url("../fonts/roboto-v20-vietnamese_latin-700.woff2")
-      format("woff2"),
+    url("../fonts/roboto-v20-vietnamese_latin-700.eot?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */
+    url("../fonts/roboto-v20-vietnamese_latin-700.woff2") format("woff2"),
     /* Super Modern Browsers */
-      url("../fonts/roboto-v20-vietnamese_latin-700.woff") format("woff"),
-    /* Modern Browsers */ url("../fonts/roboto-v20-vietnamese_latin-700.ttf")
-      format("truetype"),
+    url("../fonts/roboto-v20-vietnamese_latin-700.woff") format("woff"),
+    /* Modern Browsers */
+    url("../fonts/roboto-v20-vietnamese_latin-700.ttf") format("truetype"),
     /* Safari, Android, iOS */
-      url("../fonts/roboto-v20-vietnamese_latin-700.svg#Roboto") format("svg");
+    url("../fonts/roboto-v20-vietnamese_latin-700.svg#Roboto") format("svg");
   /* Legacy iOS */
 }
 
@@ -175,12 +169,10 @@ $color-warning-400: #a6620d;
 
 //Opacity
 $color-opacity-primary: rgba(red(#7d49f8), green(#7d49f8), blue(#7d49f8), 0.15);
-$color-opacity-secondary: rgba(
-  red(#1c6fe3),
-  green(#1c6fe3),
-  blue(#1c6fe3),
-  0.15
-);
+$color-opacity-secondary: rgba(red(#1c6fe3),
+    green(#1c6fe3),
+    blue(#1c6fe3),
+    0.15);
 $color-opacity-danger: rgba(red(#c92929), green(#c92929), blue(#c92929), 0.15);
 $color-opacity-success: rgba(red(#12825f), green(#12825f), blue(#12825f), 0.15);
 $color-opacity-warning: rgba(red(#f2ab53), green(#f2ab53), blue(#f2ab53), 0.15);
@@ -415,7 +407,7 @@ $caption-line-height: 14px;
   background: $brand-bg !important;
   padding: $padd !important;
 
-  & > * {
+  &>* {
     margin: $childmar;
   }
 }
@@ -429,16 +421,15 @@ $caption-line-height: 14px;
   src: url("../fonts/fredoka-one-v8-latin-regular.eot");
   /* IE9 Compat Modes */
   src: local(""),
-    url("../fonts/fredoka-one-v8-latin-regular.eot?#iefix")
-      format("embedded-opentype"),
-    /* IE6-IE8 */ url("../fonts/fredoka-one-v8-latin-regular.woff2")
-      format("woff2"),
+    url("../fonts/fredoka-one-v8-latin-regular.eot?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */
+    url("../fonts/fredoka-one-v8-latin-regular.woff2") format("woff2"),
     /* Super Modern Browsers */
-      url("../fonts/fredoka-one-v8-latin-regular.woff") format("woff"),
-    /* Modern Browsers */ url("../fonts/fredoka-one-v8-latin-regular.ttf")
-      format("truetype"),
+    url("../fonts/fredoka-one-v8-latin-regular.woff") format("woff"),
+    /* Modern Browsers */
+    url("../fonts/fredoka-one-v8-latin-regular.ttf") format("truetype"),
     /* Safari, Android, iOS */
-      url("../fonts/fredoka-one-v8-latin-regular.svg#FredokaOne") format("svg");
+    url("../fonts/fredoka-one-v8-latin-regular.svg#FredokaOne") format("svg");
   /* Legacy iOS */
 }
 
@@ -450,17 +441,15 @@ $caption-line-height: 14px;
   src: url("../fonts/titillium-web-v9-latin-regular.eot");
   /* IE9 Compat Modes */
   src: local(""),
-    url("../fonts/titillium-web-v9-latin-regular.eot?#iefix")
-      format("embedded-opentype"),
-    /* IE6-IE8 */ url("../fonts/titillium-web-v9-latin-regular.woff2")
-      format("woff2"),
+    url("../fonts/titillium-web-v9-latin-regular.eot?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */
+    url("../fonts/titillium-web-v9-latin-regular.woff2") format("woff2"),
     /* Super Modern Browsers */
-      url("../fonts/titillium-web-v9-latin-regular.woff") format("woff"),
-    /* Modern Browsers */ url("../fonts/titillium-web-v9-latin-regular.ttf")
-      format("truetype"),
+    url("../fonts/titillium-web-v9-latin-regular.woff") format("woff"),
+    /* Modern Browsers */
+    url("../fonts/titillium-web-v9-latin-regular.ttf") format("truetype"),
     /* Safari, Android, iOS */
-      url("../fonts/titillium-web-v9-latin-regular.svg#TitilliumWeb")
-      format("svg");
+    url("../fonts/titillium-web-v9-latin-regular.svg#TitilliumWeb") format("svg");
   /* Legacy iOS */
 }
 
@@ -472,16 +461,15 @@ $caption-line-height: 14px;
   src: url("../fonts/titillium-web-v9-latin-600.eot");
   /* IE9 Compat Modes */
   src: local(""),
-    url("../fonts/titillium-web-v9-latin-600.eot?#iefix")
-      format("embedded-opentype"),
-    /* IE6-IE8 */ url("../fonts/titillium-web-v9-latin-600.woff2")
-      format("woff2"),
-    /* Super Modern Browsers */ url("../fonts/titillium-web-v9-latin-600.woff")
-      format("woff"),
-    /* Modern Browsers */ url("../fonts/titillium-web-v9-latin-600.ttf")
-      format("truetype"),
+    url("../fonts/titillium-web-v9-latin-600.eot?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */
+    url("../fonts/titillium-web-v9-latin-600.woff2") format("woff2"),
+    /* Super Modern Browsers */
+    url("../fonts/titillium-web-v9-latin-600.woff") format("woff"),
+    /* Modern Browsers */
+    url("../fonts/titillium-web-v9-latin-600.ttf") format("truetype"),
     /* Safari, Android, iOS */
-      url("../fonts/titillium-web-v9-latin-600.svg#TitilliumWeb") format("svg");
+    url("../fonts/titillium-web-v9-latin-600.svg#TitilliumWeb") format("svg");
   /* Legacy iOS */
 }
 
@@ -509,11 +497,9 @@ $brand-sub: #57606b; //Sub-title
 $brand-btn: #32a3fd;
 $brand-btn-clicked: #2493eb;
 $brand-bg: #fff;
-$header-bg: linear-gradient(
-  to top,
-  rgba($brand-cl100, 1),
-  rgba($brand-cl100, 0)
-);
+$header-bg: linear-gradient(to top,
+    rgba($brand-cl100, 1),
+    rgba($brand-cl100, 0));
 
 /* roboto-condensed-300 - vietnamese_latin */
 @font-face {
@@ -523,20 +509,15 @@ $header-bg: linear-gradient(
   src: url("../fonts/roboto-condensed-v19-vietnamese_latin-300.eot");
   /* IE9 Compat Modes */
   src: local(""),
-    url("../fonts/roboto-condensed-v19-vietnamese_latin-300.eot?#iefix")
-      format("embedded-opentype"),
+    url("../fonts/roboto-condensed-v19-vietnamese_latin-300.eot?#iefix") format("embedded-opentype"),
     /* IE6-IE8 */
-      url("../fonts/roboto-condensed-v19-vietnamese_latin-300.woff2")
-      format("woff2"),
+    url("../fonts/roboto-condensed-v19-vietnamese_latin-300.woff2") format("woff2"),
     /* Super Modern Browsers */
-      url("../fonts/roboto-condensed-v19-vietnamese_latin-300.woff")
-      format("woff"),
+    url("../fonts/roboto-condensed-v19-vietnamese_latin-300.woff") format("woff"),
     /* Modern Browsers */
-      url("../fonts/roboto-condensed-v19-vietnamese_latin-300.ttf")
-      format("truetype"),
+    url("../fonts/roboto-condensed-v19-vietnamese_latin-300.ttf") format("truetype"),
     /* Safari, Android, iOS */
-      url("../fonts/roboto-condensed-v19-vietnamese_latin-300.svg#RobotoCondensed")
-      format("svg");
+    url("../fonts/roboto-condensed-v19-vietnamese_latin-300.svg#RobotoCondensed") format("svg");
   /* Legacy iOS */
 }
 
@@ -548,20 +529,15 @@ $header-bg: linear-gradient(
   src: url("../fonts/roboto-condensed-v19-vietnamese_latin-regular.eot");
   /* IE9 Compat Modes */
   src: local(""),
-    url("../fonts/roboto-condensed-v19-vietnamese_latin-regular.eot?#iefix")
-      format("embedded-opentype"),
+    url("../fonts/roboto-condensed-v19-vietnamese_latin-regular.eot?#iefix") format("embedded-opentype"),
     /* IE6-IE8 */
-      url("../fonts/roboto-condensed-v19-vietnamese_latin-regular.woff2")
-      format("woff2"),
+    url("../fonts/roboto-condensed-v19-vietnamese_latin-regular.woff2") format("woff2"),
     /* Super Modern Browsers */
-      url("../fonts/roboto-condensed-v19-vietnamese_latin-regular.woff")
-      format("woff"),
+    url("../fonts/roboto-condensed-v19-vietnamese_latin-regular.woff") format("woff"),
     /* Modern Browsers */
-      url("../fonts/roboto-condensed-v19-vietnamese_latin-regular.ttf")
-      format("truetype"),
+    url("../fonts/roboto-condensed-v19-vietnamese_latin-regular.ttf") format("truetype"),
     /* Safari, Android, iOS */
-      url("../fonts/roboto-condensed-v19-vietnamese_latin-regular.svg#RobotoCondensed")
-      format("svg");
+    url("../fonts/roboto-condensed-v19-vietnamese_latin-regular.svg#RobotoCondensed") format("svg");
   /* Legacy iOS */
 }
 
@@ -671,16 +647,21 @@ text {
   height: 472px;
 }
 
-.ant-radio-wrapper {
-  span {
-    font-size: 16px !important;
-    font-family: $primary-font;
-    color: $brand-cl100;
-  }
+.ant-radio-group {
+  flex-wrap: wrap;
 
-  &.ant-radio-wrapper-checked {
+  .ant-radio-wrapper {
     span {
-      font-weight: bold;
+      min-width: fit-content;
+      font-size: 16px !important;
+      font-family: $primary-font;
+      color: $brand-cl100;
+    }
+
+    &.ant-radio-wrapper-checked {
+      span {
+        font-weight: bold;
+      }
     }
   }
 }
@@ -795,7 +776,7 @@ text {
 .m-sign-tab {
   position: relative;
 
-  & > * {
+  &>* {
     z-index: 1;
   }
 
@@ -820,7 +801,7 @@ text {
           color: #fff !important;
         }
 
-        & > * {
+        &>* {
           font-family: $brand-font-title-b;
         }
 
@@ -830,7 +811,7 @@ text {
         @include m-primary-font();
 
         &:hover {
-          & > * {
+          &>* {
             color: $active-text !important;
           }
 
@@ -987,7 +968,7 @@ text {
     padding-left: 0 !important;
   }
 
-  & > button {
+  &>button {
     font-size: 0.8rem;
     outline: none;
     margin-bottom: 0 !important;
@@ -1193,7 +1174,7 @@ $invalid: #dd2c00;
   cursor: pointer;
   color: $m-c-third !important;
 
-  & > * {
+  &>* {
     transition: all linear 0.5s;
   }
 
@@ -1255,7 +1236,7 @@ $invalid: #dd2c00;
       border-top: 1px solid $bd-cl !important;
     }
 
-    & > .ant-divider-inner-text {
+    &>.ant-divider-inner-text {
       font-family: $primary-font;
       color: $bd-cl;
     }
@@ -1288,7 +1269,7 @@ $invalid: #dd2c00;
     display: flex;
     height: 32px;
 
-    & > .addon {
+    &>.addon {
       flex-basis: 10%;
     }
   }
@@ -1416,6 +1397,7 @@ $invalid: #dd2c00;
     }
 
     .ant-input {
+
       &:hover,
       &:focus {
         border: none;
@@ -1462,7 +1444,7 @@ $invalid: #dd2c00;
   }
 }
 
-.icon {
+.select-icon {
   position: absolute;
   top: 8px;
   left: 6px;
@@ -1926,7 +1908,7 @@ $invalid: #dd2c00;
   @include mshadow();
   @include mneu-content();
 
-  & > .ant-card-head {
+  &>.ant-card-head {
     border-radius: 10px 14px 0 0 !important;
     background-color: $brand-cl100 !important;
     color: $brand-title-light !important;
@@ -1938,7 +1920,7 @@ $invalid: #dd2c00;
   @include mneu-content();
   @include mshadow-inset();
 
-  & > .ant-card-head {
+  &>.ant-card-head {
     border-radius: 10px 14px 0 0 !important;
     background-color: $brand-cl100 !important;
     color: $brand-title-light !important;
@@ -1991,6 +1973,7 @@ $invalid: #dd2c00;
 }
 
 .m-theme-light {
+
   input,
   select {
     color: $active-text !important;
@@ -2032,7 +2015,8 @@ $invalid: #dd2c00;
   }
 
   &__title {
-    & > h1,
+
+    &>h1,
     h2,
     h3,
     h4,
@@ -2051,7 +2035,7 @@ $invalid: #dd2c00;
   justify-items: flex-end;
   align-items: flex-end;
 
-  & > h5 {
+  &>h5 {
     margin-top: 0.6rem;
     color: $brand-title-light !important;
     @include m-primary-font(15px);
@@ -2262,6 +2246,7 @@ $invalid: #dd2c00;
 }
 
 @keyframes swell {
+
   0%,
   100% {
     transform: translate3d(0, -25px, 0);
@@ -2304,26 +2289,26 @@ $invalid: #dd2c00;
 
 /* Animation */
 .parallax {
-  & > use {
+  &>use {
     animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
   }
 
-  & > use:nth-child(1) {
+  &>use:nth-child(1) {
     animation-delay: -2s;
     animation-duration: 7s;
   }
 
-  & > use:nth-child(2) {
+  &>use:nth-child(2) {
     animation-delay: -3s;
     animation-duration: 10s;
   }
 
-  & > use:nth-child(3) {
+  &>use:nth-child(3) {
     animation-delay: -4s;
     animation-duration: 13s;
   }
 
-  & > use:nth-child(4) {
+  &>use:nth-child(4) {
     animation-delay: -5s;
     animation-duration: 20s;
   }
@@ -2562,25 +2547,25 @@ $tempbtn: #fff;
   width: 0;
   height: 0;
 
-  @if $direction == "up" {
+  @if $direction =="up" {
     border-right: ($size + px) solid transparent;
     border-left: ($size + px) solid transparent;
     border-bottom: ($size + px) solid $color;
   }
 
-  @if $direction == "down" {
+  @if $direction =="down" {
     border-right: ($size + px) solid transparent;
     border-left: ($size + px) solid transparent;
     border-top: ($size + px) solid $color;
   }
 
-  @if $direction == "right" {
+  @if $direction =="right" {
     border-top: ($size + px) solid transparent;
     border-bottom: ($size + px) solid transparent;
     border-left: ($size + px) solid $color;
   }
 
-  @if $direction == "left" {
+  @if $direction =="left" {
     border-top: ($size + px) solid transparent;
     border-bottom: ($size + px) solid transparent;
     border-right: ($size + px) solid $color;
@@ -2659,12 +2644,12 @@ $tempbtn: #fff;
       margin: 2em 1em;
       overflow: auto;
 
-      & > p.name {
+      &>p.name {
         color: #fff;
         font-size: 1em;
       }
 
-      & > p.message {
+      &>p.message {
         color: #fff;
         font-size: 0.7em;
         margin: 0 2.8em;
@@ -2784,14 +2769,12 @@ $tempbtn: #fff;
     .Grid-Item-Content {
       position: absolute;
       width: 100%;
-      -webkit-clip-path: polygon(
-        50% 0,
-        100% 25%,
-        100% 75%,
-        50% 100%,
-        0 75%,
-        0 25%
-      );
+      -webkit-clip-path: polygon(50% 0,
+          100% 25%,
+          100% 75%,
+          50% 100%,
+          0 75%,
+          0 25%);
       clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
       padding-bottom: 115.602%;
       background-color: #0366d6;
@@ -2901,7 +2884,7 @@ $tempbtn: #fff;
     -webkit-user-select: none;
     cursor: pointer;
 
-    &:hover + ul {
+    &:hover+ul {
       animation-play-state: paused;
     }
   }
@@ -3145,7 +3128,7 @@ $tempbtn: #fff;
   position: relative;
   width: 100%;
 
-  & > * {
+  &>* {
     position: relative;
     z-index: 1;
   }
@@ -3173,7 +3156,7 @@ $tempbtn: #fff;
     align-items: center;
     position: relative;
 
-    & > li {
+    &>li {
       cursor: pointer;
       display: inline-block;
       margin: 0 1.5rem 0 1.5rem;
@@ -3290,7 +3273,7 @@ $tempbtn: #fff;
         position: relative;
         z-index: 2;
 
-        & > li {
+        &>li {
           display: inline-block;
           margin: 0 1.5rem 0 1.5rem;
           font-family: $primary-font;
@@ -3421,12 +3404,12 @@ $tempbtn: #fff;
             background-color: rgba($brand-cl100, 0.6);
             color: #fff;
 
-            & > span {
+            &>span {
               font-size: 18px;
               line-height: 1;
             }
 
-            & > p {
+            &>p {
               opacity: 1;
             }
           }
@@ -3439,7 +3422,7 @@ $tempbtn: #fff;
             transition: opacity linear 0.1s;
           }
 
-          & > span {
+          &>span {
             font-size: 15px;
             letter-spacing: -0.1px;
             -webkit-transition: ease-in-out 0.3s;
@@ -3472,7 +3455,7 @@ $tempbtn: #fff;
   display: flex;
   flex-direction: row;
 
-  & > * {
+  &>* {
     position: relative;
     z-index: 1;
   }
@@ -3621,7 +3604,7 @@ $tempbtn: #fff;
 }
 
 .m-descriptions-third {
-  & ~ td {
+  &~td {
     color: $brand-third !important;
     cursor: pointer;
 
@@ -3881,7 +3864,7 @@ $tempbtn: #fff;
     column-count: 2;
     column-gap: 70px;
 
-    > li {
+    >li {
       -webkit-column-break-inside: avoid;
       /* Chrome, Safari, Opera */
       page-break-inside: avoid;
@@ -3899,12 +3882,12 @@ $tempbtn: #fff;
   }
 }
 
-.list > li,
-.list > li::before {
+.list>li,
+.list>li::before {
   padding: 0.5em;
 }
 
-.list > li {
+.list>li {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -3917,7 +3900,7 @@ $tempbtn: #fff;
   }
 }
 
-.list > li::before {
+.list>li::before {
   counter-increment: list;
   content: counter(list);
   position: absolute;
@@ -3952,19 +3935,19 @@ $tempbtn: #fff;
   font-family: "Roboto Slab", serif;
 }
 
-.list--robo > li {
+.list--robo>li {
   margin-bottom: 10px;
   color: hsl(0, 0%, 25%);
   border-top-right-radius: 999px;
   border-bottom-right-radius: 999px;
 }
 
-.list--robo > li,
-.list--robo > li:before {
+.list--robo>li,
+.list--robo>li:before {
   border: 3px solid hsl(0, 0%, 40%);
 }
 
-.list--robo > li::before {
+.list--robo>li::before {
   top: -3px;
   padding-left: 0.7em;
   border-top-left-radius: 999px;
@@ -3983,7 +3966,7 @@ $tempbtn: #fff;
 .list--color {
   padding-left: 3em;
 
-  & > li {
+  &>li {
     margin-bottom: 18px;
     color: white;
     font-weight: 500;
@@ -4018,7 +4001,7 @@ $tempbtn: #fff;
 .list--color-circle {
   padding-left: 3em;
 
-  & > li {
+  &>li {
     margin-bottom: 15px;
     padding-left: 1.5em;
     background: hsl(0, 0%, 91%);
@@ -4055,7 +4038,7 @@ $tempbtn: #fff;
   color: hsl(0, 0%, 20%);
   font-family: "Comfortaa", cursive;
 
-  > li {
+  >li {
     height: 2.6em;
     line-height: 2.6em;
     border: 2px solid hsl(0, 0%, 20%);
@@ -4081,7 +4064,7 @@ $tempbtn: #fff;
     width: 3em;
   }
 
-  > li:nth-child(2n + 1) {
+  >li:nth-child(2n + 1) {
     justify-content: flex-start;
     border-right-color: transparent;
     border-top-left-radius: 999px;
@@ -4095,7 +4078,7 @@ $tempbtn: #fff;
     }
   }
 
-  > li:nth-child(2n) {
+  >li:nth-child(2n) {
     padding-right: 0;
     border-left-color: transparent;
     border-top-right-radius: 999px;
@@ -4174,6 +4157,7 @@ $tempbtn: #fff;
 }
 
 .select-list-style:nth-of-type(1) {
+
   &:hover,
   &:focus {
     background: hsl(186, 20%, 50%);
@@ -4185,6 +4169,7 @@ $tempbtn: #fff;
 }
 
 .select-list-style:nth-of-type(2) {
+
   &:hover,
   &:focus {
     background: hsl(35, 20%, 50%);
@@ -4196,6 +4181,7 @@ $tempbtn: #fff;
 }
 
 .select-list-style:nth-of-type(3) {
+
   &:hover,
   &:focus {
     background: hsl(323, 20%, 50%);
@@ -4207,6 +4193,7 @@ $tempbtn: #fff;
 }
 
 .select-list-style:nth-of-type(4) {
+
   &:hover,
   &:focus {
     background: hsl(120, 20%, 45%);
@@ -4232,7 +4219,7 @@ $tempbtn: #fff;
   }
 
   &:hover,
-  input:focus + & {
+  input:focus+& {
     &::before {
       transform: scale(1.2);
     }
@@ -4251,7 +4238,7 @@ $tempbtn: #fff;
     transition: 0.1s;
   }
 
-  :checked + & {
+  :checked+& {
     &::after {
       transform: none;
       opacity: 1;
@@ -4292,7 +4279,7 @@ $tempbtn: #fff;
   color: #fff;
   font-weight: bold;
 
-  & > td {
+  &>td {
     text-transform: uppercase;
     border-right: none !important;
     border-left: none !important;
@@ -4341,7 +4328,7 @@ $tempbtn: #fff;
   input[type="checkbox"] {
     visibility: hidden;
 
-    &:checked + label:after {
+    &:checked+label:after {
       opacity: 1;
     }
   }
@@ -4647,6 +4634,7 @@ select {
 }
 
 @keyframes shakeNo {
+
   20%,
   60% {
     transform: translateX(6px);
@@ -4688,8 +4676,7 @@ select {
 .avatar_img {
   width: 100%;
   height: auto;
-  animation: inPop 250ms 150ms 1 forwards
-    cubic-bezier(0.175, 0.885, 0.32, 1.175);
+  animation: inPop 250ms 150ms 1 forwards cubic-bezier(0.175, 0.885, 0.32, 1.175);
   transform: scale(0);
   opacity: 0;
 }
@@ -4934,27 +4921,27 @@ select {
   margin: 0;
 }
 
-.card-container > .ant-tabs-card .ant-tabs-content {
+.card-container>.ant-tabs-card .ant-tabs-content {
   margin-top: -16px;
 }
 
-.card-container > .ant-tabs-card .ant-tabs-content > .ant-tabs-tabpane {
+.card-container>.ant-tabs-card .ant-tabs-content>.ant-tabs-tabpane {
   background: #fff;
   padding: 16px;
 }
 
-.card-container > .ant-tabs-card > .ant-tabs-nav::before {
+.card-container>.ant-tabs-card>.ant-tabs-nav::before {
   display: none;
 }
 
-.card-container > .ant-tabs-card .ant-tabs-tab,
-[data-theme="compact"] .card-container > .ant-tabs-card .ant-tabs-tab {
+.card-container>.ant-tabs-card .ant-tabs-tab,
+[data-theme="compact"] .card-container>.ant-tabs-card .ant-tabs-tab {
   border-color: transparent;
   background: transparent;
 }
 
-.card-container > .ant-tabs-card .ant-tabs-tab-active,
-[data-theme="compact"] .card-container > .ant-tabs-card .ant-tabs-tab-active {
+.card-container>.ant-tabs-card .ant-tabs-tab-active,
+[data-theme="compact"] .card-container>.ant-tabs-card .ant-tabs-tab-active {
   border-color: #fff;
   background: #fff;
 }
@@ -4965,12 +4952,12 @@ select {
   padding: 24px;
 }
 
-[data-theme="compact"] .card-container > .ant-tabs-card .ant-tabs-content {
+[data-theme="compact"] .card-container>.ant-tabs-card .ant-tabs-content {
   // height: 120px;
   margin-top: -8px;
 }
 
-[data-theme="dark"] .card-container > .ant-tabs-card .ant-tabs-tab {
+[data-theme="dark"] .card-container>.ant-tabs-card .ant-tabs-tab {
   border-color: transparent;
   background: transparent;
 }
@@ -4979,15 +4966,11 @@ select {
   background: #000;
 }
 
-[data-theme="dark"]
-  .card-container
-  > .ant-tabs-card
-  .ant-tabs-content
-  > .ant-tabs-tabpane {
+[data-theme="dark"] .card-container>.ant-tabs-card .ant-tabs-content>.ant-tabs-tabpane {
   background: #141414;
 }
 
-[data-theme="dark"] .card-container > .ant-tabs-card .ant-tabs-tab-active {
+[data-theme="dark"] .card-container>.ant-tabs-card .ant-tabs-tab-active {
   border-color: #141414;
   background: #141414;
 }
@@ -5008,9 +4991,9 @@ select {
 
 .main-menu {
   &:hover {
+
     .m-menu-previous,
-    .m-menu-forward {
-    }
+    .m-menu-forward {}
   }
 }
 
@@ -5074,7 +5057,7 @@ select {
   .ant-card-body {
     height: 100%;
 
-    & > * {
+    &>* {
       height: 100%;
     }
   }
@@ -5198,8 +5181,7 @@ select {
 
 // --------------------start responsive style---------------------
 
-@for $i from 1 through 7 {
-}
+@for $i from 1 through 7 {}
 
 .m-tablet {
   .ant-tabs-nav-wrap {
@@ -5207,8 +5189,7 @@ select {
   }
 
   &.m-tablet-portrait {
-    .m-menu-container {
-    }
+    .m-menu-container {}
 
     .ant-modal {
       width: 90vw !important;
@@ -5453,10 +5434,10 @@ select {
       flex-wrap: wrap;
     }
 
-    .ant-descriptions-view {
-    }
+    .ant-descriptions-view {}
   }
 }
+
 //-----------tariff
 
 .tariffContract_content {
@@ -5483,7 +5464,18 @@ select {
   width: 68% !important;
   max-width: 1800px !important;
 }
- //-----------report
+
+// 
+
+.pending_task_radio_item {
+  label {
+    width: 45%;
+  }
+}
+
+.ant-modal-content .table_container .table_content {
+  min-height: 50vh;
+} //-----------report
 
 .general_information_content{
 

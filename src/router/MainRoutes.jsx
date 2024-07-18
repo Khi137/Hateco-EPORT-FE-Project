@@ -16,9 +16,9 @@ import TrackingBill from "../views/tracking/trackingBill";
 import TrackingBooking from "../views/tracking/trackingBooking";
 import TrackingEdo from "../views/tracking/trackingEdo";
 import TrackingHouseBill from "../views/tracking/trackingHouseBill";
-import Customer from "../views/category/Customer";
+import Customer from "../views/category/customer";
 import Task from "../views/category/task";
-import ShipExploitBrand from "../views/category/ShipExploitBrand";
+import ShipExploitBrand from "../views/category/shipExploitBrand";
 import CommoditiesType from "../views/category/commoditiesType";
 import DirectionContainer from "../views/category/directionContainer";
 import PortsList from "../views/category/portsList";
@@ -39,6 +39,8 @@ import TariffRefer from "../views/tariff/tariffRefer.jsx";
 import TariffFreeDay from "../views/tariff/tariffFreeDay.jsx";
 import TariffHoliday from "../views/tariff/tariffHoliday.jsx";
 import TariffContract from "../views/tariff/tariffContract.jsx";
+import PendingTask from "../views/task/pendingTask.jsx";
+import TskUpdateOrder from "../views/task/tskUpdateOrder.jsx";
 
 class MainRoutes extends Component {
   render() {
@@ -78,26 +80,7 @@ class MainRoutes extends Component {
             <Route path="tracking_edo" element={<TrackingEdo />} />
             <Route path="tracking_housebill" element={<TrackingHouseBill />} />
           </Route>
-          <Route path="/tracking">
-            <Route path="tracking_container" element={<TrackingContainer />} />
-            <Route
-              path="tracking_container_list"
-              element={<TrackingContainerList />}
-            />
-            <Route path="tracking_bill" element={<TrackingBill />} />
-            <Route path="tracking_booking" element={<TrackingBooking />} />
-            <Route path="tracking_edo" element={<TrackingEdo />} />
-            <Route path="tracking_housebill" element={<TrackingHouseBill />} />
-          </Route>
 
-          <Route path="/system_manager">
-            <Route path="SystemManageUser" element={<SystemManageUser />} />
-            <Route path="SystemManageGroup" element={<SystemManageGroup />} />
-            <Route
-              path="SystemManagerGroupPermission"
-              element={<SystemManagerGroupPermission />}
-            />
-          </Route>
           <Route path="/system_manager">
             <Route path="SystemManageUser" element={<SystemManageUser />} />
             <Route path="SystemManageGroup" element={<SystemManageGroup />} />
@@ -142,6 +125,16 @@ class MainRoutes extends Component {
             <Route path="approve_command" element={<ApproveCommand />} />
             <Route path="update_command_Infomation" element={<UpdateCommandInfomation />} />
           </Route>
+
+          <Route path="/report">
+            <Route path="report-1" element={<Report />} />
+          </Route>
+
+          <Route path="/orders_checking">
+            <Route path="pending_Task" element={<PendingTask />} />
+            <Route path="tsk_update_order" element={<TskUpdateOrder />} />
+          </Route>
+
           <Route path="/dashboard" element={<Dashboard />} />
 
         </Route>

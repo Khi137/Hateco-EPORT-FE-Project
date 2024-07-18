@@ -49,10 +49,6 @@ import { ReactGrid } from "@silevis/reactgrid";
 import { getColumnIndex, handleColumnsReorder, handleRowsReorder, handleRowsSearch } from "../../utils/util.js";
 import "@silevis/reactgrid/styles.css";
 import {
-  CustomHeaderCellTemplate,
-  CustomHeaderCell,
-} from "../CustomHeaderCell/CustomHeaderCell.tsx";
-import {
   setData,
   updateRow,
   addRow,
@@ -1155,8 +1151,6 @@ class Mbutton extends React.Component {
       IconComponent = null;
     }
 
-    console.log(this.state.styleButton);
-
     return (
       <div>
         <Button
@@ -1974,6 +1968,11 @@ class Mtable extends React.Component {
 
   handleRowsSelection = (selectedRows) => {
     this.setState({ selectedRows: selectedRows[0] });
+    if (selectedRows[0] && this.props.functionRequire?.selectRow) {
+      if (selectedRows[0].rows?.length === 1 && selectedRows[0].columns?.length !== 1) {
+        this.props.functionRequire?.selectRow(selectedRows[0].rows, this.state.tableData.reactGridColumns)
+      }
+    }
   };
 
   handleCellsChanged = (changes) => {
@@ -2142,6 +2141,7 @@ class Mtable extends React.Component {
   render() {
     const { tableData, searchValue } = this.state;
     const { addcolumn, deleteColumn, exportExel, searchField, saveData } = this.props.functionRequire;
+
     // const rows = 
 
     return (
@@ -2235,7 +2235,7 @@ class Mtable extends React.Component {
           </Row>
         </Row>
         <div className="table_content">
-          <div className="react_grid_table">
+          <div className="react_grid_table" style={{ ...this.props.style }}>
             <ReactGrid
               {...this.props.config}
               rows={
@@ -2661,13 +2661,14 @@ class Minput extends React.Component {
               tabIndex={data?.tabindex || 1}
               pattern={data?.format || ""}
               placeholder={data.placeholder || data.title || ""}
+              onMouseDown={(e) => { data.disable && e.preventDefault() }}
             ></input>
           </span>
           {(data.require || data.regex || data.minLength) && (
             <Row className="Winput_error_text">{this.state.error}</Row>
           )}
         </div>
-      </Col>
+      </Col >
     );
   }
 }
@@ -3235,7 +3236,7 @@ class Mselect extends React.Component {
             </option>
             {this.renderOptions(data?.value || this.state.value)}
           </select>
-          <div className="icon">
+          <div className="select-icon">
             {icon}
           </div>
         </div>

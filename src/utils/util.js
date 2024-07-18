@@ -86,9 +86,8 @@ export const handleRowsSearch = (
 };
 
 export function getColumnIndex(columnsFormat, columnIds) {
-  console.log(columnIds);
   return columnIds?.reduce((acc, id) => {
-    const index = columnsFormat.findIndex((column) => column.columnId === id);
+    const index = columnsFormat?.findIndex((column) => column.columnId === id);
     if (index !== -1) {
       acc.push(index);
     }

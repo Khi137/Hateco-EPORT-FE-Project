@@ -259,10 +259,10 @@ class Header extends Component {
                   {navigations.map((item) =>
                     item.isOpen && item.subMenu
                       ? item.subMenu.map((subItem) => {
-                          return (
-                            <>{this.renderButtonItem(item.url, subItem)}</>
-                          );
-                        })
+                        return (
+                          <>{this.renderButtonItem(item.url, subItem)}</>
+                        );
+                      })
                       : null
                   )}
                 </Row>
