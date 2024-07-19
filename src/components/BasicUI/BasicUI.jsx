@@ -2163,7 +2163,7 @@ class Mtable extends React.Component {
               />
             </Col>
           )}
-          {
+          {/* {
             (addcolumn || editColum || deleteColumn) &&
             <Row className="table_feature">
               {addcolumn && (
@@ -2303,7 +2303,135 @@ class Mtable extends React.Component {
                 </Col>
               )}
             </Row>
-          }
+          } */}
+          <Row className="table_feature">
+            {addcolumn && (
+              <Col className="exel_export">
+                <Mbutton
+                  color=""
+                  className="m_button third"
+                  type="primary"
+                  htmlType="submit"
+                  block
+                  size={"12"}
+                  dataSource={{
+                    textbutton: "Thêm dòng",
+                    color: "second",
+                    icon: "PlusCircleOutlined",
+                  }}
+                  onClick={this.newRow}
+                />
+              </Col>
+            )}
+            {editColum && (
+              <Col className="exel_export">
+                <Mbutton
+                  color=""
+                  className="m_button orange"
+                  type="primary"
+                  htmlType="submit"
+                  block
+                  size={"12"}
+                  dataSource={{
+                    textbutton: "Sửa",
+                    color: "second",
+                    icon: "EditOutlined",
+                  }}
+                // onClick={() => this.deleteRows(this.state.selectedRows)}
+                />
+              </Col>
+            )}
+            {deleteColumn && (
+              <Col className="exel_export">
+                <Mbutton
+                  color=""
+                  className="m_button red"
+                  type="primary"
+                  htmlType="submit"
+                  block
+                  size={"12"}
+                  dataSource={{
+                    textbutton: "Xoá dòng",
+                    color: "second",
+                    icon: "DeleteOutlined",
+                  }}
+                  onClick={() => this.deleteRows(this.state.selectedRows)}
+                />
+              </Col>
+            )}
+            {approve && (
+              <Col className="exel_export">
+                <Mbutton
+                  color=""
+                  className="m_button third"
+                  type="primary"
+                  htmlType="submit"
+                  block
+                  size={"12"}
+                  dataSource={{
+                    textbutton: "Duyệt",
+                    color: "second",
+                    icon: "CheckOutlined",
+                  }}
+                // onClick={() => this.deleteRows(this.state.selectedRows)}
+                />
+              </Col>
+            )}
+            {saveData && (
+              <Col className="exel_export">
+                <Mbutton
+                  color=""
+                  className="m_button green"
+                  type="primary"
+                  htmlType="submit"
+                  block
+                  size={"12"}
+                  dataSource={{
+                    textbutton: "Lưu",
+                    color: "second",
+                    icon: "SaveOutlined",
+                  }}
+                  onClick={this.handleSaveData}
+                />
+              </Col>
+            )}
+            {exportExel && (
+              <Col className="exel_export">
+                <Mbutton
+                  color=""
+                  className="m_button third_border"
+                  type="primary"
+                  htmlType="submit"
+                  block
+                  size={"12"}
+                  dataSource={{
+                    textbutton: "Xuất File Exel",
+                    color: "second",
+                    icon: "FileExcelOutlined",
+                  }}
+                  onClick={this.handleExportExel}
+                />
+              </Col>
+            )}
+            {importExel && (
+              <Col className="exel_export">
+                <Mbutton
+                  color=""
+                  className="m_button third_border"
+                  type="primary"
+                  htmlType="submit"
+                  block
+                  size={"12"}
+                  dataSource={{
+                    textbutton: "Nhập File Exel",
+                    color: "second",
+                    icon: "FileExcelOutlined",
+                  }}
+                  onClick={this.handleExportExel}
+                />
+              </Col>
+            )}
+          </Row>
         </Row>
         <div className="table_content">
           <div className="react_grid_table" style={{ ...this.props.style }}>

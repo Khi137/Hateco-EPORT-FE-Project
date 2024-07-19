@@ -730,6 +730,7 @@ $caption-line-height: 14px;
 
     .table_feature {
       gap: 8px;
+      margin: 0 4px;
     }
   }
 
@@ -779,6 +780,17 @@ $caption-line-height: 14px;
   padding: 12px;
   padding-bottom: 0;
   height: 95%;
+
+  .one_page_content {
+    height: 76%;
+    width: 100%;
+    margin: 0 auto;
+    justify-content: center;
+  }
+
+  .have_data{
+    height: 100%;
+  }
 }
 
 .m-custom-card {
@@ -798,7 +810,11 @@ $caption-line-height: 14px;
     }
 
     .no_data {
-      margin-top: 25vh;
+      // margin-top: 25vh;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       line-height: 36px;
 
       .no_data_icon {
