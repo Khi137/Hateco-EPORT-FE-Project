@@ -10,115 +10,122 @@ import {
     SearchOutlined,
 } from "@ant-design/icons";
 import { Mbutton, Mcard, Mcheckbox, Mradio, Mtable, Winput } from "../../components/BasicUI/BasicUI";
-import { formatDateTime } from "../../utils/util";
+import { formatDateTime, formatPrice } from "../../utils/util";
 import { Content, Header } from "antd/es/layout/layout";
 
 const rowData = [
     {
-        Area: null,
-        BLNo: "HDMUSELA06055400",
-        BargeExVoy: null,
-        BargeImVoy: null,
-        BargeKey: null,
-        Bay: "06",
-        Block: "KT",
-        BookingAmount: 1,
-        BookingDate: "2022-01-06T17:22:52.000Z",
-        BookingNo: "ABC",
-        BookingReleaseDate: null,
-        BookingStatus: 2,
-        BookingType: true,
-        CO2: null,
-        CallSign: null,
-        CargoTypeCode: "MT",
-        CargoTypeName: "Empty",
-        Class: null,
-        ClassCode: "2",
-        ClassName: "Storage Empty",
-        Commodity: null,
-        ContainerCondition: null,
-        ContainerNo: "HDMU7603991",
-        ContainerStatusCode: "S",
-        ContainerStatusName: "Stacking",
-        CreatedBy: "trammtm",
-        CreatedTime: "2022-01-06T17:22:52.000Z",
-        CusHold: false,
-        DateIn: "2021-03-07T03:14:41.000Z",
-        DateOut: null,
-        DeliveryOrder: null,
-        DraftNo: null,
-        ETB: null,
-        ETD: null,
-        EirInNo: null,
-        EirOutNo: null,
-        ExpDate: "2022-01-29T23:59:59.000Z",
-        FE: "E",
-        FPOD: "",
-        HousebillNo: null,
-        Humidity: null,
-        ID_TOS: "0000000639599",
-        InvoiceNo: null,
-        IsLocalForeign: "F",
-        IsReturnBack: false,
-        IsSpecialWarning: false,
-        IsTruckBarge: null,
-        IsoSizetype: "42P0",
-        JobModeCodeIn: "CI",
-        JobModeCodeOut: null,
-        LocalSizetype: "40FR",
-        MCWeight: null,
-        MaxGrossWeight: null,
-        MethodCodeIn: "C",
-        MethodCodeOut: null,
-        ModifiedBy: "trammtm",
-        ModifiedTime: "2022-01-06T17:23:19.000Z",
-        Note: " / ",
-        O2: null,
-        OogBack: null,
-        OogFront: null,
-        OogLeft: null,
-        OogRight: null,
-        OogTop: null,
-        OperationCode: "HMM",
-        OperationName: "HYUNDAI MERCHANT MARINE CO;LTD",
-        POD: "",
-        POL: "",
-        RemoocNo: null,
-        Row: "05",
-        Rowguid: "F246A4EA-EB54-468A-8C74-646F5E20CA8A",
-        Sealno: null,
-        Sealno1: null,
-        Sealno2: null,
-        ServiceNo: null,
-        ShipperName: "abc",
-        SpecialWarning: null,
-        StackingAmount: 0,
-        StuffNo: null,
-        TareWeight: null,
-        Temperature: null,
-        TerHold: false,
-        TerHoldReason: null,
-        TerminalCode: "f9a0050f-04d4-4184-96ae-d462382de6f2",
-        Tier: "3",
-        TransitCode: null,
-        TransitPort: "VNHPH",
-        TruckNo: null,
-        Unno: null,
-        UnstuffNo: null,
-        UserGroupRank: null,
-        VETB: null,
-        VETD: null,
-        VExVoy: null,
-        VGM: false,
-        VImVoy: null,
-        Vent: null,
-        VentUnit: null,
-        VesselExVoy: null,
-        VesselImVoy: null,
-        VesselKey: null,
-        VesselName: null,
-        XuatNeo: null,
-        XuatPhao: null,
+        "AcceptBy": null,
+        "AcceptTime": null,
+        "AllowedTruckWeight": null,
+        "AttachOrderNo": null,
+        "BLNo": null,
+        "BargeKey": null,
+        "BookingNo": "LINH092211",
+        "CargoTypeCode": "MT",
+        "CargoTypeName": "Empty",
+        "Class": null,
+        "ClassCode": "2",
+        "ClassName": "Storage Empty",
+        "Commodity": null,
+        "ContainerNo": "CMAU7189586",
+        "ContainerStatusCode": "S",
+        "ContainerStatusName": "Stacking",
+        "CreatedBy": "Admin",
+        "CreatedTime": "2022-03-04T14:45:39.000Z",
+        "CurrencyCode": "VND",
+        "CusHold": null,
+        "CustomerCode": "0101255692",
+        "CustomerName": "CÔNG TY LIÊN DOANH ĐIỀU HÀNH \"VIETGAZPROM\"",
+        "CustomerTypeCode": "FWD",
+        "DeleteBy": null,
+        "DeleteTime": null,
+        "DeliveryOrder": null,
+        "DepotId": null,
+        "DraftNo": "GML/2022/030000008",
+        "DriverHostId": null,
+        "DriverName": null,
+        "ETB": null,
+        "ETD": null,
+        "ExpDate": "2022-03-05T23:59:59.000Z",
+        "ExpPluginDate": null,
+        "FE": "E",
+        "FPOD": "CKAIU",
+        "FreeDay": null,
+        "HousebillNo": null,
+        "IDNumber": null,
+        "ID_CTN_TOS": null,
+        "ID_TOS": null,
+        "Index": "220304000001-0",
+        "InvTotalAmount": null,
+        "InvoiceDate": null,
+        "InvoiceNo": null,
+        "IsAccepted": false,
+        "IsCFSChange": false,
+        "IsCFSStuff": false,
+        "IsCFSUnstuff": false,
+        "IsComplete": false,
+        "IsLoLo": true,
+        "IsLocalForeign": "F",
+        "IsPostToTos": 0,
+        "IsServiceNonCont": false,
+        "IsServiceYard": false,
+        "IsTruckBarge": "T",
+        "IsoSizetype": "45G0",
+        "IssueDate": "2022-03-04T14:45:39.000Z",
+        "JobModeCode": "CAPR",
+        "JobModeName": "CẤP RỖNG",
+        "Location": null,
+        "MCWeight": null,
+        "MappingMethod": "Truck",
+        "MaxGrossWeight": null,
+        "MethodName": "BÃI - XE",
+        "MoneyCredit": "M",
+        "Note": "/  - Cảng xếp : CKAIT - Cảng dỡ : CKAIT - Cảng đích : CKAIU / VỆ SINH NƯỚC PIN:GML22030434509",
+        "OogBack": null,
+        "OogFront": null,
+        "OogLeft": null,
+        "OogRight": null,
+        "OogTop": null,
+        "OperationCode": "CMA",
+        "OperationName": "CMA CGM",
+        "OprExpDate": null,
+        "OrderNo": "220304000001",
+        "OrderStatus": "P",
+        "OrderType": "Eir",
+        "POD": "CKAIT",
+        "POL": "CKAIT",
+        "ParentOrderNo": "220304000001",
+        "PinCode": "GML22030418784-001",
+        "Relocation": null,
+        "Rowguid": "8E978D3E-C54C-4F34-B54F-1978DD555DC9",
+        "Sealno": null,
+        "Sealno1": null,
+        "Sealno2": null,
+        "ShipperName": "A",
+        "ShipperRepresent": "A",
+        "ShipperTel": "A",
+        "TEU": 2,
+        "TaxCode": "0101255692",
+        "Temperature": null,
+        "TotalAmount": 388800,
+        "TransactionId": null,
+        "TransitCode": null,
+        "TransitName": null,
+        "TruckCompany": null,
+        "TruckNo": "",
+        "TruckTel": null,
+        "TruckWeight": null,
+        "Unno": null,
+        "VGM": false,
+        "Vent": null,
+        "VentUnit": null,
+        "VesselCode": null,
+        "VesselExVoy": null,
+        "VesselImVoy": null,
+        "VesselKey": "STORE",
+        "VesselName": null,
+        "sort_code": "220304000001_1_220304000001"
     },
 ];
 
@@ -587,46 +594,94 @@ class PendingTask extends Component {
 
         const columnsFormat = [
             { columnId: "STT", width: 50, resizable: true, header: "STT" },
-            { columnId: "ContainerNo", width: 150, resizable: true, reorderable: true, header: "Số Container" },
-            { columnId: "OperationCode", width: 150, resizable: true, reorderable: true, header: "Hãng Tàu" },
-            { columnId: "IsoSizetype", width: 150, resizable: true, reorderable: true, header: "Kích cỡ" },
-            { columnId: "CargoTypeName", width: 150, resizable: true, reorderable: true, header: "Full/Empty" },
-            { columnId: "ClassName", width: 150, resizable: true, reorderable: true, header: "Hướng" },
-            { columnId: "ExpDate", width: 150, resizable: true, reorderable: true, header: "Hạn Booking" },
-            { columnId: "Position", width: 150, resizable: true, reorderable: true, header: "Vị trí bãi" },
-            { columnId: "DateIn", width: 150, resizable: true, reorderable: true, header: "Ngày vào bãi" },
-            { columnId: "DateOut", width: 150, resizable: true, reorderable: true, header: "Ngày ra bãi" },
-            { columnId: "ContainerStatusName", width: 150, resizable: true, reorderable: true, header: "Tình trạng cont" }
+            { columnId: "PinCode", width: 150, resizable: true, reorderable: true, header: "Số Pin" },
+            { columnId: "TotalAmount", width: 150, resizable: true, reorderable: true, header: "Số tiền" },
+            { columnId: "CurrencyCode", width: 150, resizable: true, reorderable: true, header: "Loại" },
+            { columnId: "IsComplete", width: 150, resizable: true, reorderable: true, header: "Thanh toán" },
+            { columnId: "JobModeName", width: 150, resizable: true, reorderable: true, header: "Phương án" },
+            { columnId: "ExpDate", width: 150, resizable: true, reorderable: true, header: "Hạn lệnh" },
+            { columnId: "ContainerNo", width: 150, resizable: true, reorderable: true, header: "Số contianer" },
+            { columnId: "OperationCode", width: 150, resizable: true, reorderable: true, header: "Hãng tàu" },
+            { columnId: "BookingNo", width: 150, resizable: true, reorderable: true, header: "Số Booking" },
+            { columnId: "BLNo", width: 150, resizable: true, reorderable: true, header: "Số vận đơn" },
+            { columnId: "IsoSizetype", width: 150, resizable: true, reorderable: true, header: "Kích cỡ ISO" },
+            { columnId: "emptyColumn", width: 150, resizable: true, reorderable: true, header: "Trọng lượng" },
+            { columnId: "emptyColumn", width: 150, resizable: true, reorderable: true, header: "Tàu chuyến" },
+            { columnId: "ShipperName", width: 150, resizable: true, reorderable: true, header: "Chủ hàng" },
+            { columnId: "CargoTypeName", width: 150, resizable: true, reorderable: true, header: "Loại hàng" },
+            { columnId: "emptyColumn", width: 150, resizable: true, reorderable: true, header: "Hàng hoá" },
+            { columnId: "POD", width: 150, resizable: true, reorderable: true, header: "Cảng xếp" },
+            { columnId: "POL", width: 150, resizable: true, reorderable: true, header: "Cảng dỡ" },
+            { columnId: "FPOD", width: 150, resizable: true, reorderable: true, header: "Cảng đích" },
+            { columnId: "emptyColumn", width: 150, resizable: true, reorderable: true, header: "Nội/ngoại" },
+            { columnId: "CustomerName", width: 150, resizable: true, reorderable: true, header: "ĐTTT" },
+            { columnId: "CreatedTime", width: 150, resizable: true, reorderable: true, header: "Ngày tạo lệnh" },
+            { columnId: "Note", width: 700, resizable: true, reorderable: true, header: "Ghi chú" },
+            { columnId: "emptyColumn", width: 150, resizable: true, reorderable: true, header: "Thanh lý hải quan" },
+            { columnId: "APITOS", width: 150, resizable: true, reorderable: true, header: "API TOS" },
+            { columnId: "File", width: 150, resizable: true, reorderable: true, header: "File đính kèm" },
         ]
 
         const rowsFormat = (container, index) => {
             return [
                 { type: "text", nonEditable: true, text: String(index + 1) },
+                { type: "text", nonEditable: false, text: container?.PinCode.split("-")[0] || "" },
+                { type: "text", nonEditable: false, text: container?.TotalAmount ? formatPrice(container?.TotalAmount) : "" },
+                { type: "text", nonEditable: false, text: container?.CurrencyCode || "" },
+                { type: "text", nonEditable: false, text: container?.IsComplete || "" },
+                { type: "text", nonEditable: false, text: container?.BLNo || "" },
+                { type: "text", nonEditable: false, text: container?.JobModeName || "" },
+                { type: "text", nonEditable: false, text: container?.ExpDate ? formatDateTime(container?.ExpDate) : "" },
                 { type: "text", nonEditable: false, text: container?.ContainerNo || "" },
                 { type: "text", nonEditable: false, text: container?.OperationCode || "" },
+                { type: "text", nonEditable: false, text: container?.BookingNo || "" },
                 { type: "text", nonEditable: false, text: container?.IsoSizetype || "" },
+                { type: "text", nonEditable: false, text: container?.emptyColumn || "" },
+                { type: "text", nonEditable: false, text: container?.emptyColumn || "" },
+                { type: "text", nonEditable: false, text: container?.ShipperName || "" },
                 { type: "text", nonEditable: false, text: container?.CargoTypeName || "" },
-                { type: "text", nonEditable: false, text: container?.ClassName || "" },
-                { type: "text", nonEditable: false, text: container?.ExpDate ? formatDateTime(container?.ExpDate) : "" },
-                { type: "text", nonEditable: false, text: (container?.Block || "") + "-" + (container?.Bay || "") + "-" + (container?.Row || "") + "-" + (container?.Tier || "") },
-                { type: "text", nonEditable: false, text: container?.DateIn ? formatDateTime(container?.DateIn) : "" },
-                { type: "text", nonEditable: false, text: container?.DateOut ? formatDateTime(container?.DateOut) : "" },
-                { type: "text", nonEditable: false, text: container?.ContainerStatusName || "" }
+                { type: "text", nonEditable: false, text: container?.emptyColumn || "" },
+                { type: "text", nonEditable: false, text: container?.POD || "" },
+                { type: "text", nonEditable: false, text: container?.POL || "" },
+                { type: "text", nonEditable: false, text: container?.FPOD || "" },
+                { type: "text", nonEditable: false, text: container?.emptyColumn || "" },
+                { type: "text", nonEditable: false, text: container?.CustomerName || "" },
+                { type: "text", nonEditable: false, text: container?.CreatedTime || "" },
+                { type: "text", nonEditable: false, text: container?.Note || "" },
+                { type: "text", nonEditable: false, text: container?.emptyColumn || "" },
+                { type: "text", nonEditable: false, text: container?.APITOS || "" },
+                { type: "text", nonEditable: false, text: container?.File || "" },
             ]
         };
 
         const rowsHeader = [
             { type: "header", text: "STT" },
-            { type: "header", text: "Số Container" },
-            { type: "header", text: "Hãng Tàu" },
-            { type: "header", text: "Kích cỡ" },
-            { type: "header", text: "Full/Empty" },
-            { type: "header", text: "Hướng" },
-            { type: "header", text: "Hạn Booking" },
-            { type: "header", text: "Vị trí bãi" },
-            { type: "header", text: "Ngày vào bãi" },
-            { type: "header", text: "Ngày ra bãi" },
-            { type: "header", text: "Tình trạng cont" },
+            { type: "header", text: "Số Pin" },
+            { type: "header", text: "Số tiền" },
+            { type: "header", text: "Loại" },
+            { type: "header", text: "Thanh toán" },
+            { type: "header", text: "Phương án" },
+            { type: "header", text: "Hạn lệnh" },
+            { type: "header", text: "Số contianer" },
+            { type: "header", text: "Hãng tàu" },
+            { type: "header", text: "Số Booking" },
+            { type: "header", text: "Số vận đơn" },
+            { type: "header", text: "Kích cỡ ISO" },
+            { type: "header", text: "Trọng lượng" },
+            { type: "header", text: "Tàu chuyến" },
+            { type: "header", text: "Chủ hàng" },
+            { type: "header", text: "Loại hàng" },
+            { type: "header", text: "Hàng hoá" },
+            { type: "header", text: "Cảng xếp" },
+            { type: "header", text: "Cảng dỡ" },
+            { type: "header", text: "Cảng đích" },
+            { type: "header", text: "Nội/ngoại" },
+            { type: "header", text: "ĐTTT" },
+            { type: "header", text: "Ngày tạo lệnh" },
+            { type: "header", text: "Ghi chú" },
+            { type: "header", text: "Thanh lý hải quan" },
+            { type: "header", text: "API TOS" },
+            { type: "header", text: "File đính kèm" },
         ];
 
         return (
@@ -666,6 +721,7 @@ class PendingTask extends Component {
                                             { label: "Lệnh khởi tạo", value: "3" },
                                             { label: "Đã duyệt", value: "4" },
                                         ],
+                                        defaultValue: "1",
                                         className: "pending_task_radio_item",
                                     }}
                                 />
@@ -723,20 +779,39 @@ class PendingTask extends Component {
                                         })
                                     }
                                 </Row>
-                                <Mbutton
-                                    color=""
-                                    className="m_button third"
-                                    type="primary"
-                                    htmlType="submit"
-                                    block
-                                    onClick={this.handleLoadData}
-                                    ref={this.submitButtonRef}
-                                    size={"12"}
-                                    dataSource={{
-                                        textbutton: `Nạp dữ liệu`,
-                                        icon: "CloudDownloadOutlined",
-                                    }}
-                                />
+                                <Row justify={"space-between"}>
+                                    <Col span={8}>
+                                        <Mbutton
+                                            color=""
+                                            className="m_button third_border"
+                                            type="primary"
+                                            htmlType="submit"
+                                            block
+                                            // onClick={this.handleLoadData}
+                                            size={"12"}
+                                            dataSource={{
+                                                textbutton: `Bật thông báo`,
+                                                icon: "BellOutlined",
+                                            }}
+                                        />
+                                    </Col>
+                                    <Col span={15}>
+                                        <Mbutton
+                                            color=""
+                                            className="m_button third"
+                                            type="primary"
+                                            htmlType="submit"
+                                            block
+                                            onClick={this.handleLoadData}
+                                            ref={this.submitButtonRef}
+                                            size={"12"}
+                                            dataSource={{
+                                                textbutton: `Nạp dữ liệu`,
+                                                icon: "CloudDownloadOutlined",
+                                            }}
+                                        />
+                                    </Col>
+                                </Row>
                             </Col>
                         </Mcard>
                     </Col>
@@ -765,9 +840,14 @@ class PendingTask extends Component {
                                         functionRequire={{
                                             // addcolumn: true,
                                             // deleteColumn: true,
+                                            // editColum: true,
+
                                             exportExel: true,
+                                            // importExel: true,
+
+                                            // approve: true,
                                             // saveData: (data) => {
-                                            //   console.log(data);
+                                            //     console.log(data);
                                             // },
                                             searchField: [
                                                 "ContainerNo",

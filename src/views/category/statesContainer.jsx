@@ -75,39 +75,37 @@ export class StatesContainer extends Component {
             <Mcard
               title={<span style={{ color: 'white' }}>Danh mục trạng thái Container</span>}
             >
-              <Col>
-                {rowData.length === 0 ? (
-                  <Col className="no_data">
-                    <Row justify={"center"}>
-                      <DatabaseOutlined className="no_data_icon" />
-                    </Row>
-                    <Row justify={"center"}>Nhập số container để nạp dữ liệu container...</Row>
-                  </Col>
-                ) : (
-                  <Col className="have_data">
-                    <Mtable
-                      config={{
-                        defaultData: rowData,
-                        columnsFormat: columnsFormat,
-                        rowsFormat: rowsFormat,
-                        rowsHeader: rowsHeader,
-                        reorderRow: true,
-                      }}
-                      functionRequire={{
-                        // addcolumn: true,
-                        // deleteColumn: true,
-                        exportExel: true,
-                        // saveData: () => { this.saveData() },
-                        searchField: [
-                          "ContainerNo",
-                          "OperationCode",
-                          "IsoSizetype",
-                        ],
-                      }}
-                    />
-                  </Col>
-                )}
-              </Col>
+              {rowData.length === 0 ? (
+                <Col className="no_data">
+                  <Row justify={"center"}>
+                    <DatabaseOutlined className="no_data_icon" />
+                  </Row>
+                  <Row justify={"center"}>Nhập số container để nạp dữ liệu container...</Row>
+                </Col>
+              ) : (
+                <Col className="have_data">
+                  <Mtable
+                    config={{
+                      defaultData: rowData,
+                      columnsFormat: columnsFormat,
+                      rowsFormat: rowsFormat,
+                      rowsHeader: rowsHeader,
+                      reorderRow: true,
+                    }}
+                    functionRequire={{
+                      // addcolumn: true,
+                      // deleteColumn: true,
+                      exportExel: true,
+                      // saveData: () => { this.saveData() },
+                      searchField: [
+                        "ContainerNo",
+                        "OperationCode",
+                        "IsoSizetype",
+                      ],
+                    }}
+                  />
+                </Col>
+              )}
             </Mcard>
           </Col>
         </Row>

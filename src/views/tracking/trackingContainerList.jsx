@@ -303,7 +303,7 @@ class TrackingContainerList extends Component {
                   icon: "CloudDownloadOutlined",
                 }}
               />
-              <div>
+              <Row className="one_page_content">
                 {!this.state.isLoading ? (
                   !this.state.tableData[0] ? (
                     <Col className="no_data">
@@ -339,7 +339,7 @@ class TrackingContainerList extends Component {
                     <LoadingOutlined className="no_data_icon" />
                   </Row>
                 )}
-              </div>
+              </Row>
             </Mcard>
           </Col>
         </Row>

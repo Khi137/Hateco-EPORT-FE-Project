@@ -8,9 +8,9 @@ import { Content } from "antd/es/layout/layout";
 import { DatabaseOutlined } from "@ant-design/icons";
 
 let rowData = [
-  { key: "1", nation: "", portCode: "", portName: "" },
-  { key: "2", nation: "", portCode: "", portName: "" },
-  { key: "3", nation: "", portCode: "", portName: "" },
+  { key: "1", nation: "asd", portCode: "asd", portName: "asd" },
+  { key: "2", nation: "asd", portCode: "asd", portName: "asd" },
+  { key: "3", nation: "asd", portCode: "asd", portName: "asd" },
   { key: "4", nation: "", portCode: "", portName: "" },
   { key: "5", nation: "", portCode: "", portName: "" },
   { key: "6", nation: "", portCode: "", portName: "" },
@@ -106,39 +106,37 @@ export class PortsList extends Component {
             <Mcard
               title={<span style={{ color: 'white' }}>Danh mục cảng</span>}
             >
-              <Col>
-                {rowData.length === 0 ? (
-                  <Col className="no_data">
-                    <Row justify={"center"}>
-                      <DatabaseOutlined className="no_data_icon" />
-                    </Row>
-                    <Row justify={"center"}>Nhập số container để nạp dữ liệu container...</Row>
-                  </Col>
-                ) : (
-                  <Col className="have_data">
-                    <Mtable
-                      config={{
-                        defaultData: rowData,
-                        columnsFormat: columnsFormat,
-                        rowsFormat: rowsFormat,
-                        rowsHeader: rowsHeader,
-                        reorderRow: true,
-                      }}
-                      functionRequire={{
-                        // addcolumn: true,
-                        // deleteColumn: true,
-                        exportExel: true,
-                        // saveData: () => { this.saveData() },
-                        searchField: [
-                          "ContainerNo",
-                          "OperationCode",
-                          "IsoSizetype",
-                        ],
-                      }}
-                    />
-                  </Col>
-                )}
-              </Col>
+              {rowData.length === 0 ? (
+                <Col className="no_data">
+                  <Row justify={"center"}>
+                    <DatabaseOutlined className="no_data_icon" />
+                  </Row>
+                  <Row justify={"center"}>Nhập số container để nạp dữ liệu container...</Row>
+                </Col>
+              ) : (
+                <Col className="have_data">
+                  <Mtable
+                    config={{
+                      defaultData: rowData,
+                      columnsFormat: columnsFormat,
+                      rowsFormat: rowsFormat,
+                      rowsHeader: rowsHeader,
+                      reorderRow: true,
+                    }}
+                    functionRequire={{
+                      // addcolumn: true,
+                      // deleteColumn: true,
+                      exportExel: true,
+                      // saveData: () => { this.saveData() },
+                      searchField: [
+                        "ContainerNo",
+                        "OperationCode",
+                        "IsoSizetype",
+                      ],
+                    }}
+                  />
+                </Col>
+              )}
             </Mcard>
           </Col>
         </Row>
