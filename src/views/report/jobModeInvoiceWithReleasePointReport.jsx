@@ -26,141 +26,7 @@ import {
 import { formatDateTime } from "../../utils/util";
 import { Col, Row, Tooltip } from "antd";
 
-const rowData = [
-    {
-        Rowguid: "20383CFB-35E4-454E-BA7E-C112ADE17335",
-        TerminalCode: null,
-        VesselKey: "TBA",
-        VesselImVoy: null,
-        VesselExVoy: null,
-        ETB: null,
-        ETD: null,
-        BargeKey: null,
-        BargeImVoy: null,
-        BargeExVoy: null,
-        DeliveryOrder: null,
-        BLNo: null,
-        BookingNo: "50940502",
-        HousebillNo: null,
-        ContainerNo: "TCNU8698362",
-        ClassCode: "3",
-        OperationCode: "HLC",
-        FE: "F",
-        ContainerStatusCode: "D",
-        CargoTypeCode: "GP",
-        Commodity: null,
-        LocalSizetype: "4500",
-        IsoSizetype: "45G0",
-        IsLocalForeign: "F",
-        JobModeCodeIn: "HBAI",
-        MethodCodeIn: "T",
-        DateIn: "2021-04-10T19:44:22.000Z",
-        DateOut: "2021-04-14T12:54:30.000Z",
-        JobModeCodeOut: "LAYN",
-        MethodCodeOut: "V",
-        EirInNo: null,
-        EirOutNo: null,
-        StuffNo: null,
-        UnstuffNo: null,
-        ServiceNo: null,
-        DraftNo: null,
-        InvoiceNo: null,
-        Block: "A6",
-        Bay: "06",
-        Row: "02",
-        Tier: "4",
-        Area: null,
-        VGM: true,
-        MCWeight: null,
-        TareWeight: null,
-        Sealno: null,
-        Sealno1: null,
-        Sealno2: "8256247",
-        POL: "VNHPH",
-        POD: "VNHPH",
-        FPOD: null,
-        TransitCode: null,
-        TransitPort: null,
-        Temperature: null,
-        Vent: null,
-        VentUnit: null,
-        Class: null,
-        Unno: null,
-        OogTop: null,
-        OogLeft: null,
-        OogRight: null,
-        OogBack: null,
-        OogFront: null,
-        CusHold: false,
-        TerHold: false,
-        TerHoldReason: null,
-        IsReturnBack: false,
-        IsSpecialWarning: false,
-        SpecialWarning: null,
-        ContainerCondition: null,
-        IsTruckBarge: "T",
-        TruckNo: null,
-        RemoocNo: null,
-        Note: null,
-        ID_TOS: "0000000671104",
-        CreatedBy: "catos_ndv",
-        CreatedTime: "2021-04-06T10:36:05.000Z",
-        ModifiedBy: "catos_ndv",
-        ModifiedTime: "2021-04-06T10:37:01.000Z",
-        MaxGrossWeight: null,
-        XuatNeo: null,
-        XuatPhao: null,
-        ClassName: "Export",
-        CargoTypeName: "General",
-        ContainerStatusName: "Delivered",
-        BookingType: true,
-        BookingDate: "2021-04-06T10:35:25.000Z",
-        ExpDate: null,
-        BookingAmount: 1,
-        StackingAmount: 0,
-        ShipperName: "shipperName",
-        BookingStatus: 0,
-        VesselName: "To Be Assign",
-        Humidity: null,
-        O2: null,
-        CO2: null,
-        BookingReleaseDate: null,
-        UserGroupRank: null,
-        OperationName: "CÔNG TY TNHH HAPAG- LLOYD  (VIET NAM)",
-        CallSign: null,
-        VETB: "2017-02-01T00:00:00.000Z",
-        VETD: "2017-02-01T00:00:00.000Z",
-        VImVoy: null,
-        VExVoy: null,
-        // Test
-        DiemThuPhi: "Cảng NVD",
-        DoanhThuThucTucDichVu: "DoanhThu123",
-        Cont20: 13,
-        Cont40: 15,
-        Cont45: 2,
-        TongTEU: 2000000,
-        TongTien: 500000000,
-    },
-];
 
-const rowCustomerData = [
-    {
-        // Test
-        MaKhachHang: "KHCNVD12  ",
-        TenKhachHang: "Nguyễn Văn A",
-        DiaChi: "Quận 4, TP HCM",
-        MaSoThue: "MST123",
-        Email: "PC123@gmail.com",
-        DienThoai: "0927857245",
-    },
-];
-
-const dataSource = [
-    {
-        type: "divider",
-        label: "Điểm thu phí",
-    },
-];
 function generateRandomContainerNo() {
     const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     let result = "";
@@ -196,7 +62,141 @@ class jobModeInvoiceWithReleasePointReport extends Component {
             radioValue: "option1",
         };
         this.submitButtonRef = createRef();
-
+        this.rowData = [
+            {
+                Rowguid: "20383CFB-35E4-454E-BA7E-C112ADE17335",
+                TerminalCode: null,
+                VesselKey: "TBA",
+                VesselImVoy: null,
+                VesselExVoy: null,
+                ETB: null,
+                ETD: null,
+                BargeKey: null,
+                BargeImVoy: null,
+                BargeExVoy: null,
+                DeliveryOrder: null,
+                BLNo: null,
+                BookingNo: "50940502",
+                HousebillNo: null,
+                ContainerNo: "TCNU8698362",
+                ClassCode: "3",
+                OperationCode: "HLC",
+                FE: "F",
+                ContainerStatusCode: "D",
+                CargoTypeCode: "GP",
+                Commodity: null,
+                LocalSizetype: "4500",
+                IsoSizetype: "45G0",
+                IsLocalForeign: "F",
+                JobModeCodeIn: "HBAI",
+                MethodCodeIn: "T",
+                DateIn: "2021-04-10T19:44:22.000Z",
+                DateOut: "2021-04-14T12:54:30.000Z",
+                JobModeCodeOut: "LAYN",
+                MethodCodeOut: "V",
+                EirInNo: null,
+                EirOutNo: null,
+                StuffNo: null,
+                UnstuffNo: null,
+                ServiceNo: null,
+                DraftNo: null,
+                InvoiceNo: null,
+                Block: "A6",
+                Bay: "06",
+                Row: "02",
+                Tier: "4",
+                Area: null,
+                VGM: true,
+                MCWeight: null,
+                TareWeight: null,
+                Sealno: null,
+                Sealno1: null,
+                Sealno2: "8256247",
+                POL: "VNHPH",
+                POD: "VNHPH",
+                FPOD: null,
+                TransitCode: null,
+                TransitPort: null,
+                Temperature: null,
+                Vent: null,
+                VentUnit: null,
+                Class: null,
+                Unno: null,
+                OogTop: null,
+                OogLeft: null,
+                OogRight: null,
+                OogBack: null,
+                OogFront: null,
+                CusHold: false,
+                TerHold: false,
+                TerHoldReason: null,
+                IsReturnBack: false,
+                IsSpecialWarning: false,
+                SpecialWarning: null,
+                ContainerCondition: null,
+                IsTruckBarge: "T",
+                TruckNo: null,
+                RemoocNo: null,
+                Note: null,
+                ID_TOS: "0000000671104",
+                CreatedBy: "catos_ndv",
+                CreatedTime: "2021-04-06T10:36:05.000Z",
+                ModifiedBy: "catos_ndv",
+                ModifiedTime: "2021-04-06T10:37:01.000Z",
+                MaxGrossWeight: null,
+                XuatNeo: null,
+                XuatPhao: null,
+                ClassName: "Export",
+                CargoTypeName: "General",
+                ContainerStatusName: "Delivered",
+                BookingType: true,
+                BookingDate: "2021-04-06T10:35:25.000Z",
+                ExpDate: null,
+                BookingAmount: 1,
+                StackingAmount: 0,
+                ShipperName: "shipperName",
+                BookingStatus: 0,
+                VesselName: "To Be Assign",
+                Humidity: null,
+                O2: null,
+                CO2: null,
+                BookingReleaseDate: null,
+                UserGroupRank: null,
+                OperationName: "CÔNG TY TNHH HAPAG- LLOYD  (VIET NAM)",
+                CallSign: null,
+                VETB: "2017-02-01T00:00:00.000Z",
+                VETD: "2017-02-01T00:00:00.000Z",
+                VImVoy: null,
+                VExVoy: null,
+                // Test
+                DiemThuPhi: "Cảng NVD",
+                DoanhThuThucTucDichVu: "DoanhThu123",
+                Cont20: 13,
+                Cont40: 15,
+                Cont45: 2,
+                TongTEU: 2000000,
+                TongTien: 500000000,
+            },
+        ];
+        
+        this.rowCustomerData = [
+            {
+                // Test
+                MaKhachHang: "KHCNVD12  ",
+                TenKhachHang: "Nguyễn Văn A",
+                DiaChi: "Quận 4, TP HCM",
+                MaSoThue: "MST123",
+                Email: "PC123@gmail.com",
+                DienThoai: "0927857245",
+            },
+        ];
+        
+        this.dataSource = [
+            {
+                type: "divider",
+                label: "Điểm thu phí",
+            },
+        ];
         this.columnsCustomerFormat = [
             { columnId: "MaKhachHang", width: 200, resizable: true, header: "Mã khách hàng" },
             { columnId: "TenKhachHang", width: 200, resizable: true, reorderable: true, header: "Tên khách hàng" },
@@ -421,9 +421,9 @@ class jobModeInvoiceWithReleasePointReport extends Component {
         ];
 
         for (let index = 0; index < 20; index++) {
-            const duplicatedData = { ...rowData[0] };
+            const duplicatedData = { ...this.rowData[0] };
             duplicatedData.DoanhThuThucTucDichVu = generateRandomContainerNo();
-            rowData.push(duplicatedData);
+            this.rowData.push(duplicatedData);
         }
 
     }
@@ -486,9 +486,9 @@ class jobModeInvoiceWithReleasePointReport extends Component {
             if (this.submitButtonRef.current) {
                 this.submitButtonRef.current.reset();
                 this.setState((prevState) => ({
-                    generalInformation: rowData[0] ? rowData[0] : {},
-                    tableData: rowData,
-                    customerData: rowCustomerData,
+                    generalInformation: this.rowData[0] ? this.rowData[0] : {},
+                    tableData: this.rowData,
+                    customerData: this.rowCustomerData,
                     formData: {
                         ...prevState.formData,
                     },
@@ -514,47 +514,45 @@ class jobModeInvoiceWithReleasePointReport extends Component {
                         <Mcard
                             title={<span style={{ color: 'white' }}>Báo cáo tổng hợp doanh thu - thu ngay (DTP)</span>}
                         >
-                            <Col className='input_layout'>
-                                <Row justify={"space-between"}>
-                                    <Col>
-                                        <Row>Từ ngày</Row>
-                                        <Mdatepicker
-                                            dataSource={{
-                                                value: formData.fromDate,
-                                                format: "YYYY-MM-DD HH:mm:ss",
-                                                defaultValue: formData.fromDate,
-                                                id: "my-datepicker",
-                                                required: true,
-                                                lockbefore: true,
-                                                propReadonly: false,
-                                            }}
-                                        />
-                                    </Col>
-                                    <Col>
-                                        <Row>Đến ngày</Row>
-                                        <Mdatepicker
-                                            dataSource={{
-                                                value: formData.toDate,
-                                                format: "YYYY-MM-DD HH:mm:ss",
-                                                defaultValue: formData.toDate,
-                                                id: "my-datepicker",
-                                                required: true,
-                                                lockbefore: true,
-                                                propReadonly: false,
-                                                className: 'date_input '
-                                            }}
-                                        />
-                                    </Col>
-                                </Row>
-                            </Col>
-                            <Col>
-                                <div className="diemThuPhi">
-                                    <Mdivider
+
+                            <Row gutter={12} justify="center" style={{ marginTop: "1rem" }}>
+                                <Col xs={24} md={12}>
+                                    <Row>Từ ngày</Row>
+                                    <Mdatepicker
                                         dataSource={{
-                                            label: "Điểm thu phí",
+                                            value: formData.fromDate,
+                                            format: "YYYY-MM-DD HH:mm:ss",
+                                            defaultValue: formData.fromDate,
+                                            id: "my-datepicker",
+                                            required: true,
+                                            lockbefore: true,
+                                            propReadonly: false,
                                         }}
                                     />
-
+                                </Col>
+                                <Col xs={24} md={12}>
+                                    <Row>Đến ngày</Row>
+                                    <Mdatepicker
+                                        dataSource={{
+                                            value: formData.toDate,
+                                            format: "YYYY-MM-DD HH:mm:ss",
+                                            defaultValue: formData.toDate,
+                                            id: "my-datepicker",
+                                            required: true,
+                                            lockbefore: true,
+                                            propReadonly: false,
+                                            className: 'date_input '
+                                        }}
+                                    />
+                                </Col>
+                                <Col span={24}>
+                                    <Mdivider
+                                        dataSource={{
+                                            label: "Điểm thu phí"
+                                        }}
+                                    />
+                                </Col>
+                                <Col span={24}>
                                     <Mselect
                                         dataSource={{
                                             id: "selectDiemThuPhi",
@@ -568,16 +566,15 @@ class jobModeInvoiceWithReleasePointReport extends Component {
                                         }}
                                         onChangeValue={(e) => this.handleSelectChange(e["select1"])}
                                     />
-                                </div>
-                            </Col>
-                            <Col>
-                                <div className="heThong">
+                                </Col>
+                                <Col span={24}>
                                     <Mdivider
                                         dataSource={{
-                                            label: "Hệ thống",
+                                            label: "Hệ thống"
                                         }}
                                     />
-
+                                </Col>
+                                <Col span={24}>
                                     <Mradio
                                         dataSource={{
                                             value: this.state.radioValue,
@@ -596,6 +593,8 @@ class jobModeInvoiceWithReleasePointReport extends Component {
                                         }}
                                         onChangeValue={this.handleRadioChange}
                                     />
+                                </Col>
+                                <Col span={24}>
                                     <Mradio
                                         dataSource={{
                                             value: this.state.radioValue,
@@ -615,11 +614,8 @@ class jobModeInvoiceWithReleasePointReport extends Component {
                                         }}
                                         onChangeValue={this.handleRadioChange}
                                     />
-                                </div>
-                            </Col>
-
-                            <Col className='input_layout'>
-                                <div className="div-loaddata">
+                                </Col>
+                                <Col xs={24} md={24} style={{ marginTop: "1rem", textAlign: 'center' }}>
                                     <Mbutton
                                         color=""
                                         className="m_button btn-loaddata"
@@ -635,73 +631,88 @@ class jobModeInvoiceWithReleasePointReport extends Component {
                                             icon: "CloudDownloadOutlined",
                                         }}
                                     />
-                                </div>
-
-                            </Col>
-
-                            <Col className='input_layout'>
-                                <Mdivider
-                                    dataSource={{
-                                        label: "Thống kê",
-                                    }}
-                                />
-                                <Col className="general_information_content">
-                                    {this.generalInformationList.map((item, index) => (
-                                        <Row className="information_content_item" key={index} justify="space-between">
-                                            <Col className="item_title">{item.title}:</Col>
-                                            {!this.state.isLoading ? (
-                                                item.value ? (
-                                                    <Col className="item_value dashed-line body-xl-bold m-red-text">
-                                                        {this.state.generalInformation[item.value] || "0"}
-
-                                                    </Col>
-                                                ) : (
-                                                    <span className="item_value dashed-line body-xl-bold m-red-text">0</span>
-                                                )
-                                            ) : (
-                                                <span className="item_value dashed-line body-xl-bold m-red-text">Loading...</span>
-                                            )}
-                                        </Row>
-                                    ))}
                                 </Col>
-                            </Col>
-                            <div className="mtable-tacnghiep">
-                                {!this.state.isLoading ? (
-                                    !this.state.tableData[0] ? (
-                                        <Col className="no_data">
-                                            <Row justify={"center"}>
-                                                <DatabaseOutlined className="no_data_icon" />
+                                <Col span={24}>
+                                    <Mdivider
+                                        dataSource={{
+                                            label: "Thống kê"
+                                        }}
+                                    />
+                                </Col>
+                                <Col span={24}>
+                                    <Col className="general_information_content">
+                                        {this.generalInformationList.map((item, index) => (
+                                            <Row className="information_content_item" key={index} justify="space-between">
+                                                <Col className="item_title">{item.title}:</Col>
+                                                {!this.state.isLoading ? (
+                                                    item.value ? (
+                                                        <Col className="item_value dashed-line body-xl-bold m-red-text">
+                                                            {this.state.generalInformation[item.value] || "0"}
+
+                                                        </Col>
+                                                    ) : (
+                                                        <span className="item_value dashed-line body-xl-bold m-red-text">0</span>
+                                                    )
+                                                ) : (
+                                                    <span className="item_value dashed-line body-xl-bold m-red-text">Loading...</span>
+                                                )}
                                             </Row>
-                                            <Row justify={"center"}>Loading</Row>
-                                        </Col>
-                                    ) : (
-                                        <Mtable
-                                            config={{
-                                                defaultData: this.state.customerData,
-                                                columnsFormat: this.columnsCustomerFormat,
-                                                rowsFormat: this.rowsCustomerFormat,
-                                                rowsHeader: this.rowsCustomerHeader,
-                                                reorderRow: true,
-                                            }}
-                                            functionRequire={{
-                                                // addcolumn: true,
-                                                // deleteColumn: true,
-                                                // exportExel: true,
-                                                // saveData: () => { this.saveData() },
-                                                searchField: [
+                                        ))}
+                                    </Col>
+                                </Col>
+                                <Col xs={24} md={24}>
+                                    <div className="mtable-tacnghiep">
+                                        {!this.state.isLoading ? (
+                                            !this.state.tableData[0] ? (
+                                                <Mtable
+                                                    config={{
+                                                        defaultData: "",
+                                                        columnsFormat: this.columnsCustomerFormat,
+                                                        rowsFormat: this.rowsCustomerFormat,
+                                                        rowsHeader: this.rowsCustomerHeader,
+                                                        reorderRow: true,
+                                                    }}
+                                                    functionRequire={{
+                                                        // addcolumn: true,
+                                                        // deleteColumn: true,
+                                                        // exportExel: true,
+                                                        // saveData: () => { this.saveData() },
+                                                        searchField: [
 
-                                                ],
+                                                        ],
 
-                                            }}
-                                        />
-                                    )
-                                ) : (
-                                    <Row className="no_data" justify={"center"} align={"middle"}>
-                                        <LoadingOutlined style={{ fontSize: "64px" }} />
-                                    </Row>
-                                )}
+                                                    }}
+                                                />
+                                            ) : (
+                                                <Mtable
+                                                    config={{
+                                                        defaultData: this.state.customerData,
+                                                        columnsFormat: this.columnsCustomerFormat,
+                                                        rowsFormat: this.rowsCustomerFormat,
+                                                        rowsHeader: this.rowsCustomerHeader,
+                                                        reorderRow: true,
+                                                    }}
+                                                    functionRequire={{
+                                                        // addcolumn: true,
+                                                        // deleteColumn: true,
+                                                        // exportExel: true,
+                                                        // saveData: () => { this.saveData() },
+                                                        searchField: [
 
-                            </div>
+                                                        ],
+
+                                                    }}
+                                                />
+                                            )
+                                        ) : (
+                                            <Row className="no_data" justify={"center"} align={"middle"}>
+                                                <LoadingOutlined style={{ fontSize: "64px" }} />
+                                            </Row>
+                                        )}
+
+                                    </div>
+                                </Col>
+                            </Row>
                         </Mcard>
                     </Col>
                     <Col lg={{ span: 16 }} sm={{ span: 24 }}>

@@ -5530,3 +5530,147 @@ select {
 .input_layout_cont{
   margin-top: -10px;
 }
+
+//personalPopup
+.ant-dropdown-trigger {
+  cursor: pointer;
+}
+
+.ant-dropdown {
+  top: 0 !important;
+}
+
+.logged-user-menu {
+  background-color: #0065A1; 
+  color: white;
+  padding: 20px;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  min-width: 250px;
+  font-size: 20px;
+}
+
+.logged-user-avatar-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.avatar-w {
+  margin-bottom: 10px;
+}
+
+.logged-user-info-w {
+  text-align: center;
+}
+
+.logged-user-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.logged-user-role {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.bg-icon {
+  display: none; 
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+ul li {
+  margin-bottom: 10px;
+}
+
+ul li a {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+ul li a i {
+  margin-right: 10px;
+}
+
+.m-switch-lang {
+  display: flex;
+  align-items: center;
+}
+
+.m-lang-selector {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+#curLangText {
+  margin-right: 5px;
+}
+
+#curLangImg {
+  width: 20px;
+  height: auto;
+}
+
+.user-info-dropdown {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+}
+
+.user-info-dropdown .username {
+  margin-left: 10px;
+  color: #333;
+}
+.logged-user-menu .ant-dropdown-trigger {
+  position: relative;
+}
+
+.logged-user-menu .ant-dropdown {
+  position: absolute;
+  left: 0;
+  top: 100% !important;
+  margin-top : -4rem;
+}
+
+.m-lang-selector {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: white;
+}
+
+.ant-dropdown-menu {
+  min-width: 120px;
+}
+
+//personalInfor
+.btn-changepass {
+  color: #00BF72;
+  border-color: #00BF72;
+  transition: all 0.3s ease; 
+}
+
+.btn-changepass:hover {
+  color: white !important;
+  background-color: #00BF72 !important ;
+}
+
+.btn-changepass:active {
+  color: white !important;
+  background-color: #00BF72 !important;
+  border-color: #00BF72 !important;
+}
+
+.m-form input {
+  font-size: 16px;
+}

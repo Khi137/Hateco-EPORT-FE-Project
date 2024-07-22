@@ -37,7 +37,7 @@ function generateRandomContainerNo() {
 }
 function formatNumber(num) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  }
+}
 
 class InstantInvoiceWithReleasePointReport extends Component {
 
@@ -190,7 +190,7 @@ class InstantInvoiceWithReleasePointReport extends Component {
                 GhiChu: "Ghi chú",
             },
         ];
-        
+
         this.rowModalData = [
             {
                 // Test
@@ -202,7 +202,7 @@ class InstantInvoiceWithReleasePointReport extends Component {
                 DienThoai: "0927857245",
             },
         ];
-        
+
         this.dataSource = [
             {
                 type: "divider",
@@ -338,7 +338,7 @@ class InstantInvoiceWithReleasePointReport extends Component {
             const duplicatedData = { ...this.rowData[0] };
             duplicatedData.MaSoThue = generateRandomContainerNo();
             this.rowData.push(duplicatedData);
-        
+
             const duplicatedModalData = { ...this.rowModalData[0] };
             duplicatedModalData.MaSoThue = generateRandomContainerNo();
             this.rowModalData.push(duplicatedModalData);
@@ -457,48 +457,45 @@ class InstantInvoiceWithReleasePointReport extends Component {
                         <Mcard
                             title={<span style={{ color: 'white' }}>Báo cáo doanh thu hoá đơn thu ngay (DTP)</span>}
                         >
-                            <Col className='input_layout'>
-                                <Row justify={"space-between"}>
-                                    <Col>
-                                        <Row>Từ ngày</Row>
-                                        <Mdatepicker
-                                            dataSource={{
-                                                value: formData.fromDate,
-                                                format: "YYYY-MM-DD HH:mm:ss",
-                                                defaultValue: formData.fromDate,
-                                                id: "my-datepicker",
-                                                required: true,
-                                                lockbefore: true,
-                                                propReadonly: false,
-                                            }}
-                                        />
-                                    </Col>
-                                    <Col>
-                                        <Row>Đến ngày</Row>
-                                        <Mdatepicker
-                                            dataSource={{
-                                                value: formData.toDate,
-                                                format: "YYYY-MM-DD HH:mm:ss",
-                                                defaultValue: formData.toDate,
-                                                id: "my-datepicker",
-                                                required: true,
-                                                lockbefore: true,
-                                                propReadonly: false,
-                                                className: 'date_input '
-                                            }}
-                                        />
-                                    </Col>
-                                </Row>
-                            </Col>
-                            <Col className='input_layout'>
-                                <Row justify="space-between" align="middle">
-                                    <Col xs={24} sm={18} md={20} lg={21} className="col_doituongthanhtoan">
-                                        {this.inputForm.map((item, key) => this.renderInputField(item, key))}
-                                    </Col>
-                                    <Col xs={24} sm={6} md={4} lg={3}>
+
+                            <Row gutter={12} justify="center" style={{ marginTop: "1rem" }}>
+                                <Col xs={24} md={12}>
+                                    <Row>Từ ngày</Row>
+                                    <Mdatepicker
+                                        dataSource={{
+                                            value: formData.fromDate,
+                                            format: "YYYY-MM-DD HH:mm:ss",
+                                            defaultValue: formData.fromDate,
+                                            id: "my-datepicker",
+                                            required: true,
+                                            lockbefore: true,
+                                            propReadonly: false,
+                                        }}
+                                    />
+                                </Col>
+                                <Col xs={24} md={12}>
+                                    <Row>Đến ngày</Row>
+                                    <Mdatepicker
+                                        dataSource={{
+                                            value: formData.toDate,
+                                            format: "YYYY-MM-DD HH:mm:ss",
+                                            defaultValue: formData.toDate,
+                                            id: "my-datepicker",
+                                            required: true,
+                                            lockbefore: true,
+                                            propReadonly: false,
+                                            className: 'date_input '
+                                        }}
+                                    />
+                                </Col>
+                                <Col xs={20} md={20}>
+                                    {this.inputForm.map((item, key) => this.renderInputField(item, key))}
+                                </Col>
+                                <Col xs={4} md={4}>
+                                    <div style={{ marginTop: "1.5rem" }}>
                                         <Mbutton
                                             color=""
-                                            className="m_button search-btn"
+                                            className=" search-btn"
                                             block
                                             border="none"
                                             size={"12"}
@@ -509,18 +506,16 @@ class InstantInvoiceWithReleasePointReport extends Component {
                                                 icon: "SearchOutlined",
                                             }}
                                         />
-
-                                    </Col>
-                                </Row>
-                            </Col>
-                            <Col>
-                                <div className="diemThuPhi">
+                                    </div>
+                                </Col>
+                                <Col span={24}>
                                     <Mdivider
                                         dataSource={{
                                             label: "Điểm thu phí",
                                         }}
                                     />
-
+                                </Col>
+                                <Col span={24}>
                                     <Mselect
                                         dataSource={{
                                             id: "selectDiemThuPhi",
@@ -534,15 +529,15 @@ class InstantInvoiceWithReleasePointReport extends Component {
                                         }}
                                         onChangeValue={(e) => this.handleSelectChange(e["select1"])}
                                     />
-                                </div>
-                            </Col>
-                            <Col className='input_layout'>
-                                <div className="heThong">
+                                </Col>
+                                <Col span={24}>
                                     <Mdivider
                                         dataSource={{
                                             label: "Hệ thống",
                                         }}
                                     />
+                                </Col>
+                                <Col span={24}>
                                     <Mradio
                                         dataSource={{
                                             value: this.state.radioValue,
@@ -555,11 +550,8 @@ class InstantInvoiceWithReleasePointReport extends Component {
                                         }}
                                         onChangeValue={this.handleRadioChange}
                                     />
-                                </div>
-                            </Col>
-
-                            <Col className='input_layout'>
-                                <div className="div-loaddata">
+                                </Col>
+                                <Col xs={24} md={24} style={{ marginTop: "1rem", textAlign: 'center' }}>
                                     <Mbutton
                                         color=""
                                         className="m_button btn-loaddata"
@@ -575,34 +567,38 @@ class InstantInvoiceWithReleasePointReport extends Component {
                                             icon: "CloudDownloadOutlined",
                                         }}
                                     />
-                                </div>
-
-                            </Col>
-                            <Col className='input_layout'>
-                                <Mdivider
-                                    dataSource={{
-                                        label: "Thống kê",
-                                    }}
-                                />
-                                <Col className="general_information_content">
-                                    {this.generalInformationList.map((item, index) => (
-                                        <Row className="information_content_item" key={index} justify="space-between">
-                                            <Col className="item_title">{item.title}:</Col>
-                                            {!this.state.isLoading ? (
-                                                item.value ? (
-                                                    <Col className="item_value dashed-line body-xl-bold m-red-text">
-                                                          {this.state.generalInformation[item.value] || "0"}
-                                                        </Col>
-                                                ) : (
-                                                    <span className="item_value dashed-line body-xl-bold m-red-text">0</span>
-                                                )
-                                            ) : (
-                                                <span className="item_value dashed-line body-xl-bold m-red-text">Loading...</span>
-                                            )}
-                                        </Row>
-                                    ))}
                                 </Col>
-                            </Col>
+                                <Col span={24} style={{ marginTop: "1rem" }}>
+                                    <Mdivider
+                                        dataSource={{
+                                            label: "Thống kê",
+                                        }}
+                                    />
+                                </Col>
+                                <Col span={24}>
+                                    <Col className="general_information_content">
+                                        {this.generalInformationList.map((item, index) => (
+                                            <Row className="information_content_item" key={index} justify="space-between">
+                                                <Col className="item_title">{item.title}:</Col>
+                                                {!this.state.isLoading ? (
+                                                    item.value ? (
+                                                        <Col className="item_value dashed-line body-xl-bold m-red-text">
+                                                            {this.state.generalInformation[item.value] || "0"}
+                                                        </Col>
+                                                    ) : (
+                                                        <span className="item_value dashed-line body-xl-bold m-red-text">0</span>
+                                                    )
+                                                ) : (
+                                                    <span className="item_value dashed-line body-xl-bold m-red-text">Loading...</span>
+                                                )}
+                                            </Row>
+                                        ))}
+                                    </Col>
+                                </Col>
+                            </Row>
+
+
+
                         </Mcard>
                     </Col>
                     <Col lg={{ span: 16 }} sm={{ span: 24 }}>

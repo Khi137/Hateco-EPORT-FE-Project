@@ -16,7 +16,7 @@ import {
   addIconExtendsion,
   removeIconExtendison,
 } from "../../redux/reducers/extendsionReducer";
-
+import PersonalPopup from '../../views/login/personalPopup';
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -201,8 +201,9 @@ class Header extends Component {
             Công ty TNHH Cảng Container Quốc Tế Hateco Hải Phòng
           </div>
           <div className="user">
-            <UserOutlined style={{ fontSize: "24px" }} className="logo-user" />
-            <span>Username</span>
+            {/* <UserOutlined style={{ fontSize: "24px" }} className="logo-user" />
+            <span>Username</span> */}
+            <PersonalPopup/>
           </div>
         </div>
         <div className="menu">
