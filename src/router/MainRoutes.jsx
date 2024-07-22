@@ -41,6 +41,9 @@ import TariffHoliday from "../views/tariff/tariffHoliday.jsx";
 import TariffContract from "../views/tariff/tariffContract.jsx";
 import PendingTask from "../views/task/pendingTask.jsx";
 import TskUpdateOrder from "../views/task/tskUpdateOrder.jsx";
+import Eirsrv from "../views/tracking/eirsrv.jsx";
+import EirTracking from "../views/tracking/eirTracking.jsx";
+import PinCodeTrackingGML from "../views/tracking/pinCodeTrackingGML.jsx";
 
 class MainRoutes extends Component {
   render() {
@@ -79,6 +82,9 @@ class MainRoutes extends Component {
             <Route path="tracking_booking" element={<TrackingBooking />} />
             <Route path="tracking_edo" element={<TrackingEdo />} />
             <Route path="tracking_housebill" element={<TrackingHouseBill />} />
+            <Route path="eirsrv" element={<Eirsrv />} />
+            <Route path="pin_code_tracking_GML" element={<PinCodeTrackingGML />} />
+            <Route path="eir_tracking" element={<EirTracking />} />
           </Route>
 
           <Route path="/system_manager">

@@ -14,7 +14,7 @@ $color-surface-700: #4f575e;
 $color-surface-800: #33383d;
 $color-surface-900: #202327;
 $color-primary: #1c1c54;
-$color-second: #0065A1;
+$color-second: #0065a1;
 $color-third: #00b1cc;
 $color-fourth: #5ffbd6;
 
@@ -55,10 +55,12 @@ $color-warning-400: #a6620d;
 
 //Opacity
 $color-opacity-primary: rgba(red(#7d49f8), green(#7d49f8), blue(#7d49f8), 0.15);
-$color-opacity-secondary: rgba(red(#1c6fe3),
-    green(#1c6fe3),
-    blue(#1c6fe3),
-    0.15);
+$color-opacity-secondary: rgba(
+  red(#1c6fe3),
+  green(#1c6fe3),
+  blue(#1c6fe3),
+  0.15
+);
 $color-opacity-danger: rgba(red(#c92929), green(#c92929), blue(#c92929), 0.15);
 $color-opacity-success: rgba(red(#12825f), green(#12825f), blue(#12825f), 0.15);
 $color-opacity-warning: rgba(red(#f2ab53), green(#f2ab53), blue(#f2ab53), 0.15);
@@ -348,14 +350,13 @@ $caption-line-height: 14px;
   }
 
   .Winput.error_input {
-    border-color: #C92929;
+    border-color: #c92929;
     margin: 0;
 
     span {
-      color: #C92929;
+      color: #c92929;
     }
   }
-
 }
 
 .winput_header {
@@ -398,7 +399,6 @@ $caption-line-height: 14px;
   .m-form__label {
     // color: black;
     transition: all 0.3s ease;
-
   }
 
   .ant-input-search {
@@ -725,7 +725,7 @@ $caption-line-height: 14px;
     width: 100%;
     justify-content: space-between;
     height: fit-content;
-    padding: 12px;
+    padding: 12px 0;
     flex: 0 1 auto;
 
     .table_feature {
@@ -788,7 +788,7 @@ $caption-line-height: 14px;
     justify-content: center;
   }
 
-  .have_data{
+  .have_data {
     height: 100%;
   }
 }
@@ -841,7 +841,6 @@ $caption-line-height: 14px;
     margin: 12px;
     height: 20px;
 
-
     .header_dash_line {
       position: absolute;
       width: 100%;
@@ -866,7 +865,6 @@ $caption-line-height: 14px;
       }
     }
   }
-
 
   .general_information_content {
     .information_content_item {
@@ -919,19 +917,19 @@ $caption-line-height: 14px;
       }
 
       .liquidation {
-        color: #04B900;
+        color: #04b900;
         text-transform: capitalize;
         font-weight: 600;
       }
 
       .location {
-        color: #C92929;
+        color: #c92929;
         text-transform: capitalize;
         font-weight: 600;
       }
 
       .left_column {
-        background-color: #ECEDEE;
+        background-color: #ecedee;
         width: 40%;
       }
     }
@@ -1022,7 +1020,7 @@ $caption-line-height: 14px;
 }
 
 .vertical-line::after {
-  content: '*\A *\A *';
+  content: "*\A *\A *";
   position: absolute;
   top: 50%;
   left: -10px;
@@ -1041,7 +1039,7 @@ $caption-line-height: 14px;
 }
 
 .horizontal-line::after {
-  content: '* * *';
+  content: "* * *";
   position: absolute;
   top: -10px;
   left: 50%;
@@ -1060,15 +1058,49 @@ $caption-line-height: 14px;
   }
 }
 
-// 
+//
 .tsk_update_order_container {
   .m-custom-card {
     height: 100%;
     min-height: 30vh;
     padding-bottom: 5vh;
   }
+}
+
+.eirsrv_container {
+  .m-custom-card {
+    height: 100%;
+    min-height: 40vh;
+    padding-bottom: 5vh;
+    // margin-bottom: 12px;
+  }
+
+  .small_container {
+    height: 70%;
+    margin-top: 12px;
+    min-height: 30vh;
+    padding-bottom: 0vh;
+  }
 
   // .table_content{
   //   min-height: 18vh;
   // }
+}
+
+.pin_code_tracking_container {
+  min-height: 0px;
+  .m-custom-card {
+    height: 100%;
+    min-height: 30vh;
+    padding-bottom: 5vh;
+  }
+
+  .vehical_type {
+    padding-top: 12px;
+  }
+
+  .small_container {
+    min-height: 30vh;
+    padding-bottom: 0vh;
+  }
 }

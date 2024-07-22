@@ -1,5 +1,5 @@
 import React, { Component, createRef } from "react";
-import { Col, Layout, Row } from "antd";
+import { Col, Row } from "antd";
 import {
   BarcodeOutlined,
   BoldOutlined,
@@ -7,11 +7,10 @@ import {
   EnvironmentOutlined,
   LoadingOutlined,
   NumberOutlined,
-  SearchOutlined,
 } from "@ant-design/icons";
 import { Mbutton, Mcard, Mradio, Mtable, Winput } from "../../components/BasicUI/BasicUI";
 import { formatDateTime } from "../../utils/util";
-import { Content, Header } from "antd/es/layout/layout";
+import { Content } from "antd/es/layout/layout";
 
 const rowData = [
   {
