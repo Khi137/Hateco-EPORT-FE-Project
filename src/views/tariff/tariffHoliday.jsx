@@ -377,6 +377,7 @@ export default class TariffHoliday extends Component {
                   tooltip={"Nội dung"}
                   value={this.state.contentCalender}
                   onChange={(e) => console.log(e)}
+                  className={`form_input_field`}
                   checkError={(error) =>
                     this.setState((prevState) => ({
                       formData: {

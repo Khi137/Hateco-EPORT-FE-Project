@@ -16,9 +16,9 @@ import TrackingBill from "../views/tracking/trackingBill";
 import TrackingBooking from "../views/tracking/trackingBooking";
 import TrackingEdo from "../views/tracking/trackingEdo";
 import TrackingHouseBill from "../views/tracking/trackingHouseBill";
-import Customer from "../views/category/customer";
+import Customer from "../views/category/Customer";
 import Task from "../views/category/task";
-import ShipExploitBrand from "../views/category/shipExploitBrand";
+import ShipExploitBrand from "../views/category/ShipExploitBrand";
 import CommoditiesType from "../views/category/commoditiesType";
 import DirectionContainer from "../views/category/directionContainer";
 import PortsList from "../views/category/portsList";
@@ -60,6 +60,10 @@ class MainRoutes extends Component {
           <Route path="/" element={<Dashboard />} />
           <Route path="/category-customer" element={<Customer />} />
 
+          <Route path="/personal">
+            <Route path="personalInfo" element={<PersonalInfor />} />
+          </Route>
+
           <Route path="/postage">
             <Route path="postage-standard" element={<PostageStandard />} />
           </Route>
@@ -70,6 +74,12 @@ class MainRoutes extends Component {
             <Route path="tariff-freeday" element={<TariffFreeDay />} />
             <Route path="tariff-holiday" element={<TariffHoliday />} />
             <Route path="tariff-contract" element={<TariffContract />} />
+          </Route>
+
+          <Route path="/shippingLine">
+            <Route path="shippingLine_edoManagement" element={<EdoManagement />} />
+            <Route path="shippingLine_edoUpdate" element={<EdoUpdate />} />
+            <Route path="shippingLine_edoHistory" element={<EdoHistory />} />
           </Route>
 
           <Route path="/tracking">
