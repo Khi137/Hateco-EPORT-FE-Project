@@ -492,8 +492,6 @@ export default class TariffContract extends Component {
     );
     const updatedCarrierValue = carrierValue ? carrierValue.label : "";
 
-    if (value === "Add") this.rowData.length = 0;
-
     this.setState({ isLoading: true });
     if (this.submitButtonRef.current) {
       this.submitButtonRef.current.loading();
@@ -501,7 +499,7 @@ export default class TariffContract extends Component {
     setTimeout(() => {
       this.setState((prevState) => ({
         generalInformation: this.rowData[0] ? this.rowData[0] : {},
-        tableData: this.rowData,
+        tableData: value === "Add" ? [] : this.rowData,
         formData: {
           ...prevState.formData,
           tariffNumberError: false,
