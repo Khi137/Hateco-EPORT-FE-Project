@@ -60,6 +60,10 @@ class MainRoutes extends Component {
           <Route path="/" element={<Dashboard />} />
           <Route path="/category-customer" element={<Customer />} />
 
+          <Route path="/personal">
+            <Route path="personalInfo" element={<PersonalInfor />} />
+          </Route>
+
           <Route path="/postage">
             <Route path="postage-standard" element={<PostageStandard />} />
           </Route>

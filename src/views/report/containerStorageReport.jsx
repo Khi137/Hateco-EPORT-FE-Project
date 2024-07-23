@@ -198,7 +198,7 @@ class containerStorageReport extends Component {
                 GhiChu: "Hàng dễ vỡ, xin nhẹ tay",
             },
         ];
-        
+
         this.rowTongData = [
             {
                 // Test
@@ -385,9 +385,9 @@ class containerStorageReport extends Component {
             const duplicatedData = { ...this.rowData[0] };
             duplicatedData.SoContainer = generateRandomContainerNo();
             this.rowData.push(duplicatedData);
-        
+
         }
-        
+
     }
     handleSelectChange = (value) => {
         this.setState({ selectValue: value });
@@ -475,10 +475,10 @@ class containerStorageReport extends Component {
                         <Mcard
                             title={<span style={{ color: 'white' }}>Báo cáo Container biến động</span>}
                         >
-                            <Col className="input_layout">
+                            <Row gutter={12} justify={'center'}>
 
-                                <Row >
-                                    <Row>Ngày hiệu lực</Row>
+                                <Col xs={24} md={24} >
+                                    <span>Ngày hiệu lực</span>
                                     <Mdatepicker
                                         dataSource={{
                                             value: this.state.formData.fromDate,
@@ -491,11 +491,8 @@ class containerStorageReport extends Component {
                                             propReadonly: false,
                                         }}
                                     />
-
-                                </Row>
-                            </Col>
-                            <Col className="input_layout_cont">
-                                <Row>
+                                </Col>
+                                <Col xs={24} md={24}>
                                     <Mradio
                                         dataSource={{
                                             value: this.state.radioValue,
@@ -513,10 +510,9 @@ class containerStorageReport extends Component {
                                         }}
                                         onChangeValue={this.handleRadioChange}
                                     />
-                                </Row>
-                            </Col>
-                            <Col className="input_layout">
-                                <Row>
+
+                                </Col>
+                                <Col xs={24} md={24} style={{ marginTop: "1rem" }} >
                                     <Mselect
                                         dataSource={{
                                             id: "tauchuyen",
@@ -530,174 +526,176 @@ class containerStorageReport extends Component {
                                         }}
                                     // onChangeValue={(e) => this.handleSelectChange(e["select1"])}
                                     />
-                                </Row>
-
-
-                                <Row justify={"space-between"}>
-                                    <Col span={11}>
-                                        <Mselect
-                                            dataSource={{
-                                                id: "HangKhaiThac",
-                                                label: "HÃNG KHAI THÁC",
-                                                value: this.state.selectValue,
-                                                options: [
-                                                    { label: "Tất cả", value: "option1" },
-                                                    { label: "ACC", value: "option2" },
-                                                    { label: "ACL", value: "option3" },
-                                                ],
-                                            }}
-                                        // onChangeValue={(e) => this.handleSelectChange(e["select1"])}
-                                        />
-                                    </Col>
-                                    <Col span={11}>
-                                        <Mselect
-                                            dataSource={{
-                                                id: "Huong",
-                                                label: "HƯỚNG",
-                                                value: this.state.selectValue,
-                                                options: [
-                                                    { label: "Tất cả", value: "option1" },
-                                                    { label: "Import", value: "option2" },
-                                                    { label: "Storage Empty", value: "option3" },
-                                                ],
-                                            }}
-                                        // onChangeValue={(e) => this.handleSelectChange(e["select1"])}
-                                        />
-                                    </Col>
-                                </Row>
-                                <Row justify={"space-between"}>
-                                    <Col span={11}>
-                                        <Mselect
-                                            dataSource={{
-                                                id: "KichCo",
-                                                label: "KÍCH CỠ",
-                                                value: this.state.selectValue,
-                                                options: [
-                                                    { label: "20", value: "option1" },
-                                                    { label: "40", value: "option2" },
-                                                    { label: "45", value: "option3" },
-                                                ],
-                                            }}
-                                        // onChangeValue={(e) => this.handleSelectChange(e["select1"])}
-                                        />
-                                    </Col>
-                                    <Col span={11}>
-                                        <Mselect
-                                            dataSource={{
-                                                id: "LoaiHang",
-                                                label: "LOẠI HÀNG",
-                                                value: this.state.selectValue,
-                                                options: [
-                                                    { label: "GP : General", value: "option1" },
-                                                    { label: "RF : Reefer", value: "option2" },
-                                                    { label: "DG : Dangerous", value: "option3" },
-                                                ],
-                                            }}
-                                        // onChangeValue={(e) => this.handleSelectChange(e["select1"])}
-                                        />
-                                    </Col>
-                                </Row>
-                                <Row justify={"space-between"}>
-                                    <Col span={11}>
-                                        <Mselect
-                                            dataSource={{
-                                                id: "fullempty",
-                                                label: "FULL / EMPTY",
-                                                value: this.state.selectValue,
-                                                options: [
-                                                    { label: "Tất cả", value: "option1" },
-                                                    { label: "Full", value: "option2" },
-                                                    { label: "Empty", value: "option3" },
-                                                ],
-                                            }}
-                                        // onChangeValue={(e) => this.handleSelectChange(e["select1"])}
-                                        />
-                                    </Col>
-                                    <Col span={11}>
-                                        <Mselect
-                                            dataSource={{
-                                                id: "NoiNgoai",
-                                                label: "NỘI / NGOẠI",
-                                                value: this.state.selectValue,
-                                                options: [
-                                                    { label: "Tất cả", value: "option1" },
-                                                    { label: "Nội", value: "option2" },
-                                                    { label: "Ngoại", value: "option3" },
-                                                ],
-                                            }}
-                                        // onChangeValue={(e) => this.handleSelectChange(e["select1"])}
-                                        />
-                                    </Col>
-                                </Row>
-                                <Row justify={"space-between"}>
-                                    <Col span={11}>
-                                        <Mselect
-                                            dataSource={{
-                                                id: "TinhTrangVo",
-                                                label: "TÌNH TRẠNG VỎ",
-                                                value: this.state.selectValue,
-                                                options: [
-                                                    { label: "A : GRADE A", value: "option1" },
-                                                    { label: "B : GRADE B", value: "option2" },
-                                                    { label: "C : GRADE C", value: "option3" },
-                                                ],
-                                            }}
-                                        // onChangeValue={(e) => this.handleSelectChange(e["select1"])}
-                                        />
-                                    </Col>
-                                    <Col span={11}>
-
-                                        <Mselect
-                                            dataSource={{
-                                                id: "stacking",
-                                                label: "STACKING / DELIVERY",
-                                                value: "stacking",
-                                                options: [
-                                                    { label: "Stacking", value: "stacking" },
-                                                    { label: "Delivery", value: "delivery" },
-                                                ],
-                                                defaultValue: "stacking",
-                                            }}
-                                            onChangeValue={(value) => this.setState({ stackingSelectValue: value })}
-                                            preventEmptyOption={true}
-                                        />
-                                    </Col>
-                                </Row>
-                                <Col >
-                                    <div className="div-loaddata">
-                                        <Mbutton
-                                            color=""
-                                            className="m_button btn-loaddata"
-                                            type="primary"
-                                            htmlType="submit"
-                                            block
-
-                                            onClick={this.handleLoadData}
-                                            ref={this.submitButtonRef}
-                                            size={"12"}
-                                            dataSource={{
-                                                textbutton: `Nạp dữ liệu`,
-                                                icon: "CloudDownloadOutlined",
-                                            }}
-                                        />
-                                    </div>
-
                                 </Col>
-                                <Col >
+                                <Col xs={12} md={12}>
+                                    <Mselect
+                                        dataSource={{
+                                            id: "HangKhaiThac",
+                                            label: "HÃNG KHAI THÁC",
+                                            value: this.state.selectValue,
+                                            options: [
+                                                { label: "Tất cả", value: "option1" },
+                                                { label: "ACC", value: "option2" },
+                                                { label: "ACL", value: "option3" },
+                                            ],
+                                        }}
+                                    // onChangeValue={(e) => this.handleSelectChange(e["select1"])}
+                                    />
+                                </Col>
+                                <Col xs={12} md={12}>
+                                    <Mselect
+                                        dataSource={{
+                                            id: "Huong",
+                                            label: "HƯỚNG",
+                                            value: this.state.selectValue,
+                                            options: [
+                                                { label: "Tất cả", value: "option1" },
+                                                { label: "Import", value: "option2" },
+                                                { label: "Storage Empty", value: "option3" },
+                                            ],
+                                        }}
+                                    // onChangeValue={(e) => this.handleSelectChange(e["select1"])}
+                                    />
+                                </Col>
+                                <Col xs={12} md={12}>
+                                    <Mselect
+                                        dataSource={{
+                                            id: "KichCo",
+                                            label: "KÍCH CỠ",
+                                            value: this.state.selectValue,
+                                            options: [
+                                                { label: "20", value: "option1" },
+                                                { label: "40", value: "option2" },
+                                                { label: "45", value: "option3" },
+                                            ],
+                                        }}
+                                    // onChangeValue={(e) => this.handleSelectChange(e["select1"])}
+                                    />
+                                </Col>
+                                <Col xs={12} md={12}>
+                                    <Mselect
+                                        dataSource={{
+                                            id: "LoaiHang",
+                                            label: "LOẠI HÀNG",
+                                            value: this.state.selectValue,
+                                            options: [
+                                                { label: "GP : General", value: "option1" },
+                                                { label: "RF : Reefer", value: "option2" },
+                                                { label: "DG : Dangerous", value: "option3" },
+                                            ],
+                                        }}
+                                    // onChangeValue={(e) => this.handleSelectChange(e["select1"])}
+                                    />
+                                </Col>
+                                <Col xs={12} md={12}>
+                                    <Mselect
+                                        dataSource={{
+                                            id: "fullempty",
+                                            label: "FULL / EMPTY",
+                                            value: this.state.selectValue,
+                                            options: [
+                                                { label: "Tất cả", value: "option1" },
+                                                { label: "Full", value: "option2" },
+                                                { label: "Empty", value: "option3" },
+                                            ],
+                                        }}
+                                    // onChangeValue={(e) => this.handleSelectChange(e["select1"])}
+                                    />
+                                </Col>
+                                <Col xs={12} md={12}>
+                                    <Mselect
+                                        dataSource={{
+                                            id: "NoiNgoai",
+                                            label: "NỘI / NGOẠI",
+                                            value: this.state.selectValue,
+                                            options: [
+                                                { label: "Tất cả", value: "option1" },
+                                                { label: "Nội", value: "option2" },
+                                                { label: "Ngoại", value: "option3" },
+                                            ],
+                                        }}
+                                    // onChangeValue={(e) => this.handleSelectChange(e["select1"])}
+                                    />
+                                </Col>
+                                <Col xs={12} md={12}>
+                                    <Mselect
+                                        dataSource={{
+                                            id: "TinhTrangVo",
+                                            label: "TÌNH TRẠNG VỎ",
+                                            value: this.state.selectValue,
+                                            options: [
+                                                { label: "A : GRADE A", value: "option1" },
+                                                { label: "B : GRADE B", value: "option2" },
+                                                { label: "C : GRADE C", value: "option3" },
+                                            ],
+                                        }}
+                                    // onChangeValue={(e) => this.handleSelectChange(e["select1"])}
+                                    />
+                                </Col>
+                                <Col xs={12} md={12}>
+
+                                    <Mselect
+                                        dataSource={{
+                                            id: "stacking",
+                                            label: "STACKING / DELIVERY",
+                                            value: "stacking",
+                                            options: [
+                                                { label: "Stacking", value: "stacking" },
+                                                { label: "Delivery", value: "delivery" },
+                                            ],
+                                            defaultValue: "stacking",
+                                        }}
+                                        onChangeValue={(value) => this.setState({ stackingSelectValue: value })}
+                                        preventEmptyOption={true}
+                                    />
+                                </Col>
+                                <Col xs={24} md={24} style={{ marginTop: "1rem", textAlign: 'center' }}>
+                                    <Mbutton
+                                        color=""
+                                        className="m_button btn-loaddata"
+                                        type="primary"
+                                        htmlType="submit"
+                                        block
+
+                                        onClick={this.handleLoadData}
+                                        ref={this.submitButtonRef}
+                                        size={"12"}
+                                        dataSource={{
+                                            textbutton: `Nạp dữ liệu`,
+                                            icon: "CloudDownloadOutlined",
+                                        }}
+                                    />
+                                </Col>
+                                <Col span={24} style={{ marginTop: "1rem" }}>
                                     <Mdivider
                                         dataSource={{
                                             label: "Tổng",
                                         }}
                                     />
+                                </Col>
+                                <Col xs={24} md={24} style={{ marginTop: "-1rem" }}>
                                     <div className="mtable-Tong">
                                         {!this.state.isLoading ? (
                                             !this.state.tableData[0] ? (
-                                                <Col className="no_data">
-                                                    <Row justify={"center"}>
-                                                        <DatabaseOutlined className="no_data_icon" />
-                                                    </Row>
-                                                    <Row justify={"center"}>Loading</Row>
-                                                </Col>
+                                                <Mtable
+                                                    config={{
+                                                        defaultData: "",
+                                                        columnsFormat: this.columnsTongFormat,
+                                                        rowsFormat: this.rowsTongFormat,
+                                                        rowsHeader: this.rowsTongHeader,
+                                                        reorderRow: true,
+                                                    }}
+                                                    functionRequire={{
+                                                        // addcolumn: true,
+                                                        // deleteColumn: true,
+                                                        // exportExel: true,
+                                                        // saveData: () => { this.saveData() },
+                                                        searchField: [
+
+                                                        ],
+
+                                                    }}
+                                                />
                                             ) : (
                                                 <Mtable
                                                     config={{
@@ -727,7 +725,9 @@ class containerStorageReport extends Component {
 
                                     </div>
                                 </Col>
-                            </Col>
+                            </Row>
+
+
 
                         </Mcard>
                     </Col>
