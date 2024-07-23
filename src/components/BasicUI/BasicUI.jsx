@@ -813,7 +813,7 @@ export class Winput extends React.Component {
 
   componentDidMount() {
     this.inputRef.current.value = this.state.value;
-    this.state.error = this.state.error;
+    // this.state.error = this.state.error;
   }
 
   checkError = (value) => {
@@ -892,6 +892,7 @@ export class Winput extends React.Component {
           className={`Winput ${error ? "error_input " : ""} ${className || ""}`}
           onChange={(e) => this.handleChange(e, this.props.inputRegex)}
           onBlur={this.handleCheckError}
+          disabled={this.props.disabled}
         />
         {(require || regex || minLength) && (
           <Row className="Winput_error_text">{error}</Row>

@@ -1,131 +1,123 @@
 import React, { Component, createRef } from "react";
-import { Col, Layout, Row } from "antd";
+import { Col, Row, Tooltip } from "antd";
 import {
-    BarcodeOutlined,
     BoldOutlined,
     DatabaseOutlined,
     EnvironmentOutlined,
+    InfoCircleOutlined,
     LoadingOutlined,
     NumberOutlined,
-    SearchOutlined,
 } from "@ant-design/icons";
-import { Mbutton, Mcard, Mcheckbox, Mradio, Mtable, Winput } from "../../components/BasicUI/BasicUI";
-import { formatDateTime, formatPrice } from "../../utils/util";
-import { Content, Header } from "antd/es/layout/layout";
+import { Mbutton, Mcard, Mcheckbox, Mdatepicker, Mselect, Mtable, Winput } from "../../components/BasicUI/BasicUI";
+import { Content } from "antd/es/layout/layout";
+import moment from "moment";
 
 const rowData = [
     {
-        "AcceptBy": null,
-        "AcceptTime": null,
-        "AllowedTruckWeight": null,
-        "AttachOrderNo": null,
-        "BLNo": null,
-        "BargeKey": null,
-        "BookingNo": "LINH092211",
-        "CargoTypeCode": "MT",
-        "CargoTypeName": "Empty",
-        "Class": null,
-        "ClassCode": "2",
-        "ClassName": "Storage Empty",
-        "Commodity": null,
-        "ContainerNo": "CMAU7189586",
-        "ContainerStatusCode": "S",
-        "ContainerStatusName": "Stacking",
-        "CreatedBy": "Admin",
-        "CreatedTime": "2022-03-04T14:45:39.000Z",
-        "CurrencyCode": "VND",
-        "CusHold": null,
-        "CustomerCode": "0101255692",
-        "CustomerName": "CÔNG TY LIÊN DOANH ĐIỀU HÀNH \"VIETGAZPROM\"",
-        "CustomerTypeCode": "FWD",
-        "DeleteBy": null,
-        "DeleteTime": null,
-        "DeliveryOrder": null,
-        "DepotId": null,
-        "DraftNo": "GML/2022/030000008",
-        "DriverHostId": null,
-        "DriverName": null,
-        "ETB": null,
-        "ETD": null,
-        "ExpDate": "2022-03-05T23:59:59.000Z",
-        "ExpPluginDate": null,
-        "FE": "E",
-        "FPOD": "CKAIU",
-        "FreeDay": null,
-        "HousebillNo": null,
-        "IDNumber": null,
-        "ID_CTN_TOS": null,
-        "ID_TOS": null,
-        "Index": "220304000001-0",
-        "InvTotalAmount": null,
-        "InvoiceDate": null,
-        "InvoiceNo": null,
-        "IsAccepted": false,
-        "IsCFSChange": false,
-        "IsCFSStuff": false,
-        "IsCFSUnstuff": false,
-        "IsComplete": false,
-        "IsLoLo": true,
-        "IsLocalForeign": "F",
-        "IsPostToTos": 0,
-        "IsServiceNonCont": false,
-        "IsServiceYard": false,
-        "IsTruckBarge": "T",
-        "IsoSizetype": "45G0",
-        "IssueDate": "2022-03-04T14:45:39.000Z",
-        "JobModeCode": "CAPR",
-        "JobModeName": "CẤP RỖNG",
-        "Location": null,
-        "MCWeight": null,
-        "MappingMethod": "Truck",
-        "MaxGrossWeight": null,
-        "MethodName": "BÃI - XE",
-        "MoneyCredit": "M",
-        "Note": "/  - Cảng xếp : CKAIT - Cảng dỡ : CKAIT - Cảng đích : CKAIU / VỆ SINH NƯỚC PIN:GML22030434509",
-        "OogBack": null,
-        "OogFront": null,
-        "OogLeft": null,
-        "OogRight": null,
-        "OogTop": null,
-        "OperationCode": "CMA",
-        "OperationName": "CMA CGM",
-        "OprExpDate": null,
-        "OrderNo": "220304000001",
-        "OrderStatus": "P",
-        "OrderType": "Eir",
-        "POD": "CKAIT",
-        "POL": "CKAIT",
-        "ParentOrderNo": "220304000001",
-        "PinCode": "GML22030418784-001",
-        "Relocation": null,
-        "Rowguid": "8E978D3E-C54C-4F34-B54F-1978DD555DC9",
-        "Sealno": null,
-        "Sealno1": null,
-        "Sealno2": null,
-        "ShipperName": "A",
-        "ShipperRepresent": "A",
-        "ShipperTel": "A",
-        "TEU": 2,
-        "TaxCode": "0101255692",
-        "Temperature": null,
-        "TotalAmount": 388800,
-        "TransactionId": null,
-        "TransitCode": null,
-        "TransitName": null,
-        "TruckCompany": null,
-        "TruckNo": "",
-        "TruckTel": null,
-        "TruckWeight": null,
-        "Unno": null,
-        "VGM": false,
-        "Vent": null,
-        "VentUnit": null,
-        "VesselCode": null,
-        "VesselExVoy": null,
-        "VesselImVoy": null,
-        "VesselKey": "STORE",
-        "VesselName": null,
-        "sort_code": "220304000001_1_220304000001"
+        Area: null,
+        BLNo: "HDMUSELA06055400",
+        BargeExVoy: null,
+        BargeImVoy: null,
+        BargeKey: null,
+        Bay: "06",
+        Block: "KT",
+        BookingAmount: 1,
+        BookingDate: "2022-01-06T17:22:52.000Z",
+        BookingNo: "ABC",
+        BookingReleaseDate: null,
+        BookingStatus: 2,
+        BookingType: true,
+        CO2: null,
+        CallSign: null,
+        CargoTypeCode: "MT",
+        CargoTypeName: "Empty",
+        Class: null,
+        ClassCode: "2",
+        ClassName: "Storage Empty",
+        Commodity: null,
+        ContainerCondition: null,
+        ContainerNo: "HDMU7603991",
+        ContainerStatusCode: "S",
+        ContainerStatusName: "Stacking",
+        CreatedBy: "trammtm",
+        CreatedTime: "2022-01-06T17:22:52.000Z",
+        CusHold: false,
+        DateIn: "2021-03-07T03:14:41.000Z",
+        DateOut: null,
+        DeliveryOrder: null,
+        DraftNo: null,
+        ETB: null,
+        ETD: null,
+        EirInNo: null,
+        EirOutNo: null,
+        ExpDate: "2022-01-29T23:59:59.000Z",
+        FE: "E",
+        FPOD: "",
+        HousebillNo: null,
+        Humidity: null,
+        ID_TOS: "0000000639599",
+        InvoiceNo: null,
+        IsLocalForeign: "F",
+        IsReturnBack: false,
+        IsSpecialWarning: false,
+        IsTruckBarge: null,
+        IsoSizetype: "42P0",
+        JobModeCodeIn: "CI",
+        JobModeCodeOut: null,
+        LocalSizetype: "40FR",
+        MCWeight: null,
+        MaxGrossWeight: null,
+        MethodCodeIn: "C",
+        MethodCodeOut: null,
+        ModifiedBy: "trammtm",
+        ModifiedTime: "2022-01-06T17:23:19.000Z",
+        Note: " / ",
+        O2: null,
+        OogBack: null,
+        OogFront: null,
+        OogLeft: null,
+        OogRight: null,
+        OogTop: null,
+        OperationCode: "HMM",
+        OperationName: "HYUNDAI MERCHANT MARINE CO;LTD",
+        POD: "",
+        POL: "",
+        RemoocNo: null,
+        Row: "05",
+        Rowguid: "F246A4EA-EB54-468A-8C74-646F5E20CA8A",
+        Sealno: null,
+        Sealno1: null,
+        Sealno2: null,
+        ServiceNo: null,
+        ShipperName: "abc",
+        SpecialWarning: null,
+        StackingAmount: 0,
+        StuffNo: null,
+        TareWeight: null,
+        Temperature: null,
+        TerHold: false,
+        TerHoldReason: null,
+        TerminalCode: "f9a0050f-04d4-4184-96ae-d462382de6f2",
+        Tier: "3",
+        TransitCode: null,
+        TransitPort: "VNHPH",
+        TruckNo: null,
+        Unno: null,
+        UnstuffNo: null,
+        UserGroupRank: null,
+        VETB: null,
+        VETD: null,
+        VExVoy: null,
+        VGM: false,
+        VImVoy: null,
+        Vent: null,
+        VentUnit: null,
+        VesselExVoy: null,
+        VesselImVoy: null,
+        VesselKey: null,
+        VesselName: null,
+        XuatNeo: null,
+        XuatPhao: null,
     },
 ];
 
@@ -145,15 +137,21 @@ for (let index = 0; index < 100; index++) {
     rowData.push(duplicatedData);
 }
 
-class PendingTask extends Component {
+class Eirsrv extends Component {
     constructor(props) {
         super(props);
         this.state = {
             formData: {
                 pinCode: "",
                 pinCodeError: true,
-                containerNo: "",
-                containerNoError: true,
+
+                taxCode: "",
+                billForm: "",
+                billSymbol: "",
+                billNumber: "",
+
+                fromDate: moment(new Date()).startOf("day").toDate(),
+                toDate: moment(new Date()).endOf("day").toDate(),
 
                 getMeterial: true,
                 lowerYard: true,
@@ -211,7 +209,6 @@ class PendingTask extends Component {
         };
         this.submitButtonRef = createRef();
         this.pinCodeRef = createRef();
-        this.containerNoRef = createRef();
     }
 
     handleInputChange = (e) => {
@@ -225,18 +222,27 @@ class PendingTask extends Component {
         return value;
     };
 
-    handleRadioChange = (returnValue) => {
-        this.setState({
-            radioValue: returnValue,
-        });
+    handleSelect = (e) => {
+        console.log(e);
     };
 
+    handleCheckboxChange = (value, name) => {
+        console.log(value, name);
+        this.setState(prevState => ({
+            formData: {
+                ...prevState.formData,
+                [name]: !value
+            }
+        }));
+    };
+
+    changeMode = (type) => {
+        this.setState({
+            mode: type,
+        });
+    }
+
     handleLoadData = () => {
-        const pinCodeError = this.state.formData.pinCodeError;
-        if (pinCodeError) {
-            this.pinCodeRef?.current?.handleCheckError();
-            return;
-        }
         this.setState({ isLoading: true });
         if (this.submitButtonRef.current) {
             this.submitButtonRef.current.loading();
@@ -254,22 +260,6 @@ class PendingTask extends Component {
                 }));
             }
         }, 1000);
-    };
-
-    changeMode = (type) => {
-        this.setState({
-            mode: type,
-        });
-    }
-
-    handleCheckboxChange = (value, name) => {
-        console.log(value, name);
-        this.setState(prevState => ({
-            formData: {
-                ...prevState.formData,
-                [name]: !value
-            }
-        }));
     };
 
     renderInputField = (item, key) => {
@@ -325,33 +315,34 @@ class PendingTask extends Component {
 
         const inputForm = [
             {
-                title: "Mã Container",
-                tooltip: "Nhập số container",
-                placeholder: "Nhập số container",
+                title: "Số lệnh, số pin, số container",
+                tooltip: "Số lệnh, số pin, số container",
+                placeholder: "Số lệnh, số pin, số container",
                 inputIcon: <NumberOutlined />,
-                name: "containerNo",
+                name: "taxCode",
                 type: "text",
-                value: formData.containerNo,
-                require: true,
-                ref: this.containerNoRef,
-                error: formData.containerNoError,
+                value: formData.taxCode,
+            },
+            {
+                title: "Đối tượng thanh toán",
+                tooltip: "Đối tượng thanh toán",
+                placeholder: "Đối tượng thanh toán",
+                inputIcon: <BoldOutlined />,
+                name: "billForm",
+                type: "text",
+                value: formData.billForm,
+            },
+            {
+                title: "Người tạo lệnh",
+                tooltip: "Người tạo lệnh",
+                placeholder: "Người tạo lệnh",
+                inputIcon: <EnvironmentOutlined />,
+                name: "billSymbol",
+                type: "text",
+                value: formData.billSymbol,
             },
         ];
 
-        const pincodeForm = [
-            {
-                title: "Mã tra cứu",
-                tooltip: "Nhập Mã tra cứu",
-                placeholder: "Mã tra cứu",
-                inputIcon: <NumberOutlined />,
-                name: "pinCode",
-                type: "text",
-                value: formData.pinCode,
-                require: true,
-                ref: this.pinCodeRef,
-                error: formData.pinCodeError,
-            },
-        ];
 
         const checkboxForm = {
             lifting: [
@@ -594,137 +585,195 @@ class PendingTask extends Component {
 
         const columnsFormat = [
             { columnId: "STT", width: 50, resizable: true, header: "STT" },
-            { columnId: "PinCode", width: 150, resizable: true, reorderable: true, header: "Số Pin" },
-            { columnId: "TotalAmount", width: 150, resizable: true, reorderable: true, header: "Số tiền" },
-            { columnId: "CurrencyCode", width: 150, resizable: true, reorderable: true, header: "Loại" },
-            { columnId: "IsComplete", width: 150, resizable: true, reorderable: true, header: "Thanh toán" },
-            { columnId: "JobModeName", width: 150, resizable: true, reorderable: true, header: "Phương án" },
-            { columnId: "ExpDate", width: 150, resizable: true, reorderable: true, header: "Hạn lệnh" },
-            { columnId: "ContainerNo", width: 150, resizable: true, reorderable: true, header: "Số contianer" },
-            { columnId: "OperationCode", width: 150, resizable: true, reorderable: true, header: "Hãng tàu" },
-            { columnId: "BookingNo", width: 150, resizable: true, reorderable: true, header: "Số Booking" },
-            { columnId: "BLNo", width: 150, resizable: true, reorderable: true, header: "Số vận đơn" },
-            { columnId: "IsoSizetype", width: 150, resizable: true, reorderable: true, header: "Kích cỡ ISO" },
-            { columnId: "emptyColumn", width: 150, resizable: true, reorderable: true, header: "Trọng lượng" },
-            { columnId: "emptyColumn", width: 150, resizable: true, reorderable: true, header: "Tàu chuyến" },
-            { columnId: "ShipperName", width: 150, resizable: true, reorderable: true, header: "Chủ hàng" },
-            { columnId: "CargoTypeName", width: 150, resizable: true, reorderable: true, header: "Loại hàng" },
-            { columnId: "emptyColumn", width: 150, resizable: true, reorderable: true, header: "Hàng hoá" },
-            { columnId: "POD", width: 150, resizable: true, reorderable: true, header: "Cảng xếp" },
-            { columnId: "POL", width: 150, resizable: true, reorderable: true, header: "Cảng dỡ" },
-            { columnId: "FPOD", width: 150, resizable: true, reorderable: true, header: "Cảng đích" },
-            { columnId: "emptyColumn", width: 150, resizable: true, reorderable: true, header: "Nội/ngoại" },
-            { columnId: "CustomerName", width: 150, resizable: true, reorderable: true, header: "ĐTTT" },
-            { columnId: "CreatedTime", width: 150, resizable: true, reorderable: true, header: "Ngày tạo lệnh" },
-            { columnId: "Note", width: 700, resizable: true, reorderable: true, header: "Ghi chú" },
-            { columnId: "emptyColumn", width: 150, resizable: true, reorderable: true, header: "Thanh lý hải quan" },
-            { columnId: "APITOS", width: 150, resizable: true, reorderable: true, header: "API TOS" },
-            { columnId: "File", width: 150, resizable: true, reorderable: true, header: "File đính kèm" },
+            { columnId: "Action", width: 200, resizable: true, header: "Duyệt lệnh" },
+            { columnId: "PinCode", width: 200, resizable: true, reorderable: true, header: "Số lệnh" },
+            { columnId: "JobModeName", width: 150, resizable: true, reorderable: true, header: "Số Pin" },
+            { columnId: "MethodName", width: 150, resizable: true, reorderable: true, header: "Ngày lệnh" },
+            { columnId: "CargoTypeName", width: 150, resizable: true, reorderable: true, header: "Tàu/chuyến" },
+            { columnId: "ShipperName", width: 150, resizable: true, reorderable: true, header: "Số vận đơn" },
+            { columnId: "CustomerName", width: 150, resizable: true, reorderable: true, header: "Số booking" },
+            { columnId: "emptyColumn", width: 150, resizable: true, reorderable: true, header: "Chủ hàng" },
+            { columnId: "ShipperRepresent", width: 150, resizable: true, reorderable: true, header: "HTTT" },
+            { columnId: "ShipperTel", width: 150, resizable: true, reorderable: true, header: "Số hoá đơn" },
+            { columnId: "Note", width: 150, resizable: true, reorderable: true, header: "Số phiếu tính cước" },
+            { columnId: "Note", width: 150, resizable: true, reorderable: true, header: "Tổng tiền" },
+            { columnId: "Note", width: 150, resizable: true, reorderable: true, header: "Đối tượng thanh toán" },
+            { columnId: "Note", width: 150, resizable: true, reorderable: true, header: "Người tạo" },
+            { columnId: "Note", width: 150, resizable: true, reorderable: true, header: "Người đại diện/SĐT" },
+            { columnId: "Note", width: 150, resizable: true, reorderable: true, header: "Ghi chú" },
+            { columnId: "Note", width: 700, resizable: true, reorderable: true, header: "File đính kèm" },
+        ]
+
+        const containerColumnsFormat = [
+            { columnId: "STT", width: 50, resizable: true, header: "STT" },
+            { columnId: "Action", width: 300, resizable: true, header: "Tác nghiệp" },
+            { columnId: "PinCode", width: 300, resizable: true, reorderable: true, header: "Tổng lệnh" },
+            { columnId: "ContainerNo", width: 300, resizable: true, reorderable: true, header: "Tổng tiền hoá đơn" },
         ]
 
         const rowsFormat = (container, index) => {
             return [
                 { type: "text", nonEditable: true, text: String(index + 1) },
-                { type: "text", nonEditable: false, text: container?.PinCode.split("-")[0] || "" },
-                { type: "text", nonEditable: false, text: container?.TotalAmount ? formatPrice(container?.TotalAmount) : "" },
-                { type: "text", nonEditable: false, text: container?.CurrencyCode || "" },
-                { type: "text", nonEditable: false, text: container?.IsComplete || "" },
-                { type: "text", nonEditable: false, text: container?.BLNo || "" },
-                { type: "text", nonEditable: false, text: container?.JobModeName || "" },
-                { type: "text", nonEditable: false, text: container?.ExpDate ? formatDateTime(container?.ExpDate) : "" },
-                { type: "text", nonEditable: false, text: container?.ContainerNo || "" },
-                { type: "text", nonEditable: false, text: container?.OperationCode || "" },
-                { type: "text", nonEditable: false, text: container?.BookingNo || "" },
-                { type: "text", nonEditable: false, text: container?.IsoSizetype || "" },
-                { type: "text", nonEditable: false, text: container?.emptyColumn || "" },
-                { type: "text", nonEditable: false, text: container?.emptyColumn || "" },
+                { type: "text", nonEditable: false, text: "Chỉnh sửa / file đính kèm" },
                 { type: "text", nonEditable: false, text: container?.ShipperName || "" },
+                { type: "text", nonEditable: false, text: container?.ShipperRepresent || "" },
+                { type: "text", nonEditable: false, text: container?.MethodName || "" },
                 { type: "text", nonEditable: false, text: container?.CargoTypeName || "" },
-                { type: "text", nonEditable: false, text: container?.emptyColumn || "" },
-                { type: "text", nonEditable: false, text: container?.POD || "" },
-                { type: "text", nonEditable: false, text: container?.POL || "" },
-                { type: "text", nonEditable: false, text: container?.FPOD || "" },
-                { type: "text", nonEditable: false, text: container?.emptyColumn || "" },
+                { type: "text", nonEditable: false, text: container?.ShipperName || "" },
                 { type: "text", nonEditable: false, text: container?.CustomerName || "" },
-                { type: "text", nonEditable: false, text: container?.CreatedTime || "" },
-                { type: "text", nonEditable: false, text: container?.Note || "" },
                 { type: "text", nonEditable: false, text: container?.emptyColumn || "" },
-                { type: "text", nonEditable: false, text: container?.APITOS || "" },
-                { type: "text", nonEditable: false, text: container?.File || "" },
+                { type: "text", nonEditable: false, text: container?.ShipperRepresent || "" },
+                { type: "text", nonEditable: false, text: container?.ShipperTel || "" },
+                { type: "text", nonEditable: false, text: container?.Note || "" },
+                { type: "text", nonEditable: false, text: container?.ShipperName || "" },
+                { type: "text", nonEditable: false, text: container?.CustomerName || "" },
+                { type: "text", nonEditable: false, text: container?.emptyColumn || "" },
+                { type: "text", nonEditable: false, text: container?.ShipperRepresent || "" },
+                { type: "text", nonEditable: false, text: container?.ShipperTel || "" },
+                { type: "text", nonEditable: false, text: container?.Note || "" },
+            ]
+        };
+
+        const containerRowsFormat = (container, index) => {
+            return [
+                { type: "text", nonEditable: true, text: String(index + 1) },
+                { type: "text", nonEditable: false, text: container?.IsoSizetype || "" },
+                { type: "text", nonEditable: false, text: container?.ContainerNo || "" },
+                { type: "text", nonEditable: false, text: container?.ContainerNo || "" },
             ]
         };
 
         const rowsHeader = [
             { type: "header", text: "STT" },
+            { type: "header", text: "Duyệt lệnh" },
+            { type: "header", text: "Số lệnh" },
             { type: "header", text: "Số Pin" },
-            { type: "header", text: "Số tiền" },
-            { type: "header", text: "Loại" },
-            { type: "header", text: "Thanh toán" },
-            { type: "header", text: "Phương án" },
-            { type: "header", text: "Hạn lệnh" },
-            { type: "header", text: "Số contianer" },
-            { type: "header", text: "Hãng tàu" },
-            { type: "header", text: "Số Booking" },
+            { type: "header", text: "Ngày lệnh" },
+            { type: "header", text: "Tàu/chuyến" },
             { type: "header", text: "Số vận đơn" },
-            { type: "header", text: "Kích cỡ ISO" },
-            { type: "header", text: "Trọng lượng" },
-            { type: "header", text: "Tàu chuyến" },
+            { type: "header", text: "Số booking" },
             { type: "header", text: "Chủ hàng" },
-            { type: "header", text: "Loại hàng" },
-            { type: "header", text: "Hàng hoá" },
-            { type: "header", text: "Cảng xếp" },
-            { type: "header", text: "Cảng dỡ" },
-            { type: "header", text: "Cảng đích" },
-            { type: "header", text: "Nội/ngoại" },
-            { type: "header", text: "ĐTTT" },
-            { type: "header", text: "Ngày tạo lệnh" },
+            { type: "header", text: "HTTT" },
+            { type: "header", text: "Số hoá đơn" },
+            { type: "header", text: "Số phiếu tính cước" },
+            { type: "header", text: "Tổng tiền" },
+            { type: "header", text: "Đối tượng thanh toán" },
+            { type: "header", text: "Người tạo" },
+            { type: "header", text: "Người đại diện/SĐT" },
             { type: "header", text: "Ghi chú" },
-            { type: "header", text: "Thanh lý hải quan" },
-            { type: "header", text: "API TOS" },
             { type: "header", text: "File đính kèm" },
         ];
 
+        const containerRowsHeader = [
+            { type: "header", text: "STT" },
+            { type: "header", text: "Tác nghiệp" },
+            { type: "header", text: "Tổng lệnh" },
+            { type: "header", text: "Tổng tiền hoá đơn" },
+        ];
+
         return (
-            <Content className="flex_layout-8-16_container" >
-                <Row gutter={[12, 12]}>
+            <Content className="flex_layout-8-16_container eirsrv_container">
+                <Row className="flex_layout_card" gutter={[12, 12]}>
                     <Col lg={{ span: 8 }} sm={{ span: 24 }} xs={{ span: 24 }} >
                         <Mcard
-                            title={<span className="mcard_header">Duyệt lệnh</span>}
+                            title={<span className="mcard_header">Truy vấn thông tin lệnh</span>}
                             className="flex_card"
                         >
-                            <Col className="input_layout tracking_bill_input">
-                                <Row >
-                                    <Mradio
+                            <Col className="input_layout">
+                                <Row justify={"space-between"}>
+                                    <Col>
+                                        <Row>Từ ngày</Row>
+                                        <Mdatepicker
+                                            dataSource={{
+                                                value: formData.fromDate,
+                                                format: "YYYY-MM-DD HH:mm:ss",
+                                                defaultValue: formData.fromDate,
+                                                id: "my-datepicker",
+                                                // label: 'Select Date',
+                                                // span: { xs: 24, sm: 12, md: 8 },
+                                                required: true,
+                                                lockbefore: true,
+                                                propReadonly: false,
+                                            }}
+                                        />
+                                    </Col>
+                                    <Col>
+                                        <Row>Đến ngày</Row>
+                                        <Mdatepicker
+                                            dataSource={{
+                                                value: formData.toDate,
+                                                format: "YYYY-MM-DD HH:mm:ss",
+                                                defaultValue: formData.toDate,
+                                                id: "my-datepicker",
+                                                // label: 'Select Date',
+                                                // span: { xs: 24, sm: 12, md: 8 },
+                                                required: true,
+                                                lockbefore: true,
+                                                propReadonly: false,
+                                                className: "date_input",
+                                            }}
+                                        />
+                                    </Col>
+                                </Row>
+                                {inputForm.map((item, key) => this.renderInputField(item, key))}
+                                <Row>
+                                    <Row>
+                                        <Col>
+                                            Chọn hãng khai thác <span className="item_require">*</span>
+                                        </Col>
+                                        <Tooltip
+                                            placement="top"
+                                            title={"Chọn hãng khai thác"}
+                                            className="item_tooltip"
+                                        >
+                                            <InfoCircleOutlined />
+                                        </Tooltip>
+                                    </Row>
+                                    <Mselect
                                         dataSource={{
-                                            value: this.state.radioValue,
-                                            label: "Select an option",
+                                            id: "miningCompany",
+                                            ref: "miningCompany",
+                                            name: "miningCompany",
+                                            label: "Chọn Hãng Khai Thác",
+                                            value: this.state.formData.miningCompany,
                                             options: [
-                                                { label: "Số Pincode", value: "pincode" },
-                                                { label: "Số Container", value: "container" },
+                                                { label: "Option 1", value: "option1" },
+                                                { label: "Option 2", value: "option2" },
+                                                { label: "Option 3", value: "option3" },
                                             ],
                                         }}
-                                        onChangeValue={(returnValue) =>
-                                            this.handleRadioChange(returnValue.undefined)
-                                        }
+                                        onChangeValue={(e) => this.handleSelect(e)}
                                     />
                                 </Row>
-                                {(this.state.radioValue === "pincode"
-                                    ? pincodeForm
-                                    : inputForm
-                                ).map((item, key) => this.renderInputField(item, key))}
-                                <Mradio
-                                    dataSource={{
-                                        label: "Hình thức thanh toán",
-                                        options: [
-                                            { label: "Lệnh mới", value: "1" },
-                                            { label: "Lệnh chờ duyệt", value: "2" },
-                                            { label: "Lệnh khởi tạo", value: "3" },
-                                            { label: "Đã duyệt", value: "4" },
-                                        ],
-                                        defaultValue: "1",
-                                        className: "pending_task_radio_item",
-                                    }}
-                                />
+                                <Row>
+                                    <Row>
+                                        <Col>
+                                            Chọn hãng khai thác <span className="item_require">*</span>
+                                        </Col>
+                                        <Tooltip
+                                            placement="top"
+                                            title={"Chọn hãng khai thác"}
+                                            className="item_tooltip"
+                                        >
+                                            <InfoCircleOutlined />
+                                        </Tooltip>
+                                    </Row>
+                                    <Mselect
+                                        dataSource={{
+                                            id: "miningCompany2",
+                                            ref: "miningCompany2",
+                                            name: "miningCompany2",
+                                            label: "Chọn Hãng Khai Thác",
+                                            value: this.state.formData.miningCompany,
+                                            options: [
+                                                { label: "Option 1", value: "option1" },
+                                                { label: "Option 2", value: "option2" },
+                                                { label: "Option 3", value: "option3" },
+                                            ],
+                                        }}
+                                        onChangeValue={(e) => this.handleSelect(e)}
+                                    />
+                                </Row>
                                 <Row className="horizontal-line" />
                                 <Row justify={"space-around"} gutter={[12, 12]}>
                                     <Col>
@@ -770,7 +819,7 @@ class PendingTask extends Component {
                                         />
                                     </Col>
                                 </Row>
-                                <Row className="checkbox_field" >
+                                <Row className="checkbox_field">
                                     {
                                         checkboxForm[this.state.mode].map(index => {
                                             return (
@@ -780,22 +829,8 @@ class PendingTask extends Component {
                                     }
                                 </Row>
                                 <Row justify={"space-between"}>
-                                    <Col span={8}>
-                                        <Mbutton
-                                            color=""
-                                            className="m_button third_border"
-                                            type="primary"
-                                            htmlType="submit"
-                                            block
-                                            // onClick={this.handleLoadData}
-                                            size={"12"}
-                                            dataSource={{
-                                                textbutton: `Bật thông báo`,
-                                                icon: "BellOutlined",
-                                            }}
-                                        />
-                                    </Col>
-                                    <Col span={15}>
+
+                                    <Col lg={{ span: 24 }}>
                                         <Mbutton
                                             color=""
                                             className="m_button third"
@@ -817,7 +852,7 @@ class PendingTask extends Component {
                     </Col>
                     <Col className="layout_col" lg={{ span: 16 }} sm={{ span: 24 }} xs={{ span: 24 }}>
                         <Mcard
-                            title={<span className="mcard_header">Danh sách container</span>}
+                            title={<span className="mcard_header">Danh sách lệnh</span>}
                             className="container_list"
                         >
                             {!this.state.isLoading ? (
@@ -826,7 +861,7 @@ class PendingTask extends Component {
                                         <Row justify={"center"}>
                                             <DatabaseOutlined className="no_data_icon" />
                                         </Row>
-                                        <Row justify={"center"}>Nhập thông tin HouseBill để nạp dữ liệu container...</Row>
+                                        <Row justify={"center"}>Nhập số pin để nạp dữ liệu lệnh...</Row>
                                     </Col>
                                 ) : (
                                     <Mtable
@@ -840,19 +875,12 @@ class PendingTask extends Component {
                                         functionRequire={{
                                             // addcolumn: true,
                                             // deleteColumn: true,
-                                            // editColum: true,
-
-                                            exportExel: true,
-                                            // importExel: true,
-
-                                            // approve: true,
+                                            // exportExel: true,
                                             // saveData: (data) => {
-                                            //     console.log(data);
+                                            //   console.log(data);
                                             // },
                                             searchField: [
-                                                "ContainerNo",
-                                                "OperationCode",
-                                                "IsoSizetype",
+                                                "PinCode",
                                             ],
                                         }}
                                     />
@@ -862,6 +890,48 @@ class PendingTask extends Component {
                                     <LoadingOutlined className="no_data_icon" />
                                 </Row>
                             )}
+
+                        </Mcard>
+                        <Mcard
+                            // title={<span style={{ color: 'white' }}>Danh sách container</span>}
+                            className="container_list small_container"
+                        >
+                            {!this.state.isLoading ? (
+                                !this.state.tableData[0] ? (
+                                    <Col className="no_data">
+                                        <Row justify={"center"}>
+                                            <DatabaseOutlined className="no_data_icon" />
+                                        </Row>
+                                        <Row justify={"center"}>Nhập số pin để nạp dữ liệu container...</Row>
+                                    </Col>
+                                ) : (
+                                    <Mtable
+                                        config={{
+                                            defaultData: this.state.tableData,
+                                            columnsFormat: containerColumnsFormat,
+                                            rowsFormat: containerRowsFormat,
+                                            rowsHeader: containerRowsHeader,
+                                            reorderRow: true,
+                                        }}
+                                        functionRequire={{
+                                            // addcolumn: true,
+                                            // deleteColumn: true,
+                                            // exportExel: true,
+                                            // saveData: (data) => {
+                                            //   console.log(data);
+                                            // },
+                                            searchField: [
+                                                "ContainerNo"
+                                            ],
+                                        }}
+                                    />
+                                )
+                            ) : (
+                                <Row className="no_data" justify={"center"} align={"middle"}>
+                                    <LoadingOutlined className="no_data_icon" />
+                                </Row>
+                            )}
+
                         </Mcard>
                     </Col>
                 </Row>
@@ -870,4 +940,4 @@ class PendingTask extends Component {
     }
 }
 
-export default PendingTask;
+export default Eirsrv;
