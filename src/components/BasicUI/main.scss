@@ -5440,6 +5440,13 @@ select {
     }
   }
 }
+
+.tariffFreeDay_content {
+  .m-form__Mcheckbox span {
+    color: $brand-cl100;
+  }
+}
+
 .btn-search {
   border: none;
   color: $color-second;

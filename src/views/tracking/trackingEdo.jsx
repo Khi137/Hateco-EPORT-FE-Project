@@ -299,7 +299,7 @@ class TrackingEdo extends Component {
         <Row gutter={[12, 12]}>
           <Col lg={{ span: 8 }} sm={{ span: 24 }} xs={{ span: 24 }}>
             <Mcard
-              title={<span style={{ color: 'white' }}>Tra cứu số EDO</span>}
+              title={<span className="mcard_header">Tra cứu số EDO</span>}
               className="flex_card"
             >
               <Col className="input_layout">
@@ -388,7 +388,7 @@ class TrackingEdo extends Component {
           </Col>
           <Col className="layout_col" lg={{ span: 16 }} sm={{ span: 24 }} xs={{ span: 24 }}>
             <Mcard
-              title={<span style={{ color: 'white' }}>Danh sách container</span>}
+              title={<span className="mcard_header">Danh sách container</span>}
               className="container_list"
             >
               {!this.state.isLoading ? (
@@ -423,7 +423,7 @@ class TrackingEdo extends Component {
                 )
               ) : (
                 <Row className="no_data" justify={"center"} align={"middle"}>
-                  <LoadingOutlined style={{ fontSize: "64px" }} />
+                  <LoadingOutlined className="no_data_icon" />
                 </Row>
               )}
             </Mcard>

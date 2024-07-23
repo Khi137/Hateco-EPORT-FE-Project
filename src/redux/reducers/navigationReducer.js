@@ -421,6 +421,24 @@ const initialState = [
         url: "/tracking_edo",
         icon: "CarryOutOutlined",
       },
+      {
+        id: "tracuu-11",
+        text: "Truy vấn thông tin lệnh",
+        url: "/eirsrv",
+        icon: "CarryOutOutlined",
+      },
+      {
+        id: "tracuu-12",
+        text: "Truy vấn số PIN",
+        url: "/pin_code_tracking_GML",
+        icon: "CarryOutOutlined",
+      },
+      {
+        id: "tracuu-13",
+        text: "Tra cứu EIR điện tử",
+        url: "/eir_tracking",
+        icon: "CarryOutOutlined",
+      },
     ],
   },
 ];

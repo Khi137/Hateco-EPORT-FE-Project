@@ -1,5 +1,5 @@
 import React, { Component, createRef } from "react";
-import { Col, Layout, Row } from "antd";
+import { Col, Row } from "antd";
 import {
   BarcodeOutlined,
   BoldOutlined,
@@ -7,11 +7,10 @@ import {
   EnvironmentOutlined,
   LoadingOutlined,
   NumberOutlined,
-  SearchOutlined,
 } from "@ant-design/icons";
 import { Mbutton, Mcard, Mradio, Mtable, Winput } from "../../components/BasicUI/BasicUI";
 import { formatDateTime } from "../../utils/util";
-import { Content, Header } from "antd/es/layout/layout";
+import { Content } from "antd/es/layout/layout";
 
 const rowData = [
   {
@@ -341,7 +340,7 @@ class TrackingBill extends Component {
         <Row gutter={[12, 12]}>
           <Col lg={{ span: 8 }} sm={{ span: 24 }} xs={{ span: 24 }} >
             <Mcard
-              title={<span style={{ color: 'white' }}>Truy vấn thông tin hóa đơn</span>}
+              title={<span className="mcard_header">Truy vấn thông tin hóa đơn</span>}
               className="flex_card"
             >
               <Col className="input_layout tracking_bill_input">
@@ -383,7 +382,7 @@ class TrackingBill extends Component {
           </Col>
           <Col className="layout_col" lg={{ span: 16 }} sm={{ span: 24 }} xs={{ span: 24 }}>
             <Mcard
-              title={<span style={{ color: 'white' }}>Danh sách container</span>}
+              title={<span className="mcard_header">Danh sách container</span>}
               className="container_list"
             >
               {!this.state.isLoading ? (
