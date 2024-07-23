@@ -299,7 +299,7 @@ class Eirsrv extends Component {
             <Col span={12}>
                 <Mcheckbox dataSource={{
                     span: 12,
-                    label: <Row><Row style={{ userSelect: "none" }}>{item.label}</Row></Row>,
+                    label: <Row><Row className="mcheckbox_label">{item.label}</Row></Row>,
                     value: item.value,
                     className: `${item.value && "m-checkbox_checked"}`,
                     name: item.name
@@ -676,7 +676,7 @@ class Eirsrv extends Component {
                 <Row className="flex_layout_card" gutter={[12, 12]}>
                     <Col lg={{ span: 8 }} sm={{ span: 24 }} xs={{ span: 24 }} >
                         <Mcard
-                            title={<span style={{ color: 'white' }}>Truy vấn thông tin lệnh</span>}
+                            title={<span className="mcard_header">Truy vấn thông tin lệnh</span>}
                             className="flex_card"
                         >
                             <Col className="input_layout">
@@ -819,7 +819,7 @@ class Eirsrv extends Component {
                                         />
                                     </Col>
                                 </Row>
-                                <Row style={{ marginTop: 12, maxHeight: "30vh", overflowY: "scroll", overflowX: "hidden" }}>
+                                <Row className="checkbox_field">
                                     {
                                         checkboxForm[this.state.mode].map(index => {
                                             return (
@@ -852,7 +852,7 @@ class Eirsrv extends Component {
                     </Col>
                     <Col className="layout_col" lg={{ span: 16 }} sm={{ span: 24 }} xs={{ span: 24 }}>
                         <Mcard
-                            title={<span style={{ color: 'white' }}>Danh sách lệnh</span>}
+                            title={<span className="mcard_header">Danh sách lệnh</span>}
                             className="container_list"
                         >
                             {!this.state.isLoading ? (
@@ -902,7 +902,7 @@ class Eirsrv extends Component {
                                         <Row justify={"center"}>
                                             <DatabaseOutlined className="no_data_icon" />
                                         </Row>
-                                        <Row justify={"center"}>Nhập số pinlđể nạp dữ liệu container...</Row>
+                                        <Row justify={"center"}>Nhập số pin để nạp dữ liệu container...</Row>
                                     </Col>
                                 ) : (
                                     <Mtable

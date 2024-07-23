@@ -309,7 +309,7 @@ class PendingTask extends Component {
             <Col span={12}>
                 <Mcheckbox dataSource={{
                     span: 12,
-                    label: <Row><Row style={{ userSelect: "none" }}>{item.label}</Row></Row>,
+                    label: <Row><Row className="mcheckbox_label">{item.label}</Row></Row>,
                     value: item.value,
                     className: `${item.value && "m-checkbox_checked"}`,
                     name: item.name
@@ -689,7 +689,7 @@ class PendingTask extends Component {
                 <Row gutter={[12, 12]}>
                     <Col lg={{ span: 8 }} sm={{ span: 24 }} xs={{ span: 24 }} >
                         <Mcard
-                            title={<span style={{ color: 'white', minHeight: "40vh" }}>Duyệt lệnh</span>}
+                            title={<span className="mcard_header">Duyệt lệnh</span>}
                             className="flex_card"
                         >
                             <Col className="input_layout tracking_bill_input">
@@ -770,7 +770,7 @@ class PendingTask extends Component {
                                         />
                                     </Col>
                                 </Row>
-                                <Row style={{ marginTop: 12, maxHeight: "30vh", overflowY: "scroll", overflowX: "hidden" }}>
+                                <Row className="checkbox_field" >
                                     {
                                         checkboxForm[this.state.mode].map(index => {
                                             return (
@@ -817,7 +817,7 @@ class PendingTask extends Component {
                     </Col>
                     <Col className="layout_col" lg={{ span: 16 }} sm={{ span: 24 }} xs={{ span: 24 }}>
                         <Mcard
-                            title={<span style={{ color: 'white', minHeight: "40vh" }}>Danh sách container</span>}
+                            title={<span className="mcard_header">Danh sách container</span>}
                             className="container_list"
                         >
                             {!this.state.isLoading ? (

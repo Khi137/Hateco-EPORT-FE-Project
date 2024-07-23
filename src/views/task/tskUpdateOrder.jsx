@@ -409,11 +409,11 @@ class TskUpdateOrder extends Component {
         ];
 
         return (
-            <Content className="flex_layout-8-16_container tsk_update_order_container" style={{ minHeight: "0px" }}>
+            <Content className="flex_layout-8-16_container tsk_update_order_container">
                 <Row className="flex_layout_card" gutter={[12, 12]}>
                     <Col lg={{ span: 8 }} sm={{ span: 24 }} xs={{ span: 24 }} >
                         <Mcard
-                            title={<span style={{ color: 'white' }}>Cập nhật thông tin lệnh</span>}
+                            title={<span className="mcard_header">Cập nhật thông tin lệnh</span>}
                             className="flex_card"
                         >
                             <Col className="input_layout">
@@ -494,7 +494,7 @@ class TskUpdateOrder extends Component {
                     </Col>
                     <Col className="layout_col" lg={{ span: 16 }} sm={{ span: 24 }} xs={{ span: 24 }}>
                         <Mcard
-                            title={<span style={{ color: 'white' }}>Danh sách lệnh</span>}
+                            title={<span className="mcard_header">Danh sách lệnh</span>}
                             className="container_list"
                         >
                             {!this.state.isLoading ? (
@@ -537,7 +537,7 @@ class TskUpdateOrder extends Component {
                     </Col>
                     <Col className="layout_col" lg={{ span: 24 }} sm={{ span: 24 }} xs={{ span: 24 }}>
                         <Mcard
-                            title={<span style={{ color: 'white' }}>Danh sách container</span>}
+                            title={<span className="mcard_header">Danh sách container</span>}
                             className="container_list"
                         >
                             {!this.state.isLoading ? (

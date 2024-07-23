@@ -264,7 +264,7 @@ class TrackingContainerList extends Component {
         <Row gutter={[12, 12]}>
           <Col span={24} >
             <Mcard
-              title={<span style={{ color: 'white' }}>Tra cứu danh sách container</span>}
+              title={<span className="mcard_header">Tra cứu danh sách container</span>}
             >
               <Row className="input_container hafl">
                 <Winput

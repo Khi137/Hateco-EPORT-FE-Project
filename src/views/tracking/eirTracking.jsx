@@ -316,7 +316,7 @@ class EirTracking extends Component {
                 <Row gutter={[12, 12]}>
                     <Col lg={{ span: 8 }} sm={{ span: 24 }} xs={{ span: 24 }}>
                         <Mcard
-                            title={<span style={{ color: 'white' }}>Tra cứu EIR điện tử</span>}
+                            title={<span className="mcard_header">Tra cứu EIR điện tử</span>}
                             className="flex_card"
                         >
                             <Col className="input_layout">
@@ -391,7 +391,7 @@ class EirTracking extends Component {
                                 {inputForm.map((item, key) => this.renderInputField(item, key))}
                                 <Mbutton
                                     color=""
-                                    className="m_button third"
+                                    className="m_button third pt_button"
                                     type="primary"
                                     htmlType="submit"
                                     block
@@ -408,7 +408,7 @@ class EirTracking extends Component {
                     </Col>
                     <Col className="layout_col" lg={{ span: 16 }} sm={{ span: 24 }} xs={{ span: 24 }}>
                         <Mcard
-                            title={<span style={{ color: 'white' }}>Danh sách container</span>}
+                            title={<span className="mcard_header">Danh sách container</span>}
                             className="container_list"
                         >
                             {!this.state.isLoading ? (

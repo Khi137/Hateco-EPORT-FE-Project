@@ -360,7 +360,7 @@ class PinCodeTrackingGML extends Component {
                 <Row className="flex_layout_card" gutter={[12, 12]}>
                     <Col lg={{ span: 8 }} sm={{ span: 24 }} xs={{ span: 24 }} >
                         <Mcard
-                            title={<span style={{ color: 'white' }}>Cập nhật thông tin lệnh</span>}
+                            title={<span className="mcard_header">Cập nhật thông tin lệnh</span>}
                             className="flex_card"
                         >
                             <Col className="input_layout">
@@ -441,7 +441,7 @@ class PinCodeTrackingGML extends Component {
                     </Col>
                     <Col className="layout_col" lg={{ span: 16 }} sm={{ span: 24 }} xs={{ span: 24 }}>
                         <Mcard
-                            title={<span style={{ color: 'white' }}>Danh sách lệnh</span>}
+                            title={<span className="mcard_header">Danh sách lệnh</span>}
                             className="container_list"
                         >
                             {!this.state.isLoading ? (
