@@ -41,7 +41,10 @@ import TariffHoliday from "../views/tariff/tariffHoliday.jsx";
 import TariffContract from "../views/tariff/tariffContract.jsx";
 import PendingTask from "../views/task/pendingTask.jsx";
 import TskUpdateOrder from "../views/task/tskUpdateOrder.jsx";
-import PersonalInfor from "../views/login/personalInfor.jsx";
+import EdoManagement from "../views/shippingLine/edoManagement.jsx";
+import EdoUpdate from "../views/shippingLine/edoUpdate.jsx";
+import EdoHistory from "../views/shippingLine/edoHistory.jsx";
+
 class MainRoutes extends Component {
   render() {
     return (
@@ -71,6 +74,12 @@ class MainRoutes extends Component {
             <Route path="tariff-freeday" element={<TariffFreeDay />} />
             <Route path="tariff-holiday" element={<TariffHoliday />} />
             <Route path="tariff-contract" element={<TariffContract />} />
+          </Route>
+
+          <Route path="/shippingLine">
+            <Route path="shippingLine_edoManagement" element={<EdoManagement />} />
+            <Route path="shippingLine_edoUpdate" element={<EdoUpdate />} />
+            <Route path="shippingLine_edoHistory" element={<EdoHistory />} />
           </Route>
 
           <Route path="/tracking">
