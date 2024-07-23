@@ -160,9 +160,9 @@ class PersonalInfor extends React.Component {
           label: "Cảng Nam Đình Vũ",
           data: [
             { type: "Chưa thanh toán", value: 30 },
-            { type: "Đang chờ duyệt", value: 14},
-            { type: "Đã duyệt", value: 13},
-            { type: "Đã huỷ", value: 3}
+            { type: "Đang chờ duyệt", value: 14 },
+            { type: "Đã duyệt", value: 13 },
+            { type: "Đã huỷ", value: 3 }
           ]
         },
       }
@@ -184,28 +184,21 @@ class PersonalInfor extends React.Component {
           return;
         }
 
-        const statusList = type === 'order' ? OrderStatusList :
-          type === 'invoice' ? InvoiceStatusList :
-            TransactionStatusList;
-
-        const temp = {};
-        terminalList.forEach(terminal => {
-          const terminalData = result.filter(item => item.TerminalCode === terminal.TerminalCode);
-          if (terminalData.length > 0) {
-            temp[terminal.TerminalCode] = {
-              'label': terminal.name,
-              'data': statusList.map(status => ({
-                label: status.label,
-                value: terminalData.filter(item => item.Status === status.key)
-                  .reduce((sum, item) => sum + item.Counting, 0)
-              }))
-            };
+        const sampleData = {
+          chart1: {
+            label: "Cảng Nam Đình Vũ",
+            data: [
+              { type: "Chưa thanh toán", value: Math.floor(Math.random() * 50) + 10 },
+              { type: "Đang chờ duyệt", value: Math.floor(Math.random() * 30) + 5 },
+              { type: "Đã duyệt", value: Math.floor(Math.random() * 40) + 15 },
+              { type: "Đã huỷ", value: Math.floor(Math.random() * 10) + 1 }
+            ]
           }
-        });
+        };
 
         this.setState({
-          hasData: Object.keys(temp).length > 0,
-          datasample: temp
+          hasData: true,
+          datasample: sampleData
         });
 
         resolve(result);
@@ -653,7 +646,7 @@ class PersonalInfor extends React.Component {
                       >
                         <Row gutter={12} justifyContent="center">
                           {
-                            this.state.hasData ?
+                            this.state.hasData && this.state.datasample && typeof this.state.datasample === 'object' && Object.keys(this.state.datasample).length > 0 ?
                               Object.values(this.state.datasample).map((item, index) => {
                                 return (
                                   <Col key={index} xs={24} sm={24} md={12} lg={8}>
@@ -674,7 +667,7 @@ class PersonalInfor extends React.Component {
                                 }}
                               >
                                 <Empty
-                                  description={"Không có dữ liệu!"}
+                                  description={this.state.cardType === "invoice" ? "Biểu đồ không khả dụng cho hoá đơn" : "Không có dữ liệu!"}
                                 />
                               </div>
                           }

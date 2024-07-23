@@ -44,7 +44,10 @@ import TskUpdateOrder from "../views/task/tskUpdateOrder.jsx";
 import Eirsrv from "../views/tracking/eirsrv.jsx";
 import EirTracking from "../views/tracking/eirTracking.jsx";
 import PinCodeTrackingGML from "../views/tracking/pinCodeTrackingGML.jsx";
-
+import PersonalInfor from "../views/login/personalInfor.jsx";
+import EdoManagement from "../views/shippingLine/edoManagement.jsx"
+import EdoUpdate from "../views/shippingLine/edoUpdate.jsx"
+import EdoHistory from "../views/shippingLine/edoHistory.jsx"
 class MainRoutes extends Component {
   render() {
     return (
