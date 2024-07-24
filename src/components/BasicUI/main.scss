@@ -5681,3 +5681,38 @@ select {
 .m-ios-switch-container ul {
   margin-bottom: 1rem;
 }
+
+// shipping_line----------------------------
+.managerBooking_layout {
+  .m-ios-switch-container li {
+    width: 100%;
+    text-align: center;
+  }
+
+  ul li {
+    margin-bottom: 0;
+  }
+  
+  .edo-button {
+    .ant-btn {
+      padding: 0;
+    }
+  }
+
+  .form_Mcheckbox  {
+    width: 100px;
+  }
+  
+  .m-form__Checkbox {
+    border: none;
+  }
+}
+
+.custom-wide-modal-edo-booking-manager {
+  width: 68% !important;
+  max-width: 1800px !important;
+
+  .m-form__Mcheckbox {
+    text-align: center;
+  }
+}

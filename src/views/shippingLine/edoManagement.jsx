@@ -541,7 +541,7 @@ export default class EdoManagement extends Component {
               </Col>
             </Mcard>
           </Col>
-          <Col lg={{ span: 16 }} sm={{ span: 24 }}>
+          <Col lg={{ span: 16 }} sm={{ span: 24 }} xs={{ span: 24 }}>
             <Mcard
               title={
                 <span style={{ color: "white" }}>Thông tin quản lý EDO</span>

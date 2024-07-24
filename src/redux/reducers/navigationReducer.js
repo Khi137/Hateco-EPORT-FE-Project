@@ -88,30 +88,30 @@ const initialState = [
   {
     text: "Hãng tàu",
     icon: "FlagOutlined",
-    url: "/hãng-tàu",
+    url: "/shippingLine",
     subMenu: [
       {
         id: "hangtau-01",
         text: "Quản lý EDO",
-        url: "/quản-lý-edo",
+        url: "/shippingLine_edoManagement",
         icon: "SnippetsOutlined",
       },
       {
         id: "hangtau-02",
         text: "Cập nhật EDO",
-        url: "/cập-nhật-edo",
+        url: "/shippingLine_edoUpdate",
         icon: "UpCircleOutlined",
       },
       {
         id: "hangtau-03",
         text: "Lịch sử EDO",
-        url: "/lịch-sử-edo",
+        url: "/shippingLine_edoHistory",
         icon: "ContainerOutlined",
       },
       {
         id: "hangtau-04",
         text: "Quản lý booking",
-        url: "/quản-lý-booking",
+        url: "/shippingLine_managerBooking",
         icon: "FormOutlined",
       },
     ],

@@ -48,6 +48,7 @@ import PersonalInfor from "../views/login/personalInfor.jsx";
 import EdoManagement from "../views/shippingLine/edoManagement.jsx"
 import EdoUpdate from "../views/shippingLine/edoUpdate.jsx"
 import EdoHistory from "../views/shippingLine/edoHistory.jsx"
+import ManagerBooking from "../views/shippingLine/managerBooking.jsx";
 class MainRoutes extends Component {
   render() {
     return (
@@ -83,6 +84,7 @@ class MainRoutes extends Component {
             <Route path="shippingLine_edoManagement" element={<EdoManagement />} />
             <Route path="shippingLine_edoUpdate" element={<EdoUpdate />} />
             <Route path="shippingLine_edoHistory" element={<EdoHistory />} />
+            <Route path="shippingLine_managerBooking" element={<ManagerBooking />} />
           </Route>
 
           <Route path="/tracking">

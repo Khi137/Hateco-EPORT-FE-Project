@@ -509,7 +509,7 @@ export default class EdoUpdate extends Component {
               </Col>
             </Mcard>
           </Col>
-          <Col lg={{ span: 16 }} sm={{ span: 24 }}>
+          <Col lg={{ span: 16 }} sm={{ span: 24 }} xs={{ span: 24 }}>
             <Mcard
               title={
                 <span style={{ color: "white" }}>Thông tin cập nhật EDO</span>
@@ -538,15 +538,13 @@ export default class EdoUpdate extends Component {
                     }}
                     functionRequire={{
                       exportExel: true,
+                      importExel: true,
                       deleteColumn: true,
+                      addcolumn: true,
                       saveData: () => {
                         this.saveData();
                       },
-                      searchField: [
-                        "OrderCode",
-                        "OperatingCarrier",
-                        "ContainerNumber",
-                      ],
+                      searchField: [],
                     }}
                   />
                 )

@@ -510,7 +510,7 @@ export default class EdoHistory extends Component {
                       size={"12"}
                       dataSource={{
                         textbutton: `Truy vấn`,
-                        icon: "CloudDownloadOutlined",
+                        icon: "SearchOutlined",
                       }}
                       loading={this.state.isLoading}
                     />
@@ -519,7 +519,7 @@ export default class EdoHistory extends Component {
               </Col>
             </Mcard>
           </Col>
-          <Col lg={{ span: 16 }} sm={{ span: 24 }}>
+          <Col lg={{ span: 16 }} sm={{ span: 24 }} xs={{ span: 24 }}>
             <Mcard
               title={
                 <span style={{ color: "white" }}>Thông tin API - EDO</span>
