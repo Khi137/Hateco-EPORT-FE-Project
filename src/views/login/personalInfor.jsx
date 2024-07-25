@@ -68,38 +68,24 @@ const terminalList = [
 ]
 const mockData = {
   order: [
-    { TerminalCode: 'T001', Status: 'pending', Counting: 10, TotalAmount: 1000 },
-    { TerminalCode: 'T001', Status: 'completed', Counting: 20, TotalAmount: 2000 },
-    { TerminalCode: 'T002', Status: 'pending', Counting: 15, TotalAmount: 1500 },
-    { TerminalCode: 'T002', Status: 'completed', Counting: 25, TotalAmount: 2500 },
+    { TerminalCode: 'T001', Status: 'Chưa thanh toán', Counting: 10, TotalAmount: 1000 },
+    { TerminalCode: 'T002', Status: 'Đang chờ duyệt', Counting: 20, TotalAmount: 2000 },
+    { TerminalCode: 'T003', Status: 'Đã duyệt', Counting: 15, TotalAmount: 1500 },
+    { TerminalCode: 'T004', Status: 'Đã huỷ', Counting: 25, TotalAmount: 2500 },
   ],
   invoice: [
-    { TerminalCode: 'T001', Status: 'unpaid', Counting: 5, TotalAmount: 500 },
-    { TerminalCode: 'T001', Status: 'paid', Counting: 15, TotalAmount: 1500 },
-    { TerminalCode: 'T002', Status: 'unpaid', Counting: 8, TotalAmount: 800 },
-    { TerminalCode: 'T002', Status: 'paid', Counting: 18, TotalAmount: 1800 },
+    { TerminalCode: 'T001', Status: 'Thanh toán trực tiếp', Counting: 5, TotalAmount: 500000 },
+    { TerminalCode: 'T002', Status: 'Thanh toán online', Counting: 3, TotalAmount: 1500000 },
+    { TerminalCode: 'T003', Status: 'Chưa thanh toán', Counting: 1, TotalAmount: 800000 },
+    { TerminalCode: 'T004', Status: 'Bị huỷ', Counting: 2, TotalAmount: 18000000 },
   ],
   transfer: [
-    { TerminalCode: 'T001', Status: 'pending', Counting: 3, TotalAmount: 300 },
-    { TerminalCode: 'T001', Status: 'completed', Counting: 7, TotalAmount: 700 },
-    { TerminalCode: 'T002', Status: 'pending', Counting: 4, TotalAmount: 400 },
-    { TerminalCode: 'T002', Status: 'completed', Counting: 6, TotalAmount: 600 },
+    { TerminalCode: 'T001', Status: 'Thất bại', Counting: 3, TotalAmount: 300 },
+    { TerminalCode: 'T002', Status: 'Chưa hoàn tất', Counting: 7, TotalAmount: 700 },
+    { TerminalCode: 'T003', Status: 'Thành công', Counting: 4, TotalAmount: 400 },
   ],
 };
 
-const OrderStatusList = [
-  { key: 'pending', label: 'Pending' },
-  { key: 'completed', label: 'Completed' },
-];
-
-const InvoiceStatusList = [
-  { key: 'unpaid', label: 'Unpaid' },
-  { key: 'paid', label: 'Paid' },
-];
-const TransactionStatusList = [
-  { key: 'pending', label: 'Pending' },
-  { key: 'completed', label: 'Completed' },
-];
 const changePass = [
   {
     label: "Nhập mật khẩu (hiện tại)",
@@ -155,17 +141,12 @@ class PersonalInfor extends React.Component {
       loading: true,
       hasData: false,
       changePassData: changePass,
-      datasample: {
-        chart1: {
-          label: "Cảng Nam Đình Vũ",
-          data: [
-            { type: "Chưa thanh toán", value: 30 },
-            { type: "Đang chờ duyệt", value: 14 },
-            { type: "Đã duyệt", value: 13 },
-            { type: "Đã huỷ", value: 3 }
-          ]
-        },
-      }
+      cardData: {
+        order: { count: 0, amount: 0 },
+        invoice: { count: 0, amount: 0 },
+        transfer: { count: 0, amount: 0 },
+      },
+      currentChartData: [],
     };
     this.timeType = "month";
     this.typeList = ["order", "invoice", "transfer"];
@@ -236,11 +217,46 @@ class PersonalInfor extends React.Component {
       </Mdivider>
     );
   }
+  loadChartData(type) {
+    this.getDataSummary(type, this.state[type + 'state'])
+      .then(result => {
+        const chartData = this.prepareChartData(result);
+        this.setState({
+          currentChartData: chartData,
+          hasData: chartData.length > 0,
+          cardType: type
+        });
+      })
+      .catch(error => {
+        console.error("Error fetching data:", error);
+        this.setState({ hasData: false });
+      });
+  }
   componentDidMount() {
 
     setTimeout(() => {
+      this.loadInitialData();
+      this.loadChartData('order');
       this.setState({ loading: false, hasData: true });
     }, 1000);
+  }
+  loadInitialData() {
+    const cardData = {};
+    this.typeList.forEach(type => {
+      cardData[type] = this.calculateCardData(type);
+    });
+
+    this.setState({
+      loading: false,
+      hasData: true,
+      cardData: cardData,
+    });
+  }
+  calculateCardData(type) {
+    const data = mockData[type];
+    const count = data.reduce((sum, item) => sum + item.Counting, 0);
+    const amount = data.reduce((sum, item) => sum + item.TotalAmount, 0);
+    return { count, amount };
   }
   renderTypeSelect(title, type, options = false) {
     let tempOpts = options;
@@ -273,65 +289,67 @@ class PersonalInfor extends React.Component {
     );
   }
   renderPieChart(chartData) {
-    console.log("ChartData", chartData)
+    console.log(this.state.currentChartData)
     const config = {
-      data: chartData,
+      data: this.state.currentChartData,
       angleField: 'value',
       colorField: 'type',
-      radius: 0.8,
-      interactions: [
-        {
-          type: 'element-active',
+      label: {
+        text: 'value',
+        style: {
+          fontWeight: 'bold',
         },
-      ],
+      },
       legend: {
-        position: 'bottom',
-      },
-      tooltip: {
-        formatter: (datum) => {
-          return {
-            name: datum.type,
-            value: `${datum.value} (${(datum.percent * 100).toFixed(2)}%)`
-          };
+        color: {
+          title: false,
+          position: 'bottom',
+          rowPadding: 5,
         },
-      },
-      color: ({ type }) => {
-        switch (type) {
-          case 'Chưa thanh toán': return '#F4664A';
-          case 'Đang chờ duyệt': return '#30BF78';
-          case 'Đã duyệt': return '#FAAD14';
-          default: return '#000000';
-        }
       },
     };
-
     return <Pie {...config} />;
-  }
+  };
+
 
   handleChangecard(type, e) {
     let current = e.currentTarget;
     if (current.classList.contains("active")) {
       return;
-    } else {
-
     }
+
     let cardList = document.getElementsByClassName("m-clickable-card");
     Array.from(cardList).forEach(value => {
       value.classList.remove("active");
     });
 
-    current.classList += " active";
+    current.classList.add("active");
 
     this.setState({ loading: true, cardType: type }, () => {
-      this.getDataSummary(type, 'all')
+
+      this.getDataSummary(type, this.state[type + 'state'])
         .then(result => {
-          this.setState({ loading: false });
+
+          const chartData = this.prepareChartData(result);
+          this.setState({
+            loading: false,
+            currentChartData: chartData,
+            hasData: chartData.length > 0
+          });
+          this.loadChartData(type);
         })
         .catch(error => {
           console.error("Error fetching data:", error);
-          this.setState({ loading: false });
+          this.setState({ loading: false, hasData: false });
         });
+
     });
+  }
+  prepareChartData(data) {
+    return data.map(item => ({
+      type: item.Status,
+      value: item.Counting
+    }));
   }
   handleChangeTime(value) {
     this.timeType = value;
@@ -525,12 +543,11 @@ class PersonalInfor extends React.Component {
                   </Col>
 
                   <Col span={24}>
-                    <Tag style={{ marginBottom: "8px" }} color="blue">
-                      {terminalList[0].name}
-                    </Tag>
-                    <Tag style={{ marginBottom: "8px" }} color="blue">
-                      {terminalList[1].name}
-                    </Tag>
+                    {terminalList.slice(0, 6).map((terminal, index) => (
+                      <Tag key={index} style={{ marginBottom: "8px" }} color="blue">
+                        {terminal.name}
+                      </Tag>
+                    ))}
                   </Col>
                   <Col xs={12}>
                     <div className="m-board" style={{ borderLeft: "none" }}>
@@ -583,7 +600,7 @@ class PersonalInfor extends React.Component {
                                   ]
                                 )
                               }
-                              value={6}
+                              value={`${this.state.cardData.order.count}`}
                               valueStyle={{ color: '#3f8600' }}
                             />
                           </Mcard>
@@ -615,7 +632,7 @@ class PersonalInfor extends React.Component {
                                   ]
                                 )
                               }
-                              value="2 hoá đơn -> 10000000 VNĐ"
+                              value={`${this.state.cardData.invoice.count} hoá đơn -> ${this.state.cardData.invoice.amount.toLocaleString()} VNĐ`}
                               valueStyle={{ color: '#3f8600' }}
                             />
                           </Mcard>
@@ -633,7 +650,7 @@ class PersonalInfor extends React.Component {
 
                                 )
                               }
-                              value={2}
+                              value={`${this.state.cardData.transfer.count}`}
                               valueStyle={{ color: '#3f8600' }}
                             />
                           </Mcard>
@@ -651,7 +668,7 @@ class PersonalInfor extends React.Component {
                                 return (
                                   <Col key={index} xs={24} sm={24} md={12} lg={8}>
                                     <Mcard title={item.label}>
-                                      {this.renderPieChart(item.data)}
+                                      {this.renderPieChart()}
                                     </Mcard>
                                   </Col>
                                 );
