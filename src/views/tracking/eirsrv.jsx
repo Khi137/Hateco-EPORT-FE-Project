@@ -830,7 +830,7 @@ class Eirsrv extends Component {
                                 </Row>
                                 <Row justify={"space-between"}>
 
-                                    <Col lg={{ span: 24 }}>
+                                    <Col span={24}>
                                         <Mbutton
                                             color=""
                                             className="m_button third"
@@ -894,7 +894,7 @@ class Eirsrv extends Component {
                         </Mcard>
                         <Mcard
                             // title={<span style={{ color: 'white' }}>Danh sách container</span>}
-                            className="container_list small_container"
+                            className=" small_container"
                         >
                             {!this.state.isLoading ? (
                                 !this.state.tableData[0] ? (
