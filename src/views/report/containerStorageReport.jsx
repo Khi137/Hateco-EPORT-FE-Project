@@ -649,7 +649,7 @@ class containerStorageReport extends Component {
                                         preventEmptyOption={true}
                                     />
                                 </Col>
-                                <Col xs={24} md={24} style={{ marginTop: "1rem", textAlign: 'center' }}>
+                                <Col xs={12} md={12} style={{ marginTop: "1rem", textAlign: 'center' }}>
                                     <Mbutton
                                         color=""
                                         className="m_button btn-loaddata"

@@ -1,7 +1,24 @@
 import React from 'react';
-import { Avatar, Dropdown, Menu } from 'antd';
+import { Avatar, Dropdown, Menu, Typography, Space, Button } from 'antd';
 import { Link } from 'react-router-dom';
-import { UserOutlined, GlobalOutlined } from '@ant-design/icons';
+import { UserOutlined, GlobalOutlined, HomeOutlined, InfoCircleOutlined, LogoutOutlined } from '@ant-design/icons';
+
+const { Text } = Typography;
+
+const menuStyle = {
+  backgroundColor: '#0065a1',
+  padding: '20px',
+  borderRadius: '0 0 8px 8px',
+  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+  minWidth: '250px',
+};
+
+const menuItemStyle = {
+  backgroundColor: 'transparent',
+  color: 'white',
+  fontSize: '16px',
+  padding: '10px 0',
+};
 
 class PersonalPopup extends React.Component {
   constructor(props) {
@@ -16,7 +33,7 @@ class PersonalPopup extends React.Component {
       text: "VN",
       imgSrc: "https://gmd.cehcloud.net/assets/images/vietnam.png"
     };
-  
+
     this.state = {
       user: {
         UserName: "dev ceh",
@@ -41,18 +58,14 @@ class PersonalPopup extends React.Component {
       imgSrc: `https://gmd.cehcloud.net/assets/images/${this.langData[lng].img}`
     };
     this.setState({ currentLang: newLang });
-    
     localStorage.setItem('lang', JSON.stringify(this.langData[lng]));
-    
-  
   }
+
   componentDidMount() {
- 
     window.changeLang = this.changeLang;
   }
 
   componentWillUnmount() {
-
     delete window.changeLang;
   }
 
@@ -60,9 +73,9 @@ class PersonalPopup extends React.Component {
     <Menu onClick={({ key }) => this.changeLang(key)}>
       {Object.keys(this.langData).map((lang) => (
         <Menu.Item key={lang}>
-          <img 
-            src={`https://gmd.cehcloud.net/assets/images/${this.langData[lang].img}`} 
-            alt={lang} 
+          <img
+            src={`https://gmd.cehcloud.net/assets/images/${this.langData[lang].img}`}
+            alt={lang}
             style={{ marginRight: '8px', width: '20px' }}
           />
           {this.langData[lang].iso2Code}
@@ -75,49 +88,47 @@ class PersonalPopup extends React.Component {
     const { user, currentLang } = this.state;
 
     const menu = (
-      <div className="logged-user-menu color-style-bright">
-        <div className="logged-user-avatar-info">
-          <div className="avatar-w">
-            <Avatar icon={<UserOutlined />} />
-          </div>
-          <div className="logged-user-info-w">
-            <div className="logged-user-name">{user.UserName}</div>
-            <div className="logged-user-role">{user.Role}</div>
-          </div>
+      <Menu style={menuStyle}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '20px' }}>
+          <Avatar size={64} icon={<UserOutlined />} style={{ marginBottom: '10px' }} />
+          <Text strong style={{ color: 'white', fontSize: '18px' }}>{user.UserName}</Text>
+          <Text style={{ color: 'white', opacity: 0.8, fontSize: '14px' }}>{user.Role}</Text>
         </div>
-        <ul>
-          <li><Link to="/"><i>Trang chủ</i></Link></li>
-          <li><Link to="/personal/personalInfo"><i>Thông tin người dùng</i></Link></li>
-          <li>
-            <Dropdown 
-              overlay={this.renderLangMenu()} 
-              trigger={['click']}
-              placement="bottomLeft"
-              getPopupContainer={(triggerNode) => triggerNode.parentNode}
-            >
-              <a className="ant-dropdown-link m-lang-selector" onClick={e => e.preventDefault()}>
-                <GlobalOutlined style={{ marginRight: '8px' }} />
-                {currentLang.text} <img src={currentLang.imgSrc} alt={currentLang.text} style={{ width: '20px', marginLeft: '8px' }} />
-              </a>
-            </Dropdown>
-          </li>
-          <li>
-            <Link to="/login">
-              <i className="os-icon os-icon-signs-11"></i>
-              <span>Đăng xuất</span>
-            </Link>
-          </li>
-        </ul>
-      </div>
+        <Menu.Item key="home" icon={<HomeOutlined />} style={menuItemStyle}>
+          <Link to="/" style={{ color: 'white' }}>Trang chủ</Link>
+        </Menu.Item>
+        <Menu.Item key="profile" icon={<InfoCircleOutlined />} style={menuItemStyle}>
+          <Link to="/personal/personalInfo" style={{ color: 'white' }}>Thông tin người dùng</Link>
+        </Menu.Item>
+        <Menu.Item key="language" icon={<GlobalOutlined />} style={menuItemStyle}>
+          <Dropdown
+            overlay={this.renderLangMenu()}
+            trigger={['click']}
+            getPopupContainer={(triggerNode) => triggerNode.parentNode}
+          >
+            <Space style={{ color: 'white', cursor: 'pointer' }} onClick={(e) => e.stopPropagation()}>
+
+              <img src={currentLang.imgSrc} alt={currentLang.text} style={{ width: '20px', marginRight: '8px' }} />
+              {currentLang.text}
+            </Space>
+          </Dropdown>
+        </Menu.Item>
+        <Menu.Item key="logout" icon={<LogoutOutlined />} style={menuItemStyle}>
+          <Link to="/login" style={{ color: 'white' }}>Đăng xuất</Link>
+        </Menu.Item>
+      </Menu>
     );
 
     return (
-      <Dropdown overlay={menu} trigger={['hover']}>
-        <div className="user-info-dropdown">
-          <Avatar icon={<UserOutlined />} />
-          <span className="username">{user.UserName}</span>
-        </div>
-      </Dropdown>
+        <Dropdown overlay={menu} trigger={['hover']} placement="bottomRight" 
+        overlayStyle={{ top: '0' }}>
+          <Button type="text" style={{ height: 'auto', padding: '5px 10px' }}>
+            <Space>
+              <Avatar icon={<UserOutlined />} />
+              <span style={{ color: '#333' }}>{user.UserName}</span>
+            </Space>
+          </Button>
+        </Dropdown>
     );
   }
 }

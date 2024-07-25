@@ -551,7 +551,7 @@ class InstantInvoiceWithReleasePointReport extends Component {
                                         onChangeValue={this.handleRadioChange}
                                     />
                                 </Col>
-                                <Col xs={24} md={24} style={{ marginTop: "1rem", textAlign: 'center' }}>
+                                <Col xs={12} md={12} style={{ marginTop: "1rem", textAlign: 'center' }}>
                                     <Mbutton
                                         color=""
                                         className="m_button btn-loaddata"
@@ -582,14 +582,14 @@ class InstantInvoiceWithReleasePointReport extends Component {
                                                 <Col className="item_title">{item.title}:</Col>
                                                 {!this.state.isLoading ? (
                                                     item.value ? (
-                                                        <Col className="item_value dashed-line body-xl-bold m-red-text">
+                                                        <Col className="item_value dashed-line body-xl-bold m-red-text" style={{ textAlign: 'right', borderBottom: '1px dashed #464646', width: '45%', color: 'red', fontWeight: 'bold' }}>
                                                             {this.state.generalInformation[item.value] || "0"}
                                                         </Col>
                                                     ) : (
-                                                        <span className="item_value dashed-line body-xl-bold m-red-text">0</span>
+                                                        <span className="item_value dashed-line body-xl-bold m-red-text" style={{ textAlign: 'right', borderBottom: '1px dashed #464646', width: '45%', color: 'red', fontWeight: 'bold' }}>0</span>
                                                     )
                                                 ) : (
-                                                    <span className="item_value dashed-line body-xl-bold m-red-text">Loading...</span>
+                                                    <span className="item_value dashed-line body-xl-bold m-red-text" style={{ textAlign: 'right', borderBottom: '1px dashed #464646', width: '45%', color: 'red', fontWeight: 'bold' }}>Loading...</span>
                                                 )}
                                             </Row>
                                         ))}
@@ -654,6 +654,7 @@ class InstantInvoiceWithReleasePointReport extends Component {
                     onCancel={this.handleCancel}
                     closeIcon={<CloseOutlined />}
                     footer={null}
+                    width="70%"
                     className="custom-wide-modal-report"
                 >
                     {!this.state.isSearching ? (
