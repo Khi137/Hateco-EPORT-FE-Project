@@ -1,6 +1,6 @@
 import React, { Component, createRef } from 'react';
-import { Row, Col, Typography, Tooltip } from 'antd';
-import { InfoCircleOutlined, MailOutlined, LockOutlined } from '@ant-design/icons';
+import { Row, Col, Typography } from 'antd';
+import { MailOutlined, LockOutlined } from '@ant-design/icons';
 import './styles.scss';
 
 import { Mbutton, Mcheckbox, Winput } from "../../components/BasicUI/BasicUI";

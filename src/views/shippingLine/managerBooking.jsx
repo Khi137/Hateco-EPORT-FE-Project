@@ -831,11 +831,11 @@ export default class ManagerBooking extends Component {
                 ref: this.submitButtonRef,
                 options: this.carrierOptions,
               }}
-              onChangeValue={(value) => {}}
+              onChangeValue={(value) => { }}
             />
           </Row>
-          <Row align="bottom">
-            <Col xs={24} sm={22} md={23} lg={22}>
+          <Row align="bottom" justify={'space-around'}>
+            <Col xs={24} sm={22} md={23} lg={21}>
               <Winput
                 key={this.state.selectCustomer}
                 title={"Tàu/Chuyến"}
@@ -903,7 +903,7 @@ export default class ManagerBooking extends Component {
                     ref: this.submitButtonRef,
                     options: this.polOptions,
                   }}
-                  onChangeValue={(value) => {}}
+                  onChangeValue={(value) => { }}
                 />
               </Row>
             </Col>
@@ -927,7 +927,7 @@ export default class ManagerBooking extends Component {
                     ref: this.submitButtonRef,
                     options: this.polOptions,
                   }}
-                  onChangeValue={(value) => {}}
+                  onChangeValue={(value) => { }}
                 />
               </Row>
             </Col>
@@ -951,7 +951,7 @@ export default class ManagerBooking extends Component {
                     ref: this.submitButtonRef,
                     options: this.polOptions,
                   }}
-                  onChangeValue={(value) => {}}
+                  onChangeValue={(value) => { }}
                 />
               </Row>
             </Col>
@@ -1155,7 +1155,7 @@ export default class ManagerBooking extends Component {
                     ref: this.submitButtonRef,
                     options: this.polOptions,
                   }}
-                  onChangeValue={(value) => {}}
+                  onChangeValue={(value) => { }}
                 />
               </Row>
             </Col>
@@ -1179,7 +1179,7 @@ export default class ManagerBooking extends Component {
                     ref: this.submitButtonRef,
                     options: this.polOptions,
                   }}
-                  onChangeValue={(value) => {}}
+                  onChangeValue={(value) => { }}
                 />
               </Row>
             </Col>
@@ -1203,7 +1203,7 @@ export default class ManagerBooking extends Component {
                     ref: this.submitButtonRef,
                     options: this.polOptions,
                   }}
-                  onChangeValue={(value) => {}}
+                  onChangeValue={(value) => { }}
                 />
               </Row>
             </Col>
@@ -1388,7 +1388,7 @@ export default class ManagerBooking extends Component {
                 ref: this.submitButtonRef,
                 options: this.state.sizeOptions,
               }}
-              onChangeValue={(value) => {}}
+              onChangeValue={(value) => { }}
             />
           </Row>
           <Winput
@@ -1525,7 +1525,7 @@ export default class ManagerBooking extends Component {
                     ref: this.submitButtonRef,
                     options: this.polOptions,
                   }}
-                  onChangeValue={(value) => {}}
+                  onChangeValue={(value) => { }}
                 />
               </Row>
             </Col>
@@ -1549,7 +1549,7 @@ export default class ManagerBooking extends Component {
                     ref: this.submitButtonRef,
                     options: this.polOptions,
                   }}
-                  onChangeValue={(value) => {}}
+                  onChangeValue={(value) => { }}
                 />
               </Row>
             </Col>
@@ -1573,7 +1573,7 @@ export default class ManagerBooking extends Component {
                     ref: this.submitButtonRef,
                     options: this.polOptions,
                   }}
-                  onChangeValue={(value) => {}}
+                  onChangeValue={(value) => { }}
                 />
               </Row>
             </Col>
@@ -1805,7 +1805,7 @@ export default class ManagerBooking extends Component {
                     ref: this.submitButtonRef,
                     options: this.sizeOptions,
                   }}
-                  onChangeValue={(value) => {}}
+                  onChangeValue={(value) => { }}
                 />
               </Col>
               <Col span={12}>
@@ -1831,14 +1831,16 @@ export default class ManagerBooking extends Component {
               </Col>
             </Row>
             <Mdivider />
-            <Mcheckbox
-              dataSource={{
-                key: "isRFCheck",
-                label: "Hàng nguy hiểm",
-                value: this.state.checkboxValue,
-              }}
-              onChangeValue={this.handleCheckboxChangeModal}
-            />
+            <Col>
+              <Mcheckbox
+                dataSource={{
+                  key: "isRFCheck",
+                  label: "Hàng nguy hiểm",
+                  value: this.state.checkboxValue,
+                }}
+                onChangeValue={this.handleCheckboxChangeModal}
+              />
+            </Col>
             <Mdivider />
             <Row justify={"space-between"} gutter={[12, 12]}>
               {this.state.checkboxValue && (
