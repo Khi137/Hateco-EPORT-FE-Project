@@ -2,7 +2,6 @@ import { Col, Modal, Row, Tooltip } from "antd";
 import { Content } from "antd/es/layout/layout";
 import React, { Component, createRef } from "react";
 import {
-  Mbutton,
   Mcard,
   Mcheckbox,
   Mdatepicker,
@@ -16,6 +15,7 @@ import {
   DatabaseOutlined,
   InfoCircleOutlined,
   LoadingOutlined,
+  SearchOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import moment from "moment";
@@ -539,7 +539,7 @@ export default class TariffFreeDay extends Component {
                     onChangeValue={(value) => {}}
                   />
                 </Row>
-                <Row align="bottom">
+                <Row align="bottom" gutter={[12, 12]}> 
                   <Col xs={24} sm={22} md={23} lg={22}>
                     <Winput
                       title={"Chọn khách hàng"}
@@ -560,17 +560,8 @@ export default class TariffFreeDay extends Component {
                       placeholder={"Chọn khách hàng"}
                     />
                   </Col>
-                  <Col xs={24} sm={2} md={1} lg={2} style={{ marginBottom: "4px", display: 'flex', justifyContent: 'center'}} className="tariff-button">
-                    <Mbutton
-                      color=""
-                      className="btn-search"
-                      size={"12"}
-                      onClick={this.showModal}
-                      dataSource={{
-                          textbutton: ` `,
-                          icon: "SearchOutlined",
-                      }}
-                    />
+                  <Col xs={24} sm={2} md={1} lg={2} style={{ paddingBottom: "8px" }}>
+                    <SearchOutlined onClick={this.showModal}/>
                   </Col>
                 </Row>
                 <Row justify={"space-between"}>
@@ -686,8 +677,7 @@ export default class TariffFreeDay extends Component {
             onCancel={this.handleCancel}
             closeIcon={<CloseOutlined />}
             footer={null}
-            className="custom-wide-modal-tariff"
-            style={{width: "80%"}}
+            width={1500}
           >
             <Row>
               Tìm theo mã số thuế*

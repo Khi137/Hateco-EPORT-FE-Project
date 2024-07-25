@@ -2,7 +2,6 @@ import { Col, Modal, Row, Tooltip } from "antd";
 import { Content } from "antd/es/layout/layout";
 import React, { Component, createRef } from "react";
 import {
-  Mbutton,
   Mcard,
   Mdivider,
   Mselect,
@@ -14,6 +13,7 @@ import {
   DatabaseOutlined,
   InfoCircleOutlined,
   LoadingOutlined,
+  SearchOutlined,
   UnorderedListOutlined,
   UserOutlined,
 } from "@ant-design/icons";
@@ -414,7 +414,7 @@ export default class TariffHoliday extends Component {
                     onChangeValue={(value) => {}}
                   />
                 </Row>
-                <Row align="bottom">
+                <Row align="bottom" gutter={[12, 12]}>
                   <Col xs={24} sm={22} md={23} lg={22}>
                     <Winput
                       key={this.state.selectCustomer}
@@ -437,18 +437,8 @@ export default class TariffHoliday extends Component {
                       placeholder={"Chọn khách hàng"}
                     />
                   </Col>
-                  <Col xs={24} sm={2} md={1} lg={2} style={{ marginBottom: "4px", display: 'flex', justifyContent: 'center'}} className="tariff-button">
-                    <Mbutton
-                      color=""
-                      className="btn-search"
-                      block
-                      size={"12"}
-                      onClick={this.showModal}
-                      dataSource={{
-                        textbutton: " ",
-                        icon: "SearchOutlined",
-                      }}
-                    />
+                  <Col xs={24} sm={2} md={1} lg={2} style={{ paddingBottom: "8px" }}>
+                    <SearchOutlined onClick={this.showModal}/>
                   </Col>
                 </Row>
               </Col>
@@ -507,7 +497,7 @@ export default class TariffHoliday extends Component {
             onCancel={this.handleCancel}
             closeIcon={<CloseOutlined />}
             footer={null}
-            className="custom-wide-modal-tariff"
+            width={1500}
           >
             <Row>Tìm theo mã số thuế*</Row>
             <Mtable
