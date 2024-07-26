@@ -342,7 +342,7 @@ export default class UpdateContainer extends Component {
                         disable: true
                     }}
                 />
-                <Row className="horizontal-line" >Chi tiết lệnh</Row>
+                <Row className="horizontal-line" ></Row>
                 <Row gutter={[2, 0]} justify={"space-between"} align={"middle"}>
                     {
                         formInput.map(item => {
