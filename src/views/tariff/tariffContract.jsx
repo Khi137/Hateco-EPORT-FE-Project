@@ -16,6 +16,7 @@ import {
   DatabaseOutlined,
   InfoCircleOutlined,
   LoadingOutlined,
+  SearchOutlined,
   UnorderedListOutlined,
   UserOutlined,
 } from "@ant-design/icons";
@@ -77,7 +78,7 @@ export default class TariffContract extends Component {
         Unit: "CONT",
       },
     ];
-    
+
     this.rowDataUser = [
       {
         UserName: "Trần Đăng Khoa",
@@ -87,7 +88,7 @@ export default class TariffContract extends Component {
         PhoneNumber: "0869212854",
       },
     ];
-    
+
     this.sampleTariff = [
       {
         label: "(+) Thêm mới",
@@ -97,7 +98,7 @@ export default class TariffContract extends Component {
         label: "Hợp đồng CMA_2022-05-03_CMA_*_0100100047",
         value: "CMA",
       },
-    ]
+    ];
 
     this.carrierOptions = [
       {
@@ -149,7 +150,7 @@ export default class TariffContract extends Component {
         value: "CNC",
       },
     ];
-    
+
     this.typePaymentOptions = [
       {
         label: "Thu ngay",
@@ -385,10 +386,10 @@ export default class TariffContract extends Component {
         { key: "VAT" },
         { key: "Unit" },
       ];
-    
+
       const result = [
         { type: "text", nonEditable: true, text: String(index + 1) },
-        ...textFields.map(field => ({
+        ...textFields.map((field) => ({
           type: "text",
           nonEditable: false,
           text: tariff?.[field.key] || "",
@@ -400,10 +401,10 @@ export default class TariffContract extends Component {
         },
         { type: "text", nonEditable: false, text: "Tải lạiiii" },
       ];
-    
+
       return result;
     };
-    
+
     this.rowsFormatUser = (tariff, index) => {
       return [
         { type: "text", nonEditable: true, text: String(index + 1) },
@@ -561,7 +562,7 @@ export default class TariffContract extends Component {
                     dataSource={{
                       label: "Mẫu biểu cước",
                       ref: this.submitButtonRef,
-                      options: this.sampleTariff
+                      options: this.sampleTariff,
                     }}
                     onChangeValue={(value) => {
                       this.handleLoadData(Object.values(value)[0]);
@@ -598,7 +599,7 @@ export default class TariffContract extends Component {
                         format: "YYYY-MM-DD HH:mm:ss",
                         defaultValue: this.state.formData.fromDate,
                         id: "my-datepicker",
-                        span: { xs: 24, sm: 24},
+                        span: { xs: 24, sm: 24 },
                         required: true,
                         lockbefore: true,
                         propReadonly: false,
@@ -613,7 +614,7 @@ export default class TariffContract extends Component {
                         format: "YYYY-MM-DD HH:mm:ss",
                         defaultValue: this.state.formData.toDate,
                         id: "my-datepicker",
-                        span: { xs: 24, sm: 24},
+                        span: { xs: 24, sm: 24 },
                         required: true,
                         lockbefore: true,
                         propReadonly: false,
@@ -643,8 +644,7 @@ export default class TariffContract extends Component {
                         ref: this.submitButtonRef,
                         options: this.carrierOptions,
                       }}
-                      onChangeValue={() => {
-                      }}
+                      onChangeValue={() => {}}
                     />
                   </Col>
                   <Col span={11}>
@@ -671,8 +671,8 @@ export default class TariffContract extends Component {
                     />
                   </Col>
                 </Row>
-                <Row align="bottom">
-                  <Col xs={24} sm={22} md={23} lg={22}> 
+                <Row align="bottom" gutter={[12, 12]}>
+                  <Col xs={24} sm={22} md={23} lg={22}>
                     <Winput
                       key={this.state.customerSelect}
                       title={"Chọn khách hàng"}
@@ -695,19 +695,14 @@ export default class TariffContract extends Component {
                       disabled={!!this.state.customerSelect}
                     />
                   </Col>
-                    <Col xs={24} sm={2} md={1} lg={2} style={{ marginBottom: "4px", display: 'flex', justifyContent: 'center'}} className="tariff-button">
-                    <Mbutton
-                      color=""
-                      block
-                      className="btn-search"
-                      size={"12"}
-                      onClick={this.showModal}
-                      dataSource={{
-                        textbutton: ` `,
-                        icon: "SearchOutlined",
-                      }}
-                      disabled={!!this.state.customerSelect}
-                    />
+                  <Col
+                    xs={24}
+                    sm={2}
+                    md={1}
+                    lg={2}
+                    style={{ paddingBottom: "8px" }}
+                  >
+                    <SearchOutlined onClick={this.showModal}/>
                   </Col>
                 </Row>
               </Col>
@@ -766,7 +761,7 @@ export default class TariffContract extends Component {
             onCancel={this.handleCancel}
             closeIcon={<CloseOutlined />}
             footer={null}
-            className="custom-wide-modal-tariff"
+            width={1500}
           >
             <Row>Tìm theo mã số thuế*</Row>
             <Mtable
