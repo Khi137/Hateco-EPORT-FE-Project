@@ -6,7 +6,6 @@ import {
   Mcheckbox,
   Mdatepicker,
   Mdivider,
-  Mmultiswitch,
   Mradio,
   Mselect,
   Mtable,
@@ -22,6 +21,7 @@ import {
   DownloadOutlined,
   InfoCircleOutlined,
   LoadingOutlined,
+  SearchOutlined,
   UnorderedListOutlined,
   UserOutlined,
 } from "@ant-design/icons";
@@ -58,12 +58,12 @@ export default class ManagerBooking extends Component {
       tableDataGoods: [],
       isLoading: false,
       radioValue: "option1",
-      activeItem: "tracuu",
       selectedValues: [1, 2, 3, 4, 5],
       modalVisible: false,
       checkboxValue: false,
-      carrierValue: null, // Value for carrier selection
+      carrierValue: null,
       sizeOptions: [],
+      mode: "lookup",
     };
     this.submitButtonRef = createRef();
 
@@ -654,12 +654,6 @@ export default class ManagerBooking extends Component {
       { key: "5", label: "Đang cấp" },
     ];
 
-    this.switchOptions = [
-      { ref: "tracuu", label: "Tra cứu" },
-      { ref: "khongchidinh", label: "Không chỉ định" },
-      { ref: "chidinh", label: "Chỉ định" },
-    ];
-
     for (let index = 0; index < 4; index++) {
       const duplicatedDataGoods = { ...this.rowDataGoods[0] };
       duplicatedDataGoods.Size = generateRandomSize();
@@ -688,8 +682,10 @@ export default class ManagerBooking extends Component {
     });
   };
 
-  handleSwitchChange = (value) => {
-    this.setState({ activeItem: value });
+  changeMode = (type) => {
+    this.setState({
+      mode: type,
+    });
   };
 
   handleLoadData = () => {
@@ -744,10 +740,10 @@ export default class ManagerBooking extends Component {
   };
 
   handleCarrierChange = (value) => {
-    const values = Object.values(value)[0]
+    const values = Object.values(value)[0];
     this.setState({
       carrierValue: values,
-      sizeOptions: values === '' ? [] : this.sizeOptions,
+      sizeOptions: values === "" ? [] : this.sizeOptions,
     });
   };
 
@@ -760,7 +756,7 @@ export default class ManagerBooking extends Component {
     const { formData } = this.state;
 
     const contentMap = {
-      tracuu: (
+      lookup: (
         <>
           <Row justify={"space-between"}>
             <Col>
@@ -834,8 +830,8 @@ export default class ManagerBooking extends Component {
               onChangeValue={(value) => { }}
             />
           </Row>
-          <Row align="bottom" justify={'space-around'}>
-            <Col xs={24} sm={22} md={23} lg={21}>
+          <Row align="bottom" gutter={[12, 12]}>
+            <Col xs={24} sm={22} md={23} lg={22}>
               <Winput
                 key={this.state.selectCustomer}
                 title={"Tàu/Chuyến"}
@@ -846,7 +842,7 @@ export default class ManagerBooking extends Component {
                   this.setState((prevState) => ({
                     formData: {
                       ...prevState.formData,
-                      tariffNumberError: error,
+                      edoNumberError: error,
                     },
                   }))
                 }
@@ -857,29 +853,8 @@ export default class ManagerBooking extends Component {
                 placeholder={"Tàu/Chuyến"}
               />
             </Col>
-            <Col
-              xs={24}
-              sm={2}
-              md={1}
-              lg={2}
-              style={{
-                marginBottom: "4px",
-                display: "flex",
-                justifyContent: "center",
-              }}
-              className="edo-button"
-            >
-              <Mbutton
-                color=""
-                className="btn-search"
-                block
-                size={"12"}
-                onClick={this.showModal}
-                dataSource={{
-                  textbutton: " ",
-                  icon: "SearchOutlined",
-                }}
-              />
+            <Col xs={24} sm={2} md={1} lg={2} style={{ paddingBottom: "8px" }}>
+              <SearchOutlined />
             </Col>
           </Row>
           <Row gutter={[8, 12]}>
@@ -980,12 +955,12 @@ export default class ManagerBooking extends Component {
           <Mdivider dataSource={{ label: "Trạng thái booking" }} />
           <Row gutter={[12, 12]}>
             {this.checkboxOptions.map((option) => (
-              <Col xs={12} sm={8} md={6} lg={6} key={option.key}>
+              <Col xs={12} sm={8} key={option.key}>
                 <Mcheckbox
                   dataSource={{
                     key: option.key,
                     label: option.label,
-                    value: this.state.selectedValues[option.key - 1] || false
+                    value: this.state.selectedValues[option.key - 1] || false,
                   }}
                   onChangeValue={this.handleCheckboxChange}
                   className="form_Mcheckbox"
@@ -1009,7 +984,7 @@ export default class ManagerBooking extends Component {
           />
         </>
       ),
-      khongchidinh: (
+      noAssign: (
         <>
           <Row justify={"space-between"}>
             <Col>
@@ -1086,7 +1061,7 @@ export default class ManagerBooking extends Component {
               }}
             />
           </Row>
-          <Row align="bottom">
+          <Row align="bottom" gutter={[12, 12]}>
             <Col xs={24} sm={22} md={23} lg={22}>
               <Winput
                 key={this.state.selectCustomer}
@@ -1098,7 +1073,7 @@ export default class ManagerBooking extends Component {
                   this.setState((prevState) => ({
                     formData: {
                       ...prevState.formData,
-                      tariffNumberError: error,
+                      edoNumberError: error,
                     },
                   }))
                 }
@@ -1109,29 +1084,8 @@ export default class ManagerBooking extends Component {
                 placeholder={"Tàu/Chuyến"}
               />
             </Col>
-            <Col
-              xs={24}
-              sm={2}
-              md={1}
-              lg={2}
-              style={{
-                marginBottom: "4px",
-                display: "flex",
-                justifyContent: "center",
-              }}
-              className="edo-button"
-            >
-              <Mbutton
-                color=""
-                className="btn-search"
-                block
-                size={"12"}
-                onClick={this.showModal}
-                dataSource={{
-                  textbutton: " ",
-                  icon: "SearchOutlined",
-                }}
-              />
+            <Col xs={24} sm={2} md={1} lg={2} style={{ paddingBottom: "8px" }}>
+              <SearchOutlined />
             </Col>
           </Row>
           <Row gutter={[8, 12]}>
@@ -1289,12 +1243,13 @@ export default class ManagerBooking extends Component {
                   textbutton: `Lưu booking`,
                   icon: "SaveOutlined",
                 }}
+                loading={this.state.isLoading}
               />
             </Col>
           </Row>
         </>
       ),
-      chidinh: (
+      assign: (
         <>
           <Row justify={"space-between"}>
             <Col>
@@ -1410,7 +1365,7 @@ export default class ManagerBooking extends Component {
             type="number"
             min={0}
           />
-          <Row align="bottom">
+          <Row align="bottom" gutter={[12, 12]}>
             <Col xs={24} sm={22} md={23} lg={22}>
               <Winput
                 key={this.state.selectCustomer}
@@ -1421,7 +1376,7 @@ export default class ManagerBooking extends Component {
                   this.setState((prevState) => ({
                     formData: {
                       ...prevState.formData,
-                      tariffNumberError: error,
+                      edoNumberError: error,
                     },
                   }))
                 }
@@ -1431,32 +1386,11 @@ export default class ManagerBooking extends Component {
                 placeholder={"Số container"}
               />
             </Col>
-            <Col
-              xs={24}
-              sm={2}
-              md={1}
-              lg={2}
-              style={{
-                marginBottom: "4px",
-                display: "flex",
-                justifyContent: "center",
-              }}
-              className="edo-button"
-            >
-              <Mbutton
-                color=""
-                className="btn-search"
-                block
-                size={"12"}
-                onClick={this.showModal}
-                dataSource={{
-                  textbutton: " ",
-                  icon: "SearchOutlined",
-                }}
-              />
+            <Col xs={24} sm={2} md={1} lg={2} style={{ paddingBottom: "8px" }}>
+              <SearchOutlined />
             </Col>
           </Row>
-          <Row align="bottom">
+          <Row align="bottom" gutter={[12, 12]}>
             <Col xs={24} sm={22} md={23} lg={22}>
               <Winput
                 key={this.state.selectCustomer}
@@ -1468,7 +1402,7 @@ export default class ManagerBooking extends Component {
                   this.setState((prevState) => ({
                     formData: {
                       ...prevState.formData,
-                      tariffNumberError: error,
+                      edoNumberError: error,
                     },
                   }))
                 }
@@ -1479,29 +1413,8 @@ export default class ManagerBooking extends Component {
                 placeholder={"Tàu/Chuyến"}
               />
             </Col>
-            <Col
-              xs={24}
-              sm={2}
-              md={1}
-              lg={2}
-              style={{
-                marginBottom: "4px",
-                display: "flex",
-                justifyContent: "center",
-              }}
-              className="edo-button"
-            >
-              <Mbutton
-                color=""
-                className="btn-search"
-                block
-                size={"12"}
-                onClick={this.showModal}
-                dataSource={{
-                  textbutton: " ",
-                  icon: "SearchOutlined",
-                }}
-              />
+            <Col xs={24} sm={2} md={1} lg={2} style={{ paddingBottom: "8px" }}>
+              <SearchOutlined />
             </Col>
           </Row>
           <Row gutter={[8, 12]}>
@@ -1633,12 +1546,12 @@ export default class ManagerBooking extends Component {
         </>
       ),
     };
-    return contentMap[this.state.activeItem] || null;
+    return contentMap[this.state.mode] || null;
   }
 
   renderContentTable() {
     const contentMapTable = {
-      tracuu: (
+      lookup: (
         <>
           {!this.state.isLoading ? (
             !this.state.tableData[0] ? (
@@ -1672,7 +1585,7 @@ export default class ManagerBooking extends Component {
           )}
         </>
       ),
-      khongchidinh: (
+      noAssign: (
         <>
           {!this.state.isLoading ? (
             !this.state.tableData[0] ? (
@@ -1708,7 +1621,7 @@ export default class ManagerBooking extends Component {
           )}
         </>
       ),
-      chidinh: (
+      assign: (
         <>
           {!this.state.isLoading ? (
             !this.state.tableData[0] ? (
@@ -1743,7 +1656,7 @@ export default class ManagerBooking extends Component {
         </>
       ),
     };
-    return contentMapTable[this.state.activeItem] || null;
+    return contentMapTable[this.state.mode] || null;
   }
   render() {
     return (
@@ -1754,16 +1667,57 @@ export default class ManagerBooking extends Component {
               title={<span style={{ color: "white" }}>Quản lý booking</span>}
             >
               <Col className="input_layout">
-                <Row justify="center">
-                  <Mmultiswitch
-                    activeItem={this.state.activeItem}
-                    dataSource={{
-                      options: this.switchOptions,
-                      returnValue: this.handleSwitchChange,
-                    }}
-                    style={{ width: "100%" }}
-                    onChangeValue={this.handleSwitchChange}
-                  />
+                <Row gutter={[4, 12]}>
+                  <Col lg={8}>
+                    <Mbutton
+                      color=""
+                      className={`m_button ${
+                        this.state.mode === "lookup" ? "third" : "third_border"
+                      }`}
+                      type="primary"
+                      htmlType="submit"
+                      block
+                      size={"12"}
+                      dataSource={{
+                        textbutton: `Tra cứu`,
+                      }}
+                      onClick={() => this.changeMode("lookup")}
+                    />
+                  </Col>
+                  <Col lg={8}>
+                    <Mbutton
+                      color=""
+                      className={`m_button ${
+                        this.state.mode === "noAssign"
+                          ? "third"
+                          : "third_border"
+                      }`}
+                      type="primary"
+                      htmlType="submit"
+                      block
+                      size={"12"}
+                      dataSource={{
+                        textbutton: `Không chỉ định`,
+                      }}
+                      onClick={() => this.changeMode("noAssign")}
+                    />
+                  </Col>
+                  <Col lg={8}>
+                    <Mbutton
+                      color=""
+                      className={`m_button ${
+                        this.state.mode === "assign" ? "third" : "third_border"
+                      }`}
+                      type="primary"
+                      htmlType="submit"
+                      block
+                      size={"12"}
+                      dataSource={{
+                        textbutton: `Chỉ định`,
+                      }}
+                      onClick={() => this.changeMode("assign")}
+                    />
+                  </Col>
                 </Row>
                 {this.renderContent()}
               </Col>
@@ -1784,6 +1738,7 @@ export default class ManagerBooking extends Component {
             closeIcon={<CloseOutlined />}
             footer={null}
             className="custom-wide-modal-edo-booking-manager"
+            width={1500}
           >
             <Row justify={"space-between"} gutter={[12, 12]}>
               <Col span={12} style={{ marginTop: "4px" }}>

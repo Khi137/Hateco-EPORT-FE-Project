@@ -5424,42 +5424,6 @@ select {
   }
 }
 
-//-----------tariff
-
-.tariffContract_content {
-  .ant-btn-default:disabled {
-    background: transparent;
-  }
-}
-.tariffFreeDay_content,
-.tariffContract_content,
-.tariffHoliday_content {
-  .tariff-button {
-    .ant-btn {
-      padding: 0;
-    }
-  }
-}
-
-.tariffFreeDay_content {
-  .m-form__Mcheckbox span {
-    color: $brand-cl100;
-  }
-}
-
-.btn-search {
-  border: none;
-  color: $color-second;
-  box-shadow: none;
-}
-
-.custom-wide-modal-tariff {
-  width: 68% !important;
-  max-width: 1800px !important;
-}
-
-//
-
 .pending_task_radio_item {
   label {
     width: 45%;
@@ -5682,37 +5646,4 @@ select {
   margin-bottom: 1rem;
 }
 
-// shipping_line----------------------------
-.managerBooking_layout {
-  .m-ios-switch-container li {
-    width: 100%;
-    text-align: center;
-  }
 
-  ul li {
-    margin-bottom: 0;
-  }
-  
-  // .edo-button {
-  //   .ant-btn {
-  //     padding: 0;
-  //   }
-  // }
-
-  .form_Mcheckbox  {
-    width: 100px;
-  }
-  
-  .m-form__Checkbox {
-    border: none;
-  }
-}
-
-.custom-wide-modal-edo-booking-manager {
-  width: 68% !important;
-  max-width: 1800px !important;
-
-  // .m-form__Mcheckbox {
-  //   text-align: center;
-  // }
-}
