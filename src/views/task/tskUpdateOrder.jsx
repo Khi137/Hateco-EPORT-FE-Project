@@ -1,17 +1,13 @@
 import React, { Component, createRef } from "react";
-import { Col, Layout, Row } from "antd";
+import { Col, Row } from "antd";
 import {
-    BarcodeOutlined,
     BoldOutlined,
     DatabaseOutlined,
-    EnvironmentOutlined,
     LoadingOutlined,
     NumberOutlined,
-    SearchOutlined,
 } from "@ant-design/icons";
-import { Mbutton, Mcard, Mdatepicker, Mradio, Mtable, Winput } from "../../components/BasicUI/BasicUI";
-import { formatDateTime } from "../../utils/util";
-import { Content, Header } from "antd/es/layout/layout";
+import { Mbutton, Mcard, Mdatepicker, Mtable, Winput } from "../../components/BasicUI/BasicUI";
+import { Content } from "antd/es/layout/layout";
 import moment from "moment";
 import UpdateCommandOrder from "../../components/TskUpdateOrderModal/UpdateCommandOrder";
 import UpdateContainer from "../../components/TskUpdateOrderModal/UpdateContainer";
@@ -462,8 +458,8 @@ class TskUpdateOrder extends Component {
                                             htmlType="submit"
                                             block
                                             // onClick={this.handleSaveData}
-                                            onClick={() => this.hanldeChangeVisible("updateContainerVisible")}
-                                            // onClick={() => this.hanldeChangeVisible("updateCommandOrderVisible")}
+                                            // onClick={() => this.hanldeChangeVisible("updateContainerVisible")}
+                                            onClick={() => this.hanldeChangeVisible("updateCommandOrderVisible")}
                                             // ref={this.submitButtonRef}
                                             size={"12"}
                                             dataSource={{
