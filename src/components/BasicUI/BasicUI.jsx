@@ -46,7 +46,12 @@ import {
 import * as LOL from "@ant-design/icons";
 import moment from "moment";
 import { ReactGrid } from "@silevis/reactgrid";
-import { getColumnIndex, handleColumnsReorder, handleRowsReorder, handleRowsSearch } from "../../utils/util.js";
+import {
+  getColumnIndex,
+  handleColumnsReorder,
+  handleRowsReorder,
+  handleRowsSearch,
+} from "../../utils/util.js";
 import "@silevis/reactgrid/styles.css";
 import {
   setData,
@@ -72,13 +77,13 @@ var checkPrSps = new RegExp("[~|`|!|@|#|$|%|^|&|*|(|)|/]", "g");
 var removespc = function (text, exp = "") {
   let checksps = new RegExp(
     "[^a-zA-Z0-9àảãáạăằẳẵắặâầẩẫấậÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬđĐèẻẽéẹêềểễếệÈẺẼÉẸÊỀỂỄẾỆìỉĩíịÌỈĨÍỊòỏõóọôồổỗốộơờởỡớợÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢùủũúụưừửữứựÙỦŨÚỤƯỪỬỮỨỰỳỷỹýỵỲỶỸÝỴ" +
-    exp +
-    "_\\\\/\\(\\)-]",
+      exp +
+      "_\\\\/\\(\\)-]",
     "g"
   );
   return (text + "").normalize().replace(checksps, "");
 };
-var jjjg = setTimeout(() => { }, 0);
+var jjjg = setTimeout(() => {}, 0);
 var setvalthat = (val, that, time = 0) => {
   clearTimeout(jjjg);
   jjjg = setTimeout(() => {
@@ -298,9 +303,9 @@ class MeditSelect extends React.Component {
     if (!window.component) window.component = {};
     window.component[
       this.props.id ||
-      this.props.ref ||
-      this.props.dataSource.id ||
-      this.props.dataSource.ref
+        this.props.ref ||
+        this.props.dataSource.id ||
+        this.props.dataSource.ref
     ] = this;
   }
 
@@ -522,7 +527,7 @@ class Mupload extends React.Component {
     this.mes = {};
   }
 
-  create_Rowguid = () => { };
+  create_Rowguid = () => {};
 
   componentDidMount() {
     this.tmp_patch = this.create_Rowguid();
@@ -580,7 +585,7 @@ class Mupload extends React.Component {
     this.setState({ fileList: nFL });
   };
 
-  handleupload = (file, fileList) => { };
+  handleupload = (file, fileList) => {};
 
   handleRemove = (file) => {
     let formData = new FormData();
@@ -629,7 +634,7 @@ class Mupload extends React.Component {
           <Upload
             ref={this.uploadInputRef}
             style={{ textAlign: "center", margin: "auto" }}
-            action={() => { }}
+            action={() => {}}
             listType="picture"
             beforeUpload={this.handleupload}
             multiple={true}
@@ -781,7 +786,7 @@ class Mstep extends React.Component {
   }
 
   render() {
-    const { stepStyle, stepsStyle } = this.props;
+    const { stepStyle, stepsStyle, direction } = this.props;
     let content = [];
     if (Array.isArray(this.data)) {
       content = this.data.map((item, index) => (
@@ -790,11 +795,11 @@ class Mstep extends React.Component {
           key={index}
           icon={item.icon || <LOL.UserOutlined />}
           style={stepStyle}
-        ></Step>
+        />
       ));
     }
     return (
-      <Steps direction="vertical" {...this.config} style={stepsStyle}>
+      <Steps direction={direction} {...this.config} style={stepsStyle}>
         {content}
       </Steps>
     );
@@ -1159,8 +1164,8 @@ class Mbutton extends React.Component {
             this.state.color === ""
               ? `ant-btn-${this.state.color} opacity-${this.state.opacity}`
               : this.state.color === "blue"
-                ? `ant-btn-${this.state.color} opacity-${this.state.opacity}`
-                : `ant-btn-${this.state.color} opacity-${this.state.opacity}`
+              ? `ant-btn-${this.state.color} opacity-${this.state.opacity}`
+              : `ant-btn-${this.state.color} opacity-${this.state.opacity}`
           }
           loading={this.state.loading}
           {...this.props}
@@ -1234,8 +1239,8 @@ class Msearch extends React.Component {
       dataSource && dataSource.uppercase
         ? value.toUpperCase()
         : dataSource && dataSource.safeString
-          ? removespc(value)
-          : value;
+        ? removespc(value)
+        : value;
     this.setState({ value: newValue });
     if (config && config.onLiveSearch) {
       config.onLiveSearch(newValue);
@@ -1282,13 +1287,15 @@ class Msearch extends React.Component {
     const data = config && config?.icon ? config : dataSource;
     const icon = data?.icon ? (
       <i
-        className={`m-form__icon ${LOL[data?.icon] ? "" : "material-" + data?.icon
-          }`}
+        className={`m-form__icon ${
+          LOL[data?.icon] ? "" : "material-" + data?.icon
+        }`}
       />
     ) : (
       <i
-        className={`m-form__icon ${LOL["AlignLeftOutlined"] ? "" : "material-" + data?.icon
-          }`}
+        className={`m-form__icon ${
+          LOL["AlignLeftOutlined"] ? "" : "material-" + data?.icon
+        }`}
       />
     );
     const span = (data && data.span) || 24;
@@ -1415,8 +1422,8 @@ class Mautocomplete extends React.Component {
       this.state.placeholder === undefined
         ? data.placeholder
         : this.state.placeholder
-          ? this.state.placeholder
-          : "";
+        ? this.state.placeholder
+        : "";
     return (
       <Col
         xs={span.xs || span}
@@ -1579,8 +1586,8 @@ class Mselectsearch extends React.Component {
       this.state.placeholder === undefined
         ? data.placeholder
         : this.state.placeholder
-          ? this.state.placeholder
-          : "";
+        ? this.state.placeholder
+        : "";
 
     var that = this;
     var value = data.value || this.state.value;
@@ -1883,10 +1890,9 @@ class Mtable extends React.Component {
           this.generateRowsHeader(),
           ...this.generateTableData(this.props.config.defaultData || []),
         ],
-        newIndex: this.props.config.defaultData.length
+        newIndex: this.props.config.defaultData.length,
       },
     };
-
   }
 
   handleInputChange = (e) => {
@@ -1905,37 +1911,52 @@ class Mtable extends React.Component {
       newRow.newRow = this.props.functionRequire?.newdata;
     }
 
-    const updatedRows = this.state.tableData?.reactGridRows
-    updatedRows.push(this.generateRowData(newRow.newRow, Number(newRow.index), this.props.rowsFormat, newRow.reorderRow));
-    const updateDefaultData = this.state.defaultData
-    updateDefaultData.push({})
-    this.setState(prevState => ({
+    const updatedRows = this.state.tableData?.reactGridRows;
+    updatedRows.push(
+      this.generateRowData(
+        newRow.newRow,
+        Number(newRow.index),
+        this.props.rowsFormat,
+        newRow.reorderRow
+      )
+    );
+    const updateDefaultData = this.state.defaultData;
+    updateDefaultData.push({});
+    this.setState((prevState) => ({
       defaultData: updateDefaultData,
       tableData: {
         ...prevState.tableData,
         reactGridRows: updatedRows,
-        newIndex: prevState.tableData.newIndex + 1
-      }
+        newIndex: prevState.tableData.newIndex + 1,
+      },
     }));
   };
 
   deleteRows = (selectedRows) => {
     if (!selectedRows) return;
     if (!selectedRows.columns[1]) return;
-    const rows = selectedRows.rows
+    const rows = selectedRows.rows;
 
-    const indexToDelete = getColumnIndex(this.props.config.columnsFormat, [{ ...this.props.config.columnsFormat[1] }.columnId])
-    const idxToDelete = rows.map(row => row.idx);
-    const updatedRows = this.state.tableData?.reactGridRows
-    const filteredRows = updatedRows.filter((row, index) => !idxToDelete.includes(index));
-    const filteredDefaultData = this.state.defaultData.filter((obj) => obj[{ ...this.props.config.columnsFormat[1] }.columnId] !== rows[0].cells[indexToDelete].text);
+    const indexToDelete = getColumnIndex(this.props.config.columnsFormat, [
+      { ...this.props.config.columnsFormat[1] }.columnId,
+    ]);
+    const idxToDelete = rows.map((row) => row.idx);
+    const updatedRows = this.state.tableData?.reactGridRows;
+    const filteredRows = updatedRows.filter(
+      (row, index) => !idxToDelete.includes(index)
+    );
+    const filteredDefaultData = this.state.defaultData.filter(
+      (obj) =>
+        obj[{ ...this.props.config.columnsFormat[1] }.columnId] !==
+        rows[0].cells[indexToDelete].text
+    );
     // console.log(rows[0].cells[indexToDelete].text);
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       defaultData: filteredDefaultData,
       tableData: {
         ...prevState.tableData,
-        reactGridRows: filteredRows
-      }
+        reactGridRows: filteredRows,
+      },
     }));
   };
 
@@ -1974,22 +1995,30 @@ class Mtable extends React.Component {
   handleRowsSelection = (selectedRows) => {
     this.setState({ selectedRows: selectedRows[0] });
     if (selectedRows[0] && this.props.functionRequire?.selectRow) {
-      if (selectedRows[0].rows?.length === 1 && selectedRows[0].columns?.length !== 1) {
-        this.props.functionRequire?.selectRow(selectedRows[0].rows, this.state.tableData.reactGridColumns)
+      if (
+        selectedRows[0].rows?.length === 1 &&
+        selectedRows[0].columns?.length !== 1
+      ) {
+        this.props.functionRequire?.selectRow(
+          selectedRows[0].rows,
+          this.state.tableData.reactGridColumns
+        );
       }
     }
   };
 
   handleCellsChanged = (changes) => {
-    const rows = this.state.tableData.reactGridRows?.map(row => ({
+    const rows = this.state.tableData.reactGridRows?.map((row) => ({
       ...row,
-      cells: row.cells?.map(cell => ({ ...cell })),
+      cells: row.cells?.map((cell) => ({ ...cell })),
     }));
 
-    changes.forEach(change => {
-      const row = rows.find(r => r.rowId === change.rowId);
+    changes.forEach((change) => {
+      const row = rows.find((r) => r.rowId === change.rowId);
       if (row) {
-        const columnIndex = this.state.tableData.reactGridColumns.findIndex(col => col.columnId === change.columnId);
+        const columnIndex = this.state.tableData.reactGridColumns.findIndex(
+          (col) => col.columnId === change.columnId
+        );
         if (columnIndex >= 0) {
           const cell = row.cells[columnIndex];
           if (change.newCell.type === "checkbox") {
@@ -2000,10 +2029,14 @@ class Mtable extends React.Component {
 
           const dataIndex = parseInt(change.rowId, 10) - 1;
           if (this.state.defaultData[dataIndex]) {
-            const columnKey = this.state.tableData.reactGridColumns[columnIndex].columnId;
+            const columnKey =
+              this.state.tableData.reactGridColumns[columnIndex].columnId;
             this.state.defaultData[dataIndex] = {
               ...this.state.defaultData[dataIndex],
-              [columnKey]: change.newCell.type === "checkbox" ? change.newCell.checked : change.newCell.text,
+              [columnKey]:
+                change.newCell.type === "checkbox"
+                  ? change.newCell.checked
+                  : change.newCell.text,
             };
           }
         }
@@ -2011,14 +2044,13 @@ class Mtable extends React.Component {
     });
 
     this.state.tableData.reactGridRows = rows;
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       tableData: {
         ...prevState.tableData,
-        reactGridRows: rows
-      }
+        reactGridRows: rows,
+      },
     }));
   };
-
 
   handleColumnResize = (ci, width) => {
     this.setState((prevState) => {
@@ -2056,9 +2088,9 @@ class Mtable extends React.Component {
         ...this.state.tableData,
         reactGridRows: [
           this.generateRowsHeader(),
-          ...this.generateTableData(sortedData)
-        ]
-      }
+          ...this.generateTableData(sortedData),
+        ],
+      },
     });
   };
 
@@ -2067,26 +2099,26 @@ class Mtable extends React.Component {
     this.props.config.columnsFormat
       ? (columnsData = this.props.config.columnsFormat)
       : (columnsData = [
-        { columnId: "STT", width: 50, resizable: true, header: "STT" },
-        {
-          columnId: "ContainerStatusName",
-          width: 125,
-          resizable: true,
-          reorderable: true,
-          header: "Tình trạng"
-        },
-        {
-          columnId: "ContainerNo",
-          width: 150,
-          resizable: true,
-          reorderable: true,
-          header: "Số Container"
-        }
-      ]);
+          { columnId: "STT", width: 50, resizable: true, header: "STT" },
+          {
+            columnId: "ContainerStatusName",
+            width: 125,
+            resizable: true,
+            reorderable: true,
+            header: "Tình trạng",
+          },
+          {
+            columnId: "ContainerNo",
+            width: 150,
+            resizable: true,
+            reorderable: true,
+            header: "Số Container",
+          },
+        ]);
 
     return columnsData.map((column) => ({
       ...column,
-      sortFunction: () => this.handleSort(column.columnId)
+      sortFunction: () => this.handleSort(column.columnId),
     }));
   };
 
@@ -2094,7 +2126,7 @@ class Mtable extends React.Component {
     if (this.props.config.rowsHeader) {
       return {
         rowId: "header",
-        cells: this.props.config.rowsHeader
+        cells: this.props.config.rowsHeader,
       };
     } else {
       return {
@@ -2102,8 +2134,8 @@ class Mtable extends React.Component {
         cells: [
           { type: "header", text: "STT" },
           { type: "header", text: "Tình trạng" },
-          { type: "header", text: "Số Container" }
-        ]
+          { type: "header", text: "Số Container" },
+        ],
       };
     }
   };
@@ -2113,7 +2145,7 @@ class Mtable extends React.Component {
       return {
         rowId: String(index + 1),
         reorderable: Boolean(this.props.config.reorderRow),
-        cells: this.props.config.rowsFormat(container, index)
+        cells: this.props.config.rowsFormat(container, index),
       };
     } else {
       return {
@@ -2124,14 +2156,14 @@ class Mtable extends React.Component {
           {
             type: "text",
             nonEditable: true,
-            text: container?.ContainerStatusName || ""
+            text: container?.ContainerStatusName || "",
           },
           {
             type: "text",
             nonEditable: true,
-            text: container?.ContainerNo || ""
-          }
-        ]
+            text: container?.ContainerNo || "",
+          },
+        ],
       };
     }
   };
@@ -2145,9 +2177,18 @@ class Mtable extends React.Component {
 
   render() {
     const { tableData, searchValue } = this.state;
-    const { addcolumn, deleteColumn, exportExel, searchField, saveData, importExel, approve, editColum } = this.props.functionRequire;
+    const {
+      addcolumn,
+      deleteColumn,
+      exportExel,
+      searchField,
+      saveData,
+      importExel,
+      approve,
+      editColum,
+    } = this.props.functionRequire;
 
-    // const rows = 
+    // const rows =
 
     return (
       <div className="table_container">
@@ -2338,7 +2379,7 @@ class Mtable extends React.Component {
                     color: "second",
                     icon: "EditOutlined",
                   }}
-                // onClick={() => this.deleteRows(this.state.selectedRows)}
+                  // onClick={() => this.deleteRows(this.state.selectedRows)}
                 />
               </Col>
             )}
@@ -2374,7 +2415,7 @@ class Mtable extends React.Component {
                     color: "second",
                     icon: "CheckOutlined",
                   }}
-                // onClick={() => this.deleteRows(this.state.selectedRows)}
+                  // onClick={() => this.deleteRows(this.state.selectedRows)}
                 />
               </Col>
             )}
@@ -2441,11 +2482,11 @@ class Mtable extends React.Component {
               rows={
                 searchValue
                   ? handleRowsSearch(
-                    tableData?.reactGridRows,
-                    searchValue || "",
-                    tableData.reactGridColumns,
-                    this.props.functionRequire?.searchField
-                  )
+                      tableData?.reactGridRows,
+                      searchValue || "",
+                      tableData.reactGridColumns,
+                      this.props.functionRequire?.searchField
+                    )
                   : tableData?.reactGridRows
               }
               columns={tableData?.reactGridColumns}
@@ -2464,7 +2505,7 @@ class Mtable extends React.Component {
             />
           </div>
         </div>
-      </div >
+      </div>
     );
   }
 }
@@ -2617,7 +2658,7 @@ class Minput extends React.Component {
   }
 
   checkError = (value) => {
-    const { data } = this.props.dataSource
+    const { data } = this.props.dataSource;
     if (data.require && value === "")
       return `${data.title} không được để trống`;
     if (value.length < (data.minLength || 0))
@@ -2824,10 +2865,9 @@ class Minput extends React.Component {
           }
         >
           <Row className="winput_header">
-            <label
-              className="m-form__label body-lg-normal"
-            >
-              {data?.label} {data.require && <span className="winput_require">*</span>}
+            <label className="m-form__label body-lg-normal">
+              {data?.label}{" "}
+              {data.require && <span className="winput_require">*</span>}
             </label>
             {data?.tooltip && (
               <Tooltip
@@ -2861,14 +2901,16 @@ class Minput extends React.Component {
               tabIndex={data?.tabindex || 1}
               pattern={data?.format || ""}
               placeholder={data.placeholder || data.title || ""}
-              onMouseDown={(e) => { data.disable && e.preventDefault() }}
+              onMouseDown={(e) => {
+                data.disable && e.preventDefault();
+              }}
             ></input>
           </span>
           {(data.require || data.regex || data.minLength) && (
             <Row className="Winput_error_text">{this.state.error}</Row>
           )}
         </div>
-      </Col >
+      </Col>
     );
   }
 }
@@ -2968,10 +3010,10 @@ class Mdatepicker extends React.Component {
     let value = this.state.value
       ? moment(this.state.value, data.format || "YYYY-MM-DD HH:mm:ss")
       : data.value
-        ? moment(data.value, data.format || "YYYY-MM-DD HH:mm:ss")
-        : data.defaultValue
-          ? moment(data.defaultValue, data.format || "YYYY-MM-DD HH:mm:ss")
-          : null;
+      ? moment(data.value, data.format || "YYYY-MM-DD HH:mm:ss")
+      : data.defaultValue
+      ? moment(data.defaultValue, data.format || "YYYY-MM-DD HH:mm:ss")
+      : null;
 
     if (data.value === "") value = null;
     if (this.state.value === "") value = null;
@@ -3032,8 +3074,9 @@ class Mdatepicker extends React.Component {
         lg={span.lg || span}
         xl={span.xl || span}
         key={data.ref}
-        className={`m-form__box ${data.className || ""} ${readonly ? "readonly" : ""
-          }`}
+        className={`m-form__box ${data.className || ""} ${
+          readonly ? "readonly" : ""
+        }`}
       >
         <div className={`m-form__input ${readonly ? "readonly" : ""}`}>
           <label
@@ -3056,17 +3099,17 @@ class Mdatepicker extends React.Component {
             defaultValue={
               data.defaultValue
                 ? moment(
-                  data.defaultValue,
-                  data.format || "YYYY-MM-DD HH:mm:ss"
-                )
+                    data.defaultValue,
+                    data.format || "YYYY-MM-DD HH:mm:ss"
+                  )
                 : ""
             }
             defaultPickerValue={
               data.defaultPickerValue
                 ? moment(
-                  data.defaultPickerValue,
-                  data.format || "YYYY-MM-DD HH:mm:ss"
-                )
+                    data.defaultPickerValue,
+                    data.format || "YYYY-MM-DD HH:mm:ss"
+                  )
                 : undefined
             }
             value={value}
@@ -3395,7 +3438,10 @@ class Mselect extends React.Component {
         md={span.md || span}
         lg={span.lg || span}
         className="m-form__box"
-        style={{ display: data?.isHide === true ? "none" : "block", padding: 0 }}
+        style={{
+          display: data?.isHide === true ? "none" : "block",
+          padding: 0,
+        }}
       >
         <div
           className={
@@ -3436,9 +3482,7 @@ class Mselect extends React.Component {
             </option>
             {this.renderOptions(data?.value || this.state.value)}
           </select>
-          <div className="select-icon">
-            {icon}
-          </div>
+          <div className="select-icon">{icon}</div>
         </div>
       </Col>
     );
@@ -3601,9 +3645,9 @@ class MoneFieldInput extends React.Component {
     window.component = window.component || {};
     window.component[
       this.props.id ||
-      this.props.ref ||
-      this.props.dataSource.id ||
-      this.props.dataSource.ref
+        this.props.ref ||
+        this.props.dataSource.id ||
+        this.props.dataSource.ref
     ] = this;
   }
 

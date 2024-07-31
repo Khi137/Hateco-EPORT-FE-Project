@@ -24,7 +24,7 @@ export class Empty extends Component {
           width: "100%",
         }}
       >
-        <IconComponent style={{ fontSize: "40px" }} />
+        <IconComponent style={{ fontSize: "150px" }} />
         <p style={{ fontSize: "14px" }}>{this.state.text}</p>
       </div>
     );

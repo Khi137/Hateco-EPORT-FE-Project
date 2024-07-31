@@ -5,7 +5,7 @@ import UnAuthLayout from "../layout/UnAuthLayout/UnAuthLayout";
 import AuthLayout from "../layout/AuthLayout/AuthLayout";
 import Register from "../views/register/register";
 import ShowComponent from "../ShowComponent";
-import Dashboard from "../components/Dashboard/Dashboard"
+import Dashboard from "../components/Dashboard/Dashboard";
 import PersonalRoutes from "./PersonalRoutes.jsx";
 import PostageRoutes from "./PostageRoutes.jsx";
 import TariffRoutes from "./TariffRoutes.jsx";
@@ -16,6 +16,7 @@ import CategoryRoutes from "./CategoryRoutes.jsx";
 import ReportRoutes from "./ReportRoutes.jsx";
 import CommandManagerRoutes from "./CommandManagerRoutes.jsx";
 import OrdersCheckingRoutes from "./OrdersCheckingRoutes.jsx";
+import TaskRoutes from "./TaskRoutes.jsx";
 class MainRoutes extends Component {
   render() {
     return (
@@ -40,8 +41,9 @@ class MainRoutes extends Component {
           <Route path="/report"> {ReportRoutes}</Route>
           <Route path="/command_manager"> {CommandManagerRoutes}</Route>
           <Route path="/orders_checking"> {OrdersCheckingRoutes}</Route>
+          <Route path="/task"> {TaskRoutes}</Route>
         </Route>
-      </Routes >
+      </Routes>
     );
   }
 }
