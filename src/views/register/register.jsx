@@ -295,7 +295,6 @@ class Register extends Component {
                 value: formData.phoneNumber,
                 inputRegex: /^[0-9\-\+]{0,15}$/,
                 require: true,
-
                 tooltip: "Nhập số điện thoại",
                 placeholder: "Nhập số điện thoại",
                 inputIcon: <PhoneOutlined />,

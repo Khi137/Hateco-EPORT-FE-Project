@@ -1,18 +1,6 @@
-import React, { Component, createRef } from "react";
-import { Col, Layout, Modal, Row } from "antd";
-import {
-    BarcodeOutlined,
-    BoldOutlined,
-    DatabaseOutlined,
-    EnvironmentOutlined,
-    LoadingOutlined,
-    NumberOutlined,
-    SearchOutlined,
-} from "@ant-design/icons";
-import { Mbutton, Mcard, Mdatepicker, Minput, Mradio, Mtable, Winput } from "../../components/BasicUI/BasicUI";
-import { formatDateTime } from "../../utils/util";
-import { Content, Header } from "antd/es/layout/layout";
-import moment from "moment";
+import React, { Component } from "react";
+import { Col, Modal, Row } from "antd";
+import { Mbutton, Minput, Winput } from "../../components/BasicUI/BasicUI";
 import ChooseShipRoute from "./ChooseShipRoute";
 
 export default class UpdateCommandOrder extends Component {
@@ -150,7 +138,7 @@ export default class UpdateCommandOrder extends Component {
                         label: "Mã PinCode",
                         inputType: "text",
                         placeholder: "Mã PinCode",
-                        disable: true
+                        // disable: true
                     }}
 
                 />
@@ -162,7 +150,7 @@ export default class UpdateCommandOrder extends Component {
                                 label: "Tác nghiệp",
                                 inputType: "text",
                                 placeholder: "Tác nghiệp",
-                                disable: true
+                                // disable: true
                             }}
                         />
                     </Col>
@@ -172,7 +160,7 @@ export default class UpdateCommandOrder extends Component {
                                 label: "PT giao nhận",
                                 inputType: "text",
                                 placeholder: "PT giao nhận",
-                                disable: true
+                                // disable: true
                             }}
                         />
                     </Col>
@@ -182,7 +170,7 @@ export default class UpdateCommandOrder extends Component {
                                 label: "Hạn lệnh",
                                 inputType: "text",
                                 placeholder: "Hạn lệnh",
-                                disable: true
+                                // disable: true
                             }}
                         />
                     </Col>
@@ -192,7 +180,7 @@ export default class UpdateCommandOrder extends Component {
                                 label: "Hạn lưu container",
                                 inputType: "text",
                                 placeholder: "Hạn lưu container",
-                                disable: true
+                                // disable: true
                             }}
                         />
                     </Col>
@@ -202,7 +190,7 @@ export default class UpdateCommandOrder extends Component {
                                 label: "Chọn tàu / Nhập / Xuất (Mã  chuyến)",
                                 inputType: "text",
                                 placeholder: "Chọn tàu / Nhập / Xuất (Mã  chuyến)",
-                                disable: true
+                                // disable: true
                             }}
                             ref={this.chooseShipInput}
                         />
