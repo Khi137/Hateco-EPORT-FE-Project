@@ -447,17 +447,29 @@ class PersonalInfor extends React.Component {
                   </Col>
                   <Col span={24} style={{ fontSize: '16px', marginTop: "1rem" }}>
                     <Mbutton
-                      color="green"
-                      className="m_button btn-changepass"
-                      htmlType="success"
+                      type="primary"
+                      ghost
                       block
-                      border="green"
                       onClick={() => this.setState({ changePassModal: true })}
-                      size={"12"}
+                      style={{
+                        borderColor: '#00bf72',
+                        color: '#00bf72',
+                        marginTop: '1rem'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = '#00bf72';
+                        e.currentTarget.style.color = 'white';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                        e.currentTarget.style.color = '#00bf72';
+                      }}
                       dataSource={{
                         textbutton: `Thay đổi mật khẩu`,
-                      }}
-                    />
+                    }}
+                    >
+                     
+                    </Mbutton>
                   </Col>
                   <Col span={24} style={{ marginTop: "1rem", marginBottom: "0.5rem" }}>
                     <Mform >
@@ -577,6 +589,10 @@ class PersonalInfor extends React.Component {
                           <Mcard
                             className="m-clickable-card active"
                             onClick={(e) => { this.handleChangecard("order", e,) }}
+                            style={{ 
+                              minHeight: '15vh',
+                              cursor: 'pointer'
+                            }}
                           >
                             <Statistic
                               title={
@@ -609,6 +625,10 @@ class PersonalInfor extends React.Component {
                           <Mcard
                             className="m-clickable-card"
                             onClick={(e) => { this.handleChangecard("invoice", e,) }}
+                            style={{ 
+                              minHeight: '15vh',
+                              cursor: 'pointer'
+                            }}
                           >
                             <Statistic
                               title={
@@ -641,6 +661,10 @@ class PersonalInfor extends React.Component {
                           <Mcard
                             className="m-clickable-card"
                             onClick={(e) => { this.handleChangecard("transfer", e,) }}
+                            style={{ 
+                              minHeight: '15vh',
+                              cursor: 'pointer'
+                            }}
                           >
                             <Statistic
                               title={

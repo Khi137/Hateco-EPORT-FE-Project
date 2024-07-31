@@ -178,7 +178,7 @@ class jobModeInvoiceWithReleasePointReport extends Component {
                 TongTien: 500000000,
             },
         ];
-        
+
         this.rowCustomerData = [
             {
                 // Test
@@ -190,7 +190,7 @@ class jobModeInvoiceWithReleasePointReport extends Component {
                 DienThoai: "0927857245",
             },
         ];
-        
+
         this.dataSource = [
             {
                 type: "divider",
@@ -615,7 +615,7 @@ class jobModeInvoiceWithReleasePointReport extends Component {
                                         onChangeValue={this.handleRadioChange}
                                     />
                                 </Col>
-                                <Col xs={24} md={24} style={{ marginTop: "1rem", textAlign: 'center' }}>
+                                <Col xs={12} md={12} style={{ marginTop: "1rem", textAlign: 'center' }}>
                                     <Mbutton
                                         color=""
                                         className="m_button btn-loaddata"
@@ -646,22 +646,22 @@ class jobModeInvoiceWithReleasePointReport extends Component {
                                                 <Col className="item_title">{item.title}:</Col>
                                                 {!this.state.isLoading ? (
                                                     item.value ? (
-                                                        <Col className="item_value dashed-line body-xl-bold m-red-text">
+                                                        <Col className="item_value dashed-line body-xl-bold m-red-text" style={{ textAlign: 'right', borderBottom: '1px dashed #464646', width: '45%', color: 'red', fontWeight: 'bold' }}>
                                                             {this.state.generalInformation[item.value] || "0"}
 
                                                         </Col>
                                                     ) : (
-                                                        <span className="item_value dashed-line body-xl-bold m-red-text">0</span>
+                                                        <span style={{ textAlign: 'right', borderBottom: '1px dashed #464646', width: '45%', color: 'red', fontWeight: 'bold' }} className="item_value dashed-line body-xl-bold m-red-text">0</span>
                                                     )
                                                 ) : (
-                                                    <span className="item_value dashed-line body-xl-bold m-red-text">Loading...</span>
+                                                    <span style={{ textAlign: 'right', borderBottom: '1px dashed #464646', width: '45%', color: 'red', fontWeight: 'bold' }} className="item_value dashed-line body-xl-bold m-red-text">Loading...</span>
                                                 )}
                                             </Row>
                                         ))}
                                     </Col>
                                 </Col>
                                 <Col xs={24} md={24}>
-                                    <div className="mtable-tacnghiep">
+                                    <div className="">
                                         {!this.state.isLoading ? (
                                             !this.state.tableData[0] ? (
                                                 <Mtable

@@ -586,7 +586,7 @@ class containerInvoiceReport extends Component {
                                         onChangeValue={this.handleRadioChange}
                                     />
                                 </Col>
-                                <Col xs={24} md={24} style={{ marginTop: "1rem", textAlign: 'center' }}>
+                                <Col xs={12} md={12} style={{ marginTop: "1rem", textAlign: 'center' }}>
                                     <Mbutton
                                         color=""
                                         className="m_button btn-loaddata"
@@ -616,11 +616,11 @@ class containerInvoiceReport extends Component {
                                             <Row className="information_content_item" key={index} justify="space-between">
                                                 <Col className="item_title">{item.title}:</Col>
                                                 {!this.state.isLoading ? (
-                                                    <Col className="item_value dashed-line body-xl-bold m-red-text">
+                                                    <Col className="item_value dashed-line body-xl-bold m-red-text" style={{textAlign: 'right', borderBottom: '1px dashed #464646', width: '45%', color: 'red', fontWeight: 'bold' }}>
                                                         {this.state.generalInformation[item.value] || "0"}
                                                     </Col>
                                                 ) : (
-                                                    <span className="item_value dashed-line body-xl-bold m-red-text">Loading...</span>
+                                                    <span className="item_value dashed-line body-xl-bold m-red-text" style={{textAlign: 'right', borderBottom: '1px dashed #464646', width: '45%', color: 'red', fontWeight: 'bold' }}a>Loading...</span >
                                                 )}
                                             </Row>
                                         ))}
@@ -634,7 +634,7 @@ class containerInvoiceReport extends Component {
                                     />
                                 </Col>
                                 <Col xs={24} md={24}>
-                                    <div className="mtable-tacnghiep">
+                                    <div className="mtable-nofeature">
                                         {!this.state.isLoading ? (
                                             !this.state.tableData[0] ? (
                                                 <Mtable
@@ -739,6 +739,7 @@ class containerInvoiceReport extends Component {
                     onCancel={this.handleCancel}
                     closeIcon={<CloseOutlined />}
                     footer={null}
+                    width="70%"
                     className="custom-wide-modal-report"
                 >
                     {!this.state.isSearching ? (
