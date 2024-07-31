@@ -975,6 +975,8 @@ text {
 }
 
 .m-custom-card {
+  flex-grow: 1;
+  // height: 100%;
   // margin-bottom: $gutter !important;
 
   .ant-card-head {
