@@ -1,47 +1,99 @@
 import { Col, Row } from "antd";
 import { Content } from "antd/es/layout/layout";
-import React, { Component, createRef } from "react";
+import React, { Component } from "react";
 import {
   Mbutton,
   Mcard,
   Mdatepicker,
-  Minput,
   Mradio,
+  Mselect,
   Mstep,
   Mtable,
   Winput,
-} from "../../components/BasicUI";
+} from "../../components/BasicUI/BasicUI";
 import {
-  IdcardOutlined,
-  SnippetsOutlined,
   CheckOutlined,
+  FormOutlined,
+  IdcardOutlined,
   LoadingOutlined,
+  PhoneOutlined,
+  SnippetsOutlined,
+  UnorderedListOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import Empty from "../system/Empty";
-const formInfoCustomer = [
+
+const valueSelect = [
   {
-    label: "TÊN CHỦ HÀNG",
-    require: true,
-    type: "text",
+    label: "Hãng khai thác",
+    option: [
+      { label: "QUANTRI: Quản trị hệ thống", value: "QTHT" },
+      { label: "Dev: Developer", value: "DEV" },
+      { label: "BOD: BOD Tập đoàn", value: "BOD" },
+    ],
   },
   {
-    label: "TÊN NGƯỜI ĐẠI DIỆN",
-    require: true,
-    type: "text",
-  },
-  {
-    label: "SỐ ĐIỆN THOẠI",
-    require: true,
-    type: "number",
-  },
-  {
-    label: "GHI CHÚ",
-    require: true,
-    type: "text",
+    label: "Kích cỡ ISO",
+    option: [
+      { label: "NDV", value: "NDV" },
+      { label: "Cát lái", value: "Catlai" },
+      { label: "Hải phòng", value: "HP" },
+    ],
   },
 ];
 
-const dataSource = [
+const valueInfoNumber = [
+  {
+    id: "do",
+    icon: <IdcardOutlined />,
+    require: false,
+    text: "Số D/O",
+  },
+
+  {
+    id: "booking",
+    icon: <FormOutlined />,
+    require: false,
+    text: "Số BL/BOOKING",
+  },
+  {
+    id: "booking",
+    icon: <FormOutlined />,
+    require: false,
+    text: "Số container",
+  },
+];
+
+const valueInfoCustomer = [
+  {
+    id: "nameBossId",
+    icon: <IdcardOutlined />,
+    require: true,
+    text: "Chủ hàng",
+  },
+  [
+    {
+      id: "nameRepresentId",
+      icon: <UserOutlined />,
+      require: true,
+      text: "Tên người đại diện",
+    },
+    {
+      id: "phoneId",
+      icon: <PhoneOutlined />,
+      require: true,
+      text: "Số điện thoại",
+    },
+  ],
+  {
+    id: "noteId",
+    icon: <FormOutlined />,
+    require: false,
+    text: "Ghi chú",
+  },
+];
+
+const dataSourceStep = [
   {
     label: "Danh sách container",
     icon: <SnippetsOutlined />,
@@ -56,6 +108,17 @@ const dataSource = [
   },
 ];
 
+const buttonStep = [
+  {
+    text: "Quay lại",
+    icon: "DoubleLeftOutlined",
+  },
+  {
+    text: "Tiếp tục",
+    icon: "DoubleRightOutlined",
+  },
+];
+
 const rowData = [
   {
     numberContainer: "ABC123",
@@ -64,44 +127,6 @@ const rowData = [
     sector: "Gạo nhập khẩu",
     weight: "100 tấn",
     vehicleInformation: "Thông tin phương tiện",
-  },
-];
-
-const formInput = [
-  {
-    title: "Số vận đơn",
-    tooltip: "Số vận đơn",
-    require: true,
-    className: `form_input_field`,
-    placeholder: "Nhập số vận đơn",
-  },
-  {
-    title: "Tên khách hàng",
-    tooltip: "Tên khách hàng",
-    require: true,
-    className: `form_input_field`,
-    placeholder: "Nhập tên khách hàng",
-  },
-  {
-    title: "Tên người đại diện",
-    tooltip: "Tên người đại diện",
-    require: true,
-    className: `form_input_field`,
-    placeholder: "Tên người đại diện",
-  },
-  {
-    title: "Số điện thoại",
-    tooltip: "Số điện thoại",
-    require: true,
-    className: `form_input_field`,
-    placeholder: "Nhập số điện thoại",
-  },
-  {
-    title: "Ghi chú",
-    tooltip: "Ghi chú",
-    require: false,
-    className: `form_input_field`,
-    placeholder: "Nhập ghi chú (nếu có)",
   },
 ];
 
@@ -120,39 +145,69 @@ for (let index = 0; index < 20; index++) {
   duplicatedData.ContainerNo = generateRandomContainerNo();
   rowData.push(duplicatedData);
 }
-export class TskImportPickup extends Component {
+class TskImportPickup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      formData: {
-        pinCode: "",
-        pinCodeError: true,
-
-        taxCode: "",
-        billForm: "",
-        billSymbol: "",
-        billNumber: "",
-
-        searchData: "",
-      },
-      radioValue: "pincode",
-      tableData: [],
       isLoading: false,
-      currentStep: 0,
+      tableData: [],
     };
-    this.submitButtonRef = createRef();
-    this.pinCodeRef = createRef();
   }
-  renderFormInputCustomer = (value, index) => {
+  renderSelect = (value, index) => {
     return (
-      <Row className="w-100_layout" key={index}>
-        <Row>{value.label}</Row>
-        <Minput
+      <Col span={12}>
+        <Mselect
           dataSource={{
-            inputType: value.type,
+            id: `select${index + 1}`,
+            label: value.label,
+            options: value.option,
           }}
         />
-      </Row>
+      </Col>
+    );
+  };
+  renderInput = (info) => (
+    <Winput
+      title={info.text}
+      tooltip={info.text}
+      onChange={(e) => console.log(e)}
+      require={info.require}
+      className={`form_input_field`}
+      placeholder={info.text}
+      prefix={info.icon}
+    />
+  );
+  renderInfo = (value) => {
+    if (Array.isArray(value)) {
+      return (
+        <Row gutter={[12, 12]}>
+          {value.map((item, index) => (
+            <Col span={12} key={index}>
+              {this.renderInput(item)}
+            </Col>
+          ))}
+        </Row>
+      );
+    } else {
+      return <Row>{this.renderInput(value)}</Row>;
+    }
+  };
+  renderButtonStep = (value) => {
+    return (
+      <Col>
+        <Mbutton
+          color=""
+          className="m_button third"
+          type="primary"
+          htmlType="submit"
+          block
+          size={"12"}
+          dataSource={{
+            textbutton: value.text,
+            icon: value.icon,
+          }}
+        />
+      </Col>
     );
   };
   handleLoadData = () => {
@@ -163,29 +218,6 @@ export class TskImportPickup extends Component {
         isLoading: false,
       }));
     }, 1000);
-  };
-  handleNextStep = () => {
-    this.setState((prevState) => ({
-      currentStep: prevState.currentStep + 1,
-    }));
-  };
-  handlePreviousStep = () => {
-    this.setState((prevState) => ({
-      currentStep: prevState.currentStep - 1,
-    }));
-  };
-  renderInput = (value) => {
-    return (
-      <Col span={8}>
-        <Winput
-          title={value.title}
-          tooltip={value.tooltip}
-          require={value.require}
-          className={value.className}
-          placeholder={value.placeholder}
-        />
-      </Col>
-    );
   };
   render() {
     const columnsFormat = [
@@ -271,42 +303,37 @@ export class TskImportPickup extends Component {
       { type: "header", text: "Trọng lượng" },
       { type: "header", text: "Thông tin phương tiện" },
     ];
-    const { currentStep } = this.state;
     return (
       <Content className="flex_layout-8-16_container">
-        <Mcard>
-          <Row>
-            <Col span={4}>
-              <Row className="p_layout f-title">Các bước</Row>
-              <Mstep
-                dataSource={dataSource}
-                config={{ current: 0 }}
-                currentStep={this.state.currentStep + 1}
-                stepStyle={{
-                  minHeight: "200px",
-                  display: "flex",
-                }}
-                stepsStyle={{
-                  width: "300px",
-                  margin: "auto",
-                }}
-              />
-            </Col>
-            <Col span={1}>
-              <div className="vertical-line"></div>
-            </Col>
-            <Col span={19}>
-              <Row className="f-title center_layout mt-12_layout">
-                Thông tin lệnh - giao hàng container
+        <Row gutter={[12, 12]}>
+          <Col span={8}>
+            <Mcard
+              title={
+                <>
+                  <span style={{ color: "white" }}>
+                    Thông tin lệnh - giao container hàng
+                  </span>
+                </>
+              }
+            >
+              <Row className="mt-12_layout mb-12_layout">
+                <Mradio
+                  dataSource={{
+                    options: [
+                      { label: "Master Bill", value: "option1" },
+                      { label: "House Bill", value: "option2" },
+                    ],
+                  }}
+                />
               </Row>
-              <Row>
-                <Col span={24}>
-                  <div className="horizontal-line"></div>
-                </Col>
-              </Row>
-              <Row gutter={[12, 12]}>
-                <Col span={8}>
-                  <Row>HẠN TRẢ RỖNG</Row>
+              <Row className="horizontal-line" />
+              {valueInfoNumber.map((value) => {
+                return this.renderInfo(value);
+              })}
+
+              <Row justify={"space-between"}>
+                <Col>
+                  <Row>Từ ngày</Row>
                   <Mdatepicker
                     dataSource={{
                       format: "YYYY-MM-DD HH:mm:ss",
@@ -317,31 +344,62 @@ export class TskImportPickup extends Component {
                     }}
                   />
                 </Col>
-                {formInput.map((el) => {
-                  return this.renderInput(el);
-                })}
+                <Col>
+                  <Row>Đến ngày</Row>
+                  <Mdatepicker
+                    dataSource={{
+                      format: "YYYY-MM-DD HH:mm:ss",
+                      id: "my-datepicker",
+                      required: true,
+                      lockbefore: true,
+                      propReadonly: false,
+                      className: "date_input",
+                    }}
+                  />
+                </Col>
               </Row>
-              <Row className="center_layout">
-                <Mbutton
-                  color=""
-                  className="m_button third"
-                  type="primary"
-                  htmlType="submit"
-                  onClick={this.handleLoadData}
-                  block
-                  size={"12"}
+              <Row className="horizontal-line" />
+              {valueInfoCustomer.map((value) => {
+                return this.renderInfo(value);
+              })}
+              <Row className="horizontal-line" />
+              <Row className="mt-12_layout mb-12_layout">
+                <Mradio
                   dataSource={{
-                    textbutton: `Nạp dữ liệu`,
-                    icon: "CloudDownloadOutlined",
+                    options: [
+                      { label: "Xe chủ hàng", value: "option1" },
+                      { label: "Sà lan", value: "option2" },
+                    ],
                   }}
                 />
               </Row>
-              <Row>
-                <Col span={24}>
-                  <div className="horizontal-line"></div>
-                </Col>
+              <Mbutton
+                color=""
+                className="m_button third"
+                type="primary"
+                htmlType="submit"
+                onClick={this.handleLoadData}
+                block
+                size={"12"}
+                dataSource={{
+                  textbutton: `Nạp dữ liệu`,
+                  icon: "CloudDownloadOutlined",
+                }}
+                styleButton={{ marginBottom: "12px" }}
+              />
+            </Mcard>
+          </Col>
+          <Col span={16}>
+            <Mcard>
+              <Row className="mt-12_layout mb-12_layout">
+                <Mstep
+                  dataSource={dataSourceStep}
+                  direction="horizontal"
+                  // currentStep={this.state.currentStep + 1}
+                />
               </Row>
-              <Row className="full-width">
+              <Row className="horizontal-line" />
+              <Row>
                 {!this.state.isLoading ? (
                   !this.state.tableData[0] ? (
                     <Empty
@@ -349,84 +407,35 @@ export class TskImportPickup extends Component {
                       icon="InboxOutlined"
                     />
                   ) : (
-                    <Row className="flex-col_layout">
-                      {this.state.currentStep === 0 && (
-                        <Mtable
-                          config={{
-                            defaultData: this.state.tableData,
-                            columnsFormat: columnsFormat,
-                            rowsFormat: rowsFormat,
-                            rowsHeader: rowsHeader,
-                            reorderRow: true,
-                          }}
-                          functionRequire={{
-                            addcolumn: false,
-                            deleteColumn: false,
-                            exportExel: false,
-                            searchField: ["Group", "Address", "FullName"],
-                          }}
-                        />
-                      )}
-                      {this.state.currentStep === 1 && (
-                        <Empty
-                          text="Dữ liệu ở trang tính cước..."
-                          icon="InboxOutlined"
-                        />
-                      )}
-
-                      {this.state.currentStep === 2 && (
-                        <Empty
-                          text="Dữ liệu ở trang thanh toán..."
-                          icon="InboxOutlined"
-                        />
-                      )}
-
+                    <>
+                      <Mtable
+                        config={{
+                          defaultData: this.state.tableData,
+                          columnsFormat: columnsFormat,
+                          rowsFormat: rowsFormat,
+                          rowsHeader: rowsHeader,
+                          reorderRow: true,
+                        }}
+                        functionRequire={{
+                          addcolumn: true,
+                          exportExel: true,
+                          searchField: [
+                            "ContainerNo",
+                            "OperationCode",
+                            "IsoSizetype",
+                          ],
+                        }}
+                      />
+                      <Row className="horizontal-line" />
                       <Row
-                        className={
-                          currentStep === 0
-                            ? "mt-12_layout mb-12_layout flex_end"
-                            : "mt-12_layout mb-12_layout"
-                        }
+                        className="mb-12_layout full-width"
                         justify="space-between"
                       >
-                        {currentStep > 0 && (
-                          <Col>
-                            <Mbutton
-                              color=""
-                              className="m_button third_border"
-                              type="primary"
-                              htmlType="submit"
-                              onClick={this.handlePreviousStep}
-                              block
-                              size={12}
-                              dataSource={{
-                                textbutton: "Quay lại",
-                                icon: "DoubleLeftOutlined",
-                              }}
-                            />
-                          </Col>
-                        )}
-
-                        <Col>
-                          <Mbutton
-                            color=""
-                            className="m_button third_border"
-                            type="primary"
-                            htmlType="submit"
-                            onClick={this.handleNextStep}
-                            block
-                            size={12}
-                            dataSource={{
-                              textbutton:
-                                currentStep === dataSource.length - 1
-                                  ? "Hoàn tất"
-                                  : "Tiếp theo",
-                              icon: "DoubleRightOutlined",
-                            }}
-                          />
-                        </Col>
+                        {buttonStep.map((value) => {
+                          return this.renderButtonStep(value);
+                        })}
                       </Row>
-                    </Row>
+                    </>
                   )
                 ) : (
                   <Row
@@ -438,9 +447,9 @@ export class TskImportPickup extends Component {
                   </Row>
                 )}
               </Row>
-            </Col>
-          </Row>
-        </Mcard>
+            </Mcard>
+          </Col>
+        </Row>
       </Content>
     );
   }
