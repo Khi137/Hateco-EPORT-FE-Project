@@ -1,8 +1,8 @@
 import { api } from "./api.service";
 
-export const getCustomer = async () => {
+export const getCustomer = async (data) => {
   try {
-    const response = await api.post(`/common/customer`);
+    const response = await api.post(`/common/customer`, data);
     return response;
   } catch (error) {
     console.log("getCustomer in service/common.service.js error : ", error);
