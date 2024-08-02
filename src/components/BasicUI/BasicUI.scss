@@ -890,17 +890,6 @@ $caption-line-height: 14px;
     }
   }
 }
-.item_title {
-  min-width: fit-content;
-  width: 30%;
-  margin-right: 8px;
-  color: $color-second;
-}
-
-.item_value {
-  flex-grow: 1;
-  border-bottom: 1px dashed black;
-}
 
 // onepage table
 .data_table {
