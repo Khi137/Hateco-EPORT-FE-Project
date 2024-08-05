@@ -5,7 +5,8 @@ import { ReactGrid } from "@silevis/reactgrid";
 import { Msearch, Mbutton, Mtable, Mcheckbox, Mcard } from "../../components/BasicUI/BasicUI";
 import { Checkbox, Col, Row } from "antd";
 import { Content } from "antd/es/layout/layout";
-import { DatabaseOutlined } from "@ant-design/icons";
+import { DatabaseOutlined, LoadingOutlined } from "@ant-design/icons";
+import { getPorts } from "../../service.js/port.service";
 
 let rowData = [
   { key: "1", nation: "asd", portCode: "asd", portName: "asd" },
@@ -45,19 +46,34 @@ export class PortsList extends Component {
     };
   }
 
+  componentDidMount() {
+    this.loadData()
+  }
+
+  loadData = async () => {
+    const response = await getPorts()
+    this.setState((prevState) => ({
+      tableData: response?.data?.payload ? response?.data?.payload : [],
+      formData: {
+        ...prevState.formData,
+      },
+      isLoading: false,
+    }));
+  }
+
   render() {
     const columnsFormat = [
       { columnId: "STT", width: 150, resizable: true, header: "STT" },
       {
         columnId: "nation",
-        width: 500,
+        width: 400,
         resizable: true,
         reorderable: true,
         header: "Quốc gia",
       },
       {
         columnId: "portCode",
-        width: 550,
+        width: 400,
         resizable: true,
         reorderable: true,
         header: "Mã cảng",
@@ -77,17 +93,17 @@ export class PortsList extends Component {
         {
           type: "text",
           nonEditable: false,
-          text: container?.nation || "",
+          text: container?.nation_code || "",
         },
         {
           type: "text",
           nonEditable: true,
-          text: container?.portCode || "",
+          text: container?.port_code || "",
         },
         {
           type: "text",
           nonEditable: true,
-          text: container?.portName || "",
+          text: container?.port_name || "",
         },
       ];
     };
@@ -115,26 +131,39 @@ export class PortsList extends Component {
                 </Col>
               ) : (
                 <Col className="have_data">
-                  <Mtable
-                    config={{
-                      defaultData: rowData,
-                      columnsFormat: columnsFormat,
-                      rowsFormat: rowsFormat,
-                      rowsHeader: rowsHeader,
-                      reorderRow: true,
-                    }}
-                    functionRequire={{
-                      // addcolumn: true,
-                      // deleteColumn: true,
-                      exportExel: true,
-                      // saveData: () => { this.saveData() },
-                      searchField: [
-                        "ContainerNo",
-                        "OperationCode",
-                        "IsoSizetype",
-                      ],
-                    }}
-                  />
+                  {!this.state.isLoading ? (
+                    !this.state.tableData[0] ? (
+                      <Col className="no_data">
+                        <Row justify={"center"}>
+                          <DatabaseOutlined className="no_data_icon" />
+                        </Row>
+                        <Row justify={"center"}>Không có dữ liệu</Row>
+                      </Col>
+                    ) : (
+                      <Mtable
+                        config={{
+                          defaultData: this.state.tableData,
+                          columnsFormat: columnsFormat,
+                          rowsFormat: rowsFormat,
+                          rowsHeader: rowsHeader,
+                          reoderRow: true,
+                        }}
+                        functionRequire={{
+                          addcolumn: false,
+                          deleteColumn: true,
+                          exportExel: true,
+                          saveData: (data) => {
+                            console.log(data);
+                          },
+                          searchField: ["cusCode", "OperationCode", "IsoSizetype"],
+                        }}
+                      />
+                    )
+                  ) : (
+                    <Row className="no_data" justify={"center"} align={"middle"}>
+                      <LoadingOutlined className="no_data_icon" />
+                    </Row>
+                  )}
                 </Col>
               )}
             </Mcard>

@@ -5,124 +5,8 @@ import { Msearch, Mbutton, Mtable, Mcheckbox, Mcard } from "../../components/Bas
 
 import { Checkbox, Col, Row } from "antd";
 import { Content } from "antd/es/layout/layout";
-import { DatabaseOutlined } from "@ant-design/icons";
-
-let rowData = [
-  {
-    key: "1",
-    taskCode: "",
-    taskName: "",
-    workCrane: false,
-    workYard: false,
-    workGate: false,
-  },
-  {
-    key: "2",
-    taskCode: "",
-    taskName: "",
-    workCrane: false,
-    workYard: false,
-    workGate: false,
-  },
-  {
-    key: "3",
-    taskCode: "",
-    taskName: "",
-    workCrane: false,
-    workYard: false,
-    workGate: false,
-  },
-  {
-    key: "4",
-    taskCode: "",
-    taskName: "",
-    workCrane: false,
-    workYard: false,
-    workGate: false,
-  },
-  {
-    key: "5",
-    taskCode: "",
-    taskName: "",
-    workCrane: false,
-    workYard: false,
-    workGate: false,
-  },
-  {
-    key: "6",
-    taskCode: "",
-    taskName: "",
-    workCrane: false,
-    workYard: false,
-    workGate: false,
-  },
-  {
-    key: "7",
-    taskCode: "",
-    taskName: "",
-    workCrane: false,
-    workYard: false,
-    workGate: false,
-  },
-  {
-    key: "9",
-    taskCode: "",
-    taskName: "",
-    workCrane: false,
-    workYard: false,
-    workGate: false,
-  },
-  {
-    key: "10",
-    taskCode: "",
-    taskName: "",
-    workCrane: false,
-    workYard: false,
-    workGate: false,
-  },
-  {
-    key: "11",
-    taskCode: "",
-    taskName: "",
-    workCrane: false,
-    workYard: false,
-    workGate: false,
-  },
-  {
-    key: "12",
-    taskCode: "",
-    taskName: "",
-    workCrane: false,
-    workYard: false,
-    workGate: false,
-  },
-  {
-    key: "13",
-    taskCode: "",
-    taskName: "",
-    workCrane: false,
-    workYard: false,
-    workGate: false,
-  },
-
-  {
-    key: "14",
-    taskCode: "",
-    taskName: "",
-    workCrane: false,
-    workYard: false,
-    workGate: false,
-  },
-  {
-    key: "15",
-    taskCode: "",
-    taskName: "",
-    workCrane: false,
-    workYard: false,
-    workGate: false,
-  },
-];
-
+import { DatabaseOutlined, LoadingOutlined } from "@ant-design/icons";
+import { getJobs } from "../../service.js/job.service";
 export class Task extends Component {
   constructor(props) {
     super(props);
@@ -137,19 +21,34 @@ export class Task extends Component {
     };
   }
 
+  componentDidMount() {
+    this.loadData()
+  }
+
+  loadData = async () => {
+    const response = await getJobs()
+    this.setState((prevState) => ({
+      tableData: response?.data?.payload ? response?.data?.payload : [],
+      formData: {
+        ...prevState.formData,
+      },
+      isLoading: false,
+    }));
+  }
+
   render() {
     const columnsFormat = [
-      { columnId: "STT", width: 50, resizable: true, header: "STT" },
+      { columnId: "STT", width: 150, resizable: true, header: "STT" },
       {
         columnId: "taskCode",
-        width: 200,
+        width: 300,
         resizable: true,
         reorderable: true,
         header: "Mã công việc",
       },
       {
         columnId: "taskName",
-        width: 850,
+        width: 400,
         resizable: true,
         reorderable: true,
         header: "Tên công việc",
@@ -180,27 +79,27 @@ export class Task extends Component {
         {
           type: "text",
           nonEditable: false,
-          text: container?.taskCode || "",
+          text: container?.job_code || "",
         },
         {
           type: "text",
           nonEditable: true,
-          text: container?.taskName || "",
+          text: container?.job_name || "",
         },
         {
           type: "checkbox",
           nonEditable: true,
-          checked: Boolean(container?.workCrane) || false,
+          checked: Boolean(container?.is_quay) || false,
         },
         {
           type: "checkbox",
           nonEditable: true,
-          checked: Boolean(container?.workYard) || false,
+          checked: Boolean(container?.is_yard) || false,
         },
         {
           type: "checkbox",
           nonEditable: true,
-          checked: Boolean(container?.workGate) || false,
+          checked: Boolean(container?.is_gate) || false,
         },
       ];
     };
@@ -221,37 +120,41 @@ export class Task extends Component {
             <Mcard
               title={<span style={{ color: 'white' }}>Danh mục công việc</span>}
             >
-              {rowData.length === 0 ? (
-                <Col className="no_data">
-                  <Row justify={"center"}>
-                    <DatabaseOutlined className="no_data_icon" />
+              <Col className="have_data">
+                {!this.state.isLoading ? (
+                  !this.state.tableData[0] ? (
+                    <Col className="no_data">
+                      <Row justify={"center"}>
+                        <DatabaseOutlined className="no_data_icon" />
+                      </Row>
+                      <Row justify={"center"}>Không có dữ liệu</Row>
+                    </Col>
+                  ) : (
+                    <Mtable
+                      config={{
+                        defaultData: this.state.tableData,
+                        columnsFormat: columnsFormat,
+                        rowsFormat: rowsFormat,
+                        rowsHeader: rowsHeader,
+                        reoderRow: true,
+                      }}
+                      functionRequire={{
+                        addcolumn: false,
+                        deleteColumn: true,
+                        exportExel: true,
+                        saveData: (data) => {
+                          console.log(data);
+                        },
+                        searchField: ["cusCode", "OperationCode", "IsoSizetype"],
+                      }}
+                    />
+                  )
+                ) : (
+                  <Row className="no_data" justify={"center"} align={"middle"}>
+                    <LoadingOutlined className="no_data_icon" />
                   </Row>
-                  <Row justify={"center"}>Nhập số container để nạp dữ liệu container...</Row>
-                </Col>
-              ) : (
-                <Col className="have_data">
-                  <Mtable
-                    config={{
-                      defaultData: rowData,
-                      columnsFormat: columnsFormat,
-                      rowsFormat: rowsFormat,
-                      rowsHeader: rowsHeader,
-                      reorderRow: true,
-                    }}
-                    functionRequire={{
-                      // addcolumn: true,
-                      // deleteColumn: true,
-                      exportExel: true,
-                      // saveData: () => { this.saveData() },
-                      searchField: [
-                        "ContainerNo",
-                        "OperationCode",
-                        "IsoSizetype",
-                      ],
-                    }}
-                  />
-                </Col>
-              )}
+                )}
+              </Col>
             </Mcard>
           </Col>
         </Row>
