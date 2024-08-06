@@ -19,156 +19,8 @@ import {
 } from "../../utils/util";
 import { Content } from "antd/es/layout/layout";
 import { Col, Row } from "antd";
-
-let rowData = [
-  {
-    key: "1",
-    cusCode: "YKH0006894",
-    TaxNum: "0109117704",
-    cusName: "CÔNG TY TNHH THƯƠNG MẠI XUẤT NHẬP KHẨU VÀ DỊCH VỤ MINH QUANG",
-    address:
-      "Số 27 ngách 99/158 Ðịnh Công Hạ, Phường Ðịnh Công, Quận Hoàng Mai, Thành phố Hà Nội, Việt Nam",
-    email: null,
-    represent: null,
-    phoneNum: null,
-    payType: "Thu ngay",
-    cusLevel: null,
-    cusType: "FWD",
-    status: "Hoạt động",
-  },
-  {
-    key: "2",
-    cusCode: "YKH0006898",
-    TaxNum: "0201316490",
-    cusName: "CÔNG TY TRÁCH NHIỆM HỮU HẠN KIM KHÍ HỒNG VẬN",
-    address:
-      "Tổ dân phố Tân Khê (tại nhà ông Vũ Văn Chiến), Phường Đồng Hoà, Quận Kiến An, Thành Phố Hải Phòng, Việt Nam",
-    email: null,
-    represent: null,
-    phoneNum: null,
-    payType: "Thu ngay",
-    cusLevel: null,
-    cusType: "FWD",
-    status: "Hoạt động",
-  },
-  {
-    key: "3",
-    cusCode: "YKH0006899",
-    TaxNum: "0000100002",
-    cusName: "SHOWA DENKO SINGAPORE (PTE) LTD",
-    address: "2 SHENTON WAY # 15 - 03/04, SGX CENTRE 1, SINGAPORE 068804",
-    email: null,
-    represent: null,
-    phoneNum: null,
-    payType: "Thu ngay",
-    cusLevel: null,
-    cusType: "FWD",
-    status: "Hoạt động",
-  },
-  {
-    key: "4",
-    cusCode: "YKH0006951",
-    TaxNum: "2901938797",
-    cusName: "CÔNG TY TNHH MỘT THÀNH VIÊN ANH TUẤN",
-    address: "Xóm 5, Xã Diễn Tháp, Huyện Diễn Châu, Tỉnh Nghệ An, Việt Nam",
-    email: null,
-    represent: null,
-    phoneNum: null,
-    payType: "Thu ngay",
-    cusLevel: null,
-    cusType: "FWD",
-    status: "Hoạt động",
-  },
-  {
-    key: "5",
-    cusCode: "YKH0006952",
-    TaxNum: "0106833562",
-    cusName: "CÔNG TY TNHH THƯƠNG MẠI VÀ PHÁT TRIỂN DƯƠNG NGUYỄN",
-    address:
-      "Số 109 Thanh Ấm, Thị trấn Vân Đình, Huyện Ứng Hoà, Thành phố Hà Nội, Việt Nam",
-    email: null,
-    represent: null,
-    phoneNum: null,
-    payType: "Thu ngay",
-    cusLevel: null,
-    cusType: "FWD",
-    status: "Hoạt động",
-  },
-  {
-    key: "6",
-    cusCode: "YKH0006953",
-    TaxNum: "0108245679",
-    cusName: "CÔNG TY TNHH THƯƠNG MẠI TIAMO",
-    address: "Thôn Bặt Ngõ, Xã Liên Bạt, Huyện Ứng Hoà, TP.Hà Nội, VN",
-    email: null,
-    represent: null,
-    phoneNum: null,
-    payType: "Thu ngay",
-    cusLevel: null,
-    cusType: "FWD",
-    status: "Hoạt động",
-  },
-  {
-    key: "7",
-    cusCode: "YKH0002794",
-    TaxNum: "0901067514",
-    cusName: "CÔNG TY TNHH CÔNG NGHỆ RAIDON",
-    address:
-      "Đường D1, Khu công nghiệp Yên Mỹ II, Xã Trung Hưng, Huyện Yên Mỹ, Tỉnh Hưng Yên",
-    email: null,
-    represent: null,
-    phoneNum: null,
-    payType: "Thu ngay",
-    cusLevel: null,
-    cusType: "FWD",
-    status: "Hoạt động",
-  },
-  {
-    key: "8",
-    cusCode: "YKH0002795",
-    TaxNum: "0200118418",
-    cusName: "CÔNG TY TRÁCH NHIỆM HỮU HẠN HOA MỸ",
-    address:
-      "Số 81 Đinh Nhu, Phường Niệm Nghĩa, Quận Lê Chân, Thành Phố Hải Phòng, Việt Nam",
-    email: null,
-    represent: null,
-    phoneNum: null,
-    payType: "Thu ngay",
-    cusLevel: null,
-    cusType: "FWD",
-    status: "Hoạt động",
-  },
-  {
-    key: "9",
-    cusCode: "KH10033Z",
-    TaxNum: "2400743878",
-    cusName: "CÔNG TY CỔ PHẦN CẨM LÂM VIỆT NAM",
-    address:
-      "Cụm Công nghiệp Đại Lâm, Xã Đại Lâm, Huyện Lạng Giang,Tỉnh Bắc Giang",
-    email: null,
-    represent: null,
-    phoneNum: null,
-    payType: "Thu ngay",
-    cusLevel: null,
-    cusType: "FWD",
-    status: "Hoạt động",
-  },
-  {
-    key: "10",
-    cusCode: "KHN080",
-    TaxNum: "2901738808",
-    cusName: "CÔNG TY TNHH MỘT THÀNH VIÊN MASAN MB",
-    address:
-      "Khu B, Khu công nghiệp Nam Cấm - Khu kinh tế Đông Nam Nghệ An, Xã Nghi Long, Huyện Nghi Lộc, Tỉnh Nghệ An, Việt Nam",
-    email: null,
-    represent: null,
-    phoneNum: null,
-    payType: "Thu ngay",
-    cusLevel: null,
-    cusType: "FWD",
-    status: "Hoạt động",
-  },
-];
+import { getCustomer } from "../../service.js/common.service";
+import { DatabaseOutlined, LoadingOutlined } from "@ant-design/icons";
 
 const options = [
   {
@@ -189,22 +41,6 @@ const options = [
   },
 ];
 
-function generateRandomContainerNo() {
-  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  let result = "";
-  const charactersLength = characters.length;
-  for (let i = 0; i < 10; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
-}
-
-for (let index = 0; index < 20; index++) {
-  const duplicatedData = { ...rowData[0] };
-  duplicatedData.ContainerNo = generateRandomContainerNo();
-  rowData.push(duplicatedData);
-}
-
 export class Customer extends Component {
   constructor(props) {
     super(props);
@@ -216,7 +52,22 @@ export class Customer extends Component {
       },
       containerList: [],
       tableData: [],
+      isLoading: false,
     };
+  }
+
+  loadData = async () => {
+    this.setState({ isLoading: true })
+    // const response = await getCustomer({ tax_code: "TAX002" })
+    const response = await getCustomer()
+    this.setState((prevState) => ({
+      tableData: response?.data?.payload ? response?.data?.payload : [],
+      formData: {
+        ...prevState.formData,
+      },
+      isLoading: false,
+    }));
+    console.log(response?.data?.payload);
   }
 
   handleInputChange = (e) => {
@@ -243,6 +94,10 @@ export class Customer extends Component {
       </>
     );
   };
+
+  handleFormSubmit = () => {
+    this.loadData()
+  }
 
   render() {
     const { formData, cusCode } = this.state;
@@ -298,13 +153,13 @@ export class Customer extends Component {
         reorderable: true,
         header: "Số điện thoại",
       },
-      {
-        columnId: "payType",
-        width: 200,
-        resizable: true,
-        reorderable: true,
-        header: "Loại thanh toán",
-      },
+      // {
+      //   columnId: "payType",
+      //   width: 200,
+      //   resizable: true,
+      //   reorderable: true,
+      //   header: "Loại thanh toán",
+      // },
       {
         columnId: "cusLevel",
         width: 200,
@@ -334,18 +189,18 @@ export class Customer extends Component {
         {
           type: "text",
           nonEditable: false,
-          text: container?.cusCode || "",
+          text: container?.customer_code || "",
         },
         {
           type: "text",
           nonEditable: true,
-          text: container?.TaxNum || "",
+          text: container?.taxcode || "",
         },
-        { type: "text", nonEditable: true, text: container?.cusName || "" },
+        { type: "text", nonEditable: true, text: container?.customer_name || "" },
         {
           type: "text",
           nonEditable: true,
-          text: container?.address || "",
+          text: container?.email || "",
         },
 
         { type: "text", nonEditable: true, text: container?.email || "" },
@@ -357,27 +212,29 @@ export class Customer extends Component {
         {
           type: "text",
           nonEditable: true,
-          text: container?.phoneNum || "",
+          text: container?.phone || "",
+        },
+        // {
+        //   type: "text",
+        //   nonEditable: true,
+        //   text: container?.payType || "",
+        // },
+        {
+          type: "text",
+          nonEditable: true,
+          text: container?.customer_level_code
+            || "",
         },
         {
           type: "text",
           nonEditable: true,
-          text: container?.payType || "",
+          text: container?.customer_type_code
+            || "",
         },
         {
           type: "text",
           nonEditable: true,
-          text: container?.cusLevel || "",
-        },
-        {
-          type: "text",
-          nonEditable: true,
-          text: container?.cusType || "",
-        },
-        {
-          type: "text",
-          nonEditable: true,
-          text: container?.status || "",
+          text: (container?.is_active ? "Hoạt động" : "Ngừng hoạt động") || "",
         },
       ];
     };
@@ -391,7 +248,7 @@ export class Customer extends Component {
       { type: "header", text: "Email" },
       { type: "header", text: "Đại diện" },
       { type: "header", text: "Số điện thoại" },
-      { type: "header", text: "Loại thanh toán" },
+      // { type: "header", text: "Loại thanh toán" },
       { type: "header", text: "Bậc khách hàng" },
       { type: "header", text: "Loại khách hàng" },
       { type: "header", text: "Trạng thái" },
@@ -475,24 +332,39 @@ export class Customer extends Component {
               title={<span style={{ color: 'white' }}>Danh sách container</span>}
               className="container_list"
             >
-              <Mtable
-                config={{
-                  defaultData: rowData,
-                  columnsFormat: columnsFormat,
-                  rowsFormat: rowsFormat,
-                  rowsHeader: rowsHeader,
-                  reoderRow: true,
-                }}
-                functionRequire={{
-                  addcolumn: false,
-                  deleteColumn: true,
-                  exportExel: true,
-                  saveData: (data) => {
-                    console.log(data);
-                  },
-                  searchField: ["cusCode", "OperationCode", "IsoSizetype"],
-                }}
-              />
+              {!this.state.isLoading ? (
+                !this.state.tableData[0] ? (
+                  <Col className="no_data">
+                    <Row justify={"center"}>
+                      <DatabaseOutlined className="no_data_icon" />
+                    </Row>
+                    <Row justify={"center"}>Không có dữ liệu</Row>
+                  </Col>
+                ) : (
+                  <Mtable
+                    config={{
+                      defaultData: this.state.tableData,
+                      columnsFormat: columnsFormat,
+                      rowsFormat: rowsFormat,
+                      rowsHeader: rowsHeader,
+                      reoderRow: true,
+                    }}
+                    functionRequire={{
+                      addcolumn: false,
+                      deleteColumn: true,
+                      exportExel: true,
+                      saveData: (data) => {
+                        console.log(data);
+                      },
+                      searchField: ["cusCode", "OperationCode", "IsoSizetype"],
+                    }}
+                  />
+                )
+              ) : (
+                <Row className="no_data" justify={"center"} align={"middle"}>
+                  <LoadingOutlined className="no_data_icon" />
+                </Row>
+              )}
             </Mcard>
           </Col>
         </Row>

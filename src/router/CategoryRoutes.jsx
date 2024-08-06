@@ -10,7 +10,7 @@ import StatesContainer from "../views/category/statesContainer";
 import SizeContainer from "../views/category/sizeContainer";
 
 const CategoryRoutes = [
-  <Route path="tskImportPickup" element={<Customer />} />,
+  <Route path="category_customer" element={<Customer />} />,
   <Route path="category_shipExploitBrand" element={<ShipExploitBrand />} />,
   <Route path="category_task" element={<Task />} />,
   <Route path="category_commoditiesType" element={<CommoditiesType />} />,

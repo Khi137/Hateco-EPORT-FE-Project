@@ -2,6 +2,9 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const url = process.env.REACT_APP_API_HOST;
+const baseUrl = `${window.location.protocol}//${window.location.hostname}${
+  window.location.port ? `:${window.location.port}` : ""
+}`;
 
 const api = axios.create({
   baseURL: url,
@@ -46,7 +49,7 @@ api.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       alert("Hết phiên đăng nhập, vui lòng đăng nhập lại !");
       Cookies.remove("accesstoken");
-      window.location.assign(window.root_url + "/login");
+      window.location.assign(baseUrl + "/login");
     }
 
     if (error.response && error.response.status === 403) {
@@ -101,9 +104,6 @@ const post = async (url, data, showload) => {
   }
 };
 
-export const apiService = {
-  api,
-  post,
-};
+export { api, post };
 
 // export default api;

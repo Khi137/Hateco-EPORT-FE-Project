@@ -4,7 +4,8 @@ import React, { Component } from "react";
 import { Mtable, Mcard } from "../../components/BasicUI/BasicUI";
 import { Content } from "antd/es/layout/layout";
 import { Col, Row } from "antd";
-import { DatabaseOutlined } from "@ant-design/icons";
+import { DatabaseOutlined, LoadingOutlined } from "@ant-design/icons";
+import { getCargotype } from "../../service.js/cargoType.service";
 
 const rowData = [
   { key: "1", taskCode: "GP", taskName: "General" },
@@ -33,14 +34,14 @@ const columnsFormat = [
   { columnId: "STT", width: 150, resizable: true, header: "STT" },
   {
     columnId: "taskCode",
-    width: 400,
+    width: 650,
     resizable: true,
     reorderable: true,
     header: "Mã loại hàng",
   },
   {
     columnId: "taskName",
-    width: 1200,
+    width: 650,
     resizable: true,
     reorderable: true,
     header: "Tên loại hàng",
@@ -49,8 +50,8 @@ const columnsFormat = [
 
 const rowsFormat = (container, index) => [
   { type: "text", nonEditable: true, text: String(index + 1) },
-  { type: "text", nonEditable: false, text: container?.taskCode || "" },
-  { type: "text", nonEditable: true, text: container?.taskName || "" },
+  { type: "text", nonEditable: false, text: container?.cargo_type_code || "" },
+  { type: "text", nonEditable: true, text: container?.cargo_type_name || "" },
 ];
 
 const rowsHeader = [
@@ -74,6 +75,21 @@ class CommoditiesType extends Component {
     };
   }
 
+  componentDidMount() {
+    this.loadData()
+  }
+
+  loadData = async () => {
+    const response = await getCargotype()
+    this.setState((prevState) => ({
+      tableData: response?.data?.payload ? response?.data?.payload : [],
+      formData: {
+        ...prevState.formData,
+      },
+      isLoading: false,
+    }));
+  }
+
   handleSearchChange = (value) => {
     this.setState({ searchValue: value });
   };
@@ -86,37 +102,41 @@ class CommoditiesType extends Component {
             <Mcard
               title={<span style={{ color: 'white' }}>Danh mục loại hàng hóa</span>}
             >
-              {rowData.length === 0 ? (
-                <Col className="no_data">
-                  <Row justify={"center"}>
-                    <DatabaseOutlined className="no_data_icon" />
+              <Col className="have_data">
+                {!this.state.isLoading ? (
+                  !this.state.tableData[0] ? (
+                    <Col className="no_data">
+                      <Row justify={"center"}>
+                        <DatabaseOutlined className="no_data_icon" />
+                      </Row>
+                      <Row justify={"center"}>Không có dữ liệu</Row>
+                    </Col>
+                  ) : (
+                    <Mtable
+                      config={{
+                        defaultData: this.state.tableData,
+                        columnsFormat: columnsFormat,
+                        rowsFormat: rowsFormat,
+                        rowsHeader: rowsHeader,
+                        reoderRow: true,
+                      }}
+                      functionRequire={{
+                        addcolumn: false,
+                        deleteColumn: true,
+                        exportExel: true,
+                        saveData: (data) => {
+                          console.log(data);
+                        },
+                        searchField: ["cusCode", "OperationCode", "IsoSizetype"],
+                      }}
+                    />
+                  )
+                ) : (
+                  <Row className="no_data" justify={"center"} align={"middle"}>
+                    <LoadingOutlined className="no_data_icon" />
                   </Row>
-                  <Row justify={"center"}>Nhập số container để nạp dữ liệu container...</Row>
-                </Col>
-              ) : (
-                <Col className="have_data">
-                  <Mtable
-                    config={{
-                      defaultData: rowData,
-                      columnsFormat: columnsFormat,
-                      rowsFormat: rowsFormat,
-                      rowsHeader: rowsHeader,
-                      reorderRow: true,
-                    }}
-                    functionRequire={{
-                      // addcolumn: true,
-                      // deleteColumn: true,
-                      exportExel: true,
-                      // saveData: () => { this.saveData() },
-                      searchField: [
-                        "ContainerNo",
-                        "OperationCode",
-                        "IsoSizetype",
-                      ],
-                    }}
-                  />
-                </Col>
-              )}
+                )}
+              </Col>
             </Mcard>
           </Col>
         </Row>
