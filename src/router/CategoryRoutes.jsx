@@ -1,7 +1,7 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import Customer from "../views/category/customer";
-import ShipExploitBrand from "../views/category/shipExploitBrand";
+import Customer from "../views/category/Customer";
+import ShipExploitBrand from "../views/category/ShipExploitBrand";
 import Task from "../views/category/task";
 import CommoditiesType from "../views/category/commoditiesType";
 import DirectionContainer from "../views/category/directionContainer";
